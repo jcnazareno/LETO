@@ -1,0 +1,49 @@
+{
+  "name": "imx646",
+  "inherits": "sensor_imx636.json",
+  "description": "Sony IMX646 (low-light variant of the same 1280x720, 4.86 um stacked event sensor). No low-light characterisation is published. Same package, array, supplies and interfaces as the IMX636 on the Sony flyers. Every pixel-response value below is a SURROGATE derived from the flyer ratios, not a measurement.",
+  "s10_case": "m646_surrogate",
+  "params": {
+    "photoreceptor.tau_ref_s": {
+      "value": 0.000135,
+      "unit": "s at I_ref",
+      "uncertainty": "factor 2-3; flyer latency 9 ms max at 0.3 lx vs IMX636 1 ms at 5 lx (1/I scaling of the IMX636 gives 16.7 ms at 0.3 lx, i.e. the IMX646 is ~0.54x)",
+      "source": "S16 surrogate (half the IMX636 tau_ref); Sony IMX646 flyer latency ratio",
+      "status": "surrogate"
+    },
+    "photoreceptor.tau_min_s": {
+      "value": 8e-05,
+      "unit": "s",
+      "uncertainty": "flyer: 800 us max latency at 1000 lx vs 100 us for the IMX636 (8x slower in bright light)",
+      "source": "Sony IMX646 flyer latency ratio applied to the IMX636 assumption",
+      "status": "surrogate"
+    },
+    "dark.current_fA": {
+      "value": 1.1,
+      "unit": "fA",
+      "uncertainty": "not published; IMX636 value used",
+      "source": "IMX636 McReynolds et al. 2025 (surrogate)",
+      "status": "surrogate"
+    },
+    "ba.rate_hz": {
+      "value": 0.03,
+      "unit": "events/s per normal pixel",
+      "uncertainty": "not published; flyer max background 5 Hz at 0.3 lx vs IMX636 10 Hz at 5 lx",
+      "source": "IMX636 value (surrogate)",
+      "status": "surrogate"
+    },
+    "hot.fraction": {
+      "value": 1.1e-05,
+      "unit": "share of pixels",
+      "uncertainty": "not published for the IMX646; 1e-5 to 2e-2 as for the IMX636",
+      "source": "IMX636 default-bias value (Hahmeyer 2025 (EventSat bachelor thesis, TUM)) used as surrogate",
+      "status": "surrogate",
+      "previous": {
+        "value": 0.02,
+        "source": "IMX636 value (surrogate)",
+        "status": "surrogate",
+        "replaced": "2026-11-04"
+      }
+    }
+  }
+}

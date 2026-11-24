@@ -1,0 +1,4122 @@
+{
+ "config": {
+  "command": "run_sim.py run --scene particles --duration 20 --flashes 4 --particles gcr_min_x100 --set sensor.mask.fraction=0.0 --tag particles_gcrmin_x100_imx636_nomask_measuredhot --no-h5",
+  "scene": "particles",
+  "sensor": "imx636",
+  "optics": "optics_16mm_f1",
+  "crop": [
+   480,
+   270,
+   320,
+   180
+  ],
+  "duration_s": 20.0,
+  "dt_s": 0.0005,
+  "seed": 20261104,
+  "jitter_seed": 11,
+  "particles": "gcr_min_x100",
+  "I0_target": null,
+  "thresholds": "compute",
+  "lit_limit_e_s": 100000.0,
+  "overrides": [
+   "sensor.mask.fraction=0.0"
+  ],
+  "threshold_model": "fixed",
+  "group_bg": "hetero",
+  "energy_bg": "onset_chunk",
+  "bg_err": 0.05,
+  "map_shift_px": "0,0",
+  "map_scale_err": 0.0,
+  "record_pad_s": 4.5,
+  "particle_cfg": {
+   "let_epoch": "solar_min",
+   "flux_cm2_s": 405.0
+  },
+  "code_version": "2026-11-11",
+  "profiles": {
+   "sensor": {
+    "name": "imx636",
+    "description": "Sony IMX636 (Prophesee Gen4.1 pixel), baseline sensor of the impact-energy conversion proposal. Low-light values from the 2025 laboratory characterisation (McReynolds et al., AMOS 2025) as used in the sensor trade (S16, case m636); bright-light values from the Sony flyer. Pixel-response details that no source gives at a few 10^3 e-/s per pixel are assumptions and are labelled as such.",
+    "s10_case": "m636",
+    "files": [
+     "sensor_imx636.json"
+    ],
+    "params": {
+     "array.width_px": {
+      "value": 1280,
+      "unit": "px",
+      "uncertainty": "exact",
+      "source": "Sony IMX636-AAMR-C flyer (2025)",
+      "status": "datasheet"
+     },
+     "array.height_px": {
+      "value": 720,
+      "unit": "px",
+      "uncertainty": "exact",
+      "source": "Sony IMX636-AAMR-C flyer (2025)",
+      "status": "datasheet"
+     },
+     "array.pixel_pitch_um": {
+      "value": 4.86,
+      "unit": "um",
+      "uncertainty": "exact",
+      "source": "Sony IMX636-AAMR-C flyer (2025)",
+      "status": "datasheet"
+     },
+     "qe.effective_750nm": {
+      "value": 0.5,
+      "unit": "e-/photon",
+      "uncertainty": "0.4-0.65 (McReynolds et al. assume 0.65 at their wavelength)",
+      "source": "S10 convention (QE x fill factor at 750 nm)",
+      "status": "convention"
+     },
+     "dark.current_fA": {
+      "value": 1.1,
+      "unit": "fA",
+      "uncertainty": "+/-0.5 fA (1 sigma); 5.55 fA measured on another unit (2024)",
+      "source": "McReynolds et al., AMOS 2025, Sec. 4.3",
+      "status": "measured"
+     },
+     "dark.spread_sigma_ln": {
+      "value": 0.15,
+      "unit": "ln units (lognormal sigma between pixels)",
+      "uncertainty": "0-0.5",
+      "source": "no published IMX636 dark-signal non-uniformity at this level",
+      "status": "assumed"
+     },
+     "dark.doubling_temperature_C": {
+      "value": 6.5,
+      "unit": "degC per factor 2",
+      "uncertainty": "5-8 degC; generic silicon rule, not an IMX636 calibration",
+      "source": "generic CMOS rule of thumb (S10 text)",
+      "status": "assumed",
+      "note": "Hahmeyer 2025 (EventSat bachelor thesis, TUM) Sect. 2.1 (p. 9) cites Schuberth et al. (IAC 2025): fewer but more active hot pixels at higher temperature and a sharp rise of OFF events below -4 degC; qualitative, no dark-current law, so no warm/cold profile was derived"
+     },
+     "dark.temperature_offset_C": {
+      "value": 0.0,
+      "unit": "degC relative to the (unreported) measurement temperature",
+      "uncertainty": "user setting",
+      "source": "CLI --set dark.temperature_offset_C=...",
+      "status": "assumed"
+     },
+     "photoreceptor.law": {
+      "value": "linear",
+      "unit": "-",
+      "uncertainty": "linear supported by two measured corners (ratio 11.8 for current ratio 12.1); 'sqrt' kept as alternative",
+      "source": "McReynolds et al. 2025 corners 6.49 Hz at 13.3 fA and 0.55 Hz at dark limit; S16",
+      "status": "derived"
+     },
+     "photoreceptor.tau_ref_s": {
+      "value": 0.00027,
+      "unit": "s at I_ref",
+      "uncertainty": "factor ~2 (photocurrent-to-electron conversion assumed)",
+      "source": "S16: tau = 1/(2 pi f) = 24.5 ms at 13.3 fA scaled to I_ref",
+      "status": "derived"
+     },
+     "photoreceptor.I_ref_e_s": {
+      "value": 7500000.0,
+      "unit": "e-/s",
+      "uncertainty": "convention",
+      "source": "S10: 5 lx level of the project's red-band bias fixture",
+      "status": "convention"
+     },
+     "photoreceptor.tau_cap_s": {
+      "value": 1.0,
+      "unit": "s",
+      "uncertainty": "0.3-3 s; measured dark corner 0.55 Hz implies tau ~0.29 s at 1.1 fA, so the cap is not reached",
+      "source": "S10 convention",
+      "status": "convention"
+     },
+     "photoreceptor.tau_min_s": {
+      "value": 1e-05,
+      "unit": "s",
+      "uncertainty": "1-50 us; consistent with <=100 us latency at 1000 lx",
+      "source": "Sony flyer latency 100 us max at 1000 lx (bound only)",
+      "status": "assumed"
+     },
+     "photoreceptor.second_stage_tau_s": {
+      "value": 0.0,
+      "unit": "s (0 = off)",
+      "uncertainty": "source-follower/buffer pole not published; try 1e-4",
+      "source": "-",
+      "status": "assumed"
+     },
+     "photoreceptor.integrator": {
+      "value": "exponential",
+      "unit": "-",
+      "uncertainty": "'euler_s10' reproduces S10 exactly (tau clipped at the step)",
+      "source": "numerical choice",
+      "status": "convention"
+     },
+     "threshold.C_on": {
+      "value": 0.25,
+      "unit": "ln units",
+      "uncertainty": "0.20-0.30; ON 0.05-0.15 with tuned biases",
+      "source": "Sony flyer: 25% typ. (LN) at 1000 lx; S10",
+      "status": "datasheet"
+     },
+     "threshold.C_off": {
+      "value": 0.25,
+      "unit": "ln units",
+      "uncertainty": "not published separately; flyer gives one typical value",
+      "source": "Sony flyer",
+      "status": "datasheet"
+     },
+     "threshold.sigma_C": {
+      "value": 0.03,
+      "unit": "ln units (pixel-to-pixel sd)",
+      "uncertainty": "<=0.06 (flyer CTNU 6% max at 1000 lx)",
+      "source": "S10 nominal; Sony flyer bound",
+      "status": "assumed"
+     },
+     "threshold.on_off_correlated": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "true = one mismatch draw per pixel for both polarities (S10); false = independent ON/OFF draws",
+      "source": "S10 convention",
+      "status": "convention"
+     },
+     "threshold.C_min": {
+      "value": 0.08,
+      "unit": "ln units",
+      "uncertainty": "-",
+      "source": "S10 clip",
+      "status": "convention"
+     },
+     "events.refractory_s": {
+      "value": 1e-05,
+      "unit": "s",
+      "uncertainty": "1 us - 1 ms; bias_refr is a relative offset (-20..235) with no published time value; read the device value with Metavision I_Monitoring::get_pixel_dead_time(). Energy decoding of flashes above ~1e5 J loses events for >=50 us (validate.py refractory)",
+      "source": "Prophesee bias documentation (no absolute value); assumption",
+      "status": "assumed"
+     },
+     "events.loss_fraction": {
+      "value": 0.01,
+      "unit": "-",
+      "uncertainty": "0-5%",
+      "source": "S10 convention",
+      "status": "convention"
+     },
+     "ba.model": {
+      "value": "poisson_additive",
+      "unit": "-",
+      "uncertainty": "'poisson_additive' (S10: independent ON events that do not move the reference) or 'leak_drift' (v2e-like: reference drifts down, comparator fires)",
+      "source": "S10 convention",
+      "status": "convention"
+     },
+     "ba.rate_hz": {
+      "value": 0.03,
+      "unit": "events/s per normal pixel",
+      "uncertainty": "0.003-0.1; [T] Sect. 3.2 p. 17: 2.6 kev/s over the array (2.8e-3 ev/s/px) with the camera in the closed test box and the monitor off, default biases, illuminance and temperature not reported",
+      "source": "McReynolds et al. 2025: ~0.03 ev/s/px at default biases",
+      "status": "measured",
+      "note": "[T] dark-box rate is 10x below the adopted McReynolds value; kept McReynolds (calibrated light level) as the conservative value"
+     },
+     "ba.on_fraction": {
+      "value": 1.0,
+      "unit": "-",
+      "uncertainty": "0.5-1; S11 tests 0.5",
+      "source": "S10 convention (ON-only)",
+      "status": "assumed"
+     },
+     "ba.sigma_ln": {
+      "value": 0.5,
+      "unit": "lognormal sigma of rate between normal pixels",
+      "uncertainty": "0-1 (not published)",
+      "source": "S16 assumption",
+      "status": "assumed"
+     },
+     "ba.burst_mean": {
+      "value": 1.0,
+      "unit": "events per BA occurrence (geometric mean size)",
+      "uncertainty": "1-3 (S10 case ba_burst = 3)",
+      "source": "S10",
+      "status": "assumed"
+     },
+     "ba.telegraph_fraction": {
+      "value": 0.0,
+      "unit": "fraction of time in high state",
+      "uncertainty": "0-0.1 (S10 case ba_telegraph)",
+      "source": "S10",
+      "status": "assumed"
+     },
+     "ba.telegraph_gain": {
+      "value": 10.0,
+      "unit": "rate ratio high/low",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "assumed"
+     },
+     "ba.telegraph_dwell_s": {
+      "value": 1.0,
+      "unit": "s",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "assumed"
+     },
+     "hot.fraction": {
+      "value": 1.1e-05,
+      "unit": "share of pixels",
+      "uncertainty": "1e-5 to 2e-2: [T] finds 1 defective pixel plus 9 consistently most active of 921,600 (99.999th-percentile cut, so the 9 follow from the cut); upper end = tuned-bias value (McReynolds et al. 2025)",
+      "source": "Hahmeyer 2025 (EventSat bachelor thesis, TUM), Sect. 3.2 p. 17 and Fig. 3.2a-b p. 18: at default biases one defective pixel (~4.5e7 events per recording) and otherwise no hot tail (no pixel above ~50 events per recording after its removal). EVK4, LCD test box, room temperature, recording length not stated",
+      "status": "measured",
+      "previous": {
+       "value": 0.02,
+       "source": "McReynolds et al. 2025: ~2% hot pixels carry >99% of excess events",
+       "status": "measured",
+       "replaced": "2026-11-04"
+      }
+     },
+     "hot.rate_median_hz": {
+      "value": 1.0,
+      "unit": "events/s",
+      "uncertainty": "0.1-100 Hz at default biases (not published)",
+      "source": "-",
+      "status": "assumed"
+     },
+     "hot.sigma_ln": {
+      "value": 1.0,
+      "unit": "lognormal sigma",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "mask.fraction": {
+      "value": 0.0,
+      "unit": "fraction of pixels masked (noisiest, from a dark calibration)",
+      "uncertainty": "0-5%",
+      "source": "S16 convention; IMX636 has an on-chip pixel mask (Prophesee product brief)",
+      "status": "convention",
+      "override": "CLI override"
+     },
+     "mask.calibration_s": {
+      "value": 60.0,
+      "unit": "s of dark calibration used to rank pixels",
+      "uncertainty": "-",
+      "source": "operations assumption",
+      "status": "assumed"
+     },
+     "readout.max_rate_eps": {
+      "value": 1066000000.0,
+      "unit": "events/s (full sensor)",
+      "uncertainty": "sensor-internal peak; interface (MIPI/SLVS, EVT 3.0) and processor limits are lower and not published",
+      "source": "Finateu et al., ISSCC 2020 (1280x720 4.86 um stacked EVS, 1066 Meps)",
+      "status": "published"
+     },
+     "readout.fifo_events": {
+      "value": 4096,
+      "unit": "events (full sensor)",
+      "uncertainty": "not published",
+      "source": "-",
+      "status": "assumed"
+     },
+     "readout.timestamp_resolution_us": {
+      "value": 1.0,
+      "unit": "us",
+      "uncertainty": "exact",
+      "source": "Finateu et al., ISSCC 2020: 1 us time-stamp",
+      "status": "published"
+     },
+     "readout.fixed_latency_s": {
+      "value": 0.0,
+      "unit": "s",
+      "uncertainty": "comparator/arbiter delay; flyer latency is a step-response figure, not a fixed delay",
+      "source": "-",
+      "status": "assumed"
+     },
+     "readout.limit_enabled": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "switch",
+      "status": "convention"
+     },
+     "esp.erc_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs: ERC is the last ESP stage",
+      "status": "datasheet"
+     },
+     "esp.erc_target_rate_eps": {
+      "value": 20000000.0,
+      "unit": "events/s (full sensor)",
+      "uncertainty": "user setting",
+      "source": "Prophesee ESP docs (cd_event_count = rate/5000 for 200 us)",
+      "status": "datasheet"
+     },
+     "esp.erc_period_s": {
+      "value": 0.0002,
+      "unit": "s",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs (IMX636 default 200 us)",
+      "status": "datasheet"
+     },
+     "esp.afk_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "simplified functional model, not Sony's implementation",
+      "source": "Prophesee ESP docs: anti-flicker on 4x4 regions, 50-500 Hz",
+      "status": "datasheet"
+     },
+     "esp.afk_band_hz": {
+      "value": [
+       50.0,
+       500.0
+      ],
+      "unit": "Hz",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs",
+      "status": "datasheet"
+     },
+     "esp.afk_start_periods": {
+      "value": 6,
+      "unit": "consecutive periods",
+      "uncertainty": "-",
+      "source": "Prophesee example start_threshold 6",
+      "status": "assumed"
+     },
+     "esp.stc_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs: STC/Trail filter",
+      "status": "datasheet"
+     },
+     "esp.stc_mode": {
+      "value": "stc_cut_trail",
+      "unit": "stc_cut_trail | stc_keep_trail | trail",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs",
+      "status": "datasheet"
+     },
+     "esp.stc_threshold_s": {
+      "value": 0.01,
+      "unit": "s (1-100 ms supported)",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs example 10000 us",
+      "status": "datasheet"
+     },
+     "events.initial_reference": {
+      "value": "random",
+      "unit": "random | level",
+      "uncertainty": "random = reference uniformly within [-C_off, +C_on] of the current level (finite prehistory, S11 test g); level = reference at the current level (S10)",
+      "source": "S10/S11",
+      "status": "assumed"
+     },
+     "photoreceptor.adaptive_substeps": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator; off reproduces the fixed-step kernel",
+      "status": "convention"
+     },
+     "photoreceptor.substep_tau_fraction": {
+      "value": 0.5,
+      "unit": "-",
+      "uncertainty": "0.25-1 (convergence tested, validate.py substep)",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator: sub-step <= this fraction of the photoreceptor time constant",
+      "status": "convention"
+     },
+     "photoreceptor.substep_dlnJ_max": {
+      "value": 0.1,
+      "unit": "ln",
+      "uncertainty": "0.05-0.2",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator: sub-step so that ln J changes by at most this (C/2.5) per sub-step",
+      "status": "convention"
+     },
+     "photoreceptor.substep_min_s": {
+      "value": 5e-06,
+      "unit": "s",
+      "uncertainty": "2-10 us",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator: floor of the sub-step (half of tau_min and of the refractory period)",
+      "status": "convention"
+     },
+     "photoreceptor.deposit_model": {
+      "value": "impulse",
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "handoff 2026-11-11 item 3.3 (11 Nov 2026): a particle deposit is applied as the exact response of the first-order photoreceptor to an instantaneous charge (d ln J = Q/K between the tau clips, tau_min bounds the rise); 'step_current' reproduces the earlier kernel (deposit spread over its step). Ignored by 'euler_s10'.",
+      "status": "convention"
+     },
+     "photoreceptor.hpf_tau_s": {
+      "value": 0.0,
+      "unit": "s",
+      "uncertainty": "unknown; sensitivity 0.1-1.6 s tested (validate.py sensitivity)",
+      "source": "IMX636 bias_hpf (Prophesee biases manual, checked 5 Nov 2026): a high-pass on slow illumination changes; default 0 = minimum of the 0-120 range, and decreasing it widens the bandwidth, so the default is the widest selectable setting (inferred from the range table). Its corner frequency is not published. 0 here = no high-pass; a first-order stand-in for sensitivity studies only.",
+      "status": "assumed"
+     }
+    }
+   },
+   "optics": {
+    "name": "optics_16mm_f1",
+    "description": "Baseline camera head: 16 mm f/1 lens, 600-900 nm band, six heads in a 2 x 3 mosaic (coverage.py).",
+    "s10_case": null,
+    "files": [
+     "optics_16mm_f1.json"
+    ],
+    "params": {
+     "focal_length_m": {
+      "value": 0.016,
+      "unit": "m",
+      "uncertainty": "-",
+      "source": "proposal Sec. 4.3",
+      "status": "convention"
+     },
+     "aperture_m": {
+      "value": 0.016,
+      "unit": "m (entrance pupil diameter, f/1)",
+      "uncertainty": "-",
+      "source": "proposal Sec. 4.3",
+      "status": "convention"
+     },
+     "transmission": {
+      "value": 0.6,
+      "unit": "-",
+      "uncertainty": "0.5-0.8 (lens + filter)",
+      "source": "S10",
+      "status": "convention"
+     },
+     "band_nm": {
+      "value": [
+       600,
+       900
+      ],
+      "unit": "nm",
+      "uncertainty": "-",
+      "source": "proposal",
+      "status": "convention"
+     },
+     "lambda_eff_nm": {
+      "value": 750,
+      "unit": "nm",
+      "uncertainty": "744-792 nm for 2000-4500 K flash spectra (+/-4%)",
+      "source": "S10/S11 energy convention",
+      "status": "convention"
+     },
+     "psf.sigma_px": {
+      "value": 0.5,
+      "unit": "px (Gaussian core)",
+      "uncertainty": "0.3-0.8; diffraction alone at f/1, 750 nm gives an Airy radius of 0.19 px",
+      "source": "S10",
+      "status": "assumed"
+     },
+     "psf.halo_fraction": {
+      "value": 0.0,
+      "unit": "fraction of energy in a wide halo",
+      "uncertainty": "0-5% (scatter, ghosts); no lens data",
+      "source": "-",
+      "status": "assumed"
+     },
+     "psf.halo_sigma_px": {
+      "value": 3.0,
+      "unit": "px",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "vignetting.model": {
+      "value": "cos4",
+      "unit": "cos4 | none",
+      "uncertainty": "real f/1 lenses add mechanical vignetting at the field edge",
+      "source": "natural illumination fall-off",
+      "status": "assumed"
+     },
+     "distortion.k1": {
+      "value": 0.0,
+      "unit": "radial coefficient on normalised image radius (tan theta)",
+      "uncertainty": "no lens data",
+      "source": "-",
+      "status": "assumed"
+     },
+     "mosaic.cols": {
+      "value": 2,
+      "unit": "heads cross-track",
+      "uncertainty": "-",
+      "source": "coverage.py",
+      "status": "convention"
+     },
+     "mosaic.rows": {
+      "value": 3,
+      "unit": "heads along-track",
+      "uncertainty": "-",
+      "source": "coverage.py",
+      "status": "convention"
+     },
+     "mosaic.overlap": {
+      "value": 0.05,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "coverage.py",
+      "status": "convention"
+     }
+    }
+   },
+   "env": {
+    "name": "environment",
+    "description": "Mission geometry, illumination, attitude, particle and stray-light environment.",
+    "s10_case": null,
+    "files": [
+     "environment.json"
+    ],
+    "params": {
+     "orbit.altitude_km": {
+      "value": 3000.0,
+      "unit": "km",
+      "uncertainty": "-",
+      "source": "proposal Sec. 4.2",
+      "status": "convention"
+     },
+     "moon.radius_km": {
+      "value": 1737.4,
+      "unit": "km",
+      "uncertainty": "-",
+      "source": "common.py",
+      "status": "convention"
+     },
+     "moon.mu_km3_s2": {
+      "value": 4902.8,
+      "unit": "km^3/s^2",
+      "uncertainty": "-",
+      "source": "common.py",
+      "status": "convention"
+     },
+     "moon.rotation_rad_s": {
+      "value": 2.6617e-06,
+      "unit": "rad/s (sidereal)",
+      "uncertainty": "-",
+      "source": "common.py",
+      "status": "convention"
+     },
+     "earthshine.full_e_s_px_16mm": {
+      "value": 18519.7,
+      "unit": "e-/s per pixel (full Earth at zenith, reflectance 0.13, 16 mm f/1, T 0.6, QE 0.5); scaled with aperture^2/f^2 (constant at f/1)",
+      "uncertainty": "1.2-3.0e4 for Earth reflected irradiance 0.05-0.12 W/m^2",
+      "source": "S13 observed_background.py",
+      "status": "derived"
+     },
+     "earthshine.reflected_irradiance_W_m2": {
+      "value": 0.075,
+      "unit": "W/m^2 (full Earth, all wavelengths)",
+      "uncertainty": "0.05-0.12",
+      "source": "S13 (Glenar et al. 2019)",
+      "status": "published"
+     },
+     "sun.irradiance_W_m2": {
+      "value": 1361.0,
+      "unit": "W/m^2",
+      "uncertainty": "+/-0.5%",
+      "source": "solar constant",
+      "status": "published"
+     },
+     "band.solar_fraction": {
+      "value": 0.284,
+      "unit": "share of solar energy in 600-900 nm",
+      "uncertainty": "-",
+      "source": "S13 (5778 K Planck)",
+      "status": "derived"
+     },
+     "surface.reflectance_mean": {
+      "value": 0.13,
+      "unit": "Lambert reflectance at 750 nm (scene mean)",
+      "uncertainty": "0.07-0.2",
+      "source": "S13",
+      "status": "convention"
+     },
+     "surface.lunar_lambert_L": {
+      "value": "mcewen",
+      "unit": "- (number, or 'mcewen' for the phase-angle polynomial)",
+      "uncertainty": "polynomial fitted to lunar photometry; 0.7 (S17 texture_map.py, used until 11 Nov 2026) corresponds to a phase angle of about 18 deg",
+      "source": "USGS ISIS LunarLambertMcEwen (A. McEwen 1995): L = 1 - 0.019 a + 2.42e-4 a^2 - 1.46e-6 a^3, a phase angle [deg], clipped to [0, 1] here",
+      "status": "published"
+     },
+     "attitude.jitter_rms_arcsec": {
+      "value": 0.2,
+      "unit": "arcsec rms per axis",
+      "uncertainty": "0.1-2",
+      "source": "assumption (brief)",
+      "status": "assumed"
+     },
+     "attitude.jitter_corr_s": {
+      "value": 0.5,
+      "unit": "s (first-order Gauss-Markov correlation time)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "particles.entering_tracks": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "handoff 2026-11-11 item 3.6 (11 Nov 2026): also simulate tracks whose entry point lies outside the crop (sensor edges bound map scenes); separate random stream, in-crop hits unchanged",
+      "status": "convention"
+     },
+     "particles.flux_cm2_s": {
+      "value": 4.05,
+      "unit": "hits cm^-2 s^-1 on the sensor plane at 3000 km (GCR incl. secondaries, solar minimum)",
+      "uncertainty": "3.61 (telescope, penetrating only) to 4.05; day-to-day +-1%; solar maximum 1.56",
+      "source": "LRO CRaTER Level-2 (PDS PPI lro-crater V01), days 2019-340/341 and 2024-337/338; derive_crater_particles.py; geometry Spence et al. 2010 (SSR 150, 243), Sects. 3.1.4, 3.3.3, Table 5. D2 singles / 9.62 cm2, Moon shadow 1 - sin^2(a)/2 removed at LRO altitude (64-127 km) and applied at 3000 km (0.933)",
+      "status": "derived",
+      "previous": {
+       "value": 5.0,
+       "source": "S10 GCR_FLUX assumption",
+       "status": "assumed",
+       "replaced": "2026-11-04"
+      }
+     },
+     "particles.heavy_fraction": {
+      "value": 0.05,
+      "unit": "share of hits depositing 2e3-1e5 e- per pixel (ions, stopping protons)",
+      "uncertainty": "0.01-0.2",
+      "source": "S10 F_EVENT assumption",
+      "status": "assumed",
+      "note": "used only by particles.model = parametric (S10) and the SEP presets since 4 Nov 2026"
+     },
+     "particles.mip_deposit_e": {
+      "value": 300.0,
+      "unit": "e- per pixel (median, minimum-ionising)",
+      "uncertainty": "100-1000 (thin BSI layer; path length)",
+      "source": "S10 text (a few hundred e-)",
+      "status": "assumed",
+      "note": "used only by particles.model = parametric (S10) and the SEP presets since 4 Nov 2026"
+     },
+     "particles.mip_sigma_ln": {
+      "value": 0.6,
+      "unit": "lognormal sigma (Landau-like spread and path length)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed",
+      "note": "used only by particles.model = parametric (S10) and the SEP presets since 4 Nov 2026"
+     },
+     "particles.heavy_range_e": {
+      "value": [
+       2000.0,
+       100000.0
+      ],
+      "unit": "e- per pixel, log-uniform",
+      "uncertainty": "-",
+      "source": "S10 particle_check range (upper part)",
+      "status": "assumed",
+      "note": "used only by particles.model = parametric (S10) and the SEP presets since 4 Nov 2026"
+     },
+     "particles.track_len_px": {
+      "value": [
+       1,
+       5
+      ],
+      "unit": "px (uniform integer)",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "assumed",
+      "note": "used only by particles.model = parametric (S10) and the SEP presets since 4 Nov 2026"
+     },
+     "particles.sep_storm_flux_cm2_s": {
+      "value": 3140.0,
+      "unit": "p cm^-2 s^-1 (1000 pfu above 10 MeV, isotropic onto the front face, before shielding)",
+      "uncertainty": "screening value",
+      "source": "radiation study sep_incident_screening.csv",
+      "status": "derived"
+     },
+     "stars.enabled": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "handoff 2026-11-11 item 3.4 (11 Nov 2026): stars beyond the limb as moving point sources (eventsim/stars.py); only sky pixels are affected",
+      "status": "convention"
+     },
+     "stars.catalogue": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "Yale Bright Star Catalogue 5th rev. ed. (Hoffleit & Warren 1991, CDS V/50), data/external/BSC5/catalog.gz, downloaded 11 Nov 2026 from the CDS VizieR mirror at vizier.cfa.harvard.edu",
+      "status": "published"
+     },
+     "stars.mag_limit": {
+      "value": 7.0,
+      "unit": "V mag",
+      "uncertainty": "-",
+      "source": "catalogue limit (BSC5 reaches V ~ 6.5)",
+      "status": "convention"
+     },
+     "stars.sun_ecliptic_lon_deg": {
+      "value": 0.0,
+      "unit": "deg",
+      "uncertainty": "0-360 (season of the observation); fixes which stars lie behind the limb",
+      "source": "assumption (March equinox); with the preset's sub-solar longitude it orients the Moon-fixed frame in the ecliptic",
+      "status": "assumed"
+     },
+     "stars.test_mags": {
+      "value": [],
+      "unit": "V mag",
+      "uncertainty": "-",
+      "source": "stress option: extra stars of these magnitudes at random sky pixels of the crop (stars.test_seed)",
+      "status": "convention"
+     },
+     "stars.test_seed": {
+      "value": 5,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "seed for the test-star positions",
+      "status": "convention"
+     },
+     "straylight.mode": {
+      "value": "none",
+      "unit": "none | gradient | ghost | both",
+      "uncertainty": "no lens stray-light data",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.gradient_e_s": {
+      "value": 3000.0,
+      "unit": "e-/s per pixel at the bright edge",
+      "uncertainty": "0-1e5 (depends on baffle and sunlit surface just outside the field)",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.gradient_scale_px": {
+      "value": 200.0,
+      "unit": "px (exponential fall-off from the edge)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.gradient_edge": {
+      "value": "right",
+      "unit": "left | right | top | bottom",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.ghost_e_s": {
+      "value": 2000.0,
+      "unit": "e-/s per pixel (ghost peak)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.ghost_radius_px": {
+      "value": 25.0,
+      "unit": "px (Gaussian ring/blob radius)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.ghost_pos_frac": {
+      "value": [
+       0.3,
+       0.6
+      ],
+      "unit": "fraction of crop (x, y)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "straylight.ramp_per_s": {
+      "value": 0.02,
+      "unit": "relative change of the stray light per second (approaching sunlit surface)",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+     },
+     "particles.flux_solar_max_cm2_s": {
+      "value": 1.56,
+      "unit": "hits cm^-2 s^-1 on the sensor plane at 3000 km (GCR incl. secondaries, near solar maximum, Dec 2024)",
+      "uncertainty": "1.30-1.56",
+      "source": "LRO CRaTER Level-2 (PDS PPI lro-crater V01), days 2019-340/341 and 2024-337/338; derive_crater_particles.py; geometry Spence et al. 2010 (SSR 150, 243), Sects. 3.1.4, 3.3.3, Table 5",
+      "status": "derived"
+     },
+     "particles.model": {
+      "value": "let_spectrum",
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "eventsim/particles.py (4 Nov 2026); parametric = former S10 model",
+      "status": "convention"
+     },
+     "particles.let_epoch": {
+      "value": "solar_min",
+      "unit": "-",
+      "uncertainty": "solar_min (more hits) or solar_max",
+      "source": "LRO CRaTER Level-2 (PDS PPI lro-crater V01), days 2019-340/341 and 2024-337/338; derive_crater_particles.py; geometry Spence et al. 2010 (SSR 150, 243), Sects. 3.1.4, 3.3.3, Table 5",
+      "status": "convention"
+     },
+     "particles.let_hist_solar_min": {
+      "value": {
+       "edges_keV_um": [
+        0.020000000000000004,
+        0.021595503246554203,
+        0.023318288023596638,
+        0.025178508235883353,
+        0.027187127817570513,
+        0.0293559853524414,
+        0.03169786384922227,
+        0.03422656608323563,
+        0.03695699594844582,
+        0.039905246299377604,
+        0.04308869380063767,
+        0.04652610134307253,
+        0.050237728630191596,
+        0.054245451586640576,
+        0.05857289129250475,
+        0.0632455532033676,
+        0.06829097747667202,
+        0.07373890129039151,
+        0.07962143411069948,
+        0.08597324694164554,
+        0.09283177667225556,
+        0.10023744672545445,
+        0.10823390530929274,
+        0.11686828267470352,
+        0.1261914688960387,
+        0.1362584138115923,
+        0.1471284508919283,
+        0.15886564694485633,
+        0.17153917971817886,
+        0.18522374562575872,
+        0.20000000000000004,
+        0.2159550324655419,
+        0.23318288023596637,
+        0.2517850823588335,
+        0.27187127817570517,
+        0.293559853524414,
+        0.3169786384922227,
+        0.34226566083235627,
+        0.3695699594844582,
+        0.399052462993776,
+        0.43088693800637673,
+        0.4652610134307253,
+        0.502377286301916,
+        0.5424545158664057,
+        0.5857289129250473,
+        0.632455532033676,
+        0.6829097747667202,
+        0.7373890129039151,
+        0.7962143411069947,
+        0.8597324694164554,
+        0.9283177667225561,
+        1.0023744672545447,
+        1.0823390530929275,
+        1.1686828267470353,
+        1.2619146889603867,
+        1.3625841381159225,
+        1.471284508919283,
+        1.588656469448563,
+        1.7153917971817885,
+        1.8522374562575867,
+        2.0000000000000004,
+        2.159550324655419,
+        2.3318288023596625,
+        2.5178508235883355,
+        2.7187127817570516,
+        2.9355985352441385,
+        3.1697863849222285,
+        3.4226566083235626,
+        3.695699594844582,
+        3.990524629937758,
+        4.308869380063769,
+        4.6526101343072535,
+        5.02377286301916,
+        5.4245451586640545,
+        5.857289129250476,
+        6.32455532033676,
+        6.829097747667203,
+        7.373890129039148,
+        7.962143411069948,
+        8.597324694164554,
+        9.283177667225555,
+        10.023744672545451,
+        10.823390530929277,
+        11.686828267470352,
+        12.619146889603861,
+        13.625841381159232,
+        14.712845089192829,
+        15.88656469448563,
+        17.153917971817876,
+        18.522374562575877,
+        20.000000000000004,
+        21.59550324655419,
+        23.318288023596626,
+        25.178508235883353,
+        27.187127817570513,
+        29.355985352441383,
+        31.697863849222287,
+        34.226566083235625,
+        36.956995948445815,
+        39.90524629937758,
+        43.08869380063769,
+        46.52610134307253,
+        50.2377286301916,
+        54.24545158664055,
+        58.57289129250476,
+        63.24555320336759,
+        68.29097747667203,
+        73.73890129039148,
+        79.62143411069948,
+        85.97324694164554,
+        92.83177667225556,
+        100.2374467254544,
+        108.23390530929277,
+        116.86828267470352,
+        126.19146889603861,
+        136.25841381159233,
+        147.12845089192828,
+        158.86564694485628,
+        171.53917971817876,
+        185.22374562575877,
+        200.00000000000003
+       ],
+       "counts": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1407.0,
+        3228.0,
+        6483.0,
+        11222.0,
+        13609.0,
+        14049.0,
+        12245.0,
+        10923.0,
+        17084.0,
+        6888.0,
+        11624.0,
+        4945.0,
+        8171.0,
+        6817.0,
+        5792.0,
+        7215.0,
+        3973.0,
+        5035.0,
+        4144.0,
+        3468.0,
+        2966.0,
+        3276.0,
+        2925.0,
+        2793.0,
+        3473.0,
+        2897.0,
+        2549.0,
+        2469.0,
+        2070.0,
+        2103.0,
+        1752.0,
+        1695.0,
+        1626.0,
+        1329.0,
+        1232.0,
+        1122.0,
+        965.0,
+        990.0,
+        803.0,
+        772.0,
+        685.0,
+        565.0,
+        504.0,
+        446.0,
+        401.0,
+        364.0,
+        264.0,
+        259.0,
+        218.0,
+        230.0,
+        235.0,
+        211.0,
+        196.0,
+        206.0,
+        218.0,
+        234.0,
+        239.0,
+        201.0,
+        190.0,
+        170.0,
+        172.0,
+        164.0,
+        224.0,
+        205.0,
+        164.0,
+        142.0,
+        137.0,
+        84.0,
+        107.0,
+        105.0,
+        77.0,
+        72.0,
+        62.0,
+        84.0,
+        58.0,
+        58.0,
+        69.0,
+        76.0,
+        55.0,
+        390.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ]
+      },
+      "unit": "D2 LET histogram (keV/um in Si), D2&D4 events",
+      "uncertainty": "path factor 1.00-1.12 (LET slightly overstated); tail above ~2 keV/um includes nuclear-interaction products in 1 mm Si (upper bound for a thin layer); LLD cut below 0.21 keV/um",
+      "source": "LRO CRaTER Level-2 (PDS PPI lro-crater V01), days 2019-340/341 and 2024-337/338; derive_crater_particles.py; geometry Spence et al. 2010 (SSR 150, 243), Sects. 3.1.4, 3.3.3, Table 5; 6-7 Dec 2019 (cycle 24/25 minimum)",
+      "status": "measured"
+     },
+     "particles.let_hist_solar_max": {
+      "value": {
+       "edges_keV_um": [
+        0.020000000000000004,
+        0.021595503246554203,
+        0.023318288023596638,
+        0.025178508235883353,
+        0.027187127817570513,
+        0.0293559853524414,
+        0.03169786384922227,
+        0.03422656608323563,
+        0.03695699594844582,
+        0.039905246299377604,
+        0.04308869380063767,
+        0.04652610134307253,
+        0.050237728630191596,
+        0.054245451586640576,
+        0.05857289129250475,
+        0.0632455532033676,
+        0.06829097747667202,
+        0.07373890129039151,
+        0.07962143411069948,
+        0.08597324694164554,
+        0.09283177667225556,
+        0.10023744672545445,
+        0.10823390530929274,
+        0.11686828267470352,
+        0.1261914688960387,
+        0.1362584138115923,
+        0.1471284508919283,
+        0.15886564694485633,
+        0.17153917971817886,
+        0.18522374562575872,
+        0.20000000000000004,
+        0.2159550324655419,
+        0.23318288023596637,
+        0.2517850823588335,
+        0.27187127817570517,
+        0.293559853524414,
+        0.3169786384922227,
+        0.34226566083235627,
+        0.3695699594844582,
+        0.399052462993776,
+        0.43088693800637673,
+        0.4652610134307253,
+        0.502377286301916,
+        0.5424545158664057,
+        0.5857289129250473,
+        0.632455532033676,
+        0.6829097747667202,
+        0.7373890129039151,
+        0.7962143411069947,
+        0.8597324694164554,
+        0.9283177667225561,
+        1.0023744672545447,
+        1.0823390530929275,
+        1.1686828267470353,
+        1.2619146889603867,
+        1.3625841381159225,
+        1.471284508919283,
+        1.588656469448563,
+        1.7153917971817885,
+        1.8522374562575867,
+        2.0000000000000004,
+        2.159550324655419,
+        2.3318288023596625,
+        2.5178508235883355,
+        2.7187127817570516,
+        2.9355985352441385,
+        3.1697863849222285,
+        3.4226566083235626,
+        3.695699594844582,
+        3.990524629937758,
+        4.308869380063769,
+        4.6526101343072535,
+        5.02377286301916,
+        5.4245451586640545,
+        5.857289129250476,
+        6.32455532033676,
+        6.829097747667203,
+        7.373890129039148,
+        7.962143411069948,
+        8.597324694164554,
+        9.283177667225555,
+        10.023744672545451,
+        10.823390530929277,
+        11.686828267470352,
+        12.619146889603861,
+        13.625841381159232,
+        14.712845089192829,
+        15.88656469448563,
+        17.153917971817876,
+        18.522374562575877,
+        20.000000000000004,
+        21.59550324655419,
+        23.318288023596626,
+        25.178508235883353,
+        27.187127817570513,
+        29.355985352441383,
+        31.697863849222287,
+        34.226566083235625,
+        36.956995948445815,
+        39.90524629937758,
+        43.08869380063769,
+        46.52610134307253,
+        50.2377286301916,
+        54.24545158664055,
+        58.57289129250476,
+        63.24555320336759,
+        68.29097747667203,
+        73.73890129039148,
+        79.62143411069948,
+        85.97324694164554,
+        92.83177667225556,
+        100.2374467254544,
+        108.23390530929277,
+        116.86828267470352,
+        126.19146889603861,
+        136.25841381159233,
+        147.12845089192828,
+        158.86564694485628,
+        171.53917971817876,
+        185.22374562575877,
+        200.00000000000003
+       ],
+       "counts": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        624.0,
+        1529.0,
+        3229.0,
+        5179.0,
+        6056.0,
+        5862.0,
+        4769.0,
+        3959.0,
+        5546.0,
+        1998.0,
+        3293.0,
+        1273.0,
+        2136.0,
+        1685.0,
+        1560.0,
+        1964.0,
+        991.0,
+        1313.0,
+        1081.0,
+        905.0,
+        846.0,
+        897.0,
+        987.0,
+        1078.0,
+        1542.0,
+        1353.0,
+        1235.0,
+        1220.0,
+        939.0,
+        946.0,
+        750.0,
+        694.0,
+        622.0,
+        492.0,
+        427.0,
+        432.0,
+        325.0,
+        339.0,
+        276.0,
+        290.0,
+        243.0,
+        232.0,
+        202.0,
+        190.0,
+        197.0,
+        184.0,
+        144.0,
+        125.0,
+        125.0,
+        165.0,
+        104.0,
+        128.0,
+        101.0,
+        133.0,
+        102.0,
+        132.0,
+        126.0,
+        84.0,
+        83.0,
+        79.0,
+        54.0,
+        88.0,
+        114.0,
+        96.0,
+        87.0,
+        64.0,
+        52.0,
+        39.0,
+        47.0,
+        60.0,
+        35.0,
+        34.0,
+        41.0,
+        29.0,
+        43.0,
+        37.0,
+        30.0,
+        39.0,
+        36.0,
+        231.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ]
+      },
+      "unit": "D2 LET histogram (keV/um in Si), D2&D4 events",
+      "uncertainty": "path factor 1.00-1.12 (LET slightly overstated); tail above ~2 keV/um includes nuclear-interaction products in 1 mm Si (upper bound for a thin layer); LLD cut below 0.21 keV/um",
+      "source": "LRO CRaTER Level-2 (PDS PPI lro-crater V01), days 2019-340/341 and 2024-337/338; derive_crater_particles.py; geometry Spence et al. 2010 (SSR 150, 243), Sects. 3.1.4, 3.3.3, Table 5; 2-3 Dec 2024 (near cycle 25 maximum)",
+      "status": "measured"
+     },
+     "particles.sensitive_depth_um": {
+      "value": 3.0,
+      "unit": "um",
+      "uncertainty": "[2.0, 6.0]",
+      "source": "IMX636 is a stacked back-illuminated sensor; the photodiode depth is not published. 3 um gives 320 e- for the CRaTER MIP peak (0.38 keV/um), close to the former 300 e- assumption.; derive_crater_particles.py",
+      "status": "assumed"
+     },
+     "particles.e_per_pair_eV": {
+      "value": 3.6,
+      "unit": "eV",
+      "uncertainty": "[3.6, 3.65]",
+      "source": "silicon, room temperature; derive_crater_particles.py",
+      "status": "published"
+     },
+     "particles.straggling_sigma_ln": {
+      "value": 0.5,
+      "unit": "-",
+      "uncertainty": "[0.3, 0.8]",
+      "source": "energy-loss straggling in a few-um layer is much wider than in CRaTER's 1 mm; lognormal stand-in; derive_crater_particles.py",
+      "status": "assumed"
+     }
+    }
+   }
+  }
+ },
+ "scene": {
+  "scene": "Far side with particle hits and hot pixels",
+  "type": "map",
+  "head": [
+   0,
+   1
+  ],
+  "crop": [
+   480,
+   270,
+   320,
+   180
+  ],
+  "subsolar_latlon": [
+   1.5,
+   340.0
+  ],
+  "earth_phase_deg": 159.94612606892468,
+  "earthshine_level_e_s": 0.0,
+  "sun_level_e_s": 0.0,
+  "target_latlon": [
+   -30.0,
+   160.0
+  ],
+  "oversample": 2,
+  "uses_wac_lola": false,
+  "ground": {
+   "dx_km": 1.1000972484020475,
+   "dy_km": 0.9564502136834663,
+   "range_km": 3148.8068246564735,
+   "drift_px_s": [
+    0.009058059796984708,
+    0.3709698427784929
+   ]
+  },
+  "lunar_lambert_L": "mcewen",
+  "stars": {
+   "n_in_field": 0
+  },
+  "preset": "particles"
+ },
+ "stats": {
+  "n_raw": 46217,
+  "readout": {
+   "n_in": 46217,
+   "dropped_fifo": 0,
+   "max_delay_s": 3.323786756936897e-08
+  },
+  "esp": {},
+  "wall_pixel_s": 303.17116022109985,
+  "wall_scene_s": 8.869681119918823,
+  "n_events": 46217,
+  "n_on": 40347,
+  "n_off": 5870,
+  "n_ba": 34455,
+  "extra_substeps": 163,
+  "integrator": {
+   "adaptive_substeps": true,
+   "tau_fraction": 0.5,
+   "dlnJ_max": 0.1,
+   "h_min_s": 5e-06,
+   "dt_s": 0.0005,
+   "hpf_tau_s": 0.0,
+   "deposit_impulse": true
+  },
+  "exposure": {
+   "masked_pixel_fraction": 0.0,
+   "by_window": {
+    "0.05": {
+     "disabled_2x2_anchor_fraction": 0.0,
+     "disabled_3x3_anchor_fraction": 0.0,
+     "uncovered_pixel_fraction": 0.0
+    },
+    "0.2": {
+     "disabled_2x2_anchor_fraction": 0.0,
+     "disabled_3x3_anchor_fraction": 0.0,
+     "uncovered_pixel_fraction": 0.0
+    },
+    "0.8": {
+     "disabled_2x2_anchor_fraction": 0.0,
+     "disabled_3x3_anchor_fraction": 0.0,
+     "uncovered_pixel_fraction": 0.0
+    },
+    "2": {
+     "disabled_2x2_anchor_fraction": 0.0,
+     "disabled_3x3_anchor_fraction": 0.0,
+     "uncovered_pixel_fraction": 0.0
+    }
+   },
+   "disabled_2x2_anchor_fraction": 0.0
+  },
+  "wall_trigger_s": 22.704943418502808,
+  "n_trigger_rows": 1268,
+  "wall_total_s": 340.4693486690521,
+  "wall_scene_setup_s": 5.2046592235565186,
+  "peak_rss_MB": 517.70703125
+ },
+ "summary": {
+  "n_flashes": 4,
+  "n_detected": 4,
+  "n_detections": 4,
+  "n_false": 0,
+  "n_false_near_flash": 0,
+  "n_particle_triggers": 0,
+  "n_particle_hits": 102,
+  "n_heavy_hits": 21,
+  "per_flash": [
+   {
+    "id": 0,
+    "t_on": 8.670542756060904,
+    "x": 189.78057501841192,
+    "y": 39.18022576743244,
+    "E_J": 10000.0,
+    "tau_s": 0.03,
+    "kind": "exp",
+    "range_km": 3134.419698980241,
+    "electrons": 36886.967186245696,
+    "detected": true,
+    "t_trig": 8.68,
+    "lag_s": 0.00945724393909586,
+    "W": 0.05,
+    "onset_err_s": 0.0016312439390961941,
+    "e_raw_J": 19839.60022533836,
+    "ln_err_raw": 0.685094858727126,
+    "censored": false,
+    "active_s": 4.0,
+    "ln_err_corr": 0.18056141425859631,
+    "outside_training_range": false
+   },
+   {
+    "id": 1,
+    "t_on": 11.957936161329268,
+    "x": 25.90241535128899,
+    "y": 46.816378859142205,
+    "E_J": 20000.0,
+    "tau_s": 0.1,
+    "kind": "exp",
+    "range_km": 3235.653540154757,
+    "electrons": 69177.00495186483,
+    "detected": true,
+    "t_trig": 11.97,
+    "lag_s": 0.012063838670732352,
+    "W": 0.05,
+    "onset_err_s": 0.004660838670730527,
+    "e_raw_J": 20801.016366923417,
+    "ln_err_raw": 0.03926957575387993,
+    "censored": false,
+    "active_s": 4.0,
+    "ln_err_corr": -0.4446246457144102,
+    "outside_training_range": false
+   },
+   {
+    "id": 2,
+    "t_on": 14.607349362907328,
+    "x": 231.0031105076307,
+    "y": 146.52632161182038,
+    "E_J": 40000.0,
+    "tau_s": 0.1,
+    "kind": "exp",
+    "range_km": 3114.3999240352578,
+    "electrons": 149417.22940163742,
+    "detected": true,
+    "t_trig": 14.620000000000001,
+    "lag_s": 0.012650637092672667,
+    "W": 0.05,
+    "onset_err_s": 0.0018366370926710118,
+    "e_raw_J": 46738.430804330324,
+    "ln_err_raw": 0.15568730156905924,
+    "censored": false,
+    "active_s": 4.0,
+    "ln_err_corr": -0.1579324078764344,
+    "outside_training_range": false
+   },
+   {
+    "id": 3,
+    "t_on": 14.902533812972356,
+    "x": 133.39120947902592,
+    "y": 146.21556380599316,
+    "E_J": 100000.0,
+    "tau_s": 0.3,
+    "kind": "exp",
+    "range_km": 3165.1457049835735,
+    "electrons": 361734.83877226064,
+    "detected": true,
+    "t_trig": 14.91,
+    "lag_s": 0.007466187027644011,
+    "W": 0.05,
+    "onset_err_s": 0.0015041870276437663,
+    "e_raw_J": 138295.89202241672,
+    "ln_err_raw": 0.3242253488605322,
+    "censored": false,
+    "active_s": 4.0,
+    "ln_err_corr": 0.18344457671670653,
+    "outside_training_range": false
+   }
+  ]
+ },
+ "flashes": [
+  {
+   "t_on": 8.670542756060904,
+   "x": 189.78057501841192,
+   "y": 39.18022576743244,
+   "E_J": 10000.0,
+   "tau_s": 0.03,
+   "kind": "exp",
+   "id": 0,
+   "range_km": 3134.419698980241,
+   "electrons": 36886.967186245696,
+   "vx": 0.0014597705461483201,
+   "vy": 0.37470789499423063,
+   "norm": 35.55555648726287
+  },
+  {
+   "t_on": 11.957936161329268,
+   "x": 25.90241535128899,
+   "y": 46.816378859142205,
+   "E_J": 20000.0,
+   "tau_s": 0.1,
+   "kind": "exp",
+   "id": 1,
+   "range_km": 3235.653540154757,
+   "electrons": 69177.00495186483,
+   "vx": -0.0015789270563573155,
+   "vy": 0.35329414767284106,
+   "norm": 10.199999988585846
+  },
+  {
+   "t_on": 14.607349362907328,
+   "x": 231.0031105076307,
+   "y": 146.52632161182038,
+   "E_J": 40000.0,
+   "tau_s": 0.1,
+   "kind": "exp",
+   "id": 2,
+   "range_km": 3114.3999240352578,
+   "electrons": 149417.22940163742,
+   "vx": 0.008426748813462837,
+   "vy": 0.3777305182866826,
+   "norm": 10.199999988585846
+  },
+  {
+   "t_on": 14.902533812972356,
+   "x": 133.39120947902592,
+   "y": 146.21556380599316,
+   "E_J": 100000.0,
+   "tau_s": 0.3,
+   "kind": "exp",
+   "id": 3,
+   "range_km": 3165.1457049835735,
+   "electrons": 361734.83877226064,
+   "vx": 0.00424625165658199,
+   "vy": 0.359380911186463,
+   "norm": 3.3555609987384245
+  }
+ ],
+ "particle_hits": [
+  {
+   "id": 0,
+   "t": 16.35661406527887,
+   "heavy": false,
+   "pixels": [
+    [
+     20,
+     32
+    ],
+    [
+     20,
+     33
+    ]
+   ],
+   "deposits_e": [
+    123.45016149493794,
+    105.22629165595058
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.3674856475052829,
+   "cos_theta": 0.9411340212927197
+  },
+  {
+   "id": 1,
+   "t": 1.0481977111733762,
+   "heavy": false,
+   "pixels": [
+    [
+     40,
+     160
+    ],
+    [
+     40,
+     161
+    ]
+   ],
+   "deposits_e": [
+    116.38754179964455,
+    587.6091421903803
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.3504893331203585,
+   "cos_theta": 0.45519220253535975
+  },
+  {
+   "id": 2,
+   "t": 15.90801469905506,
+   "heavy": false,
+   "pixels": [
+    [
+     317,
+     131
+    ],
+    [
+     316,
+     131
+    ],
+    [
+     316,
+     130
+    ]
+   ],
+   "deposits_e": [
+    1259.8166224032716,
+    300.3765146798625,
+    308.31057206562446
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.4341940665425345,
+   "cos_theta": 0.3255204391805554
+  },
+  {
+   "id": 3,
+   "t": 6.154423046213664,
+   "heavy": false,
+   "pixels": [
+    [
+     104,
+     124
+    ]
+   ],
+   "deposits_e": [
+    409.57087632660125
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.32594328693486657,
+   "cos_theta": 0.798998544916279
+  },
+  {
+   "id": 4,
+   "t": 12.34214534126797,
+   "heavy": false,
+   "pixels": [
+    [
+     94,
+     3
+    ],
+    [
+     94,
+     2
+    ],
+    [
+     94,
+     1
+    ]
+   ],
+   "deposits_e": [
+    199.93094840925033,
+    407.29005164121025,
+    828.9077430470322
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.40425876914891895,
+   "cos_theta": 0.3034592677896738
+  },
+  {
+   "id": 5,
+   "t": 16.855845819994194,
+   "heavy": false,
+   "pixels": [
+    [
+     114,
+     14
+    ],
+    [
+     114,
+     15
+    ]
+   ],
+   "deposits_e": [
+    275.05872651338467,
+    13.613364150658333
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.23816621842112848,
+   "cos_theta": 0.7751756635686006
+  },
+  {
+   "id": 6,
+   "t": 4.232767669363462,
+   "heavy": false,
+   "pixels": [
+    [
+     111,
+     129
+    ]
+   ],
+   "deposits_e": [
+    107.49979359973099
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.32429386733955573,
+   "cos_theta": 0.9739869773736476
+  },
+  {
+   "id": 7,
+   "t": 18.178049365800288,
+   "heavy": false,
+   "pixels": [
+    [
+     262,
+     105
+    ]
+   ],
+   "deposits_e": [
+    272.71361446843173
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3646992791452099,
+   "cos_theta": 0.9600777803716264
+  },
+  {
+   "id": 8,
+   "t": 16.09431890888814,
+   "heavy": false,
+   "pixels": [
+    [
+     233,
+     144
+    ],
+    [
+     234,
+     144
+    ]
+   ],
+   "deposits_e": [
+    289.8037438272166,
+    15.157175259929344
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.45077386074510983,
+   "cos_theta": 0.6865575947309899
+  },
+  {
+   "id": 9,
+   "t": 0.3225538108080723,
+   "heavy": false,
+   "pixels": [
+    [
+     289,
+     59
+    ],
+    [
+     290,
+     59
+    ]
+   ],
+   "deposits_e": [
+    395.64744398891673,
+    4.306302367869286
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.32055340522736836,
+   "cos_theta": 0.8297825751997665
+  },
+  {
+   "id": 10,
+   "t": 12.435511792296323,
+   "heavy": false,
+   "pixels": [
+    [
+     112,
+     163
+    ]
+   ],
+   "deposits_e": [
+    171.20363244494376
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3779224780374252,
+   "cos_theta": 0.8685088512221965
+  },
+  {
+   "id": 11,
+   "t": 14.754627700441635,
+   "heavy": false,
+   "pixels": [
+    [
+     176,
+     18
+    ],
+    [
+     175,
+     18
+    ]
+   ],
+   "deposits_e": [
+    1314.4551480450411,
+    1097.9277229836648
+   ],
+   "length_px": 2,
+   "let_keV_um": 2.3871868375350043,
+   "cos_theta": 0.6540397860307149
+  },
+  {
+   "id": 12,
+   "t": 11.371277369433747,
+   "heavy": false,
+   "pixels": [
+    [
+     274,
+     31
+    ],
+    [
+     273,
+     31
+    ]
+   ],
+   "deposits_e": [
+    204.10349130535155,
+    609.4769914252797
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.41751468621843013,
+   "cos_theta": 0.7162614722080698
+  },
+  {
+   "id": 13,
+   "t": 5.8911938622157045,
+   "heavy": false,
+   "pixels": [
+    [
+     7,
+     143
+    ]
+   ],
+   "deposits_e": [
+    85.17255696599108
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.2637551050861256,
+   "cos_theta": 0.9475991220363943
+  },
+  {
+   "id": 14,
+   "t": 12.425073447894153,
+   "heavy": false,
+   "pixels": [
+    [
+     41,
+     41
+    ]
+   ],
+   "deposits_e": [
+    467.44553789524537
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.5199048964945931,
+   "cos_theta": 0.7985588071868425
+  },
+  {
+   "id": 15,
+   "t": 19.821757793727222,
+   "heavy": false,
+   "pixels": [
+    [
+     86,
+     36
+    ],
+    [
+     87,
+     36
+    ],
+    [
+     88,
+     36
+    ],
+    [
+     88,
+     37
+    ]
+   ],
+   "deposits_e": [
+    47.1150312245704,
+    932.6665924641238,
+    1.8490315175183532,
+    145.44991100863476
+   ],
+   "length_px": 4,
+   "let_keV_um": 0.3326237064277693,
+   "cos_theta": 0.3826979665605868
+  },
+  {
+   "id": 16,
+   "t": 9.145230870261654,
+   "heavy": false,
+   "pixels": [
+    [
+     124,
+     54
+    ],
+    [
+     123,
+     54
+    ],
+    [
+     123,
+     53
+    ]
+   ],
+   "deposits_e": [
+    330.77804146773286,
+    153.03602437835727,
+    1.3437367073716855
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.3898723314422722,
+   "cos_theta": 0.7073126610552612
+  },
+  {
+   "id": 17,
+   "t": 15.719651329092514,
+   "heavy": false,
+   "pixels": [
+    [
+     88,
+     40
+    ],
+    [
+     87,
+     40
+    ],
+    [
+     87,
+     39
+    ],
+    [
+     87,
+     38
+    ],
+    [
+     87,
+     37
+    ],
+    [
+     86,
+     37
+    ],
+    [
+     86,
+     36
+    ],
+    [
+     86,
+     35
+    ]
+   ],
+   "deposits_e": [
+    57.561275124523476,
+    415.103865724492,
+    805.026431049037,
+    534.0095684283339,
+    220.68883190712978,
+    1359.8341824766044,
+    1919.979836007091,
+    735.7261888332594
+   ],
+   "length_px": 8,
+   "let_keV_um": 0.6249318238093824,
+   "cos_theta": 0.1161629312421984
+  },
+  {
+   "id": 18,
+   "t": 2.324974995592929,
+   "heavy": false,
+   "pixels": [
+    [
+     198,
+     50
+    ],
+    [
+     199,
+     50
+    ],
+    [
+     200,
+     50
+    ]
+   ],
+   "deposits_e": [
+    47.00461976645935,
+    1083.9982354691517,
+    266.8428759823207
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.45442356857508304,
+   "cos_theta": 0.3737487018097304
+  },
+  {
+   "id": 19,
+   "t": 10.318733568837073,
+   "heavy": true,
+   "pixels": [
+    [
+     268,
+     112
+    ],
+    [
+     268,
+     111
+    ],
+    [
+     268,
+     110
+    ]
+   ],
+   "deposits_e": [
+    5245.0350111710595,
+    22788.079027482014,
+    10946.941516798966
+   ],
+   "length_px": 3,
+   "let_keV_um": 14.123588568782845,
+   "cos_theta": 0.35187868516284443
+  },
+  {
+   "id": 20,
+   "t": 16.94463510080318,
+   "heavy": true,
+   "pixels": [
+    [
+     24,
+     76
+    ],
+    [
+     24,
+     77
+    ],
+    [
+     23,
+     77
+    ],
+    [
+     23,
+     78
+    ],
+    [
+     22,
+     78
+    ]
+   ],
+   "deposits_e": [
+    4174.234303702891,
+    1487.179656893458,
+    2174.787823528868,
+    2139.1406498884025,
+    2025.7874611832146
+   ],
+   "length_px": 5,
+   "let_keV_um": 2.381172244072052,
+   "cos_theta": 0.16673447645524186
+  },
+  {
+   "id": 21,
+   "t": 9.213550079771686,
+   "heavy": true,
+   "pixels": [
+    [
+     159,
+     86
+    ]
+   ],
+   "deposits_e": [
+    2303.343522031917
+   ],
+   "length_px": 1,
+   "let_keV_um": 1.6349164286219535,
+   "cos_theta": 0.9286536066166378
+  },
+  {
+   "id": 22,
+   "t": 12.503272410269918,
+   "heavy": false,
+   "pixels": [
+    [
+     207,
+     13
+    ],
+    [
+     207,
+     12
+    ]
+   ],
+   "deposits_e": [
+    215.1577204799531,
+    559.0214407789671
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.4435598968951869,
+   "cos_theta": 0.9302219808617612
+  },
+  {
+   "id": 23,
+   "t": 5.986526381301053,
+   "heavy": false,
+   "pixels": [
+    [
+     59,
+     149
+    ],
+    [
+     60,
+     149
+    ]
+   ],
+   "deposits_e": [
+    680.6243444719327,
+    79.15171105685664
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.38251841095010297,
+   "cos_theta": 0.5887509248360495
+  },
+  {
+   "id": 24,
+   "t": 13.18789057990671,
+   "heavy": false,
+   "pixels": [
+    [
+     190,
+     0
+    ],
+    [
+     189,
+     0
+    ]
+   ],
+   "deposits_e": [
+    106.44836623211086,
+    130.7112351462573
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.49749863361513086,
+   "cos_theta": 0.90090225036432
+  },
+  {
+   "id": 25,
+   "t": 12.864686548565158,
+   "heavy": true,
+   "pixels": [
+    [
+     68,
+     99
+    ]
+   ],
+   "deposits_e": [
+    2298.0034224273186
+   ],
+   "length_px": 1,
+   "let_keV_um": 2.5773065880913357,
+   "cos_theta": 0.967174331556549
+  },
+  {
+   "id": 26,
+   "t": 14.095156993727047,
+   "heavy": false,
+   "pixels": [
+    [
+     158,
+     92
+    ]
+   ],
+   "deposits_e": [
+    182.39309852871085
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.24037350189257192,
+   "cos_theta": 0.9344879998320949
+  },
+  {
+   "id": 27,
+   "t": 8.05431885307037,
+   "heavy": false,
+   "pixels": [
+    [
+     41,
+     110
+    ]
+   ],
+   "deposits_e": [
+    290.2084340078294
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.24221516719917638,
+   "cos_theta": 0.9376777450891601
+  },
+  {
+   "id": 28,
+   "t": 7.23286552439757,
+   "heavy": false,
+   "pixels": [
+    [
+     4,
+     102
+    ],
+    [
+     5,
+     102
+    ]
+   ],
+   "deposits_e": [
+    1210.4085696820086,
+    162.42913587423897
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.7700870509726151,
+   "cos_theta": 0.49598678634340004
+  },
+  {
+   "id": 29,
+   "t": 4.075294310435711,
+   "heavy": false,
+   "pixels": [
+    [
+     82,
+     12
+    ],
+    [
+     82,
+     11
+    ]
+   ],
+   "deposits_e": [
+    113.3458307194029,
+    452.13603479292857
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.39223797860870757,
+   "cos_theta": 0.6517062047867511
+  },
+  {
+   "id": 30,
+   "t": 16.329590112337915,
+   "heavy": false,
+   "pixels": [
+    [
+     265,
+     70
+    ],
+    [
+     265,
+     71
+    ]
+   ],
+   "deposits_e": [
+    293.40500577884507,
+    201.84204738792045
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.22912467654468405,
+   "cos_theta": 0.4437908979937507
+  },
+  {
+   "id": 31,
+   "t": 7.930515559041797,
+   "heavy": false,
+   "pixels": [
+    [
+     203,
+     126
+    ],
+    [
+     203,
+     127
+    ],
+    [
+     203,
+     128
+    ]
+   ],
+   "deposits_e": [
+    0.6774547214271995,
+    468.4518139044691,
+    48.303175904072845
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.263377485075973,
+   "cos_theta": 0.417250955878445
+  },
+  {
+   "id": 32,
+   "t": 9.241356202425733,
+   "heavy": true,
+   "pixels": [
+    [
+     188,
+     162
+    ],
+    [
+     188,
+     161
+    ]
+   ],
+   "deposits_e": [
+    4576.85405395972,
+    530.1132832098526
+   ],
+   "length_px": 2,
+   "let_keV_um": 4.2452313141117335,
+   "cos_theta": 0.8049849425988136
+  },
+  {
+   "id": 33,
+   "t": 19.812767891885226,
+   "heavy": false,
+   "pixels": [
+    [
+     32,
+     126
+    ],
+    [
+     32,
+     127
+    ],
+    [
+     31,
+     127
+    ]
+   ],
+   "deposits_e": [
+    523.7356946455152,
+    10.065296448732933,
+    231.62558384831522
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.5661702752138054,
+   "cos_theta": 0.7982989347992577
+  },
+  {
+   "id": 34,
+   "t": 12.48526290117168,
+   "heavy": true,
+   "pixels": [
+    [
+     5,
+     82
+    ],
+    [
+     4,
+     82
+    ]
+   ],
+   "deposits_e": [
+    683.6578035680348,
+    3647.205220421535
+   ],
+   "length_px": 2,
+   "let_keV_um": 2.758544468551953,
+   "cos_theta": 0.8522654730187826
+  },
+  {
+   "id": 35,
+   "t": 0.41798309199098777,
+   "heavy": false,
+   "pixels": [
+    [
+     5,
+     131
+    ],
+    [
+     5,
+     130
+    ]
+   ],
+   "deposits_e": [
+    153.5292388149047,
+    0.6303562468567767
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.24369404342091058,
+   "cos_theta": 0.8030306917053394
+  },
+  {
+   "id": 36,
+   "t": 17.3070585697513,
+   "heavy": true,
+   "pixels": [
+    [
+     137,
+     170
+    ],
+    [
+     137,
+     171
+    ]
+   ],
+   "deposits_e": [
+    1005.7001833209711,
+    4937.955393553739
+   ],
+   "length_px": 2,
+   "let_keV_um": 2.291568483034522,
+   "cos_theta": 0.469884879934468
+  },
+  {
+   "id": 37,
+   "t": 0.9192061370965764,
+   "heavy": false,
+   "pixels": [
+    [
+     308,
+     158
+    ],
+    [
+     309,
+     158
+    ],
+    [
+     309,
+     159
+    ],
+    [
+     310,
+     159
+    ],
+    [
+     311,
+     159
+    ]
+   ],
+   "deposits_e": [
+    314.5004549666556,
+    53.999709526969845,
+    389.93548456994847,
+    255.20670211808365,
+    286.9542762611691
+   ],
+   "length_px": 5,
+   "let_keV_um": 0.28556766851596577,
+   "cos_theta": 0.17010593769334795
+  },
+  {
+   "id": 38,
+   "t": 13.760609840342203,
+   "heavy": false,
+   "pixels": [
+    [
+     208,
+     62
+    ],
+    [
+     208,
+     61
+    ]
+   ],
+   "deposits_e": [
+    203.656308641666,
+    250.19027460743334
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.24205300529132762,
+   "cos_theta": 0.5694449916965816
+  },
+  {
+   "id": 39,
+   "t": 19.690078474176033,
+   "heavy": false,
+   "pixels": [
+    [
+     66,
+     36
+    ],
+    [
+     66,
+     35
+    ]
+   ],
+   "deposits_e": [
+    128.1491860269643,
+    69.96308534062432
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.2439898488817351,
+   "cos_theta": 0.9751880217385317
+  },
+  {
+   "id": 40,
+   "t": 13.297083819140886,
+   "heavy": false,
+   "pixels": [
+    [
+     293,
+     170
+    ],
+    [
+     292,
+     170
+    ]
+   ],
+   "deposits_e": [
+    314.5175406587472,
+    149.85968996196482
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.34969147355909763,
+   "cos_theta": 0.9058581024460842
+  },
+  {
+   "id": 41,
+   "t": 14.315796193290112,
+   "heavy": false,
+   "pixels": [
+    [
+     125,
+     96
+    ]
+   ],
+   "deposits_e": [
+    163.64272440369393
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.21753903380181724,
+   "cos_theta": 0.6781798195560785
+  },
+  {
+   "id": 42,
+   "t": 13.339429336090927,
+   "heavy": false,
+   "pixels": [
+    [
+     71,
+     38
+    ]
+   ],
+   "deposits_e": [
+    644.1171105901883
+   ],
+   "length_px": 1,
+   "let_keV_um": 1.2625342882278296,
+   "cos_theta": 0.8851057496722521
+  },
+  {
+   "id": 43,
+   "t": 5.211941320739406,
+   "heavy": false,
+   "pixels": [
+    [
+     278,
+     164
+    ]
+   ],
+   "deposits_e": [
+    1034.0914925175446
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.9736520921289892,
+   "cos_theta": 0.6635496878475063
+  },
+  {
+   "id": 44,
+   "t": 15.23728013999616,
+   "heavy": false,
+   "pixels": [
+    [
+     140,
+     164
+    ]
+   ],
+   "deposits_e": [
+    134.6413789948789
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.39716126369927257,
+   "cos_theta": 0.720397077705916
+  },
+  {
+   "id": 45,
+   "t": 6.860904653085355,
+   "heavy": true,
+   "pixels": [
+    [
+     257,
+     49
+    ],
+    [
+     258,
+     49
+    ],
+    [
+     258,
+     48
+    ]
+   ],
+   "deposits_e": [
+    38.69416287921939,
+    157.41383418717726,
+    2586.6463249606277
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.6559838343737224,
+   "cos_theta": 0.4721469664573965
+  },
+  {
+   "id": 46,
+   "t": 11.604868559795031,
+   "heavy": false,
+   "pixels": [
+    [
+     26,
+     62
+    ],
+    [
+     26,
+     61
+    ]
+   ],
+   "deposits_e": [
+    628.7256233794037,
+    45.465459465917924
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.27267435634472553,
+   "cos_theta": 0.6276956628705187
+  },
+  {
+   "id": 47,
+   "t": 12.87724488750041,
+   "heavy": false,
+   "pixels": [
+    [
+     179,
+     59
+    ]
+   ],
+   "deposits_e": [
+    734.4355727176487
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3265577922686256,
+   "cos_theta": 0.8213434092574196
+  },
+  {
+   "id": 48,
+   "t": 13.506158475225686,
+   "heavy": true,
+   "pixels": [
+    [
+     275,
+     162
+    ],
+    [
+     275,
+     163
+    ]
+   ],
+   "deposits_e": [
+    2242.5867780020244,
+    695.3343403198373
+   ],
+   "length_px": 2,
+   "let_keV_um": 1.2248359510001516,
+   "cos_theta": 0.41802394658709047
+  },
+  {
+   "id": 49,
+   "t": 16.680798508946186,
+   "heavy": false,
+   "pixels": [
+    [
+     103,
+     136
+    ]
+   ],
+   "deposits_e": [
+    654.4189500164658
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.4513165431849743,
+   "cos_theta": 0.8628215648306512
+  },
+  {
+   "id": 50,
+   "t": 12.463629965246641,
+   "heavy": false,
+   "pixels": [
+    [
+     241,
+     116
+    ],
+    [
+     241,
+     117
+    ],
+    [
+     242,
+     117
+    ]
+   ],
+   "deposits_e": [
+    226.00073990321508,
+    559.5658483545895,
+    60.93819862395071
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.7731843550591533,
+   "cos_theta": 0.42436407637826945
+  },
+  {
+   "id": 51,
+   "t": 0.5851343449449175,
+   "heavy": true,
+   "pixels": [
+    [
+     293,
+     67
+    ]
+   ],
+   "deposits_e": [
+    5020.836033171277
+   ],
+   "length_px": 1,
+   "let_keV_um": 5.2307682848732195,
+   "cos_theta": 0.8459865701427355
+  },
+  {
+   "id": 52,
+   "t": 7.669916548911666,
+   "heavy": true,
+   "pixels": [
+    [
+     163,
+     162
+    ]
+   ],
+   "deposits_e": [
+    2554.9094680732087
+   ],
+   "length_px": 1,
+   "let_keV_um": 2.144991316062246,
+   "cos_theta": 0.8405660603904445
+  },
+  {
+   "id": 53,
+   "t": 1.7931925510892524,
+   "heavy": false,
+   "pixels": [
+    [
+     15,
+     170
+    ],
+    [
+     14,
+     170
+    ],
+    [
+     13,
+     170
+    ]
+   ],
+   "deposits_e": [
+    46.053653967101525,
+    265.4032379132654,
+    306.90190736686134
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.2197726282372366,
+   "cos_theta": 0.3174025715179164
+  },
+  {
+   "id": 54,
+   "t": 9.391963745660524,
+   "heavy": true,
+   "pixels": [
+    [
+     142,
+     11
+    ],
+    [
+     142,
+     12
+    ]
+   ],
+   "deposits_e": [
+    1511.4028533350229,
+    6919.7987037177245
+   ],
+   "length_px": 2,
+   "let_keV_um": 18.785399795008132,
+   "cos_theta": 0.7609896732940845
+  },
+  {
+   "id": 55,
+   "t": 10.162922399158129,
+   "heavy": false,
+   "pixels": [
+    [
+     259,
+     63
+    ],
+    [
+     259,
+     62
+    ]
+   ],
+   "deposits_e": [
+    177.44332064333383,
+    360.88426762789567
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.3286346209556426,
+   "cos_theta": 0.5347960335741625
+  },
+  {
+   "id": 56,
+   "t": 12.94077835943725,
+   "heavy": false,
+   "pixels": [
+    [
+     74,
+     103
+    ],
+    [
+     74,
+     102
+    ]
+   ],
+   "deposits_e": [
+    153.18714248602404,
+    340.5480075936224
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.31656264144641477,
+   "cos_theta": 0.7140227816016882
+  },
+  {
+   "id": 57,
+   "t": 13.098527877300652,
+   "heavy": false,
+   "pixels": [
+    [
+     124,
+     100
+    ],
+    [
+     124,
+     101
+    ]
+   ],
+   "deposits_e": [
+    179.0963058892199,
+    161.1840464832543
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.3900182349994372,
+   "cos_theta": 0.6223191701642591
+  },
+  {
+   "id": 58,
+   "t": 6.38215747520056,
+   "heavy": false,
+   "pixels": [
+    [
+     142,
+     107
+    ]
+   ],
+   "deposits_e": [
+    191.40229354919305
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3587625643279212,
+   "cos_theta": 0.7030824840228427
+  },
+  {
+   "id": 59,
+   "t": 13.819671310711914,
+   "heavy": false,
+   "pixels": [
+    [
+     253,
+     137
+    ]
+   ],
+   "deposits_e": [
+    204.0669597485818
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.29181525751221765,
+   "cos_theta": 0.9410884991762983
+  },
+  {
+   "id": 60,
+   "t": 11.84102035284816,
+   "heavy": false,
+   "pixels": [
+    [
+     269,
+     94
+    ]
+   ],
+   "deposits_e": [
+    364.0410274910278
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.32913264486711213,
+   "cos_theta": 0.7211541352918895
+  },
+  {
+   "id": 61,
+   "t": 19.428873097354447,
+   "heavy": true,
+   "pixels": [
+    [
+     11,
+     22
+    ],
+    [
+     12,
+     22
+    ]
+   ],
+   "deposits_e": [
+    3912.2267944219516,
+    11.947938855423297
+   ],
+   "length_px": 2,
+   "let_keV_um": 3.477163477347567,
+   "cos_theta": 0.8839961080495364
+  },
+  {
+   "id": 62,
+   "t": 1.500488225221954,
+   "heavy": true,
+   "pixels": [
+    [
+     11,
+     179
+    ],
+    [
+     10,
+     179
+    ]
+   ],
+   "deposits_e": [
+    2932.5192679238457,
+    1012.4904683693329
+   ],
+   "length_px": 2,
+   "let_keV_um": 4.140065507367526,
+   "cos_theta": 0.600442867458646
+  },
+  {
+   "id": 63,
+   "t": 15.424862817637319,
+   "heavy": false,
+   "pixels": [
+    [
+     317,
+     19
+    ]
+   ],
+   "deposits_e": [
+    976.7478913286617
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.8917885052993128,
+   "cos_theta": 0.7188832402374161
+  },
+  {
+   "id": 64,
+   "t": 9.81176498067987,
+   "heavy": true,
+   "pixels": [
+    [
+     102,
+     143
+    ],
+    [
+     102,
+     144
+    ],
+    [
+     103,
+     144
+    ],
+    [
+     104,
+     144
+    ],
+    [
+     104,
+     145
+    ]
+   ],
+   "deposits_e": [
+    200.31545600997316,
+    398.0929612548289,
+    2806.056750951274,
+    492.8578885020772,
+    637.8552496110418
+   ],
+   "length_px": 5,
+   "let_keV_um": 1.6367098248612582,
+   "cos_theta": 0.30070416242124964
+  },
+  {
+   "id": 65,
+   "t": 2.917690312916031,
+   "heavy": false,
+   "pixels": [
+    [
+     115,
+     148
+    ]
+   ],
+   "deposits_e": [
+    1990.5432147689303
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.33813273621789497,
+   "cos_theta": 0.9701674415101372
+  },
+  {
+   "id": 66,
+   "t": 17.62426194725738,
+   "heavy": false,
+   "pixels": [
+    [
+     269,
+     139
+    ]
+   ],
+   "deposits_e": [
+    927.6378587864899
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.7312872007236104,
+   "cos_theta": 0.8790293798779147
+  },
+  {
+   "id": 67,
+   "t": 13.862226077204124,
+   "heavy": true,
+   "pixels": [
+    [
+     74,
+     62
+    ],
+    [
+     74,
+     63
+    ]
+   ],
+   "deposits_e": [
+    2029.6786616058698,
+    2787.9669434576467
+   ],
+   "length_px": 2,
+   "let_keV_um": 5.190655553057634,
+   "cos_theta": 0.7002138199330752
+  },
+  {
+   "id": 68,
+   "t": 6.938258622792058,
+   "heavy": false,
+   "pixels": [
+    [
+     269,
+     65
+    ],
+    [
+     268,
+     65
+    ]
+   ],
+   "deposits_e": [
+    1620.513538589962,
+    251.74428051390058
+   ],
+   "length_px": 2,
+   "let_keV_um": 1.3796684943326154,
+   "cos_theta": 0.693708106461483
+  },
+  {
+   "id": 69,
+   "t": 8.432126190574625,
+   "heavy": false,
+   "pixels": [
+    [
+     70,
+     172
+    ],
+    [
+     69,
+     172
+    ]
+   ],
+   "deposits_e": [
+    552.5942719515365,
+    232.05642462851975
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.4459049100500201,
+   "cos_theta": 0.665991946137633
+  },
+  {
+   "id": 70,
+   "t": 1.3603483953471736,
+   "heavy": false,
+   "pixels": [
+    [
+     146,
+     164
+    ]
+   ],
+   "deposits_e": [
+    372.1900940428836
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.4090758956678942,
+   "cos_theta": 0.8373239121933962
+  },
+  {
+   "id": 71,
+   "t": 17.157560696361557,
+   "heavy": true,
+   "pixels": [
+    [
+     16,
+     70
+    ]
+   ],
+   "deposits_e": [
+    3581.53093456457
+   ],
+   "length_px": 1,
+   "let_keV_um": 2.281330952890178,
+   "cos_theta": 0.7884289894323011
+  },
+  {
+   "id": 72,
+   "t": 10.924375386529945,
+   "heavy": false,
+   "pixels": [
+    [
+     100,
+     174
+    ]
+   ],
+   "deposits_e": [
+    126.70957616531257
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3453486903426487,
+   "cos_theta": 0.9769709739081825
+  },
+  {
+   "id": 73,
+   "t": 15.159489141098359,
+   "heavy": false,
+   "pixels": [
+    [
+     266,
+     93
+    ],
+    [
+     265,
+     93
+    ],
+    [
+     265,
+     92
+    ],
+    [
+     264,
+     92
+    ],
+    [
+     264,
+     91
+    ]
+   ],
+   "deposits_e": [
+    236.89887254897275,
+    52.794851110645084,
+    203.04323983088742,
+    155.8728838116253,
+    57.09819997813851
+   ],
+   "length_px": 5,
+   "let_keV_um": 0.2812692195333902,
+   "cos_theta": 0.23535468609183086
+  },
+  {
+   "id": 74,
+   "t": 3.1539690353509813,
+   "heavy": false,
+   "pixels": [
+    [
+     242,
+     7
+    ]
+   ],
+   "deposits_e": [
+    705.538532985564
+   ],
+   "length_px": 1,
+   "let_keV_um": 1.100274914520839,
+   "cos_theta": 0.8389064691832758
+  },
+  {
+   "id": 75,
+   "t": 13.542953008345146,
+   "heavy": false,
+   "pixels": [
+    [
+     165,
+     20
+    ],
+    [
+     165,
+     21
+    ]
+   ],
+   "deposits_e": [
+    375.5557446950635,
+    13.71784193563333
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.5413313241798502,
+   "cos_theta": 0.96945410098062
+  },
+  {
+   "id": 76,
+   "t": 2.4503732646598237,
+   "heavy": false,
+   "pixels": [
+    [
+     49,
+     124
+    ]
+   ],
+   "deposits_e": [
+    229.11960779275023
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.2543230269979717,
+   "cos_theta": 0.8079463983687741
+  },
+  {
+   "id": 77,
+   "t": 9.63439855775963,
+   "heavy": false,
+   "pixels": [
+    [
+     269,
+     130
+    ],
+    [
+     270,
+     130
+    ]
+   ],
+   "deposits_e": [
+    517.1640408285888,
+    388.5811547948932
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.4347608143750573,
+   "cos_theta": 0.34421408444412604
+  },
+  {
+   "id": 78,
+   "t": 10.697443165172876,
+   "heavy": false,
+   "pixels": [
+    [
+     80,
+     122
+    ],
+    [
+     80,
+     123
+    ]
+   ],
+   "deposits_e": [
+    551.7302748239497,
+    102.27925307162984
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.48316914431266683,
+   "cos_theta": 0.8396257759899162
+  },
+  {
+   "id": 79,
+   "t": 13.80248472540119,
+   "heavy": false,
+   "pixels": [
+    [
+     63,
+     134
+    ],
+    [
+     63,
+     133
+    ],
+    [
+     63,
+     132
+    ]
+   ],
+   "deposits_e": [
+    127.48192610876933,
+    565.7823946517441,
+    47.85218188462377
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.2837989795613842,
+   "cos_theta": 0.35645192057858566
+  },
+  {
+   "id": 80,
+   "t": 5.902793826975617,
+   "heavy": false,
+   "pixels": [
+    [
+     0,
+     141
+    ],
+    [
+     0,
+     140
+    ]
+   ],
+   "deposits_e": [
+    484.53219481371804,
+    218.14487787213488
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.44342263719496094,
+   "cos_theta": 0.4920018659284903
+  },
+  {
+   "id": 81,
+   "t": 5.328290405236425,
+   "heavy": false,
+   "pixels": [
+    [
+     27,
+     68
+    ],
+    [
+     27,
+     69
+    ]
+   ],
+   "deposits_e": [
+    434.095424320965,
+    782.2015623958785
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.5769808928720973,
+   "cos_theta": 0.40919773572463103
+  },
+  {
+   "id": 82,
+   "t": 5.551767650639141,
+   "heavy": true,
+   "pixels": [
+    [
+     68,
+     123
+    ]
+   ],
+   "deposits_e": [
+    3330.7471288541005
+   ],
+   "length_px": 1,
+   "let_keV_um": 2.3163299005843703,
+   "cos_theta": 0.7682882914416735
+  },
+  {
+   "id": 83,
+   "t": 9.633189140139905,
+   "heavy": false,
+   "pixels": [
+    [
+     237,
+     53
+    ],
+    [
+     238,
+     53
+    ]
+   ],
+   "deposits_e": [
+    81.41750401994881,
+    305.85581008874334
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.2420118111148964,
+   "cos_theta": 0.54075557036762
+  },
+  {
+   "id": 84,
+   "t": 4.733963061211627,
+   "heavy": false,
+   "pixels": [
+    [
+     109,
+     67
+    ],
+    [
+     110,
+     67
+    ],
+    [
+     110,
+     66
+    ]
+   ],
+   "deposits_e": [
+    11.02030685242953,
+    251.2585109421046,
+    56.381632806745365
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.32102526289018074,
+   "cos_theta": 0.6235037025393297
+  },
+  {
+   "id": 85,
+   "t": 19.95478525504788,
+   "heavy": false,
+   "pixels": [
+    [
+     112,
+     154
+    ],
+    [
+     111,
+     154
+    ]
+   ],
+   "deposits_e": [
+    145.5029247717984,
+    1186.2113068011522
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.5776035492685284,
+   "cos_theta": 0.5875127411296477
+  },
+  {
+   "id": 86,
+   "t": 11.138011036026525,
+   "heavy": false,
+   "pixels": [
+    [
+     132,
+     79
+    ],
+    [
+     133,
+     79
+    ]
+   ],
+   "deposits_e": [
+    292.1817093055292,
+    403.7572625744151
+   ],
+   "length_px": 2,
+   "let_keV_um": 1.5339404799443583,
+   "cos_theta": 0.9974172884013445
+  },
+  {
+   "id": 87,
+   "t": 17.68852878176177,
+   "heavy": false,
+   "pixels": [
+    [
+     38,
+     135
+    ]
+   ],
+   "deposits_e": [
+    536.9651753495505
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3926062012308532,
+   "cos_theta": 0.92450525163318
+  },
+  {
+   "id": 88,
+   "t": 0.11028892380949533,
+   "heavy": false,
+   "pixels": [
+    [
+     42,
+     39
+    ],
+    [
+     41,
+     39
+    ],
+    [
+     40,
+     39
+    ],
+    [
+     39,
+     39
+    ],
+    [
+     38,
+     39
+    ]
+   ],
+   "deposits_e": [
+    160.33250379101287,
+    455.8329190099352,
+    343.71116182354547,
+    685.8425378097191,
+    410.9948097785729
+   ],
+   "length_px": 5,
+   "let_keV_um": 0.5547438361045441,
+   "cos_theta": 0.15522395742205414
+  },
+  {
+   "id": 89,
+   "t": 12.479437705647918,
+   "heavy": false,
+   "pixels": [
+    [
+     304,
+     86
+    ]
+   ],
+   "deposits_e": [
+    223.70709920898724
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.451009285310877,
+   "cos_theta": 0.793444168303731
+  },
+  {
+   "id": 90,
+   "t": 6.218350773112056,
+   "heavy": true,
+   "pixels": [
+    [
+     50,
+     22
+    ]
+   ],
+   "deposits_e": [
+    2588.3229200218
+   ],
+   "length_px": 1,
+   "let_keV_um": 1.9976750857811532,
+   "cos_theta": 0.897879720369403
+  },
+  {
+   "id": 91,
+   "t": 3.448274481016756,
+   "heavy": false,
+   "pixels": [
+    [
+     284,
+     101
+    ],
+    [
+     283,
+     101
+    ]
+   ],
+   "deposits_e": [
+    173.7819168398332,
+    414.4523809681727
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.43364863941467496,
+   "cos_theta": 0.5187977227717031
+  },
+  {
+   "id": 92,
+   "t": 17.275628456104794,
+   "heavy": false,
+   "pixels": [
+    [
+     258,
+     122
+    ],
+    [
+     258,
+     123
+    ],
+    [
+     258,
+     124
+    ]
+   ],
+   "deposits_e": [
+    12.557110553127345,
+    555.0523332124596,
+    128.42598949026313
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.2819992988192247,
+   "cos_theta": 0.454700468333114
+  },
+  {
+   "id": 93,
+   "t": 4.655831381943208,
+   "heavy": false,
+   "pixels": [
+    [
+     199,
+     11
+    ]
+   ],
+   "deposits_e": [
+    391.6772005826068
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3528530386486596,
+   "cos_theta": 0.7337755847646779
+  },
+  {
+   "id": 94,
+   "t": 10.17614078707767,
+   "heavy": true,
+   "pixels": [
+    [
+     132,
+     126
+    ],
+    [
+     132,
+     125
+    ],
+    [
+     131,
+     125
+    ],
+    [
+     131,
+     124
+    ],
+    [
+     130,
+     124
+    ]
+   ],
+   "deposits_e": [
+    14.663654036898171,
+    48.880575002061214,
+    2226.0600496245074,
+    371.8612435930765,
+    415.69066310835643
+   ],
+   "length_px": 5,
+   "let_keV_um": 0.2676928253776545,
+   "cos_theta": 0.25991538461240116
+  },
+  {
+   "id": 95,
+   "t": 1.1016247498316953,
+   "heavy": false,
+   "pixels": [
+    [
+     247,
+     91
+    ],
+    [
+     246,
+     91
+    ]
+   ],
+   "deposits_e": [
+    392.7883039450546,
+    603.7778424270392
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.4212071577443998,
+   "cos_theta": 0.44179327094327314
+  },
+  {
+   "id": 96,
+   "t": 9.2346186723171,
+   "heavy": false,
+   "pixels": [
+    [
+     62,
+     102
+    ]
+   ],
+   "deposits_e": [
+    1559.2855055606694
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.9471849534033788,
+   "cos_theta": 0.7663719651644377
+  },
+  {
+   "id": 97,
+   "t": 5.412270629154094,
+   "heavy": false,
+   "pixels": [
+    [
+     118,
+     8
+    ],
+    [
+     118,
+     9
+    ],
+    [
+     118,
+     10
+    ],
+    [
+     118,
+     11
+    ]
+   ],
+   "deposits_e": [
+    28.110999214422296,
+    1263.3168142435006,
+    1234.425187770418,
+    17.121692460770017
+   ],
+   "length_px": 4,
+   "let_keV_um": 0.5759558483549301,
+   "cos_theta": 0.2822582233778976
+  },
+  {
+   "id": 98,
+   "t": 6.923755987832872,
+   "heavy": false,
+   "pixels": [
+    [
+     271,
+     28
+    ],
+    [
+     271,
+     29
+    ]
+   ],
+   "deposits_e": [
+    1464.1476365806561,
+    109.12399081300747
+   ],
+   "length_px": 2,
+   "let_keV_um": 0.4918297929193039,
+   "cos_theta": 0.5498088479763931
+  },
+  {
+   "id": 99,
+   "t": 15.442961362056975,
+   "heavy": false,
+   "pixels": [
+    [
+     290,
+     148
+    ]
+   ],
+   "deposits_e": [
+    293.3331495387285
+   ],
+   "length_px": 1,
+   "let_keV_um": 0.3107509395361598,
+   "cos_theta": 0.8389966569491895
+  },
+  {
+   "id": 100,
+   "t": 4.271212237601448,
+   "heavy": false,
+   "pixels": [
+    [
+     243,
+     96
+    ],
+    [
+     243,
+     97
+    ],
+    [
+     243,
+     98
+    ]
+   ],
+   "deposits_e": [
+    3.1276299714115714,
+    766.1121393995112,
+    198.08543862157288
+   ],
+   "length_px": 3,
+   "let_keV_um": 0.25689810686440223,
+   "cos_theta": 0.40232990750137587
+  },
+  {
+   "id": 101,
+   "t": 9.64254652534244,
+   "heavy": true,
+   "pixels": [
+    [
+     77,
+     58
+    ]
+   ],
+   "deposits_e": [
+    3716.3920841646523
+   ],
+   "length_px": 1,
+   "let_keV_um": 1.9452219645911804,
+   "cos_theta": 0.9168649397041175
+  }
+ ],
+ "detections": [
+  {
+   "t_trig": 8.68,
+   "W": 0.05,
+   "size": 2,
+   "ax": 189,
+   "ay": 38,
+   "x": 190.0,
+   "y": 39.0,
+   "count": 11,
+   "n_triggers": 253,
+   "label": "flash",
+   "match": 0,
+   "energy": {
+    "onset_est": 8.672174,
+    "e_raw_J": 19839.60022533836,
+    "active_s": 4.0,
+    "peak": 2.7431182613410456,
+    "npix": 7,
+    "bg_est": 6988.432366046662,
+    "patch": [
+     188,
+     37
+    ],
+    "range_km": 3134.189408142883,
+    "field_gain": 0.9998384156570737,
+    "censored": false,
+    "observed_s": 4.0,
+    "record_end_s": 20.0,
+    "e_corr_J": 11978.896867284764,
+    "outside_training_range": false
+   }
+  },
+  {
+   "t_trig": 11.97,
+   "W": 0.05,
+   "size": 2,
+   "ax": 25,
+   "ay": 46,
+   "x": 26.0,
+   "y": 47.0,
+   "count": 8,
+   "n_triggers": 219,
+   "label": "flash",
+   "match": 1,
+   "energy": {
+    "onset_est": 11.962596999999999,
+    "e_raw_J": 20801.016366923417,
+    "active_s": 4.0,
+    "peak": 2.3024076676172385,
+    "npix": 8,
+    "bg_est": 6360.759549369135,
+    "patch": [
+     24,
+     45
+    ],
+    "range_km": 3235.2621643700154,
+    "field_gain": 0.999087490637941,
+    "censored": false,
+    "observed_s": 4.0,
+    "record_end_s": 20.0,
+    "e_corr_J": 12821.297146388428,
+    "outside_training_range": false
+   }
+  },
+  {
+   "t_trig": 14.620000000000001,
+   "W": 0.05,
+   "size": 2,
+   "ax": 230,
+   "ay": 145,
+   "x": 231.0,
+   "y": 146.0,
+   "count": 18,
+   "n_triggers": 377,
+   "label": "flash",
+   "match": 2,
+   "energy": {
+    "onset_est": 14.609186,
+    "e_raw_J": 46738.430804330324,
+    "active_s": 4.0,
+    "peak": 3.932112280050879,
+    "npix": 10,
+    "bg_est": 6421.271697878238,
+    "patch": [
+     229,
+     145
+    ],
+    "range_km": 3114.655221204218,
+    "field_gain": 0.9996176696396686,
+    "censored": false,
+    "observed_s": 4.0,
+    "record_end_s": 20.0,
+    "e_corr_J": 34156.29989755939,
+    "outside_training_range": false
+   }
+  },
+  {
+   "t_trig": 14.91,
+   "W": 0.05,
+   "size": 2,
+   "ax": 132,
+   "ay": 145,
+   "x": 133.0,
+   "y": 146.0,
+   "count": 9,
+   "n_triggers": 419,
+   "label": "flash",
+   "match": 3,
+   "energy": {
+    "onset_est": 14.904038,
+    "e_raw_J": 138295.89202241672,
+    "active_s": 4.0,
+    "peak": 4.282064161180976,
+    "npix": 10,
+    "bg_est": 6680.078951601165,
+    "patch": [
+     131,
+     144
+    ],
+    "range_km": 3165.4116416951792,
+    "field_gain": 0.9998216321647941,
+    "censored": false,
+    "observed_s": 4.0,
+    "record_end_s": 20.0,
+    "e_corr_J": 120134.83808948947,
+    "outside_training_range": false
+   }
+  }
+ ],
+ "trigger": {
+  "case": "m636",
+  "model": "fixed",
+  "mode": "compute",
+  "group_bg": "hetero",
+  "bin_ln": 0.2,
+  "lit_limit": 100000.0,
+  "lit_margin_px": 2,
+  "null_model_sensor": {
+   "tau_ref": 0.00027,
+   "C": 0.25,
+   "dark_fA": 1.1,
+   "r_ba": 0.03,
+   "tau_cap": 1.0,
+   "law": "linear",
+   "ba_m": 1.0,
+   "ba_f": 0.0,
+   "ba_h": 1.0,
+   "ba_sigma": 0.5,
+   "ap_m": 0.016,
+   "n_heads": 6,
+   "ba_mask": 0.02
+  },
+  "mapped_differences": {
+   "ba_mask": {
+    "null_model": 0.02,
+    "simulated": 0.0
+   }
+  },
+  "mapped_adapted": false,
+  "unmapped_differences": {
+   "photoreceptor.integrator": {
+    "s10_equivalent": "euler_s10",
+    "simulated": "exponential"
+   },
+   "photoreceptor.tau_min_s": {
+    "s10_equivalent": 0.0005,
+    "simulated": 1e-05
+   },
+   "photoreceptor.adaptive_substeps": {
+    "s10_equivalent": false,
+    "simulated": true
+   },
+   "events.refractory_s": {
+    "s10_equivalent": 0.0,
+    "simulated": 1e-05
+   },
+   "events.initial_reference": {
+    "s10_equivalent": "level",
+    "simulated": "random"
+   },
+   "dark.spread_sigma_ln": {
+    "s10_equivalent": 0.0,
+    "simulated": 0.15
+   },
+   "hot.fraction": {
+    "s10_equivalent": 0.0,
+    "simulated": 1.1e-05
+   },
+   "readout.limit_enabled": {
+    "s10_equivalent": false,
+    "simulated": true
+   }
+  },
+  "note": "mapped_differences: S10 inputs where the named case and the profile differ (re-tuned only if mapped_adapted). unmapped_differences: pixel parameters S10 cannot represent; the thresholds treat them as a fixed approximation. An empty mapped list does not mean model equivalence.",
+  "heterogeneous_groups": {
+   "anchors": 4548200,
+   "heterogeneous": 4416840,
+   "raised": 0,
+   "max_raise": 0,
+   "max_bin_span": 5
+  },
+  "fingerprint": "a7d63908365cee24",
+  "algorithm": "esim-thr-2 (2026-11-04 review)",
+  "het_algorithm": "het-pointwise-max-1"
+ },
+ "hot_pixels": [
+  6412
+ ],
+ "masked_pixels": [],
+ "conventions": {
+  "t": "us",
+  "x": "crop column",
+  "y": "crop row",
+  "p_h5": "1 = ON, 0 = OFF",
+  "p_npz": "+1 = ON, -1 = OFF",
+  "crop": [
+   480,
+   270,
+   320,
+   180
+  ]
+ }
+}

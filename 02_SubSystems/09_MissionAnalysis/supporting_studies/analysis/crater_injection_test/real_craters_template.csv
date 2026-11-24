@@ -1,0 +1,2 @@
+crater_id,before_file,after_file,before_line,before_sample,after_line,after_sample,gsd_m,diam_m,inc,az,chip_m,repeats
+example_01,images/BEFORE_PRODUCT_ID.IMG,images/AFTER_PRODUCT_ID.IMG,21000,2500,18350,2470,0.52,4.1,48,95,600,5

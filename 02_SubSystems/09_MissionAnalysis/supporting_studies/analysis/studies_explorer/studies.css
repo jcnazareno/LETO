@@ -1,0 +1,66 @@
+/* Layout: header, tab strip, then per view a control column beside a results column (stacks below 860px). */
+:root {
+  --bg: #f3f4f6; --panel: #ffffff; --ink: #14171c; --ink-2: #4d5562; --ink-3: #7b8391; --line: #dde1e7;
+  --accent: #c8611a; --accent-soft: #f7e6d8; --data-1: #2a78d6; --data-2: #c8611a; --data-3: #1a9e70; --data-4: #8a63d2; --grid: #e7eaee;
+  --good: #1a8a3c; --warn: #b7791f; --bad: #c23b32;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111419; --panel: #191d24; --ink: #eceef2; --ink-2: #b3bac6; --ink-3: #848c99; --line: #2c323c;
+  --accent: #f08a3e; --accent-soft: #3a2616; --data-1: #4c93ea; --data-2: #f08a3e; --data-3: #2fbf8a; --data-4: #a88af0; --grid: #262b33;
+  --good: #3fbf63; --warn: #e0a640; --bad: #ef6a5f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111419; --panel: #191d24; --ink: #eceef2; --ink-2: #b3bac6; --ink-3: #848c99; --line: #2c323c;
+  --accent: #f08a3e; --accent-soft: #3a2616; --data-1: #4c93ea; --data-2: #f08a3e; --data-3: #2fbf8a; --data-4: #a88af0; --grid: #262b33;
+  --good: #3fbf63; --warn: #e0a640; --bad: #ef6a5f; color-scheme: dark }
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 22px 40px; }
+header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 14px; }
+h1 { font-family: var(--display); font-weight: 800; font-size: 1.65rem; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.sub { color: var(--ink-2); max-width: 70ch; margin: 4px 0 0; }
+.badge { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-3); border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; white-space: nowrap; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+nav button { font-family: var(--display); font-weight: 700; font-size: 0.92rem; background: none; border: 0; color: var(--ink-2); padding: 10px 14px; border-bottom: 3px solid transparent; cursor: pointer; }
+nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+nav button:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--data-1); outline-offset: 2px; }
+.view { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 860px) { .view { grid-template-columns: minmax(0, 1fr); } }
+.controls { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 12px; }
+.controls h3 { font-family: var(--display); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin: 6px 0 -4px; }
+.ctl { display: grid; gap: 3px; }
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-size: 0.88rem; color: var(--ink-2); }
+.ctl label output, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+select { width: 100%; font: inherit; font-size: 0.92rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.presets button, .btn { font: inherit; font-size: 0.82rem; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.presets button:hover, .btn:hover { border-color: var(--accent); }
+.radio { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.88rem; color: var(--ink-2); }
+.results { display: grid; gap: 16px; min-width: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+.tile .k { font-size: 0.78rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; }
+.tile .v { font-family: var(--display); font-weight: 800; font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+.tile .d { font-size: 0.82rem; color: var(--ink-2); }
+.tile.hero { border-color: var(--accent); background: linear-gradient(0deg, var(--panel), var(--panel)); box-shadow: inset 4px 0 0 var(--accent); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; min-width: 0; }
+.card h2 { font-family: var(--display); font-size: 1rem; margin: 0 0 2px; }
+.card p.note { color: var(--ink-2); font-size: 0.86rem; margin: 2px 0 8px; max-width: 80ch; }
+.chartbox { position: relative; height: 290px; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1050px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { padding: 5px 8px; border-bottom: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
+th { color: var(--ink-3); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+th:first-child, td:first-child { text-align: left; }
+td.num { font-family: var(--mono); }
+.pill { display: inline-block; font-size: 0.74rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.ok { color: var(--good) } .over { color: var(--bad) } .near { color: var(--warn) }
+.foot { color: var(--ink-3); font-size: 0.8rem; margin-top: 22px; max-width: 95ch; }
+.hint { color: var(--ink-3); font-size: 0.8rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

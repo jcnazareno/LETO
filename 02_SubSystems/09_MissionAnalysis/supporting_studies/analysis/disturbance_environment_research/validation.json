@@ -1,0 +1,350 @@
+{
+  "date": "2026-10-29",
+  "status": "passed",
+  "checks": [
+    {
+      "check": "Moon50 radial screening crossing, metres",
+      "result": "pass",
+      "value": 1749000.0000000002,
+      "reference": 1749000.0
+    },
+    {
+      "check": "lunar state histories finite / monotonic / SI shape",
+      "result": "pass",
+      "cases": 9
+    },
+    {
+      "check": "density profile units / field names / min-mean-max",
+      "result": "pass",
+      "rows": 294
+    },
+    {
+      "check": "saved workbook GG_peak_Nm LEO400",
+      "result": "pass",
+      "value": 5.759957272063513e-07,
+      "reference": 5.759957272063513e-07
+    },
+    {
+      "check": "saved workbook GG_1deg_Nm LEO400",
+      "result": "pass",
+      "value": 2.0101960982292708e-08,
+      "reference": 2.0101960982292708e-08
+    },
+    {
+      "check": "saved workbook SRP_sunlit_bound_Nm LEO400",
+      "result": "pass",
+      "value": 4.0858266020821645e-08,
+      "reference": 4.0858266020821645e-08
+    },
+    {
+      "check": "saved workbook magnetic_30mAm2_bound_Nm LEO400",
+      "result": "pass",
+      "value": 1.5e-06,
+      "reference": 1.5e-06
+    },
+    {
+      "check": "saved workbook GG_periodic_H_amplitude_Nms LEO400",
+      "result": "pass",
+      "value": 0.00025455749706248,
+      "reference": 0.00025455749706248
+    },
+    {
+      "check": "saved workbook thermal_2W_10cm_bound_Nm LEO400",
+      "result": "pass",
+      "value": 6.671281903963041e-10,
+      "reference": 6.671281903963041e-10
+    },
+    {
+      "check": "saved workbook GG_peak_Nm LEO600",
+      "result": "pass",
+      "value": 5.278758755099148e-07,
+      "reference": 5.278758755099148e-07
+    },
+    {
+      "check": "saved workbook GG_1deg_Nm LEO600",
+      "result": "pass",
+      "value": 1.8422602376688083e-08,
+      "reference": 1.8422602376688083e-08
+    },
+    {
+      "check": "saved workbook SRP_sunlit_bound_Nm LEO600",
+      "result": "pass",
+      "value": 4.0858266020821645e-08,
+      "reference": 4.0858266020821645e-08
+    },
+    {
+      "check": "saved workbook magnetic_30mAm2_bound_Nm LEO600",
+      "result": "pass",
+      "value": 1.5e-06,
+      "reference": 1.5e-06
+    },
+    {
+      "check": "saved workbook GG_periodic_H_amplitude_Nms LEO600",
+      "result": "pass",
+      "value": 0.00024369250295170226,
+      "reference": 0.00024369250295170226
+    },
+    {
+      "check": "saved workbook thermal_2W_10cm_bound_Nm LEO600",
+      "result": "pass",
+      "value": 6.671281903963041e-10,
+      "reference": 6.671281903963041e-10
+    },
+    {
+      "check": "saved workbook GG_peak_Nm Moon100",
+      "result": "pass",
+      "value": 3.5532043102364843e-07,
+      "reference": 3.5532043102364843e-07
+    },
+    {
+      "check": "saved workbook GG_1deg_Nm Moon100",
+      "result": "pass",
+      "value": 1.2400504210841041e-08,
+      "reference": 1.2400504210841041e-08
+    },
+    {
+      "check": "saved workbook SRP_sunlit_bound_Nm Moon100",
+      "result": "pass",
+      "value": 4.0858266020821645e-08,
+      "reference": 4.0858266020821645e-08
+    },
+    {
+      "check": "saved workbook magnetic_30mAm2_bound_Nm Moon100",
+      "result": "pass",
+      "value": 8.999999999999999e-10,
+      "reference": 8.999999999999999e-10
+    },
+    {
+      "check": "saved workbook GG_periodic_H_amplitude_Nms Moon100",
+      "result": "pass",
+      "value": 0.00019993386028924776,
+      "reference": 0.00019993386028924776
+    },
+    {
+      "check": "saved workbook thermal_2W_10cm_bound_Nm Moon100",
+      "result": "pass",
+      "value": 6.671281903963041e-10,
+      "reference": 6.671281903963041e-10
+    },
+    {
+      "check": "saved workbook GG_peak_Nm Moon50",
+      "result": "pass",
+      "value": 3.85970540461718e-07,
+      "reference": 3.85970540461718e-07
+    },
+    {
+      "check": "saved workbook GG_1deg_Nm Moon50",
+      "result": "pass",
+      "value": 1.3470177604106243e-08,
+      "reference": 1.3470177604106243e-08
+    },
+    {
+      "check": "saved workbook SRP_sunlit_bound_Nm Moon50",
+      "result": "pass",
+      "value": 4.0858266020821645e-08,
+      "reference": 4.0858266020821645e-08
+    },
+    {
+      "check": "saved workbook magnetic_30mAm2_bound_Nm Moon50",
+      "result": "pass",
+      "value": 8.999999999999999e-10,
+      "reference": 8.999999999999999e-10
+    },
+    {
+      "check": "saved workbook GG_periodic_H_amplitude_Nms Moon50",
+      "result": "pass",
+      "value": 0.00020837870765014183,
+      "reference": 0.00020837870765014183
+    },
+    {
+      "check": "saved workbook thermal_2W_10cm_bound_Nm Moon50",
+      "result": "pass",
+      "value": 6.671281903963041e-10,
+      "reference": 6.671281903963041e-10
+    },
+    {
+      "check": "saved workbook GG_peak_Nm Distant50k",
+      "result": "pass",
+      "value": 1.7650080414947628e-11,
+      "reference": 1.7650080414947628e-11
+    },
+    {
+      "check": "saved workbook GG_1deg_Nm Distant50k",
+      "result": "pass",
+      "value": 6.159789232403417e-13,
+      "reference": 6.159789232403417e-13
+    },
+    {
+      "check": "saved workbook SRP_sunlit_bound_Nm Distant50k",
+      "result": "pass",
+      "value": 4.0858266020821645e-08,
+      "reference": 4.0858266020821645e-08
+    },
+    {
+      "check": "saved workbook magnetic_30mAm2_bound_Nm Distant50k",
+      "result": "pass",
+      "value": 8.999999999999999e-10,
+      "reference": 8.999999999999999e-10
+    },
+    {
+      "check": "saved workbook GG_periodic_H_amplitude_Nms Distant50k",
+      "result": "pass",
+      "value": 1.4091252771423868e-06,
+      "reference": 1.4091252771423868e-06
+    },
+    {
+      "check": "saved workbook thermal_2W_10cm_bound_Nm Distant50k",
+      "result": "pass",
+      "value": 6.671281903963041e-10,
+      "reference": 6.671281903963041e-10
+    },
+    {
+      "check": "aerodynamic torque LEO400_quiet",
+      "result": "pass",
+      "value": 2.8336851261080354e-07,
+      "reference": 2.8336851261080354e-07
+    },
+    {
+      "check": "aerodynamic torque LEO400_moderate",
+      "result": "pass",
+      "value": 1.4365845605522477e-06,
+      "reference": 1.4365845605522477e-06
+    },
+    {
+      "check": "aerodynamic torque LEO400_active",
+      "result": "pass",
+      "value": 4.366995092593426e-06,
+      "reference": 4.366995092593426e-06
+    },
+    {
+      "check": "aerodynamic torque LEO600_quiet",
+      "result": "pass",
+      "value": 7.801683602377364e-09,
+      "reference": 7.801683602377364e-09
+    },
+    {
+      "check": "aerodynamic torque LEO600_moderate",
+      "result": "pass",
+      "value": 7.385612147542325e-08,
+      "reference": 7.385612147542325e-08
+    },
+    {
+      "check": "aerodynamic torque LEO600_active",
+      "result": "pass",
+      "value": 3.656057619372331e-07,
+      "reference": 3.656057619372331e-07
+    },
+    {
+      "check": "saved momentum B8",
+      "result": "pass",
+      "value": 9.645061728395063,
+      "reference": 9.645061728395063
+    },
+    {
+      "check": "saved momentum B10",
+      "result": "pass",
+      "value": 83.33333333333334,
+      "reference": 83.33333333333334
+    },
+    {
+      "check": "saved momentum B11",
+      "result": "pass",
+      "value": 0.16666666666666669,
+      "reference": 0.16666666666666669
+    },
+    {
+      "check": "saved momentum B12",
+      "result": "pass",
+      "value": 0.2124408777037351,
+      "reference": 0.2124408777037351
+    },
+    {
+      "check": "saved momentum B13",
+      "result": "pass",
+      "value": 6.3072,
+      "reference": 6.3072
+    },
+    {
+      "check": "saved momentum B14",
+      "result": "pass",
+      "value": 8.039442623117987,
+      "reference": 8.039442623117987
+    },
+    {
+      "check": "saved momentum B15",
+      "result": "pass",
+      "value": 0.0014399999999999997,
+      "reference": 0.0014399999999999997
+    },
+    {
+      "check": "saved momentum B16",
+      "result": "pass",
+      "value": 0.005555555555555556,
+      "reference": 0.005555555555555556
+    },
+    {
+      "check": "saved momentum B17",
+      "result": "pass",
+      "value": 2.7777777777777782e-05,
+      "reference": 2.777777777777778e-05
+    },
+    {
+      "check": "PD steady error saved formula",
+      "result": "pass",
+      "value": 0.7837122867267475,
+      "reference": 0.783712285787894
+    },
+    {
+      "check": "slew torque saved formula",
+      "result": "pass",
+      "value": 0.00012120342027738399,
+      "reference": 0.00012120342027738399
+    },
+    {
+      "check": "saved arm input restored",
+      "result": "pass",
+      "value": 0.02,
+      "reference": 0.02
+    },
+    {
+      "check": "saved workbook formulas/caches and input perturbation",
+      "result": "pass",
+      "sheets": 8,
+      "formula_errors": 0
+    },
+    {
+      "check": "PDF reopened / ten A4 pages / expected sections / no replacement squares",
+      "result": "pass"
+    },
+    {
+      "check": "task Markdown local links",
+      "result": "pass",
+      "links": 33
+    },
+    {
+      "check": "cached original model/source hashes",
+      "result": "pass",
+      "files": 12
+    },
+    {
+      "check": "CRTBP stability index cross-check",
+      "result": "pass",
+      "value": 170.40526813958672,
+      "reference": 170.405268543231
+    },
+    {
+      "check": "numerical limiting-case records / required plots",
+      "result": "pass"
+    }
+  ],
+  "visual_review": "All eight workbook sheets, six plot topics and ten PDF pages rendered and reviewed; final changed views rechecked.",
+  "limits": [
+    "DE421 PA orientation approximates DE430 gravity frame",
+    "No local DEM impact or certified lifetime",
+    "50km screening-boundary time not converged at120deg",
+    "Fixed atmospheric fixtures are not weather forecasts",
+    "Ideal halo targeting is not annual stationkeeping prediction",
+    "No achieved structural/controller/sensor jitter performance",
+    "Workbook analytical formulas update; dynamical histories require script regeneration"
+  ]
+}

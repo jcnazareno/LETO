@@ -1,0 +1,9 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+none detected 566 576 retrained rms 0.277 default rms 0.279
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.hpf_tau_s', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+hpf_1.6s detected 563 576 retrained rms 0.3 default rms 1.829
+hpf_0.32s detected 550 576 retrained rms 0.475 default rms 2.342
+hpf_0.1s detected 537 576 retrained rms 0.662 default rms 2.631
+hpf_retrained done in 1761 s

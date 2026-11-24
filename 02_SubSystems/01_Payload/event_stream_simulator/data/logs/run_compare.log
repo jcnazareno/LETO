@@ -1,0 +1,9 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m646_surrogate): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+  pixel kernel 291.5 s, scene 74.9 s, events 51484 (0.0447 ev/s/px)
+  compare_nearside_imx636: flashes 7/8 detected, false triggers 0, particle triggers 0 of 0 hits, events 51484, wall 389.6 s, peak RSS 608 MB
+  pixel kernel 354.3 s, scene 83.8 s, events 57885 (0.0502 ev/s/px)
+  compare_nearside_imx646: flashes 7/8 detected, false triggers 0, particle triggers 0 of 0 hits, events 57885, wall 467.8 s, peak RSS 866 MB
+  video 600 frames in 156 s -> /run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/outputs/impact_energy_conversion_2026-10-30/event_stream_sim/compare_nearside_imx636_vs_imx646.mp4

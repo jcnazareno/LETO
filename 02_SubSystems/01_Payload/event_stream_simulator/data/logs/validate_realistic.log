@@ -1,0 +1,41 @@
+imx636_patch_13000
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+  1e+04 J 0.03 s: 144/144 (S16 40/40) raw bias 1.2195342798410853
+  2e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.7961536145325572
+  2e+04 J 0.3 s: 143/144 (S16 40/40) raw bias 0.7060482848566442
+  4e+04 J 0.3 s: 144/144 (S16 40/40) raw bias 0.4585240168975851
+  4e+04 J 1.0 s: 114/144 (S16 33/40) raw bias 0.4042070225088816
+  1e+05 J 1.0 s: 144/144 (S16 40/40) raw bias 0.23605066596633265
+  4e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.5344061288202696
+  1e+05 J 0.3 s: 144/144 (S16 40/40) raw bias 0.27196039669306094
+imx636_cell_13000
+  1e+04 J 0.03 s: 144/144 (S16 40/40) raw bias 1.2251247179950207
+  2e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.7929911547859634
+  2e+04 J 0.3 s: 143/144 (S16 40/40) raw bias 0.703001857724792
+  4e+04 J 0.3 s: 144/144 (S16 40/40) raw bias 0.46156701864014527
+  4e+04 J 1.0 s: 114/144 (S16 33/40) raw bias 0.4042070225088816
+  1e+05 J 1.0 s: 144/144 (S16 40/40) raw bias 0.23605066596633265
+  4e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.5369484896434517
+  1e+05 J 0.3 s: 144/144 (S16 40/40) raw bias 0.26992150056101166
+imx646_patch_13000
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m646_surrogate): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+  1e+04 J 0.03 s: 144/144 (S16 40/40) raw bias 1.2349240207637426
+  2e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.7766249153633664
+  2e+04 J 0.3 s: 144/144 (S16 40/40) raw bias 0.7497787074271718
+  4e+04 J 0.3 s: 144/144 (S16 40/40) raw bias 0.4808291434724359
+  4e+04 J 1.0 s: 142/144 (S16 35/40) raw bias 0.43308462220601884
+  1e+05 J 1.0 s: 144/144 (S16 40/40) raw bias 0.2412237743202439
+  4e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.4796698256048527
+  1e+05 J 0.3 s: 144/144 (S16 40/40) raw bias 0.256976297028516
+imx646_cell_13000
+  1e+04 J 0.03 s: 144/144 (S16 40/40) raw bias 1.2057490875659707
+  2e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.7715979502323973
+  2e+04 J 0.3 s: 144/144 (S16 40/40) raw bias 0.7497787074271718
+  4e+04 J 0.3 s: 144/144 (S16 40/40) raw bias 0.48565621439490025
+  4e+04 J 1.0 s: 142/144 (S16 35/40) raw bias 0.44220741519418566
+  1e+05 J 1.0 s: 144/144 (S16 40/40) raw bias 0.23133269925033553
+  4e+04 J 0.1 s: 144/144 (S16 40/40) raw bias 0.4891858667466544
+  1e+05 J 0.3 s: 144/144 (S16 40/40) raw bias 0.2525234493337085
+realistic done in 1103 s

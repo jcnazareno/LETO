@@ -1,0 +1,17 @@
+criterion_id,metric,value,unit,epoch_status,source_ids,location,interpretation
+EC.A.01,Earth-equivalent kinetic-energy envelope,1e-6 to 1e-1,kton TNT,2018 orbit acceptance,L20,section 2.1,Not band-limited emitted optical energy
+EC.A.02,Total detectable impacts,240,count minimum,2018 orbit acceptance,L20,section 2.1,Reference sample scale linked to Suggs 2014; not verified Phase C threshold
+EC.A.03,High-energy detectable impacts,2,count minimum,2018 orbit acceptance,L20,section 2.1,Earth-equivalent 1e-4 to 1e-1 kton TNT
+EC.A.04,Lower-energy detectable impacts,100,count minimum,2018 orbit acceptance,L20,section 2.1,Earth-equivalent 1e-6 to 1e-4 kton TNT
+EC.A.05,Night-farside monitoring,Required,qualitative,2018 orbit acceptance,L20,section 2.1,Not whole-surface independent coverage
+EC.A.06/07,Minimum life / total delta-v,>=1 / <=200,year / m/s,2018 orbit acceptance,L20,section 2.1,Includes access; historical 24 kg constraint
+EC.S.01-03,Trade goals,Maximize count and full-disc time; minimize delta-v,qualitative,2018 selection criteria,L20,section 2.1,Trade goals rather than separate numerical success gates
+SYS-01/02/03,Mass / volume / lunar life,<=28 /12 U />=1,kg / unit / year,2024 published system requirements,L05,Table 6-1 p 10,28.69 kg printed budget conflicts; current mass about 30 kg
+PLD.001/002,Detection envelope,1e-6 to 1e-4; 450-950,kton TNT; nm,2024 published payload requirements,L05,Table 3-1 p 5,Energy kind insufficiently explicit in table; do not label as optical energy
+PLD.003,Integration time,>=30,ms,2024 published payload requirement,L05,Table 3-1 p 5,At least sign retained; not <=30 ms temporal resolution
+PLD.004-006,Payload allocation,<=4.5 / <=20 /10 x 10 x 30,kg / W / cm,2024 published payload requirements,L05,Table 3-1 p 5,27.8 W worst-case vs 20 W allocation; requires reconciliation
+PLDP-01/02,Payload processing,>=15 / >5,images/s / d B,2024 published requirements,L05,Table 6-1 p 10,Processing capacity not achieved cadence; d B convention must be reconciled with 2023 radiometry
+ADCS-01/02,Moon-pointing control,<0.18 / <5 over 66.7,deg half-cone / arcsec over ms,2024 published requirements,L05,Table 6-1 p 10,Not boresight calibration or surface-location confidence
+COM-01/02/03,Command/telemetry coverage and radio navigation,>95% orientation /1,fraction / km 3 sigma,2024 published requirements,L05,Table 6-1 p 10,Not a 95% science availability requirement
+PROP-01/04,Propulsion and RCS allocation,>=80 /110,m/s / Ns,2024 published requirements,L05,Table 6-1 p 10,RCS narrative 170 s unit inconsistent; not a confirmed 110 Ns capability
+CURRENT-GAP,Minimum/full success definitions,Not established,public gap,As of 29 October 2026,"L01, L02, L03",Status and objectives,Reviewed sources do not publish current controlled pass/fail matrix or formal minimum/full success taxonomy

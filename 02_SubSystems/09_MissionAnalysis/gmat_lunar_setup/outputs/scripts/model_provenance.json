@@ -1,0 +1,77 @@
+{
+  "generated": [
+    "option_a_natural",
+    "option_a_ideal_stationkeeping",
+    "validation_transfer",
+    "validation_controller_exercise",
+    "validation_high_30d",
+    "convergence_high_40",
+    "convergence_high_80",
+    "convergence_high_120",
+    "srp_high_low",
+    "srp_high_high",
+    "validation_low_30d",
+    "convergence_low_40",
+    "convergence_low_80",
+    "convergence_low_120",
+    "srp_low_low",
+    "srp_low_high",
+    "numerics_low_tight"
+  ],
+  "input_sha256": {
+    "/home/gordon/.local/opt/GMAT/R2026a/data/gravity/luna/grgm900c.cof": "f80c5a30f8aa0c67bcefb6a0ad00ac6a06c8d5a71bee4465d72a50b1b7c16e46",
+    "/home/gordon/.local/opt/GMAT/R2026a/data/gravity/luna/grgm900c.tide": "66256949ef32c6a8de5e32f148f6ff8e8f0e6a06fd63d3ebd39c411562313550",
+    "/home/gordon/.local/opt/GMAT/R2026a/data/planetary_ephem/de/leDE1900.421": "5a423de949103ec14766ebc990e9af96808559d2dc84c261b941fadd754a52a0",
+    "/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/outputs/impact_energy_conversion_2026-10-30/impact_energy_conversion_proposal.md": "3c6144fce2d3299e61f8876cfdf80cc7336943422c6290158160683160f41542",
+    "/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/data/impact_energy_conversion/system_budget.json": "d0a87cee39c8190d07e3d20479056f3110925b5e52d5f78f186700033a172410",
+    "/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/gmat_lunar_setup/config.json": "532ce10cb2e2e44146a418003730ac64f7caa42fc856195fa372be1f9ba248e5",
+    "/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/gmat_lunar_setup/setup_mission.py": "7adebe38c34e01f1ddc53b73263cfd7473d5ef220e0468efeff07a6b7527cbc5",
+    "/home/gordon/.local/opt/GMAT/R2026a/bin/GmatConsole-R2026a": "f7cf5b3188902353ed4245bb21c22c1afa0451efdd221b7e19f6a74dc7ed1d93",
+    "/home/gordon/.local/opt/GMAT/R2026a/bin/libGmatBase.so.R2026a": "1badbadfc62efaf49b260996473883665c976f1e2c131fc59c7521c4d3b87159"
+  },
+  "config": {
+    "architecture": "A",
+    "epoch_utc": "2031-01-01T00:00:00",
+    "epoch_status": "provisional study epoch; not a launch commitment",
+    "gmat_root": "/home/gordon/.local/opt/GMAT/R2026a",
+    "moon_radius_km": 1738.0,
+    "moon_mu_km3_s2": 4902.79996708864,
+    "monitor_altitude_km": 3000.0,
+    "image_altitude_km": 300.0,
+    "monitor_days": 913.125,
+    "image_days": 182.625,
+    "initial_node_longitude_pa_deg": 0.0,
+    "dry_mass_kg": 118.1,
+    "launch_mass_kg": 189.90985757186712,
+    "capture_delta_v_m_s": 629.0,
+    "isp_s": 300.0,
+    "srp_area_m2": 1.2,
+    "cr": 1.5,
+    "srp_sensitivity": [
+      {
+        "name": "low",
+        "area_m2": 0.7,
+        "cr": 1.2
+      },
+      {
+        "name": "high",
+        "area_m2": 2.0,
+        "cr": 1.8
+      }
+    ],
+    "gravity_degree": 80,
+    "accuracy": 1e-11,
+    "max_step_s": 60.0,
+    "output_interval_s": 3600.0,
+    "minimum_radius_altitude_km": 20.0,
+    "stationkeeping_eccentricity_trigger": 0.02,
+    "stationkeeping_check_days": 1.0,
+    "inertia_principal_kg_m2": [
+      15.0,
+      20.0,
+      25.0
+    ],
+    "cp_cm_offset_m": 0.02,
+    "physical_properties_status": "provisional: projected area, Cr, inertia, centre-of-pressure offset; replace after geometry selection"
+  }
+}

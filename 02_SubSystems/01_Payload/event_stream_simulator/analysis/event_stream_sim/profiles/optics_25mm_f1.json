@@ -1,0 +1,11 @@
+{
+  "name": "optics_25mm_f1",
+  "inherits": "optics_16mm_f1.json",
+  "description": "Option: 25 mm f/1 heads (fifteen in the false-alarm budget). Mosaic layout of fifteen heads is not designed; here 3 x 5.",
+  "params": {
+    "focal_length_m":       {"value": 0.025, "unit": "m", "uncertainty": "-", "source": "proposal Sec. 4.3 option", "status": "convention"},
+    "aperture_m":           {"value": 0.025, "unit": "m", "uncertainty": "-", "source": "proposal Sec. 4.3 option", "status": "convention"},
+    "mosaic.cols":          {"value": 3, "unit": "-", "uncertainty": "layout assumed", "source": "-", "status": "assumed"},
+    "mosaic.rows":          {"value": 5, "unit": "-", "uncertainty": "layout assumed", "source": "-", "status": "assumed"}
+  }
+}

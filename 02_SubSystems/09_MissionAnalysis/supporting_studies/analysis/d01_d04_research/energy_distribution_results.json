@@ -1,0 +1,152 @@
+{
+  "review_date": "2026-10-28",
+  "population": "192 published validated NELIOTA flashes, 2017-August 2023",
+  "scope": "Observed, uncorrected sample; neither a complete lunar population nor a complete energy interval.",
+  "energy_definition": "Source hemispheric-equivalent integrated Cousins R plus I energy; not bolometric, nor the mission 600-900 nm top-hat.",
+  "eta_nominal": 0.0015,
+  "eta_scenarios": [
+    0.005,
+    0.0015,
+    0.0005
+  ],
+  "count": 192,
+  "sporadic_count": 146,
+  "stream_associated_count": 46,
+  "optical_quantiles_J": {
+    "0": 4200.0,
+    "0.1": 8410.0,
+    "0.25": 14000.0,
+    "0.5": 21000.0,
+    "0.75": 52525.0,
+    "0.9": 119700.00000000001,
+    "1": 580000.0
+  },
+  "histogram": [
+    {
+      "lower_J_inclusive": 0.0,
+      "upper_J_exclusive": 4000.0,
+      "count": 0,
+      "fraction": 0.0,
+      "poisson_fractional_sigma": null
+    },
+    {
+      "lower_J_inclusive": 4000.0,
+      "upper_J_exclusive": 10000.0,
+      "count": 27,
+      "fraction": 0.140625,
+      "poisson_fractional_sigma": 0.19245008972987526
+    },
+    {
+      "lower_J_inclusive": 10000.0,
+      "upper_J_exclusive": 30000.0,
+      "count": 88,
+      "fraction": 0.4583333333333333,
+      "poisson_fractional_sigma": 0.10660035817780521
+    },
+    {
+      "lower_J_inclusive": 30000.0,
+      "upper_J_exclusive": 100000.0,
+      "count": 53,
+      "fraction": 0.2760416666666667,
+      "poisson_fractional_sigma": 0.13736056394868904
+    },
+    {
+      "lower_J_inclusive": 100000.0,
+      "upper_J_exclusive": 300000.0,
+      "count": 15,
+      "fraction": 0.078125,
+      "poisson_fractional_sigma": 0.2581988897471611
+    },
+    {
+      "lower_J_inclusive": 300000.0,
+      "upper_J_exclusive": 1000000.0,
+      "count": 9,
+      "fraction": 0.046875,
+      "poisson_fractional_sigma": 0.3333333333333333
+    }
+  ],
+  "minimum": {
+    "event_id": 111,
+    "stream": "SDA",
+    "R_energy_J": 2000.0,
+    "R_quoted_error_J": 600.0,
+    "I_energy_J": 2200.0,
+    "I_quoted_error_J": 300.0,
+    "R_plus_I_energy_J": 4200.0,
+    "KE_eta_0p0015_from_rounded_optical_J": 2800000.0,
+    "KE_eta_0p005_published_J": 800000.0,
+    "KE_eta_0p0015_published_J": 3000000.0,
+    "KE_eta_0p0005_published_J": 8000000.0,
+    "nominal_mass_g_published": 3.0,
+    "source_id": "liakos_2020",
+    "source_table": "Tables 4-5",
+    "source_pdf_page": 19,
+    "evidence_id": "E33",
+    "source_sha256": "808a08a2982632f8179c2ccb646b7f7c8418b13485d4dc1053bc8f1a864ea9a0",
+    "source_numeric_tokens": "0.20(06) 0.22(3) 3592(1243) 0.8(1) 1(1) 0.5(4) 0.98(6) 3(1) 3(1) 0.7(6) 1.39(9) 0.8(1) 10(2) 1.0(8) 1.9(1)"
+  },
+  "maximum": {
+    "event_id": 97,
+    "stream": "spo",
+    "R_energy_J": 200000.0,
+    "R_quoted_error_J": 10000.0,
+    "I_energy_J": 380000.0,
+    "I_quoted_error_J": 10000.0,
+    "R_plus_I_energy_J": 580000.0,
+    "KE_eta_0p0015_from_rounded_optical_J": 386666666.6666667,
+    "KE_eta_0p005_published_J": 116000000.0,
+    "KE_eta_0p0015_published_J": 388000000.0,
+    "KE_eta_0p0005_published_J": 1164000000.0,
+    "nominal_mass_g_published": 2686.0,
+    "source_id": "liakos_2020",
+    "source_table": "Tables 4-5",
+    "source_pdf_page": 19,
+    "evidence_id": "E33",
+    "source_sha256": "808a08a2982632f8179c2ccb646b7f7c8418b13485d4dc1053bc8f1a864ea9a0",
+    "source_numeric_tokens": "20(1) 38(1) 2922(205) 116(4) 806(24) 5(2) 3.91(11) 388(12) 2686(80) 7(2) 5.54(16) 116.4(3.5) 8058(239) 10(3) 7.6(2)"
+  },
+  "published_nominal_KE_range_J": [
+    3000000.0,
+    388000000.0
+  ],
+  "rounding_consistency_exceptions": [],
+  "source_narrative_discrepancy": "2024 author v1 section 6 quotes 0.8 MJ-1.05 GJ across eta scenarios. The retained 2020 author-v1 Tables 4-5 have a 1.164 GJ maximum at eta=0.0005 (ID97); do not silently replace the table or describe either as a fixed-eta range.",
+  "source_classification_discrepancy": "Extracted source-table stream labels give 146 sporadic +46 stream-associated events; the 2024 observing-rate Table2 gives 145+47. Do not silently relabel a flash or renormalize the published rates.",
+  "exposure": {
+    "validated_events": 192,
+    "usable_hours": 283.4,
+    "sporadic_hours": 237.8,
+    "stream_hours": 45.6,
+    "approximate_area_km2": 3110000.0,
+    "moon_area_km2": 37932328.09938046,
+    "approximate_surface_fraction": 0.08198811293237745,
+    "illustrative_calendar_fraction_6p5yr": 0.004973762263289984,
+    "rate_sporadic_km2_h": 1.9606305387812722e-07,
+    "rate_stream_km2_h": 3.314153551080273e-07,
+    "rate_ratio_stream_sporadic": 1.6903508771929825,
+    "ratio_poisson_fractional_sigma": 0.16784858494732321,
+    "rate_sporadic_fractional_counting_sigma": 0.08304547985373997,
+    "rate_stream_fractional_counting_sigma": 0.14586499149789456
+  },
+  "study_targets_not_requirements": {
+    "band_energy_injection_grid_J": [
+      100,
+      300,
+      1000,
+      3000,
+      10000,
+      30000,
+      100000,
+      300000,
+      1000000
+    ],
+    "band_definition": "Mission 600-900 nm top-hat; NOT identified with source R+I energies",
+    "characterize_recovery_above_C95": true,
+    "target_relative_selection_uncertainty": 0.05,
+    "target_relative_area_time_uncertainty": 0.05,
+    "equal_bin_events_for_10pct_rate_ratio_counting_sigma": 200,
+    "equal_bin_events_for_3sigma_20pct_rate_difference_approx": 450,
+    "microgram_kinetic_example_J_at_20kms": 0.2
+  },
+  "data_sha256": "792963219c4f5ffe9a44af5a98b7db6e1b00824d9dd9c5fdf9631812de3d6248"
+}

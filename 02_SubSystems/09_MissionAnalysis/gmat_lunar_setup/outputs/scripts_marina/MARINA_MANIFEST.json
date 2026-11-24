@@ -1,0 +1,295 @@
+{
+  "reference_file": "/home/gordon/Downloads/validation_transfer.script",
+  "reference_sha256": "3cfd4467d38d125107b4e2c7b943b6b9d1e7a9bf2ae9cbc214bfb6e97f7016e7",
+  "source_folder": "/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/outputs/gmat_lunar_setup_2026-11-05/scripts",
+  "target_gmat_root": "C:\\Users\\marin\\OneDrive\\Dokumente\\gmat-win-R2022a\\GMAT",
+  "target_output_root": "C:\\Users\\marin\\OneDrive\\Desktop\\SMD",
+  "target_version": "R2022a",
+  "physics_difference": "ExtraShadowBodies Earth setting disabled, as in the supplied working script; Earth gravity remains enabled.",
+  "source_sha256": {
+    "srp_low_low.console.startup.txt": "b4aca55efdc99aa0173f54c8f3e209d072496870d37c4a0d73452f8c69861fd4",
+    "srp_low_low.manifest.json": "db94c341505d24ec62eda410643e0b756e866df22b98923d5e9622e517794967",
+    "srp_low_low.script": "a04401f7d4e7ab43754f45bef2524e96c9aea425fbe1519f90b321d0d4422124",
+    "srp_low_low.startup.txt": "52ba0c8fb2013cc507f073d353ab5b758cc8869253b5ffc691ae0965c46742b4",
+    "syntax_validation.json": "2ed025fa2ea2f557b59f6e074d192d4de13e180be8bf9ce5eae338836d1ec8a2",
+    "validation_all.json": "549e770f5010f7bc340a7c5dfaa511eb3e3ee95d2357e043a5e9fa8a2bfd3ce8",
+    "validation_controller_exercise.console.startup.txt": "50667ab5d5f4286d3d6c685a9cfd01d257f158f1e972c5b0af0edccf6db49b59",
+    "validation_controller_exercise.manifest.json": "a968de1099c37aec1ca798d120f09dffe1b4d796f1bf24f967e7a895a81bfc28",
+    "validation_controller_exercise.script": "6be7b7b27b5acd399e87824491081fa467d72fe3c4931c21d8e0b56e151e5590",
+    "validation_controller_exercise.startup.txt": "2f7721318f93b2dafef833fb00303843c533adde3d61e3c2fbc2cbded06c2a5f",
+    "validation_high_30d.console.startup.txt": "700c9174ea93715930c38ebbcdd19488bc35c516a3beb064ec53a9e8040a605f",
+    "validation_high_30d.manifest.json": "e2dd52a9e696f6b5ddc5ab37e62878166548f06da8a04359cca6f7cb59a4a6e4",
+    "validation_high_30d.script": "fd12b88829d2a87989bb0864f8301d2a1b7636b44bd0aea735e8e0f7b0673092",
+    "validation_high_30d.startup.txt": "2719998dd324a74f9594bcdff4132507e56a7a8dea61ccb7130aa2f855a1bcb2",
+    "validation_low_30d.console.startup.txt": "13bc4214f388435a70fcef26cf3db131469c774be445e2bd8bb9e7dc29c744df",
+    "validation_low_30d.manifest.json": "0e9a61e8f62f224d67800d8d8ebef7041ef54ef3768fd18edea6e08ded8e5d2f",
+    "validation_low_30d.script": "d4d05331f7b731abae5a40bd1ab24a854685b458f15c57205706a52eb0b807fc",
+    "validation_low_30d.startup.txt": "45561c3d812ff57ffc0e62cd6be4dc0b72cdc57f064596dc0b144f3773108e1a",
+    "validation_transfer.console.startup.txt": "efad8fb710a4b10c34636669576db7ea179b8d7c1641141bf71bbe808d7c663d",
+    "validation_transfer.manifest.json": "33c3ff03af8eb43673ff921cf5bec8b033b882083ff90382d228b673cc9da8ea",
+    "validation_transfer.script": "f27eee046556189e5ebcac7756284273532b73a05405975757442f7751d02e3c",
+    "validation_transfer.startup.txt": "1e428dbd57305d525b782460a32496358b57d20dc90c2c6e9d238f229189a8e5",
+    "analytical_screens.json": "6af1521c46c63c984c921c117c08ddc096c502a8520c5a598f1f989156de17c6",
+    "convergence_high_120.console.startup.txt": "182e539b2c89220ef569d9c175de437216b8134bb311e43c4ad2fa1367a71286",
+    "convergence_high_120.manifest.json": "5380ae91e13710dcfca1ff50388df26ca46fc96ae4cd26503620074531145c63",
+    "convergence_high_120.script": "d6b87e7edfbb867716057bc9e590f93f1af33a14e24f0f491801acf18e7dc860",
+    "convergence_high_120.startup.txt": "2b5e2d9190d49abd34b636b1e1e9116caecf30b48abba7aa2505f4b941fd384d",
+    "convergence_high_40.console.startup.txt": "63ba14cbca4f7cc9bafa216b85e4d79379b4e6f3deb68118a49017ff269d56a4",
+    "convergence_high_40.manifest.json": "55b61c1d5b24104a3d68abe4205c54a5ae2d7b82576ec146f8f83e8470e55bd8",
+    "convergence_high_40.script": "04c6f4dfa9af1de4fb6060c2db0eef2f113baf5ea4e750efe46a63d1d21905d9",
+    "convergence_high_40.startup.txt": "6bd2a75dc059c69275791cbf2c76f979dba3b4bdf74141ca6265e056906a94ec",
+    "convergence_high_80.console.startup.txt": "57f7dda2c9632b3da702fa1f82d32acbfe4a3575544f4468f42758a8eefa2220",
+    "convergence_high_80.manifest.json": "c31a6083f2a3b1423cc41753d5e9de712922beb9bddf161fb890494154bd7661",
+    "convergence_high_80.script": "731bb142c6f4996cf5b57301b14eb6a0e89ec25c13b4aa60b521e564188af067",
+    "convergence_low_120.console.startup.txt": "053320d5c6f222edd6d838c86fc34336998e6441694b5cda5b012e849c751f4c",
+    "convergence_low_120.manifest.json": "fbe0ef690cb7b626b7e6bd33b6cfa2b41cafb9a743fb4f7682798f5cf5e02b0e",
+    "convergence_low_120.script": "46f425666a953a73e783738b42e9673de53c87c78f66cf4c026e59f9a778e961",
+    "convergence_low_120.startup.txt": "15fc4f49a9c4907512a20317b914f9762e3fa9f98f4a07511953983f768dfc00",
+    "convergence_low_40.console.startup.txt": "ff29d7e5921324942b82d1588d7ea08a21c2d763256140bdd648031448c522cf",
+    "convergence_low_40.manifest.json": "60c374519dd40566f02778c77ce5094db02f065a05e97ce594d13f60f73de4d0",
+    "convergence_low_40.script": "37f615f78922e424608a94615f6dd603948ddf24e5c3c713b9f67b8a8910726c",
+    "convergence_low_40.startup.txt": "6668dd141d1fdaad1d32e053b2b13d465ea22c8bd32811f8fe7aa6001ac6d2f5",
+    "convergence_low_80.console.startup.txt": "1c627fda5358701dc2e6d68af5f735d520ab59577065d49bd2023f68507cd0f4",
+    "convergence_low_80.manifest.json": "045c2971c522f163190982817515259c132e5936faa182bfd649c4b610799f59",
+    "convergence_low_80.script": "f983fa9479e82f6e5deab0092655f227bd757f1742fa5caab71fc177860d389b",
+    "convergence_low_80.startup.txt": "5ca0aa99fd54a70bd7680f19a4a4677024f5e5c9e3bde89f754dd8ec3602fd38",
+    "deliverable_sha256.json": "738943bb1d3a16406cbcbc8d7babbdf8dedf7c44e10e414026b9bd367233b957",
+    "full_natural_syntax.log": "6fc2fa29f59291342936079db86d9d62a8dba94f69af7a156274bc685b97d278",
+    "history_schema.json": "ab4ce8ff3717c0b940d2a3b72aa36e99a96d03166122d8fbf1c8e95b490d7ee0",
+    "model_provenance.json": "c4fa2068f78235a93f88ce7b4ac863c3048dd41609cf73dc0b42c77e3c5bc043",
+    "numerics_low_tight.console.startup.txt": "6db260b4c73f9f76be2d76c56e3e280cc022240527b986b4af29b63eec13d059",
+    "numerics_low_tight.manifest.json": "36f906bc2fe47724578cbf24081ecad4d59e926f4000b8a394dfe5779797832f",
+    "numerics_low_tight.script": "0deef8d205d7a7d632bf7be37ab5b937e72c113564007e160fcd37088c5b216f",
+    "numerics_low_tight.startup.txt": "232e21cea6d5dd3826441f141f1f3f2f6994e549c1334aec4e9684e575b5563c",
+    "option_a_ideal_stationkeeping.console.startup.txt": "fcb2460691f205bc021c2b1ac9a4e14afeeca0cfd738ab6ac9077a1360965fbb",
+    "option_a_ideal_stationkeeping.manifest.json": "dc088be8e4683196ba5b6fba832c57236db26b661c0cd7eec14dae7f64cfaef3",
+    "option_a_ideal_stationkeeping.script": "d28ed2c5b6252d3fd84e97eacc57c2da9350297ed2968b24725a03025a1727c9",
+    "option_a_ideal_stationkeeping.startup.txt": "4be718f5577c0687ae44e09fff554b4b350032dff8eb6039959ae4fd02d0f976",
+    "option_a_natural.console.startup.txt": "249e7eb89409da178508185b1697b4d2bbeaa54a4883755d53bf4d928a06d0ee",
+    "option_a_natural.manifest.json": "c82a01b1295f2c78cd117d48012ec19e18b0ef8a82adf0aa8e3ce9fb3364887b",
+    "option_a_natural.startup.txt": "c2427df9ed4eb6588019dcf4a0230f528e065812719a85c7e202c1ff27a55822",
+    "sensitivity_results.json": "789f36887f7383cb6e7ccbef33d336cd65c8e4611558298a1b1586d7bf2d2544",
+    "srp_high_high.console.startup.txt": "e95e3f5abb6884e5232fd9bee0d2ba07e238e2b1f37154b286921829e5f18b10",
+    "srp_high_high.manifest.json": "6b13006e553ca37e4e067bcfb32868572259e240a3d7db2ac1a5a1ade78dcaf4",
+    "srp_high_high.script": "33ad70b8bae30b954fbf3a65cf89b4868e24e721c791062a5d6cac213b3f56a6",
+    "srp_high_high.startup.txt": "266621ec3981c83068273845e45c7b55dda7679a4945ce02a1157445c32006f5",
+    "srp_high_low.console.startup.txt": "66ca546e9642110e18184dccc12e396acf65415bfa690ec895129c8acd82d84c",
+    "srp_high_low.manifest.json": "45cf0c7cd883ad0f0046918a1dc6490d960c539ea4cc98e61c28d156f3e01093",
+    "srp_high_low.script": "6aa6dfc547620be0e17ae3f2a4fd20a6250752991317e350aa747bb9dababd2c",
+    "srp_high_low.startup.txt": "8d507ff94c27f24367f8d9e29e8218326f1919eb29750f78d2fe4203cfd5acaf",
+    "srp_low_high.console.startup.txt": "e51fd0a750bb9cabcd7a9787bd2a530a6a3ac7eb71b7c1c26a431d92c6e67316",
+    "srp_low_high.manifest.json": "ff56f7f398c678fe0eac7fe2f94d29a46930c44d295dacb1041270961892265f",
+    "srp_low_high.script": "8880321a67800d9a21bd82f26eb12acffaeb572cc4bcff98f71bff1116ca0c44",
+    "convergence_high_80.startup.txt": "e081b0a1148cb794f9633da1c63e6f4fa03bb7026004d26e502adaecbd825866",
+    "full_ideal_syntax.log": "e394f66ad3b71914414440c00c9ad58b8eeaf97fc25c78ef92d9bbb0d535eec6",
+    "option_a_natural.script": "d8474415d8e0ebee1085cf8d7d5e0d8c6b43ead94ac6fed2dfa305fb58c86264",
+    "srp_low_high.startup.txt": "fb04b1d13b8d25e83f3b129937b18afadf7d7110445098c548544ab56afc8f52"
+  },
+  "adapted_files": {
+    "convergence_high_120.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "a8a4cb9758483fa51157c686a36768c98fef6820260081db2a6823a38ebebae7"
+    },
+    "convergence_high_40.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "f16b8d2a1715c21ae037c8e37697b528ca4607920e155e8ee62a4cd94623d15b"
+    },
+    "convergence_high_80.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "ed6476684a5c3c1eee0c67ce40a8338186cc6278f6e814ec4cee4ca19b8c65ca"
+    },
+    "convergence_low_120.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "211d6243d140ceb009e09f3e853ce6ed82847f716240263acceaf1eecdd52996"
+    },
+    "convergence_low_40.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "eb9111dcb16ea0cdc0f805708c93e8a54f7ab4cc6ba7a560ae2e933b8a0d5b30"
+    },
+    "convergence_low_80.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "92bf883bd96c20cb3490dc481c76589f3bd7855dc64b9c997fd457cd3b96314b"
+    },
+    "numerics_low_tight.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "53e49ebd2364d8f7fefc952c0ac1227f73b5bb9d9e67137a34a519edefe53de4"
+    },
+    "option_a_ideal_stationkeeping.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "331d0f9bb90d5b64c304dd01606279d8917ea324329416cd8443de874a6a8263"
+    },
+    "option_a_natural.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "43fd07a29941c578d276512f34f60c180a3bb5cda3cd9a21ab813f215ac3fdaf"
+    },
+    "srp_high_high.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "724fe3d1df25a12f9a66619bcf4159f261293eb3754bd37f3f3b9163c2804a41"
+    },
+    "srp_high_low.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "cbc4070514230caf1013b6d3446b6f7e228641af3b0b2444e6329f12f28b20a7"
+    },
+    "srp_low_high.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "6e1a8537c18b138b9f2f13d6c3066f3e17c6d6c7ee143ce6669a9bd2869af9f0"
+    },
+    "srp_low_low.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "a2651bdc6e58bcb12ec3c62db50462f602c618f5b6c0071ddd8c5698ccbf57eb"
+    },
+    "validation_controller_exercise.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "10bc3b74ef32651fbea24508f9a10ad9c483515239876cfd0e98fcd14443bf15"
+    },
+    "validation_high_30d.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "90854f714a338b735c8aeb0179993516ec1a4664b51756b5cccb548867b63bf3"
+    },
+    "validation_low_30d.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "a984e9611706312385acf5a2ab896a67b93d2900836fe39e4d5b3cd5ce8d0ff9"
+    },
+    "validation_transfer.script": {
+      "scope": "Marina paths and disabled Earth extra shadow; mission values preserved",
+      "sha256": "3cfd4467d38d125107b4e2c7b943b6b9d1e7a9bf2ae9cbc214bfb6e97f7016e7"
+    },
+    "validation_controller_exercise.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "e589cb3c07070bdba0c9ce2b5cafa6970fb0f1e1eec6a15aebfc41b75e3b6045"
+    },
+    "validation_high_30d.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "45cb82d99204bbfd71308340d558f1cce161a6e74767999d3328cbd40b7bf0de"
+    },
+    "validation_high_30d.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "76e6203db102a41d8cd4789e7ac6146438cf0000874144be2bd795358fbfeb5b"
+    },
+    "validation_low_30d.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "26502910bf5695d6f866c8740cc3057fd8ba47df62267821ba51a4d284f486c4"
+    },
+    "validation_low_30d.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "11789bd251f0a39929b45e508fab6aea081cb650f4045f9f6910626d789e29a6"
+    },
+    "validation_transfer.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "7352d62b24b55f9bcc6514ae06a7242aab9bddb5e6a708a3e3d3cac8d552feb2"
+    },
+    "validation_transfer.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "e82c70f04fe761ad3feb89bfcd6c3bcdab1b4cd22d5e4fe39a1bb19187ae0d19"
+    },
+    "srp_high_high.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "fd4773806039ce99ebe4b526a6d474f10448322becbf904e235f6a53e4bb50b2"
+    },
+    "srp_high_low.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "e1a28ede8b61c41d0d8a266b316938b0cc8ee9210e157af1fbacdf2881d9dd53"
+    },
+    "srp_high_low.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "24a0e21783a4e5d7edc32cb1a0cb2995fdd64c651ae437d364bb5bc30f7c53cb"
+    },
+    "srp_low_high.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "b172f5d6d4a70f72c03aca730aa40b2b50ba09be4c18c9783b53d216a40c2b65"
+    },
+    "srp_low_high.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "61624da787d6d43af661194feca9d94c90f4baedbfb2d82896ae4613d9935caf"
+    },
+    "srp_low_low.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "56f15722918cb6524335957f24b30293820ddbba545900076a7826664a32b2a2"
+    },
+    "srp_low_low.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "8e3618c849404ceafebe2f7a768bf3b9bf3cfcfabd6506b6b38b79b5b6cfeed9"
+    },
+    "validation_controller_exercise.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "59eb51faaf0213948834329a336878bd2a41e1afb72e68fcf953214a64c71b5f"
+    },
+    "convergence_high_120.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "d69d1b891a206b25c4477958167a91974555a00c13b487f970a06c4ca32c7eff"
+    },
+    "convergence_high_120.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "891282c617917715c5c22ea68120316513a84da8c0417deb4db2378c0d080bcf"
+    },
+    "convergence_high_40.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "65031affe3914b48f4a67313164d4cd15f7d4d5525d1690d42d957563ae87685"
+    },
+    "convergence_high_40.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "a11042878cc5012c001db7c8380210d77f8e4c15e4bce1dc0769e0af75ebf441"
+    },
+    "convergence_high_80.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "d53ceda45e30d767238f72d0a9a5b7544e7de55ac2588cf520c4423b3d8257aa"
+    },
+    "convergence_high_80.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "6bd595fca8853532fbebf72853d4c8aafb609c500ed9dd413fd8d5104f1f641e"
+    },
+    "convergence_low_120.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "511988205f3f64e68e5851755f613ffdc32263d24b2c7f37f28a8df73ce3f7f0"
+    },
+    "convergence_low_120.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "5ec3999c103e763bd18644131c50cdacf0302266975e2f729f2be60458dc1944"
+    },
+    "convergence_low_40.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "e1abe5c17c561b587f1523740a07d0e7102639800047f6d382ed219c8ab0c944"
+    },
+    "convergence_low_40.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "18a11fe0a7d9979f7fe867056e1f672f139e71474e5548d31fb1b1e05084b1de"
+    },
+    "convergence_low_80.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "ef1c04cb1b33633aa9b76892985a5e1d62773005a32d59bc7e72057d2bfac2a2"
+    },
+    "convergence_low_80.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "e6ce29e6f80adb9e156b676abbaee6f1fb592f262b6cb3773af44673322b7ac5"
+    },
+    "srp_high_high.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "0cbbb7bd01693cc5bc3c18be33da8357a43421d110b88b465ac12438800137f7"
+    },
+    "numerics_low_tight.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "4e19ac90719a10ee089ce562bac0a6ab96769f7896fc6ff314fb9cb3d52eabff"
+    },
+    "numerics_low_tight.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "dd8bccb369312bd6722a1f673fdc909970b75b2af8b9316e99f5dadd46a0be00"
+    },
+    "option_a_ideal_stationkeeping.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "214d8e7e178ad5caeebb2acba83860c16113e15a531284f2907370801085e129"
+    },
+    "option_a_ideal_stationkeeping.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "721d677f6ecfb3e9dec50f56453217e8df28041be4e80d5f2adf856dba1b42f4"
+    },
+    "option_a_natural.console.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "7dfdb961523db48e8126f1c41f981db9ab1de92660aae9ede970cebe67295e57"
+    },
+    "option_a_natural.startup.txt": {
+      "scope": "Windows data/output paths; native-plugin preparation required",
+      "sha256": "db9533557ada17b5d7561fd697a9ee9c90b1f614c7f77d8dfc7412a26a09f98a"
+    }
+  },
+  "source_validation_records": "Historical R2026a evidence only; not validation of the Marina copies."
+}

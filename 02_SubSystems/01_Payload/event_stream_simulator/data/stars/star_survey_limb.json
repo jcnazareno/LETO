@@ -1,0 +1,995 @@
+{
+ "scene": "limb",
+ "crop": [
+  768,
+  108,
+  320,
+  180
+ ],
+ "duration_s": 20.0,
+ "sky_fraction_of_crop": 0.41359375,
+ "note": "BSC5 stars visible (not occulted, inside the crop) at any of 41 times during the run, per assumed Sun ecliptic longitude; brightness from eventsim/stars.py (600-900 nm, electrons/s for the whole star).",
+ "star_V0_e_s": 1740251.8242070642,
+ "rows": [
+  {
+   "sun_ecliptic_lon_deg": 0,
+   "n_visible": 1,
+   "brightest_V": 5.05,
+   "brightest_e_s": 17407.51915899309,
+   "stars": [
+    {
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 5,
+   "n_visible": 1,
+   "brightest_V": 6.33,
+   "brightest_e_s": 3396.296687673846,
+   "stars": [
+    {
+     "V": 6.33,
+     "e_s": 3396.296687673846
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 10,
+   "n_visible": 2,
+   "brightest_V": 4.69,
+   "brightest_e_s": 17939.898775521284,
+   "stars": [
+    {
+     "V": 4.69,
+     "e_s": 17939.898775521284
+    },
+    {
+     "V": 6.07,
+     "e_s": 4315.246624963958
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 15,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 20,
+   "n_visible": 1,
+   "brightest_V": 5.94,
+   "brightest_e_s": 7037.436656470357,
+   "stars": [
+    {
+     "V": 5.94,
+     "e_s": 7037.436656470357
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 25,
+   "n_visible": 1,
+   "brightest_V": 6.35,
+   "brightest_e_s": 9769.84635467077,
+   "stars": [
+    {
+     "V": 6.35,
+     "e_s": 9769.84635467077
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 30,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 35,
+   "n_visible": 3,
+   "brightest_V": 5.82,
+   "brightest_e_s": 9785.076101447132,
+   "stars": [
+    {
+     "V": 6.42,
+     "e_s": 3790.5281981391863
+    },
+    {
+     "V": 5.82,
+     "e_s": 9785.076101447132
+    },
+    {
+     "V": 6.21,
+     "e_s": 3745.343364726782
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 40,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 45,
+   "n_visible": 2,
+   "brightest_V": 6.36,
+   "brightest_e_s": 4972.927155945081,
+   "stars": [
+    {
+     "V": 6.36,
+     "e_s": 4972.927155945081
+    },
+    {
+     "V": 6.6,
+     "e_s": 3383.0325652066003
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 50,
+   "n_visible": 2,
+   "brightest_V": 5.98,
+   "brightest_e_s": 5018.941084386727,
+   "stars": [
+    {
+     "V": 5.98,
+     "e_s": 4456.572880109124
+    },
+    {
+     "V": 6.35,
+     "e_s": 5018.941084386727
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 55,
+   "n_visible": 1,
+   "brightest_V": 5.97,
+   "brightest_e_s": 5274.882677775258,
+   "stars": [
+    {
+     "V": 5.97,
+     "e_s": 5274.882677775258
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 60,
+   "n_visible": 2,
+   "brightest_V": 2.06,
+   "brightest_e_s": 159704.63149519791,
+   "stars": [
+    {
+     "V": 6.13,
+     "e_s": 6567.210289980564
+    },
+    {
+     "V": 2.06,
+     "e_s": 159704.63149519791
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 65,
+   "n_visible": 3,
+   "brightest_V": 5.87,
+   "brightest_e_s": 5090.235220308737,
+   "stars": [
+    {
+     "V": 6.45,
+     "e_s": 4577.3286710493885
+    },
+    {
+     "V": 5.87,
+     "e_s": 5090.235220308737
+    },
+    {
+     "V": 5.9,
+     "e_s": 4677.8896419697785
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 70,
+   "n_visible": 1,
+   "brightest_V": 4.36,
+   "brightest_e_s": 18842.24761115516,
+   "stars": [
+    {
+     "V": 4.36,
+     "e_s": 18842.24761115516
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 75,
+   "n_visible": 1,
+   "brightest_V": 5.98,
+   "brightest_e_s": 8908.779405075391,
+   "stars": [
+    {
+     "V": 5.98,
+     "e_s": 8908.779405075391
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 80,
+   "n_visible": 2,
+   "brightest_V": 5.58,
+   "brightest_e_s": 7903.509656371163,
+   "stars": [
+    {
+     "V": 6.46,
+     "e_s": 3446.714747507844
+    },
+    {
+     "V": 5.58,
+     "e_s": 7903.509656371163
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 85,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 90,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 95,
+   "n_visible": 1,
+   "brightest_V": 5.82,
+   "brightest_e_s": 6377.179684606275,
+   "stars": [
+    {
+     "V": 5.82,
+     "e_s": 6377.179684606275
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 100,
+   "n_visible": 1,
+   "brightest_V": 5.43,
+   "brightest_e_s": 13828.056670696746,
+   "stars": [
+    {
+     "V": 5.43,
+     "e_s": 13828.056670696746
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 105,
+   "n_visible": 2,
+   "brightest_V": 3.8,
+   "brightest_e_s": 65463.4022343349,
+   "stars": [
+    {
+     "V": 3.8,
+     "e_s": 65463.4022343349
+    },
+    {
+     "V": 6.16,
+     "e_s": 11879.0151243016
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 110,
+   "n_visible": 3,
+   "brightest_V": 3.01,
+   "brightest_e_s": 65744.41867721583,
+   "stars": [
+    {
+     "V": 6.24,
+     "e_s": 3958.0702063008966
+    },
+    {
+     "V": 5.31,
+     "e_s": 11099.570610926867
+    },
+    {
+     "V": 3.01,
+     "e_s": 65744.41867721583
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 115,
+   "n_visible": 2,
+   "brightest_V": 4.04,
+   "brightest_e_s": 27116.69119831372,
+   "stars": [
+    {
+     "V": 5.37,
+     "e_s": 7718.292618727636
+    },
+    {
+     "V": 4.04,
+     "e_s": 27116.69119831372
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 120,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 125,
+   "n_visible": 1,
+   "brightest_V": 5.66,
+   "brightest_e_s": 11882.5017545265,
+   "stars": [
+    {
+     "V": 5.66,
+     "e_s": 11882.5017545265
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 130,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 135,
+   "n_visible": 2,
+   "brightest_V": 5.47,
+   "brightest_e_s": 11298.381418510276,
+   "stars": [
+    {
+     "V": 5.47,
+     "e_s": 7546.851592884825
+    },
+    {
+     "V": 5.89,
+     "e_s": 11298.381418510276
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 140,
+   "n_visible": 1,
+   "brightest_V": 4.91,
+   "brightest_e_s": 46135.72697881869,
+   "stars": [
+    {
+     "V": 4.91,
+     "e_s": 46135.72697881869
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 145,
+   "n_visible": 1,
+   "brightest_V": 5.22,
+   "brightest_e_s": 19445.432900401087,
+   "stars": [
+    {
+     "V": 5.22,
+     "e_s": 19445.432900401087
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 150,
+   "n_visible": 1,
+   "brightest_V": 5.05,
+   "brightest_e_s": 11470.926956119254,
+   "stars": [
+    {
+     "V": 5.05,
+     "e_s": 11470.926956119254
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 155,
+   "n_visible": 3,
+   "brightest_V": 5.56,
+   "brightest_e_s": 17628.06372469802,
+   "stars": [
+    {
+     "V": 5.65,
+     "e_s": 17628.06372469802
+    },
+    {
+     "V": 5.92,
+     "e_s": 5631.243273983701
+    },
+    {
+     "V": 5.56,
+     "e_s": 13204.729812672287
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 160,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 165,
+   "n_visible": 2,
+   "brightest_V": 5.37,
+   "brightest_e_s": 15520.577869938032,
+   "stars": [
+    {
+     "V": 6.32,
+     "e_s": 5058.329186282593
+    },
+    {
+     "V": 5.37,
+     "e_s": 15520.577869938032
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 170,
+   "n_visible": 3,
+   "brightest_V": 5.15,
+   "brightest_e_s": 18879.851434567012,
+   "stars": [
+    {
+     "V": 5.15,
+     "e_s": 18879.851434567012
+    },
+    {
+     "V": 5.99,
+     "e_s": 10515.158162569258
+    },
+    {
+     "V": 5.74,
+     "e_s": 11804.701186161645
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 175,
+   "n_visible": 1,
+   "brightest_V": 5.32,
+   "brightest_e_s": 7782.743307667717,
+   "stars": [
+    {
+     "V": 5.32,
+     "e_s": 7782.743307667717
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 180,
+   "n_visible": 2,
+   "brightest_V": 5.25,
+   "brightest_e_s": 10437.687487470723,
+   "stars": [
+    {
+     "V": 6.76,
+     "e_s": 2825.9473399622216
+    },
+    {
+     "V": 5.25,
+     "e_s": 10437.687487470723
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 185,
+   "n_visible": 1,
+   "brightest_V": 6.32,
+   "brightest_e_s": 7706.9364273067695,
+   "stars": [
+    {
+     "V": 6.32,
+     "e_s": 7706.9364273067695
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 190,
+   "n_visible": 1,
+   "brightest_V": 5.77,
+   "brightest_e_s": 5910.150147697678,
+   "stars": [
+    {
+     "V": 5.77,
+     "e_s": 5910.150147697678
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 195,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 200,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 205,
+   "n_visible": 3,
+   "brightest_V": 4.41,
+   "brightest_e_s": 28801.459688352203,
+   "stars": [
+    {
+     "V": 4.87,
+     "e_s": 19616.074293509926
+    },
+    {
+     "V": 4.41,
+     "e_s": 28801.459688352203
+    },
+    {
+     "V": 6.32,
+     "e_s": 4464.900068688882
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 210,
+   "n_visible": 1,
+   "brightest_V": 5.73,
+   "brightest_e_s": 7687.971118728197,
+   "stars": [
+    {
+     "V": 5.73,
+     "e_s": 7687.971118728197
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 215,
+   "n_visible": 1,
+   "brightest_V": 6.49,
+   "brightest_e_s": 3647.4473944370475,
+   "stars": [
+    {
+     "V": 6.49,
+     "e_s": 3647.4473944370475
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 220,
+   "n_visible": 8,
+   "brightest_V": 4.81,
+   "brightest_e_s": 18658.07024989211,
+   "stars": [
+    {
+     "V": 6.48,
+     "e_s": 3276.5709537815196
+    },
+    {
+     "V": 5.54,
+     "e_s": 14192.372397408077
+    },
+    {
+     "V": 6.15,
+     "e_s": 4798.061467515552
+    },
+    {
+     "V": 4.81,
+     "e_s": 18658.07024989211
+    },
+    {
+     "V": 5.18,
+     "e_s": 10176.501812769511
+    },
+    {
+     "V": 4.95,
+     "e_s": 14211.1313623891
+    },
+    {
+     "V": 5.0,
+     "e_s": 12011.535088359118
+    },
+    {
+     "V": 6.54,
+     "e_s": 3080.550532071029
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 225,
+   "n_visible": 2,
+   "brightest_V": 6.29,
+   "brightest_e_s": 5382.455769780424,
+   "stars": [
+    {
+     "V": 6.29,
+     "e_s": 3731.8424197014792
+    },
+    {
+     "V": 6.31,
+     "e_s": 5382.455769780424
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 230,
+   "n_visible": 2,
+   "brightest_V": 4.9,
+   "brightest_e_s": 22529.997872683354,
+   "stars": [
+    {
+     "V": 4.9,
+     "e_s": 22529.997872683354
+    },
+    {
+     "V": 5.6,
+     "e_s": 18839.982141433433
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 235,
+   "n_visible": 1,
+   "brightest_V": 6.45,
+   "brightest_e_s": 3523.8158547695493,
+   "stars": [
+    {
+     "V": 6.45,
+     "e_s": 3523.8158547695493
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 240,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 245,
+   "n_visible": 2,
+   "brightest_V": 4.5,
+   "brightest_e_s": 24661.543924824855,
+   "stars": [
+    {
+     "V": 4.5,
+     "e_s": 24661.543924824855
+    },
+    {
+     "V": 5.7,
+     "e_s": 10360.4389447626
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 250,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 255,
+   "n_visible": 1,
+   "brightest_V": 5.41,
+   "brightest_e_s": 9991.810440125779,
+   "stars": [
+    {
+     "V": 5.41,
+     "e_s": 9991.810440125779
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 260,
+   "n_visible": 1,
+   "brightest_V": 5.56,
+   "brightest_e_s": 12600.027953990853,
+   "stars": [
+    {
+     "V": 5.56,
+     "e_s": 12600.027953990853
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 265,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 270,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 275,
+   "n_visible": 1,
+   "brightest_V": 6.57,
+   "brightest_e_s": 3410.481899764417,
+   "stars": [
+    {
+     "V": 6.57,
+     "e_s": 3410.481899764417
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 280,
+   "n_visible": 2,
+   "brightest_V": 4.43,
+   "brightest_e_s": 28462.77859808856,
+   "stars": [
+    {
+     "V": 5.58,
+     "e_s": 6863.2232076737255
+    },
+    {
+     "V": 4.43,
+     "e_s": 28462.77859808856
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 285,
+   "n_visible": 3,
+   "brightest_V": 5.97,
+   "brightest_e_s": 8991.211325992857,
+   "stars": [
+    {
+     "V": 6.08,
+     "e_s": 7910.118426688508
+    },
+    {
+     "V": 5.97,
+     "e_s": 8991.211325992857
+    },
+    {
+     "V": 6.31,
+     "e_s": 7270.904585025133
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 290,
+   "n_visible": 1,
+   "brightest_V": 5.63,
+   "brightest_e_s": 6151.7830777586005,
+   "stars": [
+    {
+     "V": 5.63,
+     "e_s": 6151.7830777586005
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 295,
+   "n_visible": 3,
+   "brightest_V": 5.24,
+   "brightest_e_s": 9036.20766982485,
+   "stars": [
+    {
+     "V": 6.93,
+     "e_s": 2096.445096634307
+    },
+    {
+     "V": 5.77,
+     "e_s": 5546.080938517195
+    },
+    {
+     "V": 5.24,
+     "e_s": 9036.20766982485
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 300,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  },
+  {
+   "sun_ecliptic_lon_deg": 305,
+   "n_visible": 3,
+   "brightest_V": 4.34,
+   "brightest_e_s": 56555.167816083245,
+   "stars": [
+    {
+     "V": 6.17,
+     "e_s": 4473.055529126462
+    },
+    {
+     "V": 5.88,
+     "e_s": 5273.0161876747225
+    },
+    {
+     "V": 4.34,
+     "e_s": 56555.167816083245
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 310,
+   "n_visible": 1,
+   "brightest_V": 6.26,
+   "brightest_e_s": 7023.5245530764005,
+   "stars": [
+    {
+     "V": 6.26,
+     "e_s": 7023.5245530764005
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 315,
+   "n_visible": 1,
+   "brightest_V": 5.95,
+   "brightest_e_s": 13555.675063417402,
+   "stars": [
+    {
+     "V": 5.95,
+     "e_s": 13555.675063417402
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 320,
+   "n_visible": 4,
+   "brightest_V": 5.51,
+   "brightest_e_s": 15606.135470530375,
+   "stars": [
+    {
+     "V": 5.73,
+     "e_s": 7392.915613532575
+    },
+    {
+     "V": 5.69,
+     "e_s": 8187.953491116658
+    },
+    {
+     "V": 5.51,
+     "e_s": 15606.135470530375
+    },
+    {
+     "V": 6.01,
+     "e_s": 12914.585944530974
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 325,
+   "n_visible": 3,
+   "brightest_V": 6.07,
+   "brightest_e_s": 12472.764815003778,
+   "stars": [
+    {
+     "V": 6.07,
+     "e_s": 12472.764815003778
+    },
+    {
+     "V": 6.69,
+     "e_s": 2581.804164538547
+    },
+    {
+     "V": 6.43,
+     "e_s": 2981.8742755103126
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 330,
+   "n_visible": 2,
+   "brightest_V": 5.02,
+   "brightest_e_s": 10789.4923916409,
+   "stars": [
+    {
+     "V": 5.02,
+     "e_s": 10789.4923916409
+    },
+    {
+     "V": 6.21,
+     "e_s": 10172.456970740928
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 335,
+   "n_visible": 3,
+   "brightest_V": 5.83,
+   "brightest_e_s": 5962.37897789276,
+   "stars": [
+    {
+     "V": 5.83,
+     "e_s": 5962.37897789276
+    },
+    {
+     "V": 6.73,
+     "e_s": 2520.4813788114825
+    },
+    {
+     "V": 6.49,
+     "e_s": 3064.582810204514
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 340,
+   "n_visible": 1,
+   "brightest_V": 3.36,
+   "brightest_e_s": 63489.18201850536,
+   "stars": [
+    {
+     "V": 3.36,
+     "e_s": 63489.18201850536
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 345,
+   "n_visible": 2,
+   "brightest_V": 5.17,
+   "brightest_e_s": 9948.687967205638,
+   "stars": [
+    {
+     "V": 6.35,
+     "e_s": 3376.9771603819536
+    },
+    {
+     "V": 5.17,
+     "e_s": 9948.687967205638
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 350,
+   "n_visible": 2,
+   "brightest_V": 3.71,
+   "brightest_e_s": 65639.921278125,
+   "stars": [
+    {
+     "V": 3.71,
+     "e_s": 65639.921278125
+    },
+    {
+     "V": 5.52,
+     "e_s": 14167.746148517615
+    }
+   ]
+  },
+  {
+   "sun_ecliptic_lon_deg": 355,
+   "n_visible": 0,
+   "brightest_V": null,
+   "brightest_e_s": 0.0,
+   "stars": []
+  }
+ ]
+}

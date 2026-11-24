@@ -1,0 +1,4 @@
+SMD.ElapsedDays           Phase                     BurnDV                    DVtotal                   DVmaintenance             DVlowering                SMD.Fuel.FuelMass         
+2.332540062350745         2                         228.1587487612659         228.1587487612659         0                         228.1587487612659         23.81050815694626         
+SMD.ElapsedDays           Phase                     BurnDV                    DVtotal                   DVmaintenance             DVlowering                SMD.Fuel.FuelMass         
+2.434962774175801         3                         283.1891570971971         511.347905858463          0                         511.347905858463          10.78739416944848         

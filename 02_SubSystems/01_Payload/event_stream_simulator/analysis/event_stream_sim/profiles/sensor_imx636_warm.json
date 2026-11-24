@@ -1,0 +1,9 @@
+{
+  "name": "imx636_warm",
+  "inherits": "sensor_imx636.json",
+  "description": "IMX636 with the warm-sensor dark current (5.55 fA), S16 case m636_warm.",
+  "s10_case": "m636_warm",
+  "params": {
+    "dark.current_fA":          {"value": 5.55, "unit": "fA", "uncertainty": "-", "source": "McReynolds et al. 2024 (unreported temperature)", "status": "measured"}
+  }
+}

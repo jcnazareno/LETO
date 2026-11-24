@@ -1,0 +1,40 @@
+{
+  "review_date": "2026-10-29",
+  "year_days": 365.25,
+  "al_density_g_cm3": 2.7,
+  "moon_radius_km": 1737.4,
+  "earth_radius_km": 6371.0,
+  "durations_years": [1, 3],
+  "shield_mm": [1, 2, 2.54, 3, 5],
+  "digitization_fraction": 0.15,
+  "dose_margin_example": 2,
+  "transfer_allowance_krad": 1,
+  "local_box_inner_side_m": 0.1,
+  "whole_bus_shield_area_m2": 1,
+  "sensor": {"name": "IMX636 geometric example only", "nx": 1280, "ny": 720, "pitch_um": 4.86},
+  "noaa_flux_pfu": [10, 1000, 100000],
+  "incident_to_candidate_fraction_example": 0.01,
+  "confirmed_false_budget_per_hour_example": 0.01,
+  "gcr_scalar_flux_cm2_s_assumed": [1, 4, 10],
+  "outage_days_per_year_assumed": [1, 5, 10, 30],
+  "reset_rate_per_day_assumed": [0.01, 0.1, 1, 10],
+  "reset_recovery_s_assumed": 60,
+  "mask_patch_pixels_assumed": 9,
+  "mask_duration_s_assumed": 0.02,
+  "nasa_fig10": {
+    "source": "RAD01, printed p11 / PDF p15, Figure 10",
+    "image": "tmp/radiation_environment_research/fig10-000.png",
+    "plot_pixels": {"left":146,"right":1651,"top":18,"bottom":842},
+    "x_limits_mils": [1, 10000],
+    "y_limits_krad_si_y": [0.001, 10000000],
+    "rgb": {"LEO550_6":[146,146,146],"LEO800_98":[226,170,0],"Interplanetary":[112,48,160],"Lunar_surface":[191,191,191]},
+    "expected_y_at_shield": {"LEO550_6":[487,539,563,578,619],"LEO800_98":[457,520,536,551,573],"Interplanetary":[512,537,544,550,572],"Lunar_surface":[536,558,568,575,596]}
+  },
+  "nasa_fig8": {
+    "source": "RAD01, printed p9 / PDF p13, Figure 8",
+    "note": "Order-of-magnitude readings at LET >10 MeV cm2/mg, 2.54 mm Al, silicon. Source does not specify angular convention; no device-rate integration.",
+    "let_threshold_MeV_cm2_mg": 10,
+    "integral_flux_cm2_s": {"GCR_solar_min":0.00001,"GCR_solar_max":0.000001,"SEP_peak_5min":0.04,"SEP_peak_day":0.01,"SEP_peak_week":0.003},
+    "reading_factor_uncertainty": 2
+  }
+}

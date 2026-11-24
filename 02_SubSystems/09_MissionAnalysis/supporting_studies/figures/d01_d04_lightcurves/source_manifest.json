@@ -1,0 +1,66 @@
+[
+  {
+    "output": "figures\\d01_d04_lightcurves\\giancono_E1.png",
+    "source": "E05",
+    "pdf_page": 7,
+    "figure": 5,
+    "panel": "E1",
+    "crop_pdf_points": [
+      191.78181818181818,
+      430.6909090909091,
+      428.72727272727275,
+      530.8363636363636
+    ]
+  },
+  {
+    "output": "figures\\d01_d04_lightcurves\\giancono_E2.png",
+    "source": "E05",
+    "pdf_page": 7,
+    "figure": 5,
+    "panel": "E2",
+    "crop_pdf_points": [
+      191.78181818181818,
+      328.58181818181816,
+      428.72727272727275,
+      428.7272727272727
+    ]
+  },
+  {
+    "output": "figures\\d01_d04_lightcurves\\giancono_E3.png",
+    "source": "E05",
+    "pdf_page": 7,
+    "figure": 5,
+    "panel": "E3",
+    "crop_pdf_points": [
+      191.78181818181818,
+      225.81818181818176,
+      428.72727272727275,
+      326.61818181818177
+    ]
+  },
+  {
+    "output": "figures\\d01_d04_lightcurves\\giancono_E4.png",
+    "source": "E05",
+    "pdf_page": 7,
+    "figure": 5,
+    "panel": "E4",
+    "crop_pdf_points": [
+      191.78181818181818,
+      126.98181818181808,
+      428.72727272727275,
+      223.85454545454547
+    ]
+  },
+  {
+    "output": "figures\\d01_d04_lightcurves\\terrain_Fig3.png",
+    "source": "E04",
+    "pdf_page": 3,
+    "figure": 3,
+    "crop_pdf_points": [
+      65,
+      646.89,
+      530,
+      788.89
+    ]
+  }
+]

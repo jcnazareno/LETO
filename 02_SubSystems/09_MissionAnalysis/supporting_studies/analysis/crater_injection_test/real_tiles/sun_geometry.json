@@ -1,0 +1,30 @@
+{
+ "M1305967189RE_cal_echo_11_2": {
+  "inc": 81.67,
+  "az_best": 250.0,
+  "score_best": 0.143,
+  "score_opposite": -0.137,
+  "n_craters": 956
+ },
+ "M1183658592LE_cal_echo_23_0": {
+  "inc": 67.47,
+  "az_best": 240.0,
+  "score_best": 0.2974706614571749,
+  "score_opposite": -0.3130919614782421,
+  "n_craters": 250
+ },
+ "M1229577647LE_cal_echo_14_4": {
+  "inc": 65.87,
+  "az_best": 300.0,
+  "score_best": 0.27816297495558917,
+  "score_opposite": -0.2977958870542353,
+  "n_craters": 250
+ },
+ "M1303619844LE_cal_echo_26_2": {
+  "inc": 62.64,
+  "az_best": 240.0,
+  "score_best": 0.28920906639766825,
+  "score_opposite": -0.29224558603048156,
+  "n_craters": 250
+ }
+}

@@ -1,0 +1,6 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): mapped S10 inputs ['dark_fA', 'r_ba'] differ from the profile; NOT adapted (fixed table)
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+  pixel kernel 149.5 s, scene 3.7 s, events 53242 (0.0462 ev/s/px)
+  farside_imx636_eol20krad: flashes 8/8 detected, false triggers 0, particle triggers 0 of 0 hits, events 53242, wall 160.7 s, peak RSS 513 MB

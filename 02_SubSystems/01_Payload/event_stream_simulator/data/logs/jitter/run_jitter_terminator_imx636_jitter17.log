@@ -1,0 +1,4 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+  pixel kernel 12012.1 s, scene 105.4 s, events 1193908 (1.04 ev/s/px)
+  terminator_imx636_jitter17: flashes 8/8 detected, false triggers 1, particle triggers 0 of 0 hits, events 1193908, wall 12229.4 s, peak RSS 729 MB

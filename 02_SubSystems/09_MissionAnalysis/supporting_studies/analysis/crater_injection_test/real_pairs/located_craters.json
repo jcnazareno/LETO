@@ -1,0 +1,30 @@
+{
+ "description": "Positions (line, sample) of the located new craters in the before-image window (win_<id>b.npz), found as the strongest compact reflectance change in the registered NAC pair near the catalogue position (3 November 2026). C2, C6 and C8 were not located within 600 m (their pairs could not be registered well enough).",
+ "located": {
+  "C1": {
+   "line": 1571.0,
+   "sample": 1626.0,
+   "confidence": "darkest compact change (probable)"
+  },
+  "C3": {
+   "line": 1257.0,
+   "sample": 1532.0,
+   "confidence": "clear"
+  },
+  "C4": {
+   "line": 1643.0,
+   "sample": 1469.0,
+   "confidence": "clear"
+  },
+  "C5": {
+   "line": 1559.0,
+   "sample": 1253.0,
+   "confidence": "clear"
+  },
+  "C7": {
+   "line": 1855.0,
+   "sample": 379.0,
+   "confidence": "clear"
+  }
+ }
+}

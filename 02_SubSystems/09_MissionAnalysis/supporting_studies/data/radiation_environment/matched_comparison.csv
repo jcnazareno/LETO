@@ -1,0 +1,11 @@
+shielding_mm,lunar_proxy,leo,lunar_krad_Si_year,leo_krad_Si_year,ratio,reading_ratio_low,reading_ratio_high,source
+1,unocculted interplanetary,LEO550_6,10.545283320250455,22.740296162547036,0.46372673622511545,0.3427545441663897,0.6273949960692738,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+1,unocculted interplanetary,LEO800_98,10.545283320250455,45.72926012210131,0.23060253527158725,0.17044535215726014,0.31199166536744155,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+2,unocculted interplanetary,LEO550_6,5.468447886019564,4.560165268186655,1.1991775658153037,0.8863486356026158,1.6224167066912931,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+2,unocculted interplanetary,LEO800_98,5.468447886019564,9.562743882108927,0.5718492467680286,0.4226711823937603,0.7736783926861562,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+2.54,unocculted interplanetary,LEO550_6,4.252465282678577,2.5715452737036637,1.65366144868761,1.222271505551712,2.2373066658714724,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+2.54,unocculted interplanetary,LEO800_98,4.252465282678577,5.468447886019564,0.7776366112128957,0.574774886548662,1.0520965916409766,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+3,unocculted interplanetary,LEO550_6,3.5960460347904304,1.5334852804445103,2.3450150325199384,1.7332719805582155,3.17266739693874,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+3,unocculted interplanetary,LEO800_98,3.5960460347904304,3.9105064784321995,0.9195857504964824,0.6796938155843566,1.2441454271422996,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+5,unocculted interplanetary,LEO550_6,2.056396216338072,0.5085230927275866,4.043860044404461,2.9889400328206888,5.471104765958976,"RAD01; same solar max, 95%, Si, sphere, annual normalization"
+5,unocculted interplanetary,LEO800_98,2.056396216338072,1.8910326579193648,1.0874461674293086,0.8037645585347063,1.471250697110241,"RAD01; same solar max, 95%, Si, sphere, annual normalization"

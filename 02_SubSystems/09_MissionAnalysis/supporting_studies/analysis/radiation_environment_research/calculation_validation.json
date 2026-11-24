@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": [
+    "sensor area",
+    "occultation limits",
+    "Si unit conversion",
+    "Fig10 lunar value within 15% of printed 2.17",
+    "ratio reading bounds",
+    "availability bounds",
+    "Al mass conversion"
+  ],
+  "headline": {
+    "imx636_area_cm2": 0.21767823360000005,
+    "ip_2_54_krad_year": 4.252465282678577,
+    "three_year_plus_transfer_krad": 13.757395848035731,
+    "dose_tolerance_with_example_margin_krad": 27.514791696071462,
+    "lro_quiet_annual_rad": 13.38153153153153,
+    "low_lunar_primary_only_krad_year": 2.8181160934362173
+  }
+}

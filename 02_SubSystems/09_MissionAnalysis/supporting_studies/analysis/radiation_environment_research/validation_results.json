@@ -1,0 +1,165 @@
+{
+  "status": "passed",
+  "review_date": "2026-10-29",
+  "checks": [
+    {
+      "check": "saved workbook error/cache scan",
+      "passed": true,
+      "details": {
+        "formulas": 247,
+        "errors": []
+      }
+    },
+    {
+      "check": "saved cache TID tolerance",
+      "passed": true,
+      "details": {
+        "actual": 27.514791696071462,
+        "expected": 27.514791696071462
+      }
+    },
+    {
+      "check": "saved cache 3mm exact cube mass",
+      "passed": true,
+      "details": {
+        "actual": 0.5157432000000006,
+        "expected": 0.5157431999999988
+      }
+    },
+    {
+      "check": "saved cache 5-day 0.1/day availability",
+      "passed": true,
+      "details": {
+        "actual": 0.9862422570187132,
+        "expected": 0.9862422570187132
+      }
+    },
+    {
+      "check": "saved cache SEP S1 front-face rate",
+      "passed": true,
+      "details": {
+        "actual": 6.83856339524163,
+        "expected": 6.8385633952416285
+      }
+    },
+    {
+      "check": "saved cache Moon100 visible sky",
+      "passed": true,
+      "details": {
+        "actual": 0.662701728551472,
+        "expected": 0.662701728551472
+      }
+    },
+    {
+      "check": "saved cache reading ratio 2.54mm",
+      "passed": true,
+      "details": {
+        "actual": 1.65366144868761,
+        "expected": 1.65366144868761
+      }
+    },
+    {
+      "check": "seven named worksheets",
+      "passed": true,
+      "details": [
+        "Conclusions",
+        "Dose comparison",
+        "Engineering",
+        "Cases",
+        "Components",
+        "Evidence",
+        "Open items"
+      ]
+    },
+    {
+      "check": "seven A4 PDF pages",
+      "passed": true,
+      "details": 7
+    },
+    {
+      "check": "PDF content and citations",
+      "passed": true,
+      "details": [
+        2610,
+        2908,
+        1725,
+        2979,
+        2541,
+        2412,
+        3758
+      ]
+    },
+    {
+      "check": "rendered PDF pages exist",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "five scientific figure pairs",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "figure resolution availability_sensitivity",
+      "passed": true,
+      "details": [
+        1274,
+        703
+      ]
+    },
+    {
+      "check": "figure resolution duration_sensitivity",
+      "passed": true,
+      "details": [
+        1274,
+        703
+      ]
+    },
+    {
+      "check": "figure resolution let_environment_scale",
+      "passed": true,
+      "details": [
+        1307,
+        703
+      ]
+    },
+    {
+      "check": "figure resolution matched_dose_depth",
+      "passed": true,
+      "details": [
+        1274,
+        828
+      ]
+    },
+    {
+      "check": "figure resolution shielding_mass",
+      "passed": true,
+      "details": [
+        1600,
+        724
+      ]
+    },
+    {
+      "check": "project-local links in study and touched notes",
+      "passed": true,
+      "details": {
+        "count": 61,
+        "broken": []
+      }
+    },
+    {
+      "check": "source IDs unique",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "seven public source PDFs cached",
+      "passed": true,
+      "details": 7
+    }
+  ],
+  "visual_review": "All seven report pages, every worksheet, engineering subviews and five scientific figures reviewed; plot caption spacing corrected.",
+  "native_excel": "not executed; artifact-tool recalculation plus saved-cache checks only",
+  "radiation_model_execution": "none; published figures and explicit arithmetic sensitivities only",
+  "scope": "concept research complete; selected trajectory/device qualification and response remain TBR"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "imx636_tuned",
+  "inherits": "sensor_imx636.json",
+  "description": "IMX636 with tuned (low-threshold) biases, S16 case m636_tuned: C_on 0.10, BA 1 Hz.",
+  "s10_case": "m636_tuned",
+  "params": {
+    "threshold.C_on": {
+      "value": 0.1,
+      "unit": "ln",
+      "uncertainty": "0.05-0.15 measured",
+      "source": "McReynolds et al. 2025",
+      "status": "measured"
+    },
+    "threshold.C_off": {
+      "value": 0.1,
+      "unit": "ln",
+      "uncertainty": "OFF threshold at tuned biases not published",
+      "source": "assumption (equal to ON)",
+      "status": "assumed"
+    },
+    "ba.rate_hz": {
+      "value": 1.0,
+      "unit": "Hz",
+      "uncertainty": "1-3.5; [T] Sect. 3.2 p. 17: 3197 kev/s (3.5 ev/s/px) for bias set IMX-6 and 1887 kev/s (2.0 ev/s/px) for IMX-7, monitor off; IMX-6 is the McReynolds low-light bias set ([T] Table 3.2, p. 15)",
+      "source": "McReynolds et al. 2025",
+      "status": "measured"
+    },
+    "hot.fraction": {
+      "previous": {
+        "value": null,
+        "source": null,
+        "status": null,
+        "replaced": "2026-11-04"
+      },
+      "value": 0.02,
+      "unit": "share of pixels",
+      "status": "measured",
+      "uncertainty": "0.5-5%; [T] Fig. 3.2c-f (p. 18) shows a broad per-pixel tail at the same low-light bias set (IMX-6/IMX-7) that needs a 1% mask",
+      "source": "McReynolds et al. 2025 (~2% hot pixels at tuned biases); consistent with [T] Fig. 3.2c-f"
+    },
+    "events.refractory_s": {
+      "previous": {
+        "value": null,
+        "source": null,
+        "status": null,
+        "replaced": "2026-11-04"
+      },
+      "value": 1e-05,
+      "unit": "s",
+      "status": "assumed",
+      "uncertainty": "longer than default: the low-light bias set uses bias_refr = -20 ([T] Table 3.2 p. 15; Table 2.1 p. 9: increasing bias_refr shortens the refractory period); absolute value not published",
+      "source": "assumption; see note",
+      "note": "conflicts with the proposed requirement refractory <= 10 us (V6) unless bias_refr is reset; flagged for the team"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+assumed_scalar_flux_cm2_s,rate_both_faces_s,ideal_poisson_patch_time_loss,status
+1,0.10883911680000002,2.1257640000000005e-08,"hypothetical flux sensitivity, not calibrated GCR hit prediction"
+4,0.4353564672000001,8.503056000000002e-08,"hypothetical flux sensitivity, not calibrated GCR hit prediction"
+10,1.0883911680000002,2.1257640000000008e-07,"hypothetical flux sensitivity, not calibrated GCR hit prediction"

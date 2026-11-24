@@ -1,0 +1,31 @@
+| Run | Events [kev/s] | Events per px per s | Flashes detected | False triggers | Particle hits (heavy) / triggers | Median lag [ms] | Energy error, corrected median/rms [ln] | Wall [s] | Peak RSS [MB] |
+|---|---|---|---|---|---|---|---|---|---|
+| nearside_imx636 | 2.6 | 0.045 | 8/8 | 0 | 0 (0) / 0 | 12 | -0.07 / 0.33 | 441 | 608 | censored 0 |
+| farside_imx636 | 2.2 | 0.039 | 8/8 | 0 | 0 (0) / 0 | 12 | -0.05 / 0.27 | 360 | 518 | censored 0 |
+| particles_imx636 | 2.2 | 0.039 | 4/4 | 0 | 79 (4) / 0 | 11 | -0.02 / 0.12 | 379 | 518 | censored 0 |
+| particles_imx636_nomask | 4.3 | 0.075 | 4/4 | 141 | 79 (4) / 1 | 11 | +0.00 / 0.28 | 313 | 518 | censored 0 |
+| terminator_imx636 | 13.1 | 0.227 | 8/8 | 0 | 0 (0) / 0 | 12 | -0.11 / 0.29 | 744 | 728 | censored 0 |
+| terminator_imx636_nolitmask | 13.1 | 0.227 | 8/8 | 420 | 0 (0) / 0 | 12 | -0.11 / 0.30 | 757 | 729 | censored 0 |
+| terminator_far_imx636 | 6.8 | 0.119 | 8/8 | 0 | 0 (0) / 0 | 12 | -0.05 / 0.27 | 586 | 730 | censored 0 |
+| terminator_far_imx636_nolitmask | 6.8 | 0.119 | 8/8 | 184 | 0 (0) / 0 | 12 | -0.13 / 0.23 | 666 | 730 | censored 0 |
+| limb_imx636 | 2.4 | 0.041 | 6/6 | 0 | 0 (0) / 0 | 12 | +0.07 / 0.79 | 460 | 1362 | censored 0 |
+| compare_nearside_imx636 | 2.6 | 0.045 | 7/8 | 0 | 0 (0) / 0 | 23 | -0.10 / 0.41 | 390 | 608 | censored 0 |
+| compare_nearside_imx646 | 2.9 | 0.050 | 7/8 | 0 | 0 (0) / 0 | 13 | -0.07 / 0.36 | 468 | 866 | censored 0 |
+| nearside_imx636_full | 58.1 | 0.063 | 6/6 | 0 | 7 (0) / 0 | 13 | +0.11 / 0.58 | 1898 | 1314 | censored 0 |
+| particles_gcrmin_x100_imx636 | 2.2 | 0.039 | 4/4 | 0 | 102 (21) / 0 | 11 | -0.02 / 0.12 | 365 | 517 | censored 0 |
+| particles_gcrmin_x100_imx636_nomask | 4.3 | 0.075 | 4/4 | 141 | 102 (21) / 1 | 11 | +0.00 / 0.28 | 335 | 518 | censored 0 |
+| particles_gcrmax_x100_imx636 | 2.2 | 0.039 | 4/4 | 0 | 37 (7) / 0 | 11 | -0.02 / 0.12 | 346 | 518 | censored 0 |
+| particles_gcrmin_x100_imx636_nomask_measuredhot | 2.3 | 0.040 | 4/4 | 0 | 102 (21) / 0 | 11 | +0.01 / 0.27 | 340 | 518 | censored 0 |
+| terminator_imx636_mapshift_p3 | 13.1 | 0.227 | 8/8 | 8 | 0 (0) / 0 | 12 | -0.00 / 0.33 | 789 | 727 | censored 0 |
+| terminator_imx636_mapshift_m3 | 13.1 | 0.227 | 8/8 | 1 | 0 (0) / 0 | 12 | -0.10 / 0.29 | 850 | 730 | censored 0 |
+| nearside_imx636_bgerr_p20 | 2.6 | 0.045 | 8/8 | 0 | 0 (0) / 0 | 12 | +0.14 / 0.37 | 484 | 608 | censored 0 |
+| nearside_imx636_bgerr_m20 | 2.6 | 0.045 | 8/8 | 0 | 0 (0) / 0 | 12 | -0.32 / 0.45 | 462 | 607 | censored 0 |
+| nearside_imx636_geomean | 2.6 | 0.045 | 8/8 | 0 | 0 (0) / 0 | 12 | -0.07 / 0.33 | 438 | 609 | censored 0 |
+| nearside_imx636_ba03_fixed | 17.3 | 0.300 | 8/8 | 0 | 0 (0) / 0 | 12 | +0.66 / 0.97 | 484 | 608 | censored 0 |
+| nearside_imx636_ba03_retuned | 17.3 | 0.300 | 8/8 | 0 | 0 (0) / 0 | 12 | +0.66 / 0.97 | 496 | 607 | censored 0 |
+| particles_gcrmin_x100_imx636_diff05 | 2.2 | 0.039 | 4/4 | 0 | 102 (21) / 1 | 11 | +0.04 / 0.05 | 387 | 518 | censored 0 |
+| particles_gcrmin_x100_imx636_diff05_coll1ms | 2.2 | 0.039 | 4/4 | 0 | 102 (21) / 4 | 11 | +0.10 / 0.11 | 1005 | 517 | censored 0 |
+| particles_gcrmin_x100_imx636_coll5ms | 2.2 | 0.039 | 4/4 | 0 | 102 (21) / 3 | 11 | +0.04 / 0.05 | 992 | 516 | censored 0 |
+| particles_sep1000_imx636 | 2.4 | 0.042 | 4/4 | 0 | 845 (47) / 0 | 11 | -0.02 / 0.12 | 366 | 518 | censored 0 |
+energy_calibration_imx646 2378 {'a_same_family': (0.015, 0.265, [696, 700]), 'b_double_profile': (-0.147, 0.519, [450, 450]), 'b_power_profile': (-0.011, 0.349, [450, 450])}
+energy_calibration_imx636 2353 {'a_same_family': (0.01, 0.252, [689, 700]), 'b_double_profile': (-0.11, 0.564, [449, 450]), 'b_power_profile': (-0.01, 0.303, [449, 450])}

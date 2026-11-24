@@ -1,0 +1,8 @@
+id,action,basis,source_ids,limit
+C01,Use a versioned LUMIO comparator,2024 payload design and 2026 status; keep older model separate,"L01, L05, L06",No final current configuration claimed
+C02,Test early-to-total optical energy as one science hypothesis,"First-5-ms fraction and tail integral, compared with current ground and LUMIO","L22, L06",Hypothesis; no demonstrated SMD capability
+C03,Close useful sample yield before tightening the faint limit,"Population variance, recovery and regional exposure determine counts","L18, L20",100 events for 10% mean precision only if CV=1 and bias controlled
+C04,Separate full disc visibility from whole-surface coverage,LUMIO plus ground aims at global information,"L02, L20",SMD still requires both hemispheres and polar coverage
+C05,Size the platform from payload and interfaces,LUMIO inherits CubeSat programme constraints and needs custom deep-space systems,"L19, L05, L06",SMD is not restricted to CubeSat; no comparable total-cost evidence
+C06,Close mode budgets and engineering cycles,"Sun tracking, Moon imaging, DTE and unloading interact","L05, L07","Copied component figures do not close power, momentum or availability"
+C07,Compare performance at a credible delivery date,Potential LUMIO 2028 and demonstrated 2026 high-speed ground results,"L01, L22",Refresh before science baseline; SMD launch date remains unselected

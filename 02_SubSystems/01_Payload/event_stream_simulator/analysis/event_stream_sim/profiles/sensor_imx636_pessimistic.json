@@ -1,0 +1,16 @@
+{
+  "name": "imx636_pessimistic",
+  "inherits": "sensor_imx636.json",
+  "description": "Revision-5 pessimistic corner on the realistic numerics: tau_ref 3 ms, C 0.30, dark 5.55 fA, BA 1 Hz.",
+  "s10_case": "pessimistic",
+  "params": {
+    "photoreceptor.tau_ref_s":  {"value": 0.003, "unit": "s", "uncertainty": "-", "source": "S10 pessimistic", "status": "convention"},
+    "threshold.C_on":           {"value": 0.30, "unit": "ln", "uncertainty": "-", "source": "S10 pessimistic", "status": "convention"},
+    "threshold.C_off":          {"value": 0.30, "unit": "ln", "uncertainty": "-", "source": "S10 pessimistic", "status": "convention"},
+    "dark.current_fA":          {"value": 5.55, "unit": "fA", "uncertainty": "-", "source": "McReynolds et al. 2024", "status": "measured"},
+    "ba.rate_hz":               {"value": 1.0, "unit": "Hz", "uncertainty": "-", "source": "S10 pessimistic", "status": "convention"},
+    "ba.sigma_ln":              {"value": 0.0, "unit": "-", "uncertainty": "-", "source": "S10", "status": "convention"},
+    "hot.fraction":             {"value": 0.0, "unit": "-", "uncertainty": "-", "source": "S10", "status": "convention"},
+    "mask.fraction":            {"value": 0.0, "unit": "-", "uncertainty": "-", "source": "S10", "status": "convention"}
+  }
+}

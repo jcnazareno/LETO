@@ -1,0 +1,340 @@
+{
+  "status": "passed",
+  "date": "2026-10-29",
+  "checks": [
+    {
+      "check": "19 unique primary source records",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "resolved source IDs claims",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "resolved source IDs criteria",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "resolved source IDs timeline",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "resolved source IDs conflicts",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "resolved source IDs comparison",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "resolved source IDs decisions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "claim IDs unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "stable D01-D10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "historical count criteria",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip sources",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip claims",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip criteria",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip timeline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip conflicts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip comparison",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "CSV/JSON round trip decisions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "saved formula caches and no Excel errors",
+      "passed": true,
+      "detail": {
+        "formula_count": 121,
+        "errors": []
+      }
+    },
+    {
+      "check": "meaningful live calculations",
+      "passed": true,
+      "detail": 121
+    },
+    {
+      "check": "independent saved value science hours",
+      "passed": true,
+      "detail": {
+        "value": 4383.0,
+        "expected": 4383
+      }
+    },
+    {
+      "check": "independent saved value annual Gbit",
+      "passed": true,
+      "detail": {
+        "value": 14.8,
+        "expected": 14.8
+      }
+    },
+    {
+      "check": "independent saved value mean sample",
+      "passed": true,
+      "detail": {
+        "value": 100.0,
+        "expected": 100
+      }
+    },
+    {
+      "check": "independent saved value two-group sample",
+      "passed": true,
+      "detail": {
+        "value": 450.0,
+        "expected": 450
+      }
+    },
+    {
+      "check": "independent saved value mass line sum",
+      "passed": true,
+      "detail": {
+        "value": 23.28,
+        "expected": 23.28
+      }
+    },
+    {
+      "check": "independent saved value printed mass total",
+      "passed": true,
+      "detail": {
+        "value": 28.69,
+        "expected": 28.69
+      }
+    },
+    {
+      "check": "independent saved value science headroom",
+      "passed": true,
+      "detail": {
+        "value": 9.820000000000007,
+        "expected": 9.82
+      }
+    },
+    {
+      "check": "independent saved value margin difference",
+      "passed": true,
+      "detail": {
+        "value": 3.2300000000000075,
+        "expected": 3.23
+      }
+    },
+    {
+      "check": "independent saved value delta-v sum",
+      "passed": true,
+      "detail": {
+        "value": 79.05000000000001,
+        "expected": 79.05
+      }
+    },
+    {
+      "check": "independent saved value near-disc diameter",
+      "passed": true,
+      "detail": {
+        "value": 5.5324650243773315,
+        "expected": 5.5324650243773315
+      }
+    },
+    {
+      "check": "independent saved value nadir sampling",
+      "passed": true,
+      "detail": {
+        "value": 8.617147332526152,
+        "expected": 8.617147332526153
+      }
+    },
+    {
+      "check": "independent saved value first5ms fraction",
+      "passed": true,
+      "detail": {
+        "value": 0.8111243971624382,
+        "expected": 0.8111243971624382
+      }
+    },
+    {
+      "check": "summary references final calculation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "seven named sheets",
+      "passed": true,
+      "detail": [
+        "Conclusions",
+        "Mission criteria",
+        "Design history",
+        "Subsystems",
+        "SMD comparison",
+        "Calculations",
+        "Evidence"
+      ]
+    },
+    {
+      "check": "ten A4 pages",
+      "passed": true,
+      "detail": 10
+    },
+    {
+      "check": "PDF text within printable bounds",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "PDF content/source labels",
+      "passed": true,
+      "detail": [
+        2756,
+        2428,
+        2250,
+        2433,
+        2408,
+        2868,
+        2459,
+        2179,
+        2752,
+        3072
+      ]
+    },
+    {
+      "check": "no missing glyph/control tokens in deliverables",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "all PDF renders present",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "four scientific figure pairs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "figure size geometry",
+      "passed": true,
+      "detail": [
+        1856,
+        668
+      ]
+    },
+    {
+      "check": "figure size operations",
+      "passed": true,
+      "detail": [
+        1730,
+        524
+      ]
+    },
+    {
+      "check": "figure size published_yield",
+      "passed": true,
+      "detail": [
+        1586,
+        614
+      ]
+    },
+    {
+      "check": "figure size temporal_integration",
+      "passed": true,
+      "detail": [
+        1586,
+        740
+      ]
+    },
+    {
+      "check": "all worksheet preview topics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "supplied source byte integrity L17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "supplied source byte integrity L18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "web access limitations recorded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "local study/shared-note links",
+      "passed": true,
+      "detail": {
+        "count": 66,
+        "broken": []
+      }
+    },
+    {
+      "check": "calculation run checks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "workbook input-change checks",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "formula_count": 121,
+  "PDF_pages": 10,
+  "local_links": 66,
+  "python": "/usr/bin/python3",
+  "visual_review": "Ten-page contact sheet and detailed PDF pages; representative crops from all seven worksheets plus calculation views; four figures. No original graphical review claimed for HTTP403 Polimi sources.",
+  "limitations": [
+    "Native Excel not executed",
+    "No new ephemeris propagation or LUMIO yield Monte Carlo",
+    "No calibrated selected-sensor model or hardware/irradiation/qualification test",
+    "Source conflicts and current public gaps retained"
+  ]
+}

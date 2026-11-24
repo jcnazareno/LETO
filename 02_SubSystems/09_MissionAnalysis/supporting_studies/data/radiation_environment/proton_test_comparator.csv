@@ -1,0 +1,2 @@
+source,device,proton_energy_MeV,fluence_p_cm2,tid_krad_Si,limit
+RAD05 section3.4 Table3,DAVIS346SN0498,64,149800000000.0,20,combinedTIDandDD exposure; no NIEL equivalent conversion or lunar lifetime inferred

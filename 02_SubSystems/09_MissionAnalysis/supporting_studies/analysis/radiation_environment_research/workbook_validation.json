@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "engine": "artifact-tool",
+  "audit": [
+    {
+      "range": "'Dose comparison'!H20",
+      "actual": 27.514791696071462,
+      "expected": 27.514791696071462
+    },
+    {
+      "range": "Engineering!E11",
+      "actual": 0.5157432000000006,
+      "expected": 0.5157432000000006
+    }
+  ],
+  "input_change": "Transfer 1 to2 to1 krad; zero-loss availability boundary restored",
+  "native_excel": "not tested",
+  "sheets": [
+    "Conclusions",
+    "Dose comparison",
+    "Engineering",
+    "Cases",
+    "Components",
+    "Evidence",
+    "Open items"
+  ]
+}

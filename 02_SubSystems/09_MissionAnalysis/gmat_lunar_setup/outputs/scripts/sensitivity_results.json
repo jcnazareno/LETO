@@ -1,0 +1,51 @@
+{
+  "high": {
+    "gravity_40_vs_80": {
+      "position_m": 0.0,
+      "velocity_m_s": 0.0,
+      "comparison_epoch_days": 6.99999999958527
+    },
+    "gravity_80_vs_120": {
+      "position_m": 0.0,
+      "velocity_m_s": 0.0,
+      "comparison_epoch_days": 6.99999999958527
+    },
+    "srp_low_vs_nominal": {
+      "position_m": 12.93331016727533,
+      "velocity_m_s": 0.003010651977676374,
+      "comparison_epoch_days": 6.99999999958527
+    },
+    "srp_high_vs_nominal": {
+      "position_m": 24.250207716133517,
+      "velocity_m_s": 0.005645086048164704,
+      "comparison_epoch_days": 6.999999999599822
+    }
+  },
+  "low": {
+    "gravity_40_vs_80": {
+      "position_m": 0.8681162480952318,
+      "velocity_m_s": 0.004084695444702548,
+      "comparison_epoch_days": 6.999999999599822
+    },
+    "gravity_80_vs_120": {
+      "position_m": 0.0020223898969592684,
+      "velocity_m_s": 2.1752034362403085e-06,
+      "comparison_epoch_days": 6.999999999607098
+    },
+    "srp_low_vs_nominal": {
+      "position_m": 3.845066142727989,
+      "velocity_m_s": 0.003134155532531211,
+      "comparison_epoch_days": 6.999999999592546
+    },
+    "srp_high_vs_nominal": {
+      "position_m": 7.209529625000478,
+      "velocity_m_s": 0.005876212821621084,
+      "comparison_epoch_days": 6.999999999592546
+    }
+  },
+  "numerics_low_nominal_vs_tight": {
+    "position_m": 0.00014121486604093815,
+    "velocity_m_s": 1.0763843060479125e-07,
+    "comparison_epoch_days": 6.999999999607098
+  }
+}

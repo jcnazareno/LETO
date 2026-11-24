@@ -1,0 +1,65 @@
+{
+  "runtime": "Linux GMAT R2026a",
+  "scope": "Parse only; paths rebound in temporary copies; no mission propagation or R2022a execution",
+  "scripts": {
+    "convergence_high_120.script": {
+      "parse_passed": true
+    },
+    "convergence_high_40.script": {
+      "parse_passed": true
+    },
+    "convergence_high_80.script": {
+      "parse_passed": true
+    },
+    "convergence_low_120.script": {
+      "parse_passed": true
+    },
+    "convergence_low_40.script": {
+      "parse_passed": true
+    },
+    "convergence_low_80.script": {
+      "parse_passed": true
+    },
+    "numerics_low_tight.script": {
+      "parse_passed": true
+    },
+    "option_a_ideal_stationkeeping.script": {
+      "parse_passed": true
+    },
+    "option_a_natural.script": {
+      "parse_passed": true
+    },
+    "srp_high_high.script": {
+      "parse_passed": true
+    },
+    "srp_high_low.script": {
+      "parse_passed": true
+    },
+    "srp_low_high.script": {
+      "parse_passed": true
+    },
+    "srp_low_low.script": {
+      "parse_passed": true
+    },
+    "validation_controller_exercise.script": {
+      "parse_passed": true
+    },
+    "validation_high_30d.script": {
+      "parse_passed": true
+    },
+    "validation_low_30d.script": {
+      "parse_passed": true
+    },
+    "validation_transfer.script": {
+      "parse_passed": true
+    }
+  },
+  "powershell_runtime_tested": false,
+  "static_checks": {
+    "all_77_source_files_present": true,
+    "original_files_unchanged": true,
+    "transfer_matches_supplied_reference_byte_for_byte": true,
+    "mission_logic_preserved_except_extra_shadow_setting": true,
+    "copied_historical_json_and_logs_unchanged": true
+  }
+}
