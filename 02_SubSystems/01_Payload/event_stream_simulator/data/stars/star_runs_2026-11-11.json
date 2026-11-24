@@ -1,0 +1,320 @@
+{
+ "description": "Limb scene (20 s, 6 flashes, ghost stray light) without stars, with BSC5 stars at the default season, and with one test star of V = 1..5 at a random sky pixel. Model predictions.",
+ "runs": [
+  {
+   "label": "no stars",
+   "tag": "limb_imx636_nostars",
+   "test_V": null,
+   "code_version": "2026-11-11",
+   "stars_in_field": [],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.009635646224237081,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "catalogue (season 0 deg)",
+   "tag": "limb_imx636",
+   "test_V": null,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.009761574948579104,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "test star V = 1",
+   "tag": "limb_imx636_teststar_V1",
+   "test_V": 1,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V1",
+     "V": 1.0,
+     "e_s": 692806.7297856358
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.011692482055156782,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "test star V = 2",
+   "tag": "limb_imx636_teststar_V2",
+   "test_V": 2,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V2",
+     "V": 2.0,
+     "e_s": 275811.3269353806
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.01110481467489401,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "test star V = 3",
+   "tag": "limb_imx636_teststar_V3",
+   "test_V": 3,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V3",
+     "V": 3.0,
+     "e_s": 109802.46697284986
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.01059480334130882,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "test star V = 4",
+   "tag": "limb_imx636_teststar_V4",
+   "test_V": 4,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V4",
+     "V": 4.0,
+     "e_s": 43713.14944635505
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.010229610040716954,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "test star V = 5",
+   "tag": "limb_imx636_teststar_V5",
+   "test_V": 5,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V5",
+     "V": 5.0,
+     "e_s": 17402.51824207064
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.009954665659236871,
+   "ground_event_rate_ev_s_px": 0.0144758267460106,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "limb-crossing star V = 1",
+   "tag": "limb_imx636_teststar_limb_V1",
+   "test_V": 1,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V1",
+     "V": 1.0,
+     "e_s": 692806.7297856358
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.010703941569071906,
+   "ground_event_rate_ev_s_px": 0.014545400716463866,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "limb-crossing star V = 2",
+   "tag": "limb_imx636_teststar_limb_V2",
+   "test_V": 2,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V2",
+     "V": 2.0,
+     "e_s": 275811.3269353806
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.010412206691012888,
+   "ground_event_rate_ev_s_px": 0.014515794771590136,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "limb-crossing star V = 3",
+   "tag": "limb_imx636_teststar_limb_V3",
+   "test_V": 3,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V3",
+     "V": 3.0,
+     "e_s": 109802.46697284986
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 1,
+   "n_false_by_star": 1,
+   "false_by_star": [
+    {
+     "t": 9.16,
+     "W": 0.2,
+     "star": "test_V3",
+     "V": 3.0
+    }
+   ],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.010170843302690677,
+   "ground_event_rate_ev_s_px": 0.014498031204665897,
+   "ln_err_corr_rms": 0.8003646699061675
+  },
+  {
+   "label": "limb-crossing star V = 4",
+   "tag": "limb_imx636_teststar_limb_V4",
+   "test_V": 4,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V4",
+     "V": 4.0,
+     "e_s": 43713.14944635505
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.009977752592032908,
+   "ground_event_rate_ev_s_px": 0.014483228232229032,
+   "ln_err_corr_rms": 0.7857537910116036
+  },
+  {
+   "label": "limb-crossing star V = 5",
+   "tag": "limb_imx636_teststar_limb_V5",
+   "test_V": 5,
+   "code_version": "2026-11-11",
+   "stars_in_field": [
+    {
+     "src": "bsc5",
+     "V": 5.05,
+     "e_s": 17407.51915899309
+    },
+    {
+     "src": "test_V5",
+     "V": 5.0,
+     "e_s": 17402.51824207064
+    }
+   ],
+   "n_flashes": 6,
+   "n_detected": 6,
+   "n_false": 0,
+   "n_false_by_star": 0,
+   "false_by_star": [],
+   "sky_pixel_fraction": 0.41359375,
+   "sky_event_rate_ev_s_px": 0.009864416740125089,
+   "ground_event_rate_ev_s_px": 0.01448026763774166,
+   "ln_err_corr_rms": 0.7857537910116036
+  }
+ ]
+}

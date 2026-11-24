@@ -1,0 +1,14 @@
+conflict_id,subject,claims,source_ids,resolution_status,consequence
+CF01,Size,ESA 12 U/12 UXL versus ASI 16 U,"L01, L02, L03, L15",Unresolved,No proven redesign or current physical envelope
+CF02,Phase C / launch,Profile March 2025 / 2027+ versus dated March 2026 / potential 2028,"L01, L02, L04, L12",Prefer dated 2026 status,Future launch target; CDR 2027 does not imply launch 2027
+CF03,Delta PDR,Profile planned February 2025 versus prime completed May 2025,"L02, L04",Prefer completion record,Propulsion change prompted review; final details remain incomplete
+CF04,Cadence,66 ms / 15 fps model versus 78 ms / 13 fps full frame,"L18, L06, L07",Version-specific,Use both in sensitivity; current flight mode unknown
+CF05,Passband / optics,Ideal 820 nm split and five lenses versus updated bands and seven lenses,"L18, L05, L06",Use October 2024 payload design,Old yield model not recomputed for updated response
+CF06,Transfer / propulsion,Lunar parking and relay versus WSB and DTE; 154/202 versus 79 m/s,"L17, L20, L05, L02",Different epochs and cases,Carrier TLI cost is separate from CubeSat delta-v
+CF07,Mass,"28 kg requirement, 28.69 kg table, about 30 kg current overview","L05, L01",Unreconciled,Subsystem lines sum 23.28 kg versus printed dry 23.41 kg; preserve source
+CF08,Payload budgets,20 W allocation / 19 W system versus 27.8 W worst case; 3.85 versus 4.8 kg margined; 4.8 kg exceeds the PLD.004 4.5 kg limit,"L05, L07",Scope/configuration unresolved,No invented compliant final budget
+CF09,EPS,53.8 W average / 68 W peak requirement versus 89 W science / 192 W maneuver,"L05, L07",Definitions/configuration unresolved,Battery can cover transients only with duration/SOC closure; printed margin differs from subtraction
+CF10,RCS impulse,110 N s requirement versus text 170 s total impulse,L05,Unit and value unresolved,Do not silently correct to 170 N s or claim capability
+CF11,Life / transfer,"One-year operations, 1.5-year design; about 95-day case versus 150-day timeline","L02, L05, L07, L21",Different definitions/cases,No selected flight schedule or guaranteed extension
+CF12,Yield,4200/5500 versus 37000; text >250 versus conclusion >6000 impacts/day at Geminids,"L20, L18",Model dependence; peak-rate conflict,Use annual Table 9 only; no adopted shower-peak rate
+CF13,Disposal,Earlier heliocentric escape versus later lunar impact,"L17, L02, L05",Later lunar-impact plan,Disposal cost and mitigation rules are epoch-specific

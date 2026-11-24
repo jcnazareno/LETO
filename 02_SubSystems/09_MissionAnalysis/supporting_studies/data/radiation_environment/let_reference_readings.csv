@@ -1,0 +1,6 @@
+case,integral_flux_above_let_cm2_s,let_threshold_MeV_cm2_mg,al_shield_mm,reading_factor,angular_convention,source
+GCR_solar_min,1e-05,10,2.54,2,not specified; not used for device rate,RAD01 Fig8 printed p9; order-of-magnitude reading
+GCR_solar_max,1e-06,10,2.54,2,not specified; not used for device rate,RAD01 Fig8 printed p9; order-of-magnitude reading
+SEP_peak_5min,0.04,10,2.54,2,not specified; not used for device rate,RAD01 Fig8 printed p9; order-of-magnitude reading
+SEP_peak_day,0.01,10,2.54,2,not specified; not used for device rate,RAD01 Fig8 printed p9; order-of-magnitude reading
+SEP_peak_week,0.003,10,2.54,2,not specified; not used for device rate,RAD01 Fig8 printed p9; order-of-magnitude reading

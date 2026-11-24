@@ -1,0 +1,29 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): mapped S10 inputs ['C'] differ from the profile; re-tuned to the profile
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+calibration for imx636: training 2400 flashes
+  pixel kernel 148.8 s, scene 0.1 s, events 171818 (0.678 ev/s/px)
+    batch 0: detected 566/576, false 7
+  pixel kernel 158.7 s, scene 0.1 s, events 174717 (0.689 ev/s/px)
+    batch 1: detected 570/576, false 3
+  pixel kernel 129.6 s, scene 0.1 s, events 169020 (0.667 ev/s/px)
+    batch 2: detected 571/576, false 4
+  pixel kernel 156.2 s, scene 0.1 s, events 170687 (0.673 ev/s/px)
+    batch 3: detected 573/576, false 2
+  pixel kernel 101.1 s, scene 0.1 s, events 41891 (0.165 ev/s/px)
+    batch 4: detected 95/96, false 2
+  test a_same_family
+  pixel kernel 64002.3 s, scene 0.1 s, events 165155 (0.652 ev/s/px)
+    batch 0: detected 571/576, false 12
+  pixel kernel 122.6 s, scene 0.1 s, events 49450 (0.195 ev/s/px)
+    batch 1: detected 124/124, false 1
+    corrected bias 0.010 sd 0.240
+  test b_double_profile
+  pixel kernel 187.7 s, scene 0.1 s, events 165209 (0.652 ev/s/px)
+    batch 0: detected 450/450, false 15
+    corrected bias -0.128 sd 0.461
+  test b_power_profile
+  pixel kernel 174.3 s, scene 0.1 s, events 145467 (0.574 ev/s/px)
+    batch 0: detected 450/450, false 8
+    corrected bias -0.028 sd 0.314

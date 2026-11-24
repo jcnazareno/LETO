@@ -1,0 +1,38 @@
+{
+  "assumptions": {
+    "inertias_kg_m2": [
+      15.0,
+      20.0,
+      25.0
+    ],
+    "lever_arm_m": 0.02,
+    "misalignment_deg": 1,
+    "solar_flux_W_m2": 1361,
+    "uniform_disk_temperature_K": 400,
+    "rounded_reflectance": 0.12,
+    "planetary_radiation_momentum_response": 2,
+    "note": "Separate screening scenarios; not simultaneous maxima, propagated forces, measured inertia, or a pointing prediction."
+  },
+  "cases": {
+    "high": {
+      "nominal_altitude_km": 3000,
+      "assumed_mass_kg": 153.354007987668,
+      "gravity_gradient_arbitrary_attitude_envelope_Nm": 6.914332565584338e-07,
+      "gravity_gradient_1deg_misalignment_Nm": 2.4130672657260566e-08,
+      "sunlit_srp_acceleration_1au_m_s2": 5.32862056322744e-08,
+      "sunlit_srp_torque_envelope_Nm": 1.6343306408328658e-07,
+      "omitted_uniform_400K_disk_ir_acceleration_screen_m_s2": 1.0196627197300551e-08,
+      "omitted_reflected_radiation_acceleration_screen_m_s2": 1.1472133983746789e-09
+    },
+    "low": {
+      "nominal_altitude_km": 300,
+      "assumed_mass_kg": 128.882931194552,
+      "gravity_gradient_arbitrary_attitude_envelope_Nm": 8.688061661397322e-06,
+      "gravity_gradient_1deg_misalignment_Nm": 3.0320897930306095e-07,
+      "sunlit_srp_acceleration_1au_m_s2": 6.340368835830569e-08,
+      "sunlit_srp_torque_envelope_Nm": 1.6343306408328658e-07,
+      "omitted_uniform_400K_disk_ir_acceleration_screen_m_s2": 6.557495796763525e-08,
+      "omitted_reflected_radiation_acceleration_screen_m_s2": 7.377779820982718e-09
+    }
+  }
+}

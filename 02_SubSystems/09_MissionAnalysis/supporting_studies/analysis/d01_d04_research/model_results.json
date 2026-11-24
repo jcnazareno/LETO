@@ -1,0 +1,145 @@
+{
+  "inputs": {
+    "review_date": "2026-10-28",
+    "status": "Illustrative study assumptions, not selected payload or measured performance",
+    "band_min_nm": 600,
+    "band_max_nm": 900,
+    "temperature_K": 3000,
+    "range_km": 50000,
+    "aperture_m": 0.2,
+    "focal_length_m": 0.5,
+    "pixel_pitch_um": 4.86,
+    "sensor_width_px": 1280,
+    "sensor_height_px": 720,
+    "effective_photon_detection_fraction": 0.3,
+    "optical_transmission_for_lux_bound": 0.7,
+    "noise_equivalent_pixels": 9,
+    "background_band_radiance_W_m2_sr": 0.001,
+    "background_effective_wavelength_nm": 750,
+    "detection_energy_2pi_J": 1000,
+    "characterization_energy_2pi_J": 10000,
+    "decay_constant_ms": 100,
+    "detection_window_ms": 100,
+    "peak_bin_ms": 1,
+    "background_reference_ms": 1000,
+    "false_alarm_sigma": 8,
+    "detection_probability": 0.9,
+    "max_false_confirmed_per_hour": 0.01,
+    "minimum_structure_ms": 1,
+    "centroid_sigma_px": 0.2,
+    "attitude_sigma_arcsec": 0.5,
+    "boresight_sigma_arcsec": 0.3,
+    "residual_jitter_sigma_arcsec": 0.2,
+    "orbit_horizontal_sigma_km": 0.05,
+    "map_horizontal_sigma_km": 0.05,
+    "topography_height_sigma_km": 0.05,
+    "horizontal_confidence": 0.95,
+    "earth_reference_range_km": 384400,
+    "moon_radius_km": 1737.4,
+    "energy_uncertainty_allocations": {
+      "photon_and_background": 0.07,
+      "absolute_responsivity": 0.05,
+      "event_reconstruction": 0.04,
+      "drift_and_residual_background": 0.02,
+      "range_conversion": 0.01
+    },
+    "peak_uncertainty_allocations": {
+      "photon_and_background": 0.16,
+      "absolute_responsivity": 0.05,
+      "event_reconstruction": 0.1,
+      "drift_and_residual_background": 0.02,
+      "range_conversion": 0.01
+    }
+  },
+  "base_photon_budget": {
+    "range_km": 50000,
+    "aperture_m": 0.2,
+    "background_band_radiance_W_m2_sr": 0.001,
+    "decay_constant_ms": 100,
+    "photons_per_J": 3.848500708253624e+18,
+    "radiant_exposure_J_m2": 6.366197723675813e-14,
+    "source_electrons_total": 2309.100424952174,
+    "source_electrons_window": 1459.6298510120282,
+    "background_electrons_s": 30257.336677304007,
+    "background_electrons_window": 3025.733667730401,
+    "background_reference_variance": 302.5733667730401,
+    "snr_detection": 21.09446562582149,
+    "proxy_threshold_energy_J": 397.5457979294469,
+    "characterization_electrons_peak_bin": 229.75933118140702,
+    "snr_characterization_peak_bin": 14.247783158461667,
+    "peak_statistical_fractional_uncertainty": 0.07018635733560462
+  },
+  "survey_option": {
+    "characterization_energy_2pi_J": 3000,
+    "peak_bin_ms": 5
+  },
+  "pixel_angle_arcsec": 2.0048939167217767,
+  "pixel_ground_scale_km": 0.486,
+  "f_number": 2.5,
+  "fov_width_deg": 0.7128419752148097,
+  "fov_height_deg": 0.4009771467747548,
+  "spectral_photons_per_J": [
+    {
+      "temperature_K": 2000,
+      "photons_per_J": 3.9875115997972265e+18
+    },
+    {
+      "temperature_K": 3000,
+      "photons_per_J": 3.848500708253624e+18
+    },
+    {
+      "temperature_K": 4500,
+      "photons_per_J": 3.7453867851938033e+18
+    }
+  ],
+  "earth_exposure_detection_J_m2": 1.077093422157532e-15,
+  "minimum_expected_snr_gaussian_proxy": 9.2815515655446,
+  "gaussian_trials_h": 3317760000000.0,
+  "gaussian_false_trials_h_at_8sigma": 0.002063965415489607,
+  "gaussian_false_trials_h_at_5sigma": 951041.1191179164,
+  "max_single_pixel_chip_lux_bound": 4.108412558512511,
+  "light_time_s": 0.16678204759907603,
+  "localization": [
+    {
+      "emission_deg": 0,
+      "angular_sigma_arcsec": 0.7353801633796764,
+      "major95_km": 0.46941280905351035,
+      "minor95_km": 0.46941280905351035,
+      "area95_km2": 0.6922448684998718
+    },
+    {
+      "emission_deg": 30,
+      "angular_sigma_arcsec": 0.7353801633796764,
+      "major95_km": 0.5420312233362051,
+      "minor95_km": 0.46941280905351035,
+      "area95_km2": 0.799335522347076
+    },
+    {
+      "emission_deg": 60,
+      "angular_sigma_arcsec": 0.7353801633796764,
+      "major95_km": 0.9388256181070205,
+      "minor95_km": 0.46941280905351035,
+      "area95_km2": 1.3844897369997433
+    },
+    {
+      "emission_deg": 70,
+      "angular_sigma_arcsec": 0.7353801633796764,
+      "major95_km": 1.3724712366035683,
+      "minor95_km": 0.46941280905351035,
+      "area95_km2": 2.0239885925102423
+    },
+    {
+      "emission_deg": 80,
+      "angular_sigma_arcsec": 0.7353801633796764,
+      "major95_km": 2.703240629186893,
+      "minor95_km": 0.46941280905351035,
+      "area95_km2": 3.986479315824706
+    }
+  ],
+  "terrain_search_area_limit_km2": 78.53981633974483,
+  "crater_search_area_limit_km2": 3.141592653589793,
+  "energy_rss_fraction": 0.09746794344808965,
+  "peak_rss_fraction": 0.19646882704388502,
+  "source_coordinate_error_arc_km": 15.161675212074742,
+  "sample_per_group_for_30pct_difference_3sigma_poisson": 200
+}

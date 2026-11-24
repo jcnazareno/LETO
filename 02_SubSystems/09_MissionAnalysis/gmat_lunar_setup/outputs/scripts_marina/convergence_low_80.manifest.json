@@ -1,0 +1,91 @@
+{
+  "tdb_seconds_past_j2000": 978264069.1839114,
+  "rotation_pa_to_icrf": [
+    [
+      -0.9908309911054302,
+      0.13298274767024956,
+      0.023864951018210324
+    ],
+    [
+      -0.13108097419005182,
+      -0.9033885308213813,
+      -0.40829761276031634
+    ],
+    [
+      -0.03273721537360516,
+      -0.4076821693457503,
+      0.9125368614621139
+    ]
+  ],
+  "initial_polar_inclination_deg": 90.0,
+  "state_icrf_km_km_s": [
+    -2019.3135598728666,
+    -267.1430253993256,
+    -66.71844493140732,
+    0.03701523788112378,
+    -0.6332815538186441,
+    1.4153713944998196
+  ],
+  "kernel_sha256": {
+    "/home/gordon/.local/opt/GMAT/R2026a/data/time/SPICELeapSecondKernel.tls": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+    "/home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICELunaCurrentKernel.bpc": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+    "/home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICELunaFrameKernel.tf": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993"
+  },
+  "name": "convergence_low_80",
+  "script_sha256": "f983fa9479e82f6e5deab0092655f227bd757f1742fa5caab71fc177860d389b",
+  "config": {
+    "architecture": "A",
+    "epoch_utc": "2031-01-01T00:00:00",
+    "epoch_status": "provisional study epoch; not a launch commitment",
+    "gmat_root": "/home/gordon/.local/opt/GMAT/R2026a",
+    "moon_radius_km": 1738.0,
+    "moon_mu_km3_s2": 4902.79996708864,
+    "monitor_altitude_km": 3000.0,
+    "image_altitude_km": 300.0,
+    "monitor_days": 913.125,
+    "image_days": 182.625,
+    "initial_node_longitude_pa_deg": 0.0,
+    "dry_mass_kg": 118.1,
+    "launch_mass_kg": 189.90985757186712,
+    "capture_delta_v_m_s": 629.0,
+    "isp_s": 300.0,
+    "srp_area_m2": 1.2,
+    "cr": 1.5,
+    "srp_sensitivity": [
+      {
+        "name": "low",
+        "area_m2": 0.7,
+        "cr": 1.2
+      },
+      {
+        "name": "high",
+        "area_m2": 2.0,
+        "cr": 1.8
+      }
+    ],
+    "gravity_degree": 80,
+    "accuracy": 1e-11,
+    "max_step_s": 60.0,
+    "output_interval_s": 3600.0,
+    "minimum_radius_altitude_km": 20.0,
+    "stationkeeping_eccentricity_trigger": 0.02,
+    "stationkeeping_check_days": 1.0,
+    "inertia_principal_kg_m2": [
+      15.0,
+      20.0,
+      25.0
+    ],
+    "cp_cm_offset_m": 0.02,
+    "physical_properties_status": "provisional: projected area, Cr, inertia, centre-of-pressure offset; replace after geometry selection"
+  },
+  "degree_order": 80,
+  "srp_area_m2": 1.2,
+  "cr": 1.5,
+  "controlled": false,
+  "artificial_controller_exercise_threshold": false,
+  "monitor_days": 7,
+  "image_days": 0,
+  "science_start_mass_kg": 128.882931194552,
+  "initial_fuel_kg": 10.782931194551992,
+  "two_body_lowering_m_s": 511.449779879938
+}

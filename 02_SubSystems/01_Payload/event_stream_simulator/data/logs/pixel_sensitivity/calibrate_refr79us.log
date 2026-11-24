@@ -1,0 +1,27 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+calibration for imx636: training 2400 flashes
+  pixel kernel 143.1 s, scene 0.1 s, events 128913 (0.509 ev/s/px)
+    batch 0: detected 561/576, false 5
+  pixel kernel 154.9 s, scene 0.1 s, events 130695 (0.516 ev/s/px)
+    batch 1: detected 564/576, false 4
+  pixel kernel 169.2 s, scene 0.2 s, events 126769 (0.5 ev/s/px)
+    batch 2: detected 566/576, false 6
+  pixel kernel 148.4 s, scene 0.1 s, events 128104 (0.505 ev/s/px)
+    batch 3: detected 568/576, false 1
+  pixel kernel 102.8 s, scene 0.1 s, events 33366 (0.132 ev/s/px)
+    batch 4: detected 94/96, false 1
+  test a_same_family
+  pixel kernel 11183.7 s, scene 0.1 s, events 123685 (0.488 ev/s/px)
+    batch 0: detected 565/576, false 7
+  pixel kernel 125.2 s, scene 0.1 s, events 39047 (0.154 ev/s/px)
+    batch 1: detected 123/124, false 2
+    corrected bias 0.025 sd 0.484
+  test b_double_profile
+  pixel kernel 145.9 s, scene 0.1 s, events 119728 (0.472 ev/s/px)
+    batch 0: detected 449/450, false 6
+    corrected bias -0.308 sd 0.709
+  test b_power_profile
+  pixel kernel 63994.6 s, scene 0.1 s, events 108363 (0.428 ev/s/px)
+    batch 0: detected 449/450, false 8
+    corrected bias -0.066 sd 0.548

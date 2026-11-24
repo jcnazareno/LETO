@@ -1,0 +1,167 @@
+{
+  "inputs": {
+    "review_date": "2026-10-28",
+    "scope": "Analytic illustrations and proposed test allocations, not a reconstruction of measured telescope or event-camera data",
+    "fast_decline": {
+      "magnitude_drop": 1.5,
+      "interval_ms": 4.0,
+      "source": "E05, Table 2 and results; assuming an exponential only for this illustration"
+    },
+    "averaging_intervals_ms": [
+      0.25,
+      1.0,
+      4.0,
+      5.0,
+      20.0,
+      23.0,
+      66.0
+    ],
+    "maximum_averaging_loss_fraction": 0.05,
+    "illustrative_exponential_tail_ms": [
+      38.0,
+      110.0,
+      500.0
+    ],
+    "tail_note": "E04 cooling parameters motivate these scales, but its physical cooling curves are NOT exponentials",
+    "on_fractional_contrast": 0.12,
+    "off_fractional_contrast": 0.11,
+    "contrast_source": "E14, section 4.3; representative LED calibration settings, not a sensor selection",
+    "illustrative_intensity_ratio": 10.0,
+    "illustrative_log_rise_duration_ms": 1.0,
+    "refractory_periods_us": [
+      12.0,
+      480.0
+    ],
+    "corner_frequencies_Hz": [
+      1000.0,
+      11000.0
+    ],
+    "sinusoidal_test_frequency_Hz": 1000.0,
+    "maximum_gain_loss_fraction": 0.05,
+    "maximum_coherent_intensity_bias_fraction": 0.05,
+    "illustrative_interband_offset_ms": 0.1,
+    "quoted_magnitude_uncertainties": [
+      0.07,
+      0.1,
+      0.11,
+      0.12,
+      0.14
+    ]
+  },
+  "exponential_interpretation_only": {
+    "decay_constant_ms": 2.895296546021678,
+    "flux_drop_factor": 3.981071705534973,
+    "averaged_peak_fractions": [
+      {
+        "bin_ms": 0.25,
+        "mean_over_initial_peak": 0.9580427941553814
+      },
+      {
+        "bin_ms": 1.0,
+        "mean_over_initial_peak": 0.8455835617236762
+      },
+      {
+        "bin_ms": 4.0,
+        "mean_over_initial_peak": 0.5420077337767094
+      },
+      {
+        "bin_ms": 5.0,
+        "mean_over_initial_peak": 0.47608638452939245
+      },
+      {
+        "bin_ms": 20.0,
+        "mean_over_initial_peak": 0.14462006247378284
+      },
+      {
+        "bin_ms": 23.0,
+        "mean_over_initial_peak": 0.12583779374092818
+      },
+      {
+        "bin_ms": 66.0,
+        "mean_over_initial_peak": 0.04386812947965427
+      }
+    ],
+    "max_bin_ms_for_5pct_averaging_loss": 0.29960190356213867,
+    "tail_capture_fraction_at_five_tau": 0.9932620530009145,
+    "tail_examples": [
+      {
+        "tau_ms": 38.0,
+        "five_tau_ms": 190.0,
+        "time_for_98pct_ms": 148.65687420626955
+      },
+      {
+        "tau_ms": 110.0,
+        "five_tau_ms": 550.0,
+        "time_for_98pct_ms": 430.32253059709603
+      },
+      {
+        "tau_ms": 500.0,
+        "five_tau_ms": 2500.0,
+        "time_for_98pct_ms": 1956.011502714073
+      }
+    ],
+    "relative_colour_ratio_error_at_offset": 0.03514216667934389
+  },
+  "ideal_event_example": {
+    "on_log_threshold": 0.11332868530700327,
+    "off_log_threshold": 0.11653381625595151,
+    "events_for_tenfold_rise": 20.317760563059803,
+    "max_refractory_us_for_log_uniform_rise": 49.21802267018165,
+    "events_per_ms_refractory_ceiling": [
+      {
+        "refractory_us": 12.0,
+        "ceiling_per_ms": 83.33333333333333
+      },
+      {
+        "refractory_us": 480.0,
+        "ceiling_per_ms": 2.0833333333333335
+      }
+    ],
+    "one_missed_on_event_total_intensity_underestimate_fraction": 0.1071428571428572,
+    "coherent_relative_threshold_error_for_5pct_intensity_bias": 0.02118929906993809,
+    "first_order_lowpass": [
+      {
+        "corner_Hz": 1000.0,
+        "time_constant_us": 159.15494309189535,
+        "rise_10_90_us": 349.69915256605987,
+        "amplitude_ratio_at_1kHz": 0.7071067811865475
+      },
+      {
+        "corner_Hz": 11000.0,
+        "time_constant_us": 14.468631190172305,
+        "rise_10_90_us": 31.790832051459986,
+        "amplitude_ratio_at_1kHz": 0.9958932064677037
+      }
+    ],
+    "corner_Hz_for_5pct_sinusoidal_gain_loss_at_1kHz": 3042.4349222966543
+  },
+  "magnitude_to_fractional_flux_uncertainty": [
+    {
+      "sigma_magnitude": 0.07,
+      "small_error_sigma_flux_fraction": 0.06447238260383328
+    },
+    {
+      "sigma_magnitude": 0.1,
+      "small_error_sigma_flux_fraction": 0.09210340371976183
+    },
+    {
+      "sigma_magnitude": 0.11,
+      "small_error_sigma_flux_fraction": 0.10131374409173802
+    },
+    {
+      "sigma_magnitude": 0.12,
+      "small_error_sigma_flux_fraction": 0.1105240844637142
+    },
+    {
+      "sigma_magnitude": 0.14,
+      "small_error_sigma_flux_fraction": 0.12894476520766657
+    }
+  ],
+  "limitations": [
+    "Onset-aligned exponential averages illustrate temporal smoothing, not an instantaneous peak measured by E05.",
+    "The 38/110 ms E04 parameters belong to cooling models; exponential capture calculations do not reproduce those models.",
+    "Ideal event equations apply to total pixel irradiance including background; subtracting an uncertain background can amplify flash error.",
+    "Refractory ceilings, thresholds and bandwidth were measured in other illumination regimes; their combination does not certify lunar performance.",
+    "A 1 kHz sine test is a calibration case, not a definition of 1 ms feature recovery."
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  [
+    "Orbit/lifetime",
+    "Keep polar or quasi-frozen low-lunar and distant observer as trade candidates. Do not baseline 50 km circular by default.",
+    "50 km reaches the screening buffer near day48; LRO flight maintenance143m/s/year versus <5 in frozen geometry.",
+    "D05\u2013D06/D09; Mission Analysis/Propulsion"
+  ],
+  [
+    "Whole-surface coverage",
+    "Map both hemispheres and poles through the complete visibility/illumination timeline before selecting architecture.",
+    "A single L2 farside observer does not independently meet the entire-surface constraint. Frozen/low-maintenance does not imply adequate sample yield.",
+    "D05\u2013D06; Payload/Mission Analysis"
+  ],
+  [
+    "Maintenance allocation",
+    "Use LRO143m/s/year only for its50\u00b115km envelope. Screen a favourable frozen geometry near <5m/s/year. For an L2 study retain16\u201330m/s/year sensitivity until its navigation/control analysis.",
+    "Published flight/design comparators;100km maintenance remains TBR, not zero because a30-day run survived.",
+    "D05/D09; Propulsion/Operations"
+  ],
+  [
+    "Wheel class",
+    "Investigate approximately0.05Nms class wheels; include array mapping, bias reserve and a10deg/60s slew.",
+    "Environmental torque is sub-microNm, but slew requires0.121mNm and3.64mNms. CW0500 provides10mNm/50mNms per wheel at rated conditions.",
+    "Structure/Power/ADCS"
+  ],
+  [
+    "External unloading",
+    "Provide thruster unloading and detumbling. Use magnetic actuation only after proving local authority and three-axis operation.",
+    "A0.2Am2 torquer gives10microNm at50microT but only6nanoNm at30nT, below the illustrative30nanoNm bias.",
+    "D09; ADCS/Propulsion"
+  ],
+  [
+    "Geometry",
+    "Control pressure-centre offset and thermal asymmetry; prefer balanced arrays/radiators where feasible.",
+    "SRP torque scales as area\u00d7offset. Increasing the2cm offset to10cm multiplies torque, annual unloading impulse and propellant by5.",
+    "Structure/Thermal/Power/ADCS"
+  ],
+  [
+    "Pointing/localization",
+    "Keep knowledge, tracking error, interval stability and structural jitter separate. Do not claim sub-arcsecond hardware performance from this budget.",
+    "1arcsec at50000km is242m at nadir;0.2arcsec is0.10pixel in the prior optical fixture.",
+    "D02\u2013D04; Payload/ADCS/ODH"
+  ],
+  [
+    "Observation windows",
+    "Schedule dumps, slews, burns and calibration outside high-value dark-surface windows; include settling/reacquisition in the timeline.",
+    "Dump-only loss0.048\u20130.480% under the bias sensitivity; navigation, occultations, power and stationkeeping add other losses.",
+    "D02\u2013D06/D09\u2013D10"
+  ],
+  [
+    "Component/control evidence",
+    "Obtain wheel exported force/torque spectra and evaluate the structural transfer before tightening jitter allocations.",
+    "Measured historic wheel imbalances differ from catalogue values and have speed-dependent resonances.",
+    "ADCS/Structure/Payload"
+  ],
+  [
+    "SRR effort",
+    "Carry a compact orbit/ADCS/propulsion comparison into2\u20133 of the final50pages. Keep this audit and time histories as supporting research.",
+    "One focused science objective and four-person capacity favour explicit bounds over a bespoke high-fidelity flight-dynamics toolchain.",
+    "All interfaces; no new coequal science objective"
+  ]
+]

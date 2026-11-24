@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "engine": "artifact-tool",
+  "sheets": [
+    "Conclusions",
+    "Mission criteria",
+    "Design history",
+    "Subsystems",
+    "SMD comparison",
+    "Calculations",
+    "Evidence"
+  ],
+  "checks": [
+    {
+      "name": "science hours",
+      "actual": 4383,
+      "expected": 4383
+    },
+    {
+      "name": "annual Gbit",
+      "actual": 14.8,
+      "expected": 14.8
+    },
+    {
+      "name": "trial mean N",
+      "actual": 100,
+      "expected": 100
+    },
+    {
+      "name": "trial group N",
+      "actual": 450,
+      "expected": 450
+    },
+    {
+      "name": "delta-v",
+      "actual": 79.05000000000001,
+      "expected": 79.05
+    },
+    {
+      "name": "mass lines",
+      "actual": 23.28,
+      "expected": 23.28
+    },
+    {
+      "name": "power headroom",
+      "actual": 9.820000000000007,
+      "expected": 9.82
+    },
+    {
+      "name": "disc 0",
+      "actual": 5.690663712630442,
+      "expected": 5.690663712630442
+    },
+    {
+      "name": "disc 1",
+      "actual": 5.5324650243773315,
+      "expected": 5.532465024377332
+    },
+    {
+      "name": "disc 2",
+      "actual": 3.982629220746127,
+      "expected": 3.9826292207461274
+    },
+    {
+      "name": "disc 3",
+      "actual": 2.315173486027882,
+      "expected": 2.3151734860278816
+    },
+    {
+      "name": "duty input change",
+      "actual": 3506.4,
+      "expected": 3506.4
+    },
+    {
+      "name": "duty restored",
+      "actual": 4383,
+      "expected": 4383
+    },
+    {
+      "name": "decay input change",
+      "actual": 0.2918535856359879,
+      "expected": 0.2918535856359879
+    }
+  ],
+  "native_excel": "Not tested",
+  "visual_review": "See preview images and final validation record"
+}

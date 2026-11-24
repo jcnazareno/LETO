@@ -1,0 +1,922 @@
+{
+ "description": "Pixel-parameter sensitivity: contrast threshold (trigger table re-tuned) and refractory period. Model predictions; each variant uses its own energy correction. Baseline: C = 0.25, refractory 10 us.",
+ "variants": [
+  {
+   "key": "C0p15",
+   "label": "C = 0.15",
+   "C": 0.15,
+   "refractory_us": 10
+  },
+  {
+   "key": "C0p20",
+   "label": "C = 0.20",
+   "C": 0.2,
+   "refractory_us": 10
+  },
+  {
+   "key": "base",
+   "label": "baseline C = 0.25, 10 \u00b5s",
+   "C": 0.25,
+   "refractory_us": 10
+  },
+  {
+   "key": "C0p30",
+   "label": "C = 0.30",
+   "C": 0.3,
+   "refractory_us": 10
+  },
+  {
+   "key": "C0p35",
+   "label": "C = 0.35",
+   "C": 0.35,
+   "refractory_us": 10
+  },
+  {
+   "key": "refr79us",
+   "label": "refractory 79 \u00b5s",
+   "C": 0.25,
+   "refractory_us": 79
+  },
+  {
+   "key": "refr200us",
+   "label": "refractory 200 \u00b5s",
+   "C": 0.25,
+   "refractory_us": 200
+  }
+ ],
+ "calibration": [
+  {
+   "variant": "C0p15",
+   "file": "energy_calibration_imx636_C0p15.json",
+   "threshold_model": "retuned",
+   "overrides": [
+    "sensor.threshold.C_on=0.15",
+    "sensor.threshold.C_off=0.15"
+   ],
+   "train_detected_fraction": 0.9945833333333334,
+   "exp_detected": [
+    696,
+    700
+   ],
+   "exp_raw_rms": 0.47146550637727513,
+   "exp_corr_rms": 0.26436050877629985,
+   "exp_corr_bias": 0.018211800098240236,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.1998315317524514,
+    "1e+05-1e+06": 0.2575882256177693,
+    "1e+06-3e+06": 0.38044610580516347
+   },
+   "double_detected": [
+    450,
+    450
+   ],
+   "double_corr_rms": 0.5348541676778119,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.2383535579211517,
+    "1e+05-1e+06": 0.40342972536684873,
+    "1e+06-3e+06": 0.9679537552394507
+   }
+  },
+  {
+   "variant": "C0p20",
+   "file": "energy_calibration_imx636_C0p20.json",
+   "threshold_model": "retuned",
+   "overrides": [
+    "sensor.threshold.C_on=0.20",
+    "sensor.threshold.C_off=0.20"
+   ],
+   "train_detected_fraction": 0.9895833333333334,
+   "exp_detected": [
+    695,
+    700
+   ],
+   "exp_raw_rms": 0.4208069468281908,
+   "exp_corr_rms": 0.24004353551531368,
+   "exp_corr_bias": 0.009717780695695207,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.2081611256462326,
+    "1e+05-1e+06": 0.2247708619487983,
+    "1e+06-3e+06": 0.3252691048479852
+   },
+   "double_detected": [
+    450,
+    450
+   ],
+   "double_corr_rms": 0.47834925737771355,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.2601761733055451,
+    "1e+05-1e+06": 0.34556742905553034,
+    "1e+06-3e+06": 0.8571297870094391
+   }
+  },
+  {
+   "variant": "base",
+   "file": "energy_calibration_imx636.json",
+   "threshold_model": "fixed",
+   "overrides": [],
+   "train_detected_fraction": 0.9804166666666667,
+   "exp_detected": [
+    689,
+    700
+   ],
+   "exp_raw_rms": 0.41524513484596526,
+   "exp_corr_rms": 0.2520664693592748,
+   "exp_corr_bias": 0.010115697146423326,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.2440903714881027,
+    "1e+05-1e+06": 0.23714174273962962,
+    "1e+06-3e+06": 0.2983563749556647
+   },
+   "double_detected": [
+    449,
+    450
+   ],
+   "double_corr_rms": 0.5748845465940684,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.2925507934383931,
+    "1e+05-1e+06": 0.2959570821609417,
+    "1e+06-3e+06": 1.122702746469778
+   }
+  },
+  {
+   "variant": "C0p30",
+   "file": "energy_calibration_imx636_C0p30.json",
+   "threshold_model": "retuned",
+   "overrides": [
+    "sensor.threshold.C_on=0.30",
+    "sensor.threshold.C_off=0.30"
+   ],
+   "train_detected_fraction": 0.9733333333333334,
+   "exp_detected": [
+    686,
+    700
+   ],
+   "exp_raw_rms": 0.4323371194654213,
+   "exp_corr_rms": 0.3077833194280632,
+   "exp_corr_bias": -0.0012540566468953612,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.3920709895531892,
+    "1e+05-1e+06": 0.21082501854303903,
+    "1e+06-3e+06": 0.2932546984382812
+   },
+   "double_detected": [
+    446,
+    450
+   ],
+   "double_corr_rms": 0.415704656142394,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.31951986797385984,
+    "1e+05-1e+06": 0.31355886660491655,
+    "1e+06-3e+06": 0.6697705470952362
+   }
+  },
+  {
+   "variant": "C0p35",
+   "file": "energy_calibration_imx636_C0p35.json",
+   "threshold_model": "retuned",
+   "overrides": [
+    "sensor.threshold.C_on=0.35",
+    "sensor.threshold.C_off=0.35"
+   ],
+   "train_detected_fraction": 0.9616666666666667,
+   "exp_detected": [
+    670,
+    700
+   ],
+   "exp_raw_rms": 0.4531267982363678,
+   "exp_corr_rms": 0.2629558811804411,
+   "exp_corr_bias": 0.015565295072850456,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.29670022961038517,
+    "1e+05-1e+06": 0.2350024016638337,
+    "1e+06-3e+06": 0.2524775773871351
+   },
+   "double_detected": [
+    440,
+    450
+   ],
+   "double_corr_rms": 0.4046133786904061,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.34811510586888134,
+    "1e+05-1e+06": 0.3121271496009078,
+    "1e+06-3e+06": 0.6111569407132001
+   }
+  },
+  {
+   "variant": "refr79us",
+   "file": "energy_calibration_imx636_refr79us.json",
+   "threshold_model": "fixed",
+   "overrides": [
+    "sensor.events.refractory_s=7.9e-5"
+   ],
+   "train_detected_fraction": 0.9804166666666667,
+   "exp_detected": [
+    688,
+    700
+   ],
+   "exp_raw_rms": 1.0097174023537159,
+   "exp_corr_rms": 0.4845882289454453,
+   "exp_corr_bias": 0.024832110390955644,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.3504733831672902,
+    "1e+05-1e+06": 0.46887063183538974,
+    "1e+06-3e+06": 0.714057190637619
+   },
+   "double_detected": [
+    449,
+    450
+   ],
+   "double_corr_rms": 0.773117580576849,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.3717363092099919,
+    "1e+05-1e+06": 0.6520842689942982,
+    "1e+06-3e+06": 1.3117474250643473
+   }
+  },
+  {
+   "variant": "refr200us",
+   "file": "energy_calibration_imx636_refr200us.json",
+   "threshold_model": "fixed",
+   "overrides": [
+    "sensor.events.refractory_s=2e-4"
+   ],
+   "train_detected_fraction": 0.9804166666666667,
+   "exp_detected": [
+    688,
+    700
+   ],
+   "exp_raw_rms": 1.4138025316830691,
+   "exp_corr_rms": 0.5945355470738503,
+   "exp_corr_bias": 0.04534545343749403,
+   "exp_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.42958228625926387,
+    "1e+05-1e+06": 0.5980595128794585,
+    "1e+06-3e+06": 0.8402957621401674
+   },
+   "double_detected": [
+    450,
+    450
+   ],
+   "double_corr_rms": 0.8624470968090472,
+   "double_corr_rms_by_energy": {
+    "1e+04-1e+05": 0.4343574959832802,
+    "1e+05-1e+06": 0.8335226714500857,
+    "1e+06-3e+06": 1.3253890474337
+   }
+  }
+ ],
+ "scenes": [
+  {
+   "variant": "C0p15",
+   "scene": "nearside",
+   "tag": "nearside_imx636_C0p15",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.15",
+    "sensor.threshold.C_off=0.15"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p15.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.06244878472222223,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.21590995011682065,
+   "ln_err_raw_rms": 0.4879144187500108,
+   "ln_err_corr_median": -0.08465711521843294,
+   "ln_err_corr_rms": 0.26349022808506056,
+   "n_outside_training_range": 4
+  },
+  {
+   "variant": "C0p15",
+   "scene": "farside",
+   "tag": "farside_imx636_C0p15",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.15",
+    "sensor.threshold.C_off=0.15"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p15.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.04645659722222222,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.08791735804505979,
+   "ln_err_raw_rms": 0.27785367323236965,
+   "ln_err_corr_median": -0.08265624008233002,
+   "ln_err_corr_rms": 0.2981061248581957,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p15",
+   "scene": "terminator",
+   "tag": "terminator_imx636_C0p15",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.15",
+    "sensor.threshold.C_off=0.15"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p15.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.39846267361111115,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.112179618035529,
+   "ln_err_raw_rms": 0.2752965647588255,
+   "ln_err_corr_median": -0.17716281368684694,
+   "ln_err_corr_rms": 0.3095261789965092,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p15",
+   "scene": "particles",
+   "tag": "particles_imx636_C0p15",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.15",
+    "sensor.threshold.C_off=0.15"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p15.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.04634375,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.11952530710210799,
+   "ln_err_raw_rms": 0.2144143515772688,
+   "ln_err_corr_median": -0.05121937538508857,
+   "ln_err_corr_rms": 0.16976080014055092,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p20",
+   "scene": "nearside",
+   "tag": "nearside_imx636_C0p20",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.20",
+    "sensor.threshold.C_off=0.20"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p20.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.04982986111111111,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.40235580678561744,
+   "ln_err_raw_rms": 0.5872915304642543,
+   "ln_err_corr_median": -0.06986293118103,
+   "ln_err_corr_rms": 0.2984110589484196,
+   "n_outside_training_range": 4
+  },
+  {
+   "variant": "C0p20",
+   "scene": "farside",
+   "tag": "farside_imx636_C0p20",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.20",
+    "sensor.threshold.C_off=0.20"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p20.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.04164756944444445,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.22002237230122962,
+   "ln_err_raw_rms": 0.3276828617082303,
+   "ln_err_corr_median": -0.01959909566076637,
+   "ln_err_corr_rms": 0.22479825257239716,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p20",
+   "scene": "terminator",
+   "tag": "terminator_imx636_C0p20",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.20",
+    "sensor.threshold.C_off=0.20"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p20.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.2824748263888889,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.1816367936351594,
+   "ln_err_raw_rms": 0.30149041975949764,
+   "ln_err_corr_median": -0.22223667064076838,
+   "ln_err_corr_rms": 0.290391637199556,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p20",
+   "scene": "particles",
+   "tag": "particles_imx636_C0p20",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.20",
+    "sensor.threshold.C_off=0.20"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p20.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.041539930555555556,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.26102313815918676,
+   "ln_err_raw_rms": 0.30330039660820046,
+   "ln_err_corr_median": -0.04337934814781389,
+   "ln_err_corr_rms": 0.07480641031454403,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "base",
+   "scene": "nearside",
+   "tag": "nearside_imx636",
+   "code_version": "2026-11-11",
+   "overrides": [],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.04488628472222222,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.5243824039972073,
+   "ln_err_raw_rms": 0.6756393190653119,
+   "ln_err_corr_median": -0.07201776151791174,
+   "ln_err_corr_rms": 0.33188779858463674,
+   "n_outside_training_range": 4
+  },
+  {
+   "variant": "base",
+   "scene": "farside",
+   "tag": "farside_imx636",
+   "code_version": "2026-11-11",
+   "overrides": [],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.038857638888888886,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.17450757926874638,
+   "ln_err_raw_rms": 0.4217092416191026,
+   "ln_err_corr_median": -0.05465704348065385,
+   "ln_err_corr_rms": 0.2692407684596616,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "base",
+   "scene": "terminator",
+   "tag": "terminator_imx636",
+   "code_version": "2026-11-11",
+   "overrides": [],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.22693315972222222,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.2899088751195942,
+   "ln_err_raw_rms": 0.4988434027877063,
+   "ln_err_corr_median": -0.11313497849632093,
+   "ln_err_corr_rms": 0.2850179502899023,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "base",
+   "scene": "particles",
+   "tag": "particles_gcrmin_x100_imx636",
+   "code_version": "2026-11-11",
+   "overrides": [],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03881684027777778,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.38046958604382686,
+   "ln_err_raw_rms": 0.40415296708651266,
+   "ln_err_corr_median": -0.016422260115257558,
+   "ln_err_corr_rms": 0.11512578610359145,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p30",
+   "scene": "nearside",
+   "tag": "nearside_imx636_C0p30",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.30",
+    "sensor.threshold.C_off=0.30"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p30.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.04201128472222222,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.6857111153612363,
+   "ln_err_raw_rms": 0.848019231332843,
+   "ln_err_corr_median": -0.06081565088300969,
+   "ln_err_corr_rms": 0.37972978029187465,
+   "n_outside_training_range": 4
+  },
+  {
+   "variant": "C0p30",
+   "scene": "farside",
+   "tag": "farside_imx636_C0p30",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.30",
+    "sensor.threshold.C_off=0.30"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p30.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03706336805555555,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.24472585426169186,
+   "ln_err_raw_rms": 0.4382686149358316,
+   "ln_err_corr_median": -0.02929172870318182,
+   "ln_err_corr_rms": 0.23066010371520299,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p30",
+   "scene": "terminator",
+   "tag": "terminator_imx636_C0p30",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.30",
+    "sensor.threshold.C_off=0.30"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p30.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.19098958333333332,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.35976887173844496,
+   "ln_err_raw_rms": 0.47629443849781866,
+   "ln_err_corr_median": -0.27068846731357576,
+   "ln_err_corr_rms": 0.2480986458870899,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p30",
+   "scene": "particles",
+   "tag": "particles_imx636_C0p30",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.30",
+    "sensor.threshold.C_off=0.30"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p30.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03701128472222222,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.3701327461269237,
+   "ln_err_raw_rms": 0.42666641759972224,
+   "ln_err_corr_median": -0.0005585539034566808,
+   "ln_err_corr_rms": 0.16827958274047145,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p35",
+   "scene": "nearside",
+   "tag": "nearside_imx636_C0p35",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.35",
+    "sensor.threshold.C_off=0.35"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p35.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.040063368055555555,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.8992564175479307,
+   "ln_err_raw_rms": 0.9764190529412098,
+   "ln_err_corr_median": 0.19145898349952692,
+   "ln_err_corr_rms": 0.45742488918420865,
+   "n_outside_training_range": 3
+  },
+  {
+   "variant": "C0p35",
+   "scene": "farside",
+   "tag": "farside_imx636_C0p35",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.35",
+    "sensor.threshold.C_off=0.35"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p35.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03585503472222222,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.43196534078613746,
+   "ln_err_raw_rms": 0.5284898427786403,
+   "ln_err_corr_median": -0.031525152900057515,
+   "ln_err_corr_rms": 0.20926053465302705,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p35",
+   "scene": "terminator",
+   "tag": "terminator_imx636_C0p35",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.35",
+    "sensor.threshold.C_off=0.35"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p35.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.16581944444444446,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.4364719952445968,
+   "ln_err_raw_rms": 0.7159738431890168,
+   "ln_err_corr_median": -0.19074704590254737,
+   "ln_err_corr_rms": 0.3747846313613409,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "C0p35",
+   "scene": "particles",
+   "tag": "particles_imx636_C0p35",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.threshold.C_on=0.35",
+    "sensor.threshold.C_off=0.35"
+   ],
+   "threshold_model": "retuned",
+   "calibration": "energy_calibration_imx636_C0p35.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03581423611111111,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.37532055102095446,
+   "ln_err_raw_rms": 0.4424718222366612,
+   "ln_err_corr_median": -0.018174366773022685,
+   "ln_err_corr_rms": 0.09448777074609697,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "refr79us",
+   "scene": "nearside",
+   "tag": "nearside_imx636_refr79us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=7.9e-5"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr79us.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.044893229166666666,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.4007631413168035,
+   "ln_err_raw_rms": 0.5960308538417515,
+   "ln_err_corr_median": -0.21440912803212653,
+   "ln_err_corr_rms": 0.25497769707963447,
+   "n_outside_training_range": 4
+  },
+  {
+   "variant": "refr79us",
+   "scene": "farside",
+   "tag": "farside_imx636_refr79us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=7.9e-5"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr79us.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03884548611111111,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.04978575528249734,
+   "ln_err_raw_rms": 0.37240527048587707,
+   "ln_err_corr_median": -0.06316815629783032,
+   "ln_err_corr_rms": 0.2888902230933196,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "refr79us",
+   "scene": "terminator",
+   "tag": "terminator_imx636_refr79us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=7.9e-5"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr79us.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.229125,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.13166408717357853,
+   "ln_err_raw_rms": 0.331368853786423,
+   "ln_err_corr_median": -0.16824445175620323,
+   "ln_err_corr_rms": 0.3318801160877701,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "refr79us",
+   "scene": "particles",
+   "tag": "particles_imx636_refr79us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=7.9e-5"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr79us.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03879427083333334,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.2703326935015108,
+   "ln_err_raw_rms": 0.31939197457035495,
+   "ln_err_corr_median": 0.006285234771295736,
+   "ln_err_corr_rms": 0.2715599764565786,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "refr200us",
+   "scene": "nearside",
+   "tag": "nearside_imx636_refr200us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=2e-4"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr200us.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.044888020833333334,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.27942489842831664,
+   "ln_err_raw_rms": 0.4702823359919233,
+   "ln_err_corr_median": -0.16363725543303792,
+   "ln_err_corr_rms": 0.22099022461895138,
+   "n_outside_training_range": 4
+  },
+  {
+   "variant": "refr200us",
+   "scene": "farside",
+   "tag": "farside_imx636_refr200us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=2e-4"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr200us.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03884288194444444,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.0074516092918103585,
+   "ln_err_raw_rms": 0.2787288634628264,
+   "ln_err_corr_median": 0.05884154806796721,
+   "ln_err_corr_rms": 0.3886437921577465,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "refr200us",
+   "scene": "terminator",
+   "tag": "terminator_imx636_refr200us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=2e-4"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr200us.json",
+   "n_flashes": 8,
+   "n_detected": 8,
+   "n_false": 0,
+   "n_particle_hits": 0,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.2314921875,
+   "lag_median_ms": 11.769278706557529,
+   "ln_err_raw_median": 0.14869634253725314,
+   "ln_err_raw_rms": 0.3996965211952577,
+   "ln_err_corr_median": 0.1419511907093718,
+   "ln_err_corr_rms": 0.4475145802850962,
+   "n_outside_training_range": 0
+  },
+  {
+   "variant": "refr200us",
+   "scene": "particles",
+   "tag": "particles_imx636_refr200us",
+   "code_version": "2026-11-11",
+   "overrides": [
+    "sensor.events.refractory_s=2e-4"
+   ],
+   "threshold_model": "fixed",
+   "calibration": "energy_calibration_imx636_refr200us.json",
+   "n_flashes": 4,
+   "n_detected": 4,
+   "n_false": 0,
+   "n_particle_hits": 102,
+   "n_particle_triggers": 0,
+   "events_per_px_s": 0.03878559027777778,
+   "lag_median_ms": 10.760541304914106,
+   "ln_err_raw_median": 0.1042736197942164,
+   "ln_err_raw_rms": 0.24047393050770216,
+   "ln_err_corr_median": 0.010612552952919439,
+   "ln_err_corr_rms": 0.46166382137987483,
+   "n_outside_training_range": 0
+  }
+ ]
+}

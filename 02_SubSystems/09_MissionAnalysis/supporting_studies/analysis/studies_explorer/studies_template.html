@@ -1,0 +1,403 @@
+<title>SMD Supporting Studies Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+__CSS__
+.banner { border: 1px solid var(--warn); color: var(--ink); background: var(--panel); border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; box-shadow: inset 4px 0 0 var(--warn); }
+.check { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.86rem; color: var(--ink-2); }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>SMD Supporting Studies Explorer</h1>
+      <p class="sub">Change the inputs of the four supporting studies of 28–29 October 2026 and see what follows. The page recombines the stored results with the studies' own formulas; it does not rerun propagations or Monte Carlo runs. The impact-energy proposal has <a href="https://claude.ai/artifact/Fi5g5VrtBxeusHoCd2PML6" target="_blank" rel="noopener">its own explorer</a>.</p>
+    </div>
+    <span class="badge">Studies of 28–29 Oct 2026</span>
+  </header>
+
+  <nav role="tablist" aria-label="Studies">
+    <button role="tab" id="tab-rad" aria-selected="true" data-view="rad">Radiation</button>
+    <button role="tab" id="tab-orbit" aria-selected="false" data-view="orbit">Orbit and attitude</button>
+    <button role="tab" id="tab-lumio" aria-selected="false" data-view="lumio">LUMIO comparison</button>
+    <button role="tab" id="tab-photon" aria-selected="false" data-view="photon">Flash photon budget</button>
+  </nav>
+
+  <!-- ===================== RADIATION ===================== -->
+  <section class="view" id="view-rad">
+    <div class="controls">
+      <h3>Environment</h3>
+      <div class="ctl"><label for="r-env">Orbit</label><select id="r-env">
+        <option value="lunar">Lunar orbit (interplanetary curve × body shielding)</option>
+        <option value="Interplanetary">Interplanetary, unshielded</option>
+        <option value="Lunar_surface">Lunar surface</option>
+        <option value="LEO550_6">LEO 550 km, 6°</option>
+        <option value="LEO800_98">LEO 800 km, 98°</option></select></div>
+      <div class="ctl" id="r-alt-wrap"><label for="r-alt">Lunar orbit altitude <output id="o-ralt"></output></label><input type="range" id="r-alt" min="0" max="5000" step="10" value="3000"></div>
+      <div class="ctl"><label for="r-mm">Aluminium shielding <output id="o-rmm"></output></label><input type="range" id="r-mm" min="1" max="5" step="0.02" value="2.54"></div>
+      <h3>Mission</h3>
+      <div class="ctl"><label for="r-yr">Mission years <output id="o-ryr"></output></label><input type="range" id="r-yr" min="0.5" max="6" step="0.25" value="3"></div>
+      <div class="ctl"><label for="r-tr">Transfer allowance [krad] <output id="o-rtr"></output></label><input type="range" id="r-tr" min="0" max="5" step="0.1" value="1"></div>
+      <div class="ctl"><label for="r-mg">Design margin <output id="o-rmg"></output></label><input type="range" id="r-mg" min="1" max="4" step="0.1" value="2"></div>
+      <h3>Availability</h3>
+      <div class="ctl"><label for="r-storm">Solar-storm outage days per year <output id="o-rstorm"></output></label><input type="range" id="r-storm" min="0" max="30" step="1" value="5"></div>
+      <div class="ctl"><label for="r-reset">Resets per day <output id="o-rreset"></output></label><input type="range" id="r-reset" min="-2" max="1" step="0.05" value="-1"></div>
+      <div class="ctl"><label for="r-rec">Recovery per reset [s] <output id="o-rrec"></output></label><input type="range" id="r-rec" min="10" max="600" step="10" value="60"></div>
+    </div>
+    <div class="results">
+      <div class="tiles">
+        <div class="tile hero"><div class="k">Ionising dose per year</div><div class="v" id="t-rdose">–</div><div class="d" id="t-rdosed"></div></div>
+        <div class="tile"><div class="k">Mission dose</div><div class="v" id="t-rmis">–</div><div class="d" id="t-rmisd"></div></div>
+        <div class="tile"><div class="k">Required tolerance</div><div class="v" id="t-rtol">–</div><div class="d" id="t-rtold"></div></div>
+        <div class="tile"><div class="k">Radiation availability</div><div class="v" id="t-ravail">–</div><div class="d" id="t-ravaild"></div></div>
+      </div>
+      <div class="two">
+        <div class="card"><h2>Annual dose behind aluminium</h2><p class="note">Silicon dose in solid aluminium spheres, solar maximum, 95% confidence (NASA/TM-20250006822, Fig. 10, digitised; reading allowance ±15%). The dot is your setting.</p><div class="chartbox"><canvas id="c-rdose"></canvas></div></div>
+        <div class="card"><h2>Shielding by the Moon</h2><p class="note">Share of an isotropic particle flux not blocked by the Moon, (1 + √(1 − (R/r)²)) / 2. Primary flux only; secondaries and albedo are not included.</p><div class="chartbox"><canvas id="c-rocc"></canvas></div></div>
+      </div>
+      <div class="card"><h2>Shield mass and comparators</h2><div class="tablewrap"><table id="tb-rmass"></table></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== ORBIT ===================== -->
+  <section class="view" id="view-orbit" hidden>
+    <div class="controls">
+      <h3>Orbit history</h3>
+      <div class="radio" role="radiogroup" aria-label="Orbit family">
+        <label><input type="radio" name="o-fam" id="o-fam-moon" value="moon" checked> Low lunar orbit</label>
+        <label><input type="radio" name="o-fam" id="o-fam-leo" value="leo"> Earth orbit (drag)</label>
+        <label><input type="radio" name="o-fam" id="o-fam-halo" value="halo"> L2 halo</label>
+      </div>
+      <div class="check" id="o-cases"></div>
+      <h3>Drag make-up (Earth orbit)</h3>
+      <div class="ctl"><label for="o-alt">Altitude <output id="o-oalt"></output></label><input type="range" id="o-alt" min="200" max="700" step="5" value="400"></div>
+      <div class="ctl"><label for="o-act">Solar activity</label><select id="o-act"><option value="quiet">Quiet (F10.7 = 70)</option><option value="moderate" selected>Moderate (140)</option><option value="active">Active (220)</option></select></div>
+      <div class="ctl"><label for="o-inc">Inclination <output id="o-oinc"></output></label><input type="range" id="o-inc" min="0" max="98" step="1" value="52"></div>
+      <div class="ctl"><label for="o-bc">Area / mass [m²/kg] <output id="o-obc"></output></label><input type="range" id="o-bc" min="0.002" max="0.05" step="0.001" value="0.01"></div>
+      <div class="ctl"><label for="o-cd">Drag coefficient <output id="o-ocd"></output></label><input type="range" id="o-cd" min="1.8" max="2.8" step="0.05" value="2.2"></div>
+      <h3>Momentum unloading</h3>
+      <div class="ctl"><label for="o-bias">Bias torque <output id="o-obias"></output></label><input type="range" id="o-bias" min="-9" max="-5" step="0.05" value="-7.52"></div>
+      <div class="ctl"><label for="o-head">Wheel headroom [mN m s] <output id="o-ohead"></output></label><input type="range" id="o-head" min="5" max="200" step="5" value="25"></div>
+    </div>
+    <div class="results">
+      <div class="tiles">
+        <div class="tile hero"><div class="k">Drag make-up Δv</div><div class="v" id="t-odv">–</div><div class="d" id="t-odvd"></div></div>
+        <div class="tile"><div class="k">Uncorrected decay</div><div class="v" id="t-oda">–</div><div class="d">initial rate at this altitude</div></div>
+        <div class="tile"><div class="k">Unloading interval</div><div class="v" id="t-ocad">–</div><div class="d" id="t-ocadd"></div></div>
+        <div class="tile"><div class="k">Propellant for unloading</div><div class="v" id="t-oprop">–</div><div class="d">per year (cold gas, 80 s, 0.15 m arm)</div></div>
+      </div>
+      <div class="card"><h2 id="o-title">Orbit history</h2><p class="note" id="o-note"></p><div class="chartbox" style="height:330px"><canvas id="c-orbit"></canvas></div></div>
+      <div class="card"><h2>Cases</h2><div class="tablewrap"><table id="tb-orbit"></table></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== LUMIO ===================== -->
+  <section class="view" id="view-lumio" hidden>
+    <div class="controls">
+      <h3>Viewing geometry</h3>
+      <div class="ctl"><label for="l-r">Distance from the Moon's centre <output id="o-lr"></output></label><input type="range" id="l-r" min="20000" max="100000" step="500" value="50000"></div>
+      <h3>Light-curve sampling</h3>
+      <div class="ctl"><label for="l-tau">Flash decay time <output id="o-ltau"></output></label><input type="range" id="l-tau" min="0" max="2.3" step="0.01" value="1"></div>
+      <div class="ctl"><label for="l-int">Camera integration time <output id="o-lint"></output></label><input type="range" id="l-int" min="-0.3" max="2" step="0.01" value="1.82"></div>
+      <h3>Exposure and statistics</h3>
+      <div class="ctl"><label for="l-av">Additional availability <output id="o-lav"></output></label><input type="range" id="l-av" min="0.4" max="1" step="0.01" value="0.9"></div>
+      <div class="ctl"><label for="l-n">Flashes in a sample <output id="o-ln"></output></label><input type="range" id="l-n" min="1" max="3.6" step="0.01" value="2"></div>
+    </div>
+    <div class="results">
+      <div class="tiles">
+        <div class="tile"><div class="k">Moon disc</div><div class="v" id="t-ldisc">–</div><div class="d" id="t-ldiscd"></div></div>
+        <div class="tile hero"><div class="k">Peak captured</div><div class="v" id="t-lpeak">–</div><div class="d" id="t-lpeakd"></div></div>
+        <div class="tile"><div class="k">Energy in first 5 ms</div><div class="v" id="t-learly">–</div><div class="d">of the exponential flash</div></div>
+        <div class="tile"><div class="k">Poisson error</div><div class="v" id="t-lpois">–</div><div class="d" id="t-lpoisd"></div></div>
+      </div>
+      <div class="two">
+        <div class="card"><h2>Peak captured versus integration time</h2><p class="note">Mean flux in the brightest frame over the true peak, for an exponential flash: best case onset at a frame start, worst case onset at the least favourable phase. LUMIO frames: 66 ms (model), 78 ms (Phase B full frame).</p><div class="chartbox"><canvas id="c-lpeak"></canvas></div></div>
+        <div class="card"><h2>Exposure per year</h2><p class="note">Science hours = 8766 h × 50% duty × availability; dark area = 37.5% of the surface, 20% obstructed (published LUMIO values).</p><div class="tablewrap"><table id="tb-lexp"></table></div></div>
+      </div>
+      <div class="card"><h2>LUMIO timeline (sources as of 29 October 2026)</h2><div class="tablewrap"><table id="tb-ltime"></table></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== PHOTON BUDGET ===================== -->
+  <section class="view" id="view-photon" hidden>
+    <div class="controls">
+      <div class="presets"><button id="p-reset" type="button">D01–D04 study case</button><button id="p-iec" type="button">Impact proposal geometry</button></div>
+      <h3>Geometry and optics</h3>
+      <div class="ctl"><label for="p-r">Range <output id="o-pr"></output></label><input type="range" id="p-r" min="3" max="5.6" step="0.01" value="4.699"></div>
+      <div class="ctl"><label for="p-ap">Aperture diameter <output id="o-pap"></output></label><input type="range" id="p-ap" min="0.01" max="0.3" step="0.002" value="0.2"></div>
+      <div class="ctl"><label for="p-bg">Background radiance [W m⁻² sr⁻¹] <output id="o-pbg"></output></label><input type="range" id="p-bg" min="-6" max="-1" step="0.05" value="-3"></div>
+      <h3>Flash</h3>
+      <div class="ctl"><label for="p-tau">Decay time <output id="o-ptau"></output></label><input type="range" id="p-tau" min="1" max="500" step="1" value="100"></div>
+      <div class="ctl"><label for="p-T">Colour temperature</label><select id="p-T"><option value="2000">2000 K</option><option value="3000" selected>3000 K</option><option value="4500">4500 K</option></select></div>
+      <h3>Localisation</h3>
+      <div class="ctl"><label for="p-em">Emission angle <output id="o-pem"></output></label><input type="range" id="p-em" min="0" max="80" step="1" value="30"></div>
+      <p class="hint">Fixed study assumptions: 600–900 nm band, 30% photon detection, 4.86 µm pixels, 0.5 m focal length, 9 noise-equivalent pixels, 100 ms detection window, 1 s background reference, 8σ false-alarm threshold with 90% detection.</p>
+    </div>
+    <div class="results">
+      <div class="tiles">
+        <div class="tile hero"><div class="k">Detection threshold</div><div class="v" id="t-pthr">–</div><div class="d">light energy (2π) at 8σ, 90% detection</div></div>
+        <div class="tile"><div class="k">SNR of a 1 kJ flash</div><div class="v" id="t-psnr">–</div><div class="d" id="t-psnrd"></div></div>
+        <div class="tile"><div class="k">NELIOTA flashes above</div><div class="v" id="t-pnel">–</div><div class="d">of 192 ground-observed flashes</div></div>
+        <div class="tile"><div class="k">95% error ellipse</div><div class="v" id="t-ploc">–</div><div class="d" id="t-plocd"></div></div>
+      </div>
+      <div class="two">
+        <div class="card"><h2>Threshold versus range</h2><p class="note">Light energy needed for detection, for your optics and background. Markers: impact proposal (3000–3750 km), D01–D04 case (50 000 km), Earth (384 400 km).</p><div class="chartbox"><canvas id="c-pthr"></canvas></div></div>
+        <div class="card"><h2>Ground-observed flash energies</h2><p class="note">192 validated NELIOTA flashes, 2017–2023 (R + I band, hemispheric-equivalent). Observed and selected, not the complete lunar population. Line: your threshold.</p><div class="chartbox"><canvas id="c-pnel"></canvas></div></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">Sources: <span class="num">data/radiation_environment</span>, <span class="num">data/disturbance_environment</span>, <span class="num">data/lumio_comparison</span>, <span class="num">analysis/d01_d04_research</span> and <span class="num">data/lunar_impact_energy</span>, collected by <span class="num">studies_data.py</span>. Closed-form relations follow each study's <span class="num">calculate.py</span>; stored orbit histories and simulation results are shown as computed. Each study's limitations apply (see its README); none of these values is a baselined requirement.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(function () {
+'use strict';
+const D = JSON.parse(document.getElementById('data').textContent);
+const $ = id => document.getElementById(id);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt = (x, d = 0) => Number.isFinite(x) ? x.toLocaleString('en-GB', { minimumFractionDigits: d, maximumFractionDigits: d }) : '–';
+const sig = (x, n = 3) => Number.isFinite(x) ? (Math.abs(x) >= 1e5 || (Math.abs(x) < 1e-3 && x !== 0) ? x.toExponential(n - 1) : x.toPrecision(n).replace(/\.?0+$/, '')) : '–';
+const charts = {};
+const pal = () => [css('--data-1'), css('--data-2'), css('--data-3'), css('--data-4'), css('--ink-3'), css('--warn'), css('--bad'), css('--good'), css('--ink-2')];
+function baseOpts(xlog, ylog, xTitle, yTitle) {
+  const ink2 = css('--ink-2'), grid = css('--grid');
+  const ax = (type, title) => ({ type, title: { display: !!title, text: title, color: ink2, font: { family: 'Source Sans 3', size: 12 } },
+    ticks: { color: ink2, font: { family: 'IBM Plex Mono', size: 11 } }, grid: { color: grid }, border: { color: css('--line') } });
+  return { responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: 'nearest', intersect: false },
+    plugins: { legend: { labels: { color: ink2, boxWidth: 14, font: { family: 'Source Sans 3', size: 12 } } },
+      tooltip: { backgroundColor: css('--panel'), titleColor: css('--ink'), bodyColor: css('--ink-2'), borderColor: css('--line'), borderWidth: 1 } },
+    scales: { x: ax(xlog ? 'logarithmic' : 'linear', xTitle), y: ax(ylog ? 'logarithmic' : 'linear', yTitle) } };
+}
+const pow10Tick = v => { const l = Math.log10(v); return Math.abs(l - Math.round(l)) < 1e-6 ? (v >= 1e4 || v < 1e-2 ? v.toExponential(0) : String(v)) : ''; };
+function draw(id, cfg) { if (charts[id]) charts[id].destroy(); charts[id] = new Chart($(id), cfg); }
+const row = (cells, th) => '<tr>' + cells.map((c, i) => th ? `<th>${c}</th>` : `<td${i ? ' class="num"' : ''}>${c}</td>`).join('') + '</tr>';
+
+/* ===================== RADIATION ===================== */
+const R = D.radiation, RM = R.inputs.moon_radius_km;
+const doseCases = [...new Set(R.dose.map(r => r.case))];
+const DLABEL = { LEO550_6: 'LEO 550 km, 6°', LEO800_98: 'LEO 800 km, 98°', Interplanetary: 'Interplanetary', Lunar_surface: 'Lunar surface' };
+function doseAt(c, mm) {                 // log-log interpolation of the digitised curve
+  const p = R.dose.filter(r => r.case === c).sort((a, b) => a.shielding_mm - b.shielding_mm);
+  mm = Math.min(Math.max(mm, p[0].shielding_mm), p[p.length - 1].shielding_mm);
+  let i = 0; while (i < p.length - 2 && mm > p[i + 1].shielding_mm) i++;
+  const f = (Math.log(mm) - Math.log(p[i].shielding_mm)) / (Math.log(p[i + 1].shielding_mm) - Math.log(p[i].shielding_mm));
+  return Math.exp((1 - f) * Math.log(p[i].dose_krad_Si_year) + f * Math.log(p[i + 1].dose_krad_Si_year));
+}
+const visFrac = (Rb, h) => (1 + Math.sqrt(Math.max(0, 1 - Math.pow(Rb / (Rb + h), 2)))) / 2;
+function updateRad() {
+  const env = $('r-env').value, mm = +$('r-mm').value, alt = +$('r-alt').value, yr = +$('r-yr').value, tr = +$('r-tr').value, mg = +$('r-mg').value;
+  const storm = +$('r-storm').value, reset = Math.pow(10, +$('r-reset').value), rec = +$('r-rec').value;
+  $('r-alt-wrap').hidden = env !== 'lunar';
+  $('o-ralt').textContent = fmt(alt) + ' km'; $('o-rmm').textContent = mm.toFixed(2) + ' mm (' + (mm * 0.27).toFixed(2) + ' g/cm²)';
+  $('o-ryr').textContent = yr.toFixed(2); $('o-rtr').textContent = tr.toFixed(1); $('o-rmg').textContent = '× ' + mg.toFixed(1);
+  $('o-rstorm').textContent = storm; $('o-rreset').textContent = sig(reset, 2); $('o-rrec').textContent = rec;
+  const vf = env === 'lunar' ? visFrac(RM, alt) : 1;
+  const annual = (env === 'lunar' ? doseAt('Interplanetary', mm) : doseAt(env, mm)) * vf;
+  const mission = annual * yr + tr, tol = mission * mg;
+  $('t-rdose').textContent = sig(annual, 3) + ' krad';
+  $('t-rdosed').textContent = env === 'lunar' ? `Si, ${fmt(100 * vf, 1)}% of the interplanetary flux reaches the spacecraft` : 'Si, solar maximum, 95%';
+  $('t-rmis').textContent = sig(mission, 3) + ' krad'; $('t-rmisd').textContent = `${yr} years + ${tr} krad transfer`;
+  $('t-rtol').textContent = sig(tol, 3) + ' krad'; $('t-rtold').textContent = `× ${mg} margin; DAVIS346 proton test reached 20 krad`;
+  const avail = (1 - storm / R.inputs.year_days) / (1 + reset * rec / 86400);
+  $('t-ravail').textContent = fmt(100 * avail, 2) + '%'; $('t-ravaild').textContent = 'allocation sensitivity, not a prediction';
+  const cols = pal(); const mmGrid = []; for (let i = 0; i <= 60; i++) mmGrid.push(1 * Math.pow(5, i / 60));
+  const sets = doseCases.map((c, i) => ({ label: DLABEL[c] || c, data: mmGrid.map(x => ({ x, y: doseAt(c, x) })), borderColor: cols[i], borderWidth: 2, pointRadius: 0 }));
+  if (env === 'lunar') sets.push({ label: `lunar orbit, ${fmt(alt)} km`, data: mmGrid.map(x => ({ x, y: doseAt('Interplanetary', x) * vf })), borderColor: css('--accent'), borderDash: [6, 4], borderWidth: 2, pointRadius: 0 });
+  sets.push({ type: 'scatter', label: 'your setting', data: [{ x: mm, y: annual }], backgroundColor: css('--accent'), pointRadius: 7, borderColor: css('--panel'), borderWidth: 2 });
+  const o = baseOpts(true, true, 'aluminium shielding [mm]', 'dose [krad(Si) per year]'); o.scales.x.min = 1; o.scales.x.max = 5; o.scales.y.min = 0.3; o.scales.y.max = 60;
+  o.scales.x.ticks.callback = v => [1, 2, 3, 4, 5].includes(+v) ? v : ''; o.scales.y.ticks.callback = v => [0.3, 1, 3, 10, 30, 60].includes(+v) ? v : '';
+  o.plugins.tooltip.callbacks = { label: c => `${c.dataset.label}: ${sig(c.raw.y, 3)} krad/yr at ${c.raw.x.toFixed(2)} mm` };
+  draw('c-rdose', { type: 'line', data: { datasets: sets }, options: o });
+  const hs = []; for (let i = 0; i <= 80; i++) hs.push(Math.pow(10, 1 + i * 4 / 80));
+  const o2 = baseOpts(true, false, 'altitude [km]', 'flux share reaching the spacecraft'); o2.scales.y.min = 0.5; o2.scales.y.max = 1.0; o2.scales.x.ticks.callback = pow10Tick;
+  o2.plugins.tooltip.callbacks = { label: c => `${c.dataset.label}: ${fmt(100 * c.raw.y, 1)}% at ${fmt(c.raw.x)} km` };
+  draw('c-rocc', { type: 'line', data: { datasets: [
+    { label: 'Moon', data: hs.map(h => ({ x: h, y: visFrac(RM, h) })), borderColor: css('--data-1'), borderWidth: 2, pointRadius: 0 },
+    { label: 'Earth', data: hs.map(h => ({ x: h, y: visFrac(R.inputs.earth_radius_km, h) })), borderColor: css('--data-3'), borderWidth: 2, pointRadius: 0 },
+    { type: 'scatter', label: 'your lunar orbit', data: env === 'lunar' && alt >= 10 ? [{ x: alt, y: vf }] : [], backgroundColor: css('--accent'), pointRadius: 7 }] }, options: o2 });
+  const s = R.inputs.local_box_inner_side_m, d = mm / 1000;
+  let t = row(['Quantity', 'Value'], true);
+  t += row(['Areal density', `${(mm * 2.7).toFixed(2)} kg/m²`]);
+  t += row(['Shield over 1 m² of bus skin', `${(mm * 2.7).toFixed(2)} kg`]);
+  t += row([`Local box around the sensor (${s * 100} cm inner side)`, `${fmt(((s + 2 * d) ** 3 - s ** 3) * 2700, 3)} kg`]);
+  R.measured.forEach(m => t += row([`Measured: ${m.source}`, `${sig(m.derived_rad_year, 3)} rad/yr`]));
+  t += row(['DAVIS346 proton test (64 MeV)', `${R.proton_test[0].tid_krad_Si} krad`]);
+  $('tb-rmass').innerHTML = t;
+}
+
+/* ===================== ORBIT ===================== */
+const O = D.disturbance, MU_E = 3.986004418e14, RE = 6378137, WE = 7.2921159e-5;
+function rhoAt(h, act) {
+  const caseAlt = h <= 500 ? 400 : 600;
+  const p = O.density.filter(r => r.case_alt_km === caseAlt && r.activity === act).sort((a, b) => a.profile_alt_km - b.profile_alt_km);
+  h = Math.min(Math.max(h, p[0].profile_alt_km), p[p.length - 1].profile_alt_km);
+  let i = 0; while (i < p.length - 2 && h > p[i + 1].profile_alt_km) i++;
+  const f = (h - p[i].profile_alt_km) / (p[i + 1].profile_alt_km - p[i].profile_alt_km);
+  return Math.exp((1 - f) * Math.log(p[i].rho_mean_kg_m3) + f * Math.log(p[i + 1].rho_mean_kg_m3));
+}
+function buildCases() {
+  const fam = document.querySelector('input[name="o-fam"]:checked').value;
+  const keys = fam === 'leo' ? Object.keys(O.leo) : fam === 'moon' ? Object.keys(O.lunar) : [];
+  const def = fam === 'moon' ? ['Moon100_N80', 'Moon50_N80', 'Moon30x200_N80', 'Moon100_RAAN90_N80'] : keys;
+  $('o-cases').innerHTML = keys.map((k, i) => `<label><input type="checkbox" id="oc-${k}" value="${k}"${def.includes(k) ? ' checked' : ''}> ${k.replace('_', ' ')}</label>`).join('');
+  $('o-cases').querySelectorAll('input').forEach(e => e.addEventListener('change', updateOrbit));
+}
+function updateOrbit() {
+  const fam = document.querySelector('input[name="o-fam"]:checked').value;
+  const h = +$('o-alt').value, act = $('o-act').value, inc = +$('o-inc').value, bc = +$('o-bc').value, cd = +$('o-cd').value;
+  const bias = Math.pow(10, +$('o-bias').value), head = +$('o-head').value / 1000, U = O.unloading;
+  $('o-oalt').textContent = h + ' km'; $('o-oinc').textContent = inc + '°'; $('o-obc').textContent = bc.toFixed(3); $('o-ocd').textContent = cd.toFixed(2);
+  $('o-obias').textContent = sig(bias, 2) + ' N m'; $('o-ohead').textContent = fmt(head * 1000);
+  const r = RE + h * 1000, v = Math.sqrt(MU_E / r), vrel = v - WE * r * Math.cos(inc * Math.PI / 180), rho = rhoAt(h, act);
+  const acc = 0.5 * rho * vrel * vrel * cd * bc;
+  $('t-odv').textContent = sig(acc * 365.25 * 86400, 3) + ' m/s'; $('t-odvd').textContent = `per year; ρ = ${sig(rho, 2)} kg/m³ (NRLMSIS 2.0 profile)`;
+  const dadt = -Math.sqrt(MU_E * r) * rho * cd * bc * (vrel / v) ** 2;
+  $('t-oda').textContent = sig(-dadt * 86400 / 1000, 2) + ' km/day';
+  const cad = head / bias / 86400; $('t-ocad').textContent = cad >= 1 ? fmt(cad, 1) + ' days' : fmt(cad * 24, 1) + ' h';
+  $('t-ocadd').textContent = `science lost to 20-min dumps: ${fmt(100 * 1200 * bias / head, 3)}%`;
+  $('t-oprop').textContent = sig(bias * 365.25 * 86400 / U.lever_m / (U.Isp_s * 9.80665) * 1000, 3) + ' g';
+  const cols = pal(); let sets = [], o, t = '';
+  if (fam === 'halo') {
+    const H = O.halo;
+    sets = [{ label: 'uncontrolled (1 km, 1 cm/s initial error)', data: H.t.map((x, i) => ({ x, y: Math.max(H.free[i], 1e-3) })), borderColor: css('--bad'), borderWidth: 2, pointRadius: 0 },
+      { label: 'targeted every 7 days', data: H.t.map((x, i) => ({ x, y: Math.max(H.targeted[i], 1e-3) })), borderColor: css('--data-3'), borderWidth: 2, pointRadius: 0 }];
+    o = baseOpts(false, true, 'day', 'deviation from the nominal halo [km]'); o.scales.y.ticks.callback = pow10Tick;
+    $('o-title').textContent = 'L2 halo: drift and targeting';
+    $('o-note').textContent = `Northern L2 halo from the JPL periodic-orbit catalogue, period ${fmt(H.summary.period_d, 1)} days, range ${fmt(H.summary.range_km[0])}–${fmt(H.summary.range_km[1])} km. Ideal targeting needs ${sig(H.summary.ideal_targeting_dv30_m_s * 1000, 3)} mm/s in 30 days (exact navigation, impulsive burns).`;
+    t = row(['Quantity', 'Value'], true) + row(['Stability index', fmt(H.summary.catalogue_stability_index, 0)]) + row(['e-folding time', fmt(H.summary.linear_efold_d, 2) + ' days']) + row(['Deviation after 30 days, uncontrolled', fmt(H.summary.uncontrolled_day30_deviation_km) + ' km']) + row(['Δv in 30 days, targeted', sig(H.summary.ideal_targeting_dv30_m_s, 3) + ' m/s']);
+  } else {
+    const keys = [...$('o-cases').querySelectorAll('input:checked')].map(e => e.value);
+    if (fam === 'leo') {
+      sets = keys.map((k, i) => ({ label: k.replace('_', ' '), data: O.leo[k].t.map((x, j) => ({ x, y: O.leo[k].h[j] })), borderColor: cols[i % cols.length], borderWidth: 2, pointRadius: 0 }));
+      o = baseOpts(false, false, 'day', 'mean altitude [km]');
+      $('o-title').textContent = 'Earth orbit: decay without make-up'; $('o-note').textContent = '30 kg, 0.3 m², Cd 2.2 spacecraft; averaged J2 and NRLMSIS 2.0 drag; stop at 120 km. Solar-cycle evolution is not modelled within a run.';
+      t = row(['Case', 'Start', 'Inclination', 'Activity', 'Make-up Δv [m/s/yr]', 'Lifetime or end'], true);
+      Object.entries(O.leo).forEach(([k, c]) => t += row([k, c.summary.h0_km + ' km', c.summary.i_deg + '°', c.summary.activity, fmt(c.summary.drag_makeup_m_s_year_at_held_alt, 1), c.summary.end_h_km <= 121 ? fmt(c.summary.duration_d) + ' days' : `${fmt(c.summary.end_h_km)} km after ${fmt(c.summary.duration_d)} days`]));
+    } else {
+      sets = keys.map((k, i) => ({ label: k.replace('_', ' '), data: O.lunar[k].t.map((x, j) => ({ x, y: O.lunar[k].hp[j] })), borderColor: cols[i % cols.length], borderWidth: 2, pointRadius: 0 }));
+      sets.push({ label: '11 km screening buffer', data: [{ x: 0, y: 11 }, { x: 60, y: 11 }], borderColor: css('--bad'), borderDash: [5, 4], borderWidth: 1.5, pointRadius: 0 });
+      o = baseOpts(false, false, 'day', 'periapsis height above the 1738 km sphere [km]'); o.scales.y.min = 0;
+      $('o-title').textContent = 'Low lunar orbit: periapsis under the mascons';
+      $('o-note').textContent = 'GRGM1200A gravity truncated at degree N (N40–N120), Earth and Sun, solar pressure; 30-day runs or until periapsis falls below the 11 km screening buffer (not a terrain impact).';
+      t = row(['Case', 'Gravity degree', 'Run', 'Lowest periapsis', 'Max eccentricity'], true);
+      Object.entries(O.lunar).forEach(([k, c]) => t += row([k, c.summary.N, fmt(c.summary.duration_d, 1) + ' days', fmt(c.summary.min_osculating_hp_km, 1) + ' km', sig(c.summary.max_e, 2)]));
+    }
+  }
+  o.plugins.tooltip.callbacks = { label: c => `${c.dataset.label}: ${sig(c.raw.y, 4)} at day ${fmt(c.raw.x, 1)}` };
+  draw('c-orbit', { type: 'line', data: { datasets: sets }, options: o });
+  $('tb-orbit').innerHTML = t;
+}
+
+/* ===================== LUMIO ===================== */
+const L = D.lumio.inputs;
+function peakCapture(tau, T) {
+  const best = tau / T * (1 - Math.exp(-T / tau));
+  // worst onset phase: the two frames that share the peak are equal
+  const a = 1 - Math.exp(-T / tau), x = 1 / (1 + a);          // x = exp(-(1-phi) T / tau)
+  const worst = tau / T * (1 - x);
+  return [best, Math.min(best, worst)];
+}
+function updateLumio() {
+  const r = +$('l-r').value, tau = Math.pow(10, +$('l-tau').value), T = Math.pow(10, +$('l-int').value), av = +$('l-av').value, N = Math.round(Math.pow(10, +$('l-n').value));
+  $('o-lr').textContent = fmt(r) + ' km'; $('o-ltau').textContent = sig(tau, 3) + ' ms'; $('o-lint').textContent = sig(T, 3) + ' ms'; $('o-lav').textContent = av.toFixed(2); $('o-ln').textContent = fmt(N);
+  const Rm = L.moon_radius_km, disc = 2 * Math.asin(Rm / r) * 180 / Math.PI, samp = (r - Rm) * (L.field_of_view_deg * Math.PI / 180) / L.pixels_per_side;
+  $('t-ldisc').textContent = disc.toFixed(2) + '°'; $('t-ldiscd').textContent = `${sig(samp, 3)} km per pixel at nadir; ${fmt(100 * (1 - Rm / r) / 2, 1)}% of the surface visible`;
+  const [b, w] = peakCapture(tau, T);
+  $('t-lpeak').textContent = fmt(100 * w) + '–' + fmt(100 * b) + '%'; $('t-lpeakd').textContent = `${sig(tau, 3)} ms flash in ${sig(T, 3)} ms frames (worst–best)`;
+  $('t-learly').textContent = fmt(100 * (1 - Math.exp(-L.early_window_ms / tau))) + '%';
+  $('t-lpois').textContent = '±' + fmt(100 / Math.sqrt(N), 1) + '%'; $('t-lpoisd').textContent = `1σ relative error of a rate from ${fmt(N)} flashes`;
+  const Ts = []; for (let i = 0; i <= 90; i++) Ts.push(0.5 * Math.pow(200, i / 90));
+  const o = baseOpts(true, false, 'integration time [ms]', 'peak captured'); o.scales.y.min = 0; o.scales.y.max = 1; o.scales.x.min = 0.5; o.scales.x.max = 100;
+  o.scales.x.ticks.callback = v => [0.5, 1, 5, 10, 23, 50, 66, 100].includes(+v) ? v : '';
+  o.plugins.tooltip.callbacks = { label: c => `${c.dataset.label}: ${fmt(100 * c.raw.y)}% at ${sig(c.raw.x, 3)} ms` };
+  draw('c-lpeak', { type: 'line', data: { datasets: [
+    { label: 'best phase', data: Ts.map(x => ({ x, y: peakCapture(tau, x)[0] })), borderColor: css('--data-1'), borderWidth: 2, pointRadius: 0 },
+    { label: 'worst phase', data: Ts.map(x => ({ x, y: peakCapture(tau, x)[1] })), borderColor: css('--data-1'), borderDash: [6, 4], borderWidth: 2, pointRadius: 0 },
+    { type: 'scatter', label: 'LUMIO 66 / 78 ms', data: [66, 78].map(x => ({ x, y: peakCapture(tau, x)[0] })), backgroundColor: css('--ink-3'), pointRadius: 6, pointStyle: 'rectRot' },
+    { type: 'scatter', label: 'your frame', data: [{ x: T, y: b }], backgroundColor: css('--accent'), pointRadius: 7 }] }, options: o });
+  const hours = L.year_days * 24 * L.science_duty_fraction * av, dark = 4 * Math.PI * Rm * Rm * L.published_mean_dark_surface_fraction;
+  let t = row(['Quantity', 'Value'], true) + row(['Science hours per year', fmt(hours)]) + row(['Mean dark area', sig(dark, 3) + ' km²']) +
+    row(['Dark area-time (after 20% obstruction)', sig(dark * hours * (1 - L.published_obstruction_fraction), 3) + ' km² h']) +
+    row(['Published model detections per year', fmt(L.model_annual_detections)]) + row(['Historical predictions', L.historical_predictions.map(x => fmt(x)).join(' and ')]);
+  $('tb-lexp').innerHTML = t;
+  $('tb-ltime').innerHTML = row(['Date', 'Phase', 'Configuration', 'Status'], true) + D.lumio.timeline.map(x => `<tr><td>${x.date}</td><td style="text-align:left">${x.phase}</td><td style="text-align:left">${x.configuration}</td><td style="text-align:left">${x.status}</td></tr>`).join('');
+}
+
+/* ===================== PHOTON BUDGET ===================== */
+const P = D.d01d04.inputs, H = 6.62607015e-34, CL = 2.99792458e8;
+const PPJ = Object.fromEntries(D.d01d04.results.spectral_photons_per_J.map(r => [r.temperature_K, r.photons_per_J]));
+const zreq = P.false_alarm_sigma + 1.2815515655446004;    // 8 sigma + Phi^-1(0.9)
+function budget(rangeKm, ap, rad, tauMs, Tk, E) {
+  const d = rangeKm * 1000, area = Math.PI * ap * ap / 4, pix = P.pixel_pitch_um * 1e-6 / P.focal_length_m, omega = P.noise_equivalent_pixels * pix * pix;
+  const eff = P.effective_photon_detection_fraction, bgr = rad * area * omega * eff * P.background_effective_wavelength_nm * 1e-9 / (H * CL);
+  const tau = tauMs / 1000, win = P.detection_window_ms / 1000, ref = P.background_reference_ms / 1000;
+  const e_tot = E / (2 * Math.PI * d * d) * area * eff * PPJ[Tk], sw = e_tot * (1 - Math.exp(-win / tau));
+  const bw = bgr * win, bv = bgr * win * win / ref, snr = sw / Math.sqrt(sw + bw + bv);
+  const q2 = zreq * zreq, need = (q2 + Math.sqrt(q2 * q2 + 4 * q2 * (bw + bv))) / 2;
+  return { snr, thr: need / sw * E, bgr };
+}
+function locEllipse(rangeKm, emDeg) {
+  const e = emDeg * Math.PI / 180, ARC = Math.PI / 180 / 3600, pixArc = P.pixel_pitch_um * 1e-6 / P.focal_length_m / ARC;
+  const ang = Math.sqrt((P.centroid_sigma_px * pixArc) ** 2 + P.attitude_sigma_arcsec ** 2 + P.boresight_sigma_arcsec ** 2 + P.residual_jitter_sigma_arcsec ** 2);
+  const g = rangeKm * ang * ARC, common = g * g + P.orbit_horizontal_sigma_km ** 2;
+  const maj = Math.sqrt(common / Math.cos(e) ** 2 + P.map_horizontal_sigma_km ** 2 + (P.topography_height_sigma_km * Math.tan(e)) ** 2), min = Math.sqrt(common + P.map_horizontal_sigma_km ** 2);
+  const k = Math.sqrt(-2 * Math.log(1 - P.horizontal_confidence)); return [k * maj, k * min];
+}
+function setPhoton(v) { $('p-r').value = Math.log10(v.r); $('p-ap').value = v.ap; $('p-bg').value = Math.log10(v.bg); $('p-tau').value = v.tau; }
+function updatePhoton() {
+  const r = Math.pow(10, +$('p-r').value), ap = +$('p-ap').value, bg = Math.pow(10, +$('p-bg').value), tau = +$('p-tau').value, Tk = +$('p-T').value, em = +$('p-em').value;
+  $('o-pr').textContent = fmt(r) + ' km'; $('o-pap').textContent = fmt(ap * 1000) + ' mm'; $('o-pbg').textContent = sig(bg, 2); $('o-ptau').textContent = tau + ' ms'; $('o-pem').textContent = em + '°';
+  const b = budget(r, ap, bg, tau, Tk, 1000);
+  $('t-pthr').textContent = b.thr >= 1e4 ? sig(b.thr / 1e3, 3) + ' kJ' : sig(b.thr, 3) + ' J';
+  $('t-psnr').textContent = fmt(b.snr, 1); $('t-psnrd').textContent = `background ${sig(b.bgr, 3)} e⁻/s in the flash pixels`;
+  const nel = D.d01d04.neliota, above = nel.filter(x => x.E >= b.thr).length;
+  $('t-pnel').textContent = fmt(100 * above / nel.length) + '%';
+  const [maj, min] = locEllipse(r, em);
+  $('t-ploc').textContent = sig(maj, 3) + ' × ' + sig(min, 3) + ' km'; $('t-plocd').textContent = `semi-axes at ${em}° emission, ${fmt(r)} km`;
+  const rs = []; for (let i = 0; i <= 80; i++) rs.push(1000 * Math.pow(500, i / 80));
+  const o = baseOpts(true, true, 'range [km]', 'detection threshold [J]'); o.scales.x.ticks.callback = pow10Tick; o.scales.y.ticks.callback = pow10Tick;
+  o.plugins.tooltip.callbacks = { label: c => `${c.dataset.label}: ${sig(c.raw.y, 3)} J at ${fmt(c.raw.x)} km` };
+  draw('c-pthr', { type: 'line', data: { datasets: [
+    { label: 'threshold', data: rs.map(x => ({ x, y: budget(x, ap, bg, tau, Tk, 1000).thr })), borderColor: css('--data-1'), borderWidth: 2, pointRadius: 0 },
+    { type: 'scatter', label: 'reference ranges', data: [3000, 3750, 50000, 384400].map(x => ({ x, y: budget(x, ap, bg, tau, Tk, 1000).thr })), backgroundColor: css('--ink-3'), pointRadius: 5, pointStyle: 'rectRot' },
+    { type: 'scatter', label: 'your range', data: [{ x: r, y: b.thr }], backgroundColor: css('--accent'), pointRadius: 7 }] }, options: o });
+  const edges = []; for (let i = 0; i <= 24; i++) edges.push(1000 * Math.pow(10, i * 3 / 24));
+  const counts = edges.slice(0, -1).map((e, i) => nel.filter(x => x.E >= e && x.E < edges[i + 1]).length);
+  const o2 = baseOpts(false, false, 'flash light energy [J]', 'flashes'); o2.scales.x.type = 'category'; o2.scales.x.grid.display = false;
+  o2.scales.x.ticks.callback = (v, i) => (i % 8 === 0 ? sig(edges[i], 1) : ''); o2.scales.x.ticks.maxRotation = 0;
+  o2.plugins.legend.display = false;
+  o2.plugins.tooltip.callbacks = { title: c => `${sig(edges[c[0].dataIndex], 2)}–${sig(edges[c[0].dataIndex + 1], 2)} J`, label: c => `${c.raw} flashes` };
+  draw('c-pnel', { type: 'bar', data: { labels: counts.map((_, i) => i), datasets: [{ data: counts, backgroundColor: edges.slice(0, -1).map((e, i) => edges[i + 1] <= b.thr ? css('--ink-3') : css('--data-1')), borderRadius: 3, barPercentage: 0.92, categoryPercentage: 1 }] }, options: o2 });
+}
+
+/* ===================== WIRING ===================== */
+const views = { rad: updateRad, orbit: updateOrbit, lumio: updateLumio, photon: updatePhoton };
+const inputs = { rad: ['r-env', 'r-alt', 'r-mm', 'r-yr', 'r-tr', 'r-mg', 'r-storm', 'r-reset', 'r-rec'], orbit: ['o-alt', 'o-act', 'o-inc', 'o-bc', 'o-cd', 'o-bias', 'o-head'],
+  lumio: ['l-r', 'l-tau', 'l-int', 'l-av', 'l-n'], photon: ['p-r', 'p-ap', 'p-bg', 'p-tau', 'p-T', 'p-em'] };
+Object.entries(inputs).forEach(([v, ids]) => ids.forEach(id => { $(id).addEventListener('input', views[v]); $(id).addEventListener('change', views[v]); }));
+document.querySelectorAll('input[name="o-fam"]').forEach(e => e.addEventListener('change', () => { buildCases(); updateOrbit(); }));
+$('p-reset').onclick = () => { setPhoton({ r: 50000, ap: 0.2, bg: 1e-3, tau: 100 }); updatePhoton(); };
+$('p-iec').onclick = () => { setPhoton({ r: 3750, ap: 0.016, bg: 1e-3, tau: 100 }); updatePhoton(); };
+buildCases();
+function show(v) {
+  if (!views[v]) v = 'rad';
+  document.querySelectorAll('nav button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === v)));
+  Object.keys(views).forEach(k => { $('view-' + k).hidden = k !== v; });
+  views[v]();
+  try { localStorage.setItem('smd-view', v); } catch (e) { /* storage unavailable */ }
+}
+document.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => { show(b.dataset.view); history.replaceState(null, '', '#' + b.dataset.view); }));
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+let start = location.hash.slice(1);
+if (!views[start]) { try { start = localStorage.getItem('smd-view') || 'rad'; } catch (e) { start = 'rad'; } }
+show(start);
+const redraw = () => views[document.querySelector('nav button[aria-selected="true"]').dataset.view]();
+const mq = window.matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', redraw);
+new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+window.__smd = { budget, locEllipse, peakCapture, doseAt, visFrac, rhoAt };
+})();
+</script>

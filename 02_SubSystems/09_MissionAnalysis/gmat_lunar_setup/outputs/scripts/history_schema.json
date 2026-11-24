@@ -1,0 +1,21 @@
+[
+  "elapsed_days",
+  "phase",
+  "x_icrf_km",
+  "y_icrf_km",
+  "z_icrf_km",
+  "vx_icrf_km_s",
+  "vy_icrf_km_s",
+  "vz_icrf_km_s",
+  "sma_km",
+  "eccentricity",
+  "inclination_lunar_equator_J2000_deg",
+  "radius_altitude_km",
+  "osculating_periapsis_altitude_km",
+  "osculating_apoapsis_altitude_km",
+  "mass_kg",
+  "fuel_kg",
+  "total_dv_m_s",
+  "maintenance_dv_m_s",
+  "lowering_dv_m_s"
+]

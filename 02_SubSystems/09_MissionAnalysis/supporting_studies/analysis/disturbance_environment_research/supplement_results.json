@@ -1,0 +1,207 @@
+{
+  "forces": [
+    {
+      "case": "LEO400",
+      "r_m": 6778137.0,
+      "central_g_m_s2": 8.675951000931727,
+      "SRP_sunlit_m_s2": 6.809711003470273e-08,
+      "solar_tide_linear_max_m_s2": 5.373728693443679e-07,
+      "body_J2_polar_max_m_s2": 0.02495077688621048,
+      "third_body_linear_max_m_s2": 1.1701307405925975e-06,
+      "thermal_2W_beam_m_s2": 2.223760634654347e-10
+    },
+    {
+      "case": "LEO600",
+      "r_m": 6978137.0,
+      "central_g_m_s2": 8.185755951784733,
+      "SRP_sunlit_m_s2": 6.809711003470273e-08,
+      "solar_tide_linear_max_m_s2": 5.532289333142867e-07,
+      "body_J2_polar_max_m_s2": 0.022210967498502873,
+      "third_body_linear_max_m_s2": 1.2046573587648947e-06,
+      "thermal_2W_beam_m_s2": 2.223760634654347e-10
+    },
+    {
+      "case": "Moon100",
+      "r_m": 1838000.0,
+      "central_g_m_s2": 1.4512865604921463,
+      "SRP_sunlit_m_s2": 6.809711003470273e-08,
+      "solar_tide_linear_max_m_s2": 1.4571722788355387e-07,
+      "body_J2_polar_max_m_s2": 0.0007891084738321792,
+      "third_body_linear_max_m_s2": 2.5796639908119435e-05,
+      "thermal_2W_beam_m_s2": 2.223760634654347e-10,
+      "Earth_tide_exact_antiEarth_m_s2": 2.5612793366282722e-05,
+      "exosphere_screen_rho_kg_m3": 1.32843125328e-14,
+      "exosphere_drag_screen_m_s2": 3.897897819298428e-10,
+      "exosphere_da_screen_km_30d": 0.002274006018716476,
+      "exosphere_torque_screen_Nm": 2.3387386915790564e-10
+    },
+    {
+      "case": "Moon50",
+      "r_m": 1788000.0,
+      "central_g_m_s2": 1.5335896141012262,
+      "SRP_sunlit_m_s2": 6.809711003470273e-08,
+      "solar_tide_linear_max_m_s2": 1.4175321189107417e-07,
+      "body_J2_polar_max_m_s2": 0.0008811476299664048,
+      "third_body_linear_max_m_s2": 2.509488147753947e-05,
+      "thermal_2W_beam_m_s2": 2.223760634654347e-10,
+      "Earth_tide_exact_antiEarth_m_s2": 2.4920871405197277e-05,
+      "exosphere_screen_rho_kg_m3": 1.32843125328e-14,
+      "exosphere_drag_screen_m_s2": 4.0068994361691886e-10,
+      "exosphere_da_screen_km_30d": 0.0022428623130701913,
+      "exosphere_torque_screen_Nm": 2.4041396617015134e-10
+    },
+    {
+      "case": "Distant50k",
+      "r_m": 50000000.0,
+      "central_g_m_s2": 0.001961120046105292,
+      "SRP_sunlit_m_s2": 6.809711003470273e-08,
+      "solar_tide_linear_max_m_s2": 3.964015992479703e-06,
+      "body_J2_polar_max_m_s2": 1.4409161795532161e-09,
+      "third_body_linear_max_m_s2": 0.0007017584305799629,
+      "thermal_2W_beam_m_s2": 2.223760634654347e-10,
+      "Earth_tide_exact_antiEarth_m_s2": 0.0005852470360289053,
+      "exosphere_screen_rho_kg_m3": 1.32843125328e-14,
+      "exosphere_drag_screen_m_s2": 1.4328672383741017e-11,
+      "exosphere_da_screen_km_30d": 0.011860523503125506,
+      "exosphere_torque_screen_Nm": 8.59720343024461e-12
+    }
+  ],
+  "unloading": [
+    {
+      "bias_Nm": 1e-08,
+      "headroom_Nms": 0.025,
+      "cadence_d": 28.935185185185187,
+      "dump_time_s": 83.33333333333334,
+      "impulse_per_dump_Ns": 0.16666666666666669,
+      "prop_per_dump_g": 0.2124408777037351,
+      "annual_impulse_Ns": 2.1024000000000003,
+      "annual_prop_g": 2.679814207705996,
+      "science_loss_fraction_20min_dump": 0.00048,
+      "net_dv_single_unbalanced_dump_m_s": 0.005555555555555556,
+      "net_dv_pair_1pct_mismatch_m_s": 2.777777777777778e-05
+    },
+    {
+      "bias_Nm": 3e-08,
+      "headroom_Nms": 0.025,
+      "cadence_d": 9.645061728395063,
+      "dump_time_s": 83.33333333333334,
+      "impulse_per_dump_Ns": 0.16666666666666669,
+      "prop_per_dump_g": 0.2124408777037351,
+      "annual_impulse_Ns": 6.3072,
+      "annual_prop_g": 8.039442623117987,
+      "science_loss_fraction_20min_dump": 0.0014399999999999997,
+      "net_dv_single_unbalanced_dump_m_s": 0.005555555555555556,
+      "net_dv_pair_1pct_mismatch_m_s": 2.777777777777778e-05
+    },
+    {
+      "bias_Nm": 1e-07,
+      "headroom_Nms": 0.025,
+      "cadence_d": 2.893518518518519,
+      "dump_time_s": 83.33333333333334,
+      "impulse_per_dump_Ns": 0.16666666666666669,
+      "prop_per_dump_g": 0.2124408777037351,
+      "annual_impulse_Ns": 21.024,
+      "annual_prop_g": 26.79814207705996,
+      "science_loss_fraction_20min_dump": 0.0048,
+      "net_dv_single_unbalanced_dump_m_s": 0.005555555555555556,
+      "net_dv_pair_1pct_mismatch_m_s": 2.777777777777778e-05
+    }
+  ],
+  "wheel_internal": {
+    "source": "DE18 BCT15 historical unit, Table1",
+    "rpm": 3000,
+    "frequency_Hz": 50,
+    "static_kg_m": 3.8e-07,
+    "dynamic_kg_m2": 2.759e-08,
+    "radial_force_N": 0.037504496724139566,
+    "dynamic_torque_Nm": 0.002723023854260554,
+    "force_lever02m_torque_Nm": 0.0007500899344827913,
+    "rigid_body_dynamic_angle_arcsec": 0.01138169199508,
+    "limitations": "No bearings/harmonics/structural transfer; not the candidate CW0500."
+  },
+  "secondary": {
+    "solar_wind_density_m3": 5000000.0,
+    "solar_wind_speed_m_s": 400000.0,
+    "solar_wind_pressure_Pa": 1.3380975392e-09,
+    "solar_wind_absorbing_torque_Nm": 8.028585235200002e-12,
+    "charging_potential_V": 1000,
+    "capacitance_radius_m": 0.3,
+    "net_charge_C": 3.3379501663436116e-08,
+    "lorentz_400km_50uT_force_N": 1.2851108140422905e-08,
+    "Lorentz_lunar_30nT_2kms_force_N": 2.0027700998061667e-12,
+    "leak_mass_flow_kg_s": 1e-10,
+    "leak_speed_m_s": 1000,
+    "leak_force_N": 1e-07,
+    "leak_10cm_torque_Nm": 1e-08,
+    "impact_mass_kg": 1e-09,
+    "impact_speed_m_s": 20000,
+    "impact_arm_m": 0.2,
+    "impact_H_Nms": 4.000000000000001e-06,
+    "impact_delta_rate_arcsec_s": 1.6501184480000004,
+    "status": "Conditional screening inputs, not measured environment percentiles, leak specification or impact frequency."
+  },
+  "image_motion": {
+    "pixel_pitch_um": 4.86,
+    "focal_m": 0.5,
+    "pixel_arcsec": 2.00489391432,
+    "jitter_arcsec": 0.2,
+    "jitter_pixels": 0.09975590158237076,
+    "localization_1arcsec_at50kkm_m": 242.40684084516093,
+    "localization_1arcsec_at100km_m": 0.48481368169032185,
+    "low_lunar_nadir_tracking_deg_s": 0.05091273945036509,
+    "translation_fixed_ground_LOS_100km_deg_s": 0.9357761510977105,
+    "residual_rate_point1deg_s_motion_5ms_pix": 0.8978031142413369,
+    "residual_rate_point1deg_s_motion_1ms_pix": 0.17956062284826735,
+    "notes": "Small-angle nadir mapping only. Pole/limb requires ray/terrain geometry. Example optics only; body tracking removes nominal motion, residual rate drives event traffic."
+  },
+  "aerodynamic": [
+    {
+      "case": "LEO400_quiet",
+      "rho_kg_m3": 7.911686171653554e-13,
+      "mean_vrel_squared_m2_s2": 54267348.56682974,
+      "drag_force_N": 1.4168425630540177e-05,
+      "aero_torque_Nm": 2.8336851261080354e-07,
+      "convention": "Orbit mean density times orbit mean vrel\u00b2, fixed2cm perpendicular arm; density/velocity covariance and vector attitude history omitted."
+    },
+    {
+      "case": "LEO400_moderate",
+      "rho_kg_m3": 4.010963002704094e-12,
+      "mean_vrel_squared_m2_s2": 54267348.56682974,
+      "drag_force_N": 7.182922802761238e-05,
+      "aero_torque_Nm": 1.4365845605522477e-06,
+      "convention": "Orbit mean density times orbit mean vrel\u00b2, fixed2cm perpendicular arm; density/velocity covariance and vector attitude history omitted."
+    },
+    {
+      "case": "LEO400_active",
+      "rho_kg_m3": 1.2192707780911398e-11,
+      "mean_vrel_squared_m2_s2": 54267348.56682974,
+      "drag_force_N": 0.00021834975462967128,
+      "aero_torque_Nm": 4.366995092593426e-06,
+      "convention": "Orbit mean density times orbit mean vrel\u00b2, fixed2cm perpendicular arm; density/velocity covariance and vector attitude history omitted."
+    },
+    {
+      "case": "LEO600_quiet",
+      "rho_kg_m3": 2.026743336147003e-14,
+      "mean_vrel_squared_m2_s2": 58323777.461367786,
+      "drag_force_N": 3.900841801188682e-07,
+      "aero_torque_Nm": 7.801683602377364e-09,
+      "convention": "Orbit mean density times orbit mean vrel\u00b2, fixed2cm perpendicular arm; density/velocity covariance and vector attitude history omitted."
+    },
+    {
+      "case": "LEO600_moderate",
+      "rho_kg_m3": 1.9186551219324532e-13,
+      "mean_vrel_squared_m2_s2": 58323777.461367786,
+      "drag_force_N": 3.692806073771162e-06,
+      "aero_torque_Nm": 7.385612147542325e-08,
+      "convention": "Orbit mean density times orbit mean vrel\u00b2, fixed2cm perpendicular arm; density/velocity covariance and vector attitude history omitted."
+    },
+    {
+      "case": "LEO600_active",
+      "rho_kg_m3": 9.49780943997059e-13,
+      "mean_vrel_squared_m2_s2": 58323777.461367786,
+      "drag_force_N": 1.8280288096861655e-05,
+      "aero_torque_Nm": 3.656057619372331e-07,
+      "convention": "Orbit mean density times orbit mean vrel\u00b2, fixed2cm perpendicular arm; density/velocity covariance and vector attitude history omitted."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "checks": [
+    "20 analytic bin-phase extrema independently evaluated",
+    "tile product14.8Gbit",
+    "printed mass total28.69kg",
+    "delta-v79.05m/s",
+    "area-time0.15whole-surface-year",
+    "geometry dimensions and6deg closest-disc check"
+  ],
+  "scope": "Analytic screening and source arithmetic only"
+}

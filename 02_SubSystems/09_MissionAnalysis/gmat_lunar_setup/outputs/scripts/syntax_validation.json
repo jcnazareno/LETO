@@ -1,0 +1,8 @@
+{
+  "api": "GMAT R2026a gmatpy.LoadScript",
+  "mission_run_called": false,
+  "scripts": {
+    "option_a_natural.script": "passed",
+    "option_a_ideal_stationkeeping.script": "passed"
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "review_date": "2026-10-29",
+  "evidence": [
+    {
+      "id": "RAD01",
+      "title": "Steiner, Caffrey and Barth, Coalescence of Designed and Natural Space Radiological Environments",
+      "date": "2025-07",
+      "kind": "published model results",
+      "location": "NASA/TM-20250006822, printed pp 9,11; PDF pp 13,15; Figures 8,10",
+      "finding": "Matched annual Si dose curves, solid Al spheres, solar maximum, source 95% confidence. Fig 8 integral flux above LET after 100 mil Al. Lunar-surface text gives 2.17 krad(Si)/year at 100 mil.",
+      "conditions": "SPENVIS SEP inputs, IRENE belts, FASTRAD dose; specific submodel versions, epoch and spectrum files not supplied. 550 km/6 deg and 800 km/98 deg LEO. Interplanetary proxy for distant lunar observer.",
+      "limits": "Digitization adds +/-15% reading allowance, not a statistical CI. Source 95% cannot be recalculated from published inputs. No new transport run. Lunar surface is not low lunar orbit. Do not adopt the report's p 8 SEP upper-energy wording: SEP can exceed GeV.",
+      "url": "https://ntrs.nasa.gov/api/citations/20250006822/downloads/TM-20250006822.pdf",
+      "access": "full PDF cached; figures visually checked",
+      "cache": "nasa_tm_20250006822.pdf"
+    },
+    {
+      "id": "RAD02",
+      "title": "Mazur et al., New measurements of total ionizing dose in the lunar environment",
+      "date": "2011-07-14",
+      "kind": "measured lunar Si dose",
+      "location": "Space Weather 9 S07002, doi:10.1029/2010SW000641; abstract; paras 16,22,39-40",
+      "finding": "12.2 rad(Si) in first 333 days; delayed solar-cycle rise with no intense SEP. 50 km lunar-orbit rate about 30% below interplanetary.",
+      "conditions": "2009-2010 solar minimum. Microdosimeter nominal attitude: lunar-facing minimum 0.89 g/cm 2 Al, space-facing 2.28 g/cm 2. Integrated history includes mission phases and gaps corrected in paper.",
+      "limits": "13.4 rad/year annualization is a quiet-era comparator, not solar-event design dose, and not the same shielding as RAD01. Do not divide the two as matched cases.",
+      "url": "https://doi.org/10.1029/2010SW000641",
+      "access": "publisher full HTML read; PDF cache not obtained",
+      "cache": null
+    },
+    {
+      "id": "RAD03",
+      "title": "Spence et al., Relative contributions of galactic cosmic rays and lunar proton albedo to dose and dose rates near the Moon",
+      "date": "2013-11-01",
+      "kind": "validated transport interpretation of lunar measurements",
+      "location": "doi:10.1002/2013SW000995; abstract",
+      "finding": "Reported modeled total dose rate in silicon 372 microGy/day. Primary GCR plus lunar secondary/albedo fields.",
+      "conditions": "CRaTER-specific response, near-Moon geometry and selected GCR conditions; not a generic electronics shielding case.",
+      "limits": "13.6 rad/year arithmetic context only. Do not apply a universal half-sky factor to primary plus secondary dose.",
+      "url": "https://doi.org/10.1002/2013SW000995",
+      "access": "publisher abstract reviewed",
+      "cache": null
+    },
+    {
+      "id": "RAD04",
+      "title": "Wilcox et al., Event-Based Vision Sensor Lifetime Degradation in Low Earth Orbit",
+      "date": "2025-10-27",
+      "kind": "flight observations",
+      "location": "Sensors 25,6599; doi:10.3390/s25216599; abstract; sections 1.2,3,4.1; PDF pp 1-3,15-16",
+      "finding": "Two DAVIS240C sensors on ISS, Jan 2022-Sep 2024 data. One of 18 measures showed convincing deterioration; mild row/column error growth. Quarter-inch (6.35 mm) 6061 Al enclosure, open lens apertures.",
+      "conditions": "Intermittent commanded acquisition, changing scenes and biases, ISS geomagnetic environment; not continuous monitoring or a measured per-device qualification dose.",
+      "limits": "Encouraging technology heritage. Does not qualify IMX636, lunar radiation, faint-flash radiometry or optical transmission stability. Generic dose/sea-level ratio in discussion is not used here.",
+      "url": "https://doi.org/10.3390/s25216599",
+      "access": "full publisher PDF cached; relevant pages checked",
+      "cache": "iss_evs_2025.pdf"
+    },
+    {
+      "id": "RAD05",
+      "title": "McMahon-Crabtree et al., Automated characterization techniques and testbeds for event-based cameras",
+      "date": "2022-09-30",
+      "kind": "device irradiation measurements",
+      "location": "Proc SPIE12233,122330 B, doi:10.1117/12.2634166; sections 3.3-3.4,4; Tables 2-3; Figs 9-10,18",
+      "finding": "PPS3MVCD and DAVIS346 (180 nm) showed dose-dependent background activity and functional issues above about 30 krad. One DAVIS346 failed at 50 krad after 20 krad step. A proton-exposed DAVIS346 recovered after rest/power cycle. At 20 krad proton exposure, dark current rose about 70% and dark event noise 23% (filter off).",
+      "conditions": "PPS3MVCD Co 60 dose rate 52.1 rad(Si)/s, multiple devices. DAVIS346 gamma 4.23 rad(Si)/s; separate 64 MeV proton test reaches 1.498e11 p/cm 2 at 20 krad. Targeted irradiation; packaged-camera support circuitry can confound attribution.",
+      "limits": "Cross-technology and sample-limited comparator, not IMX636 tolerance. Proton test combines TID and DD; no isolated DD coefficient or flight-rate cross-section. High dose-rate results do not bound all low-dose-rate/annealing effects.",
+      "url": "https://doi.org/10.1117/12.2634166",
+      "access": "author-uploaded full text read on ResearchGate; PDF download403; exact table tokens recorded, no local PDF visual check",
+      "author_url": "https://www.researchgate.net/publication/364070761_Automated_characterization_techniques_and_testbeds_for_event-based_cameras",
+      "cache": null
+    },
+    {
+      "id": "RAD06",
+      "title": "Roffe et al., Neutron-Induced Single-Event Effects on Neuromorphic Event-Based Vision Sensor",
+      "date": "2021-05-31",
+      "kind": "beam measurements",
+      "location": "IEEE Access 9,85748-85763; doi:10.1109/ACCESS.2021.3085136; sectionsIII-IV, Figs 11-13; printed pp 85751,85754-85756",
+      "finding": "640 x 480 180 nm sensor, neutron beam 0.1 to>600 MeV. Observed ON bursts about 600-800 us and OFF relaxation about 8-10 ms; clusters and long tracks.",
+      "conditions": "LANSCE ICE-II pulsed broad neutron spectrum, Nov 23-24 2019; dark/lit and angle tests. Beam timing contributes to measured structure.",
+      "limits": "Confusion mechanism overlaps millisecond flashes. Does not supply lunar charged-particle-to-event cross-sections or validate flash filtering. Do not transport paper's speculative neutron-decay explanation.",
+      "url": "https://doi.org/10.1109/ACCESS.2021.3085136",
+      "access": "full published author-hosted PDF cached; observed results reviewed",
+      "cache": "neutron_evs_2021.pdf"
+    },
+    {
+      "id": "RAD07",
+      "title": "Sony/Prophesee IMX636 Product Brief v3.0",
+      "date": "2024",
+      "kind": "manufacturer specification",
+      "location": "p 1, top-level specifications and notes",
+      "finding": "1280 x 720 pixels,4.86 um pitch. Area derived here 0.217678 cm 2. No radiation qualification specification found in this public brief.",
+      "conditions": "Industrial event-sensor brief. Full datasheet on request. Sensor, development kit and camera assembly are distinct items.",
+      "limits": "Absence of public rating is not proof of failure or absence of proprietary test data. Low-light and radiation transfer remain unknown.",
+      "url": "https://www.prophesee.ai/wp-content/uploads/2024/05/IMX636-Product-Brief-2024-v3.0.pdf",
+      "access": "full manufacturer PDF cached",
+      "cache": "imx636_brief.pdf"
+    },
+    {
+      "id": "RAD08",
+      "title": "TI TPS7H2201-SP/-SEP eFuse data sheet RevG",
+      "date": "2025-12-02",
+      "kind": "manufacturer radiation and electrical rating",
+      "location": "Features; section 4 Device Options; Electrical Characteristics",
+      "finding": "SP rated 100 krad(Si), DSEE-free tested LET75 MeV cm²/mg. SEP grade 50 krad and LET43. 1.5-7 V, 6 A class switch. Maximum on resistance 35 mOhm at 25°C and 5 V for CFP/KGD; HTSSOP differs.",
+      "conditions": "Exact ordering grade and radiation test conditions matter. EM versions not flight qualified; rating belongs to switch, not protected sensor.",
+      "limits": "Not automatic downstream SEL protection. Current threshold, transient response, stored energy and restart must be sized to load. No flight rate inferred from LET threshold.",
+      "url": "https://www.ti.com/lit/ds/symlink/tps7h2201-sp.pdf",
+      "access": "full data sheet cached; current grade table checked",
+      "cache": "ti_efuse.pdf"
+    },
+    {
+      "id": "RAD09",
+      "title": "Microchip RTG4 radiation-tolerant FPGAs brief",
+      "date": "revision C, retrieved2026-10-29",
+      "kind": "manufacturer component class evidence",
+      "location": "p 8 Features and RTG4 Product Family table",
+      "finding": "TID>100 krad(Si), hardened configuration, SEL immunity claim, SECDED internal SRAM,151824 logic elements,5.2 Mbit SRAM.",
+      "conditions": "Manufacturer brochure; radiation reports, order grade, timing/power and exact application design need selection. GEO solar-minimum SEU-rate example is not a lunar rate.",
+      "limits": "Evidence of a feasible rad-tolerant interface/processing option, not a selected FPGA or full-board qualification. External memory, transceivers and regulators remain separate. Internal SRAM SECDED is optional and must be enabled and verified.",
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/00003023C.pdf",
+      "access": "full manufacturer PDF cached",
+      "cache": "rtg4_brief.pdf"
+    },
+    {
+      "id": "RAD10",
+      "title": "SPENVIS model service and GCR documentation",
+      "date": "4.6.14 release2026-03-05; checked2026-10-29",
+      "kind": "original model documentation",
+      "location": "Home version banner; GCR model help",
+      "finding": "SPENVIS4.6.14 current public banner. CREME96 solar-minimum implementation represents 1986-87 and includes anomalous cosmic rays; ISO15390 has solar-modulation inputs.",
+      "conditions": "Model choice, solar epoch, geometry and confidence required. A service name alone does not define a model.",
+      "limits": "Service not executed, no account created. NASA published curves used instead; their exact versions remain unknown.",
+      "url": "https://www.spenvis.oma.be/",
+      "help_url": "https://test.spenvis.oma.be/help/background/gcr/gcr.html",
+      "access": "official documentation browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD11",
+      "title": "AFRL IRENE AE9/AP9/SPM public release and User Guide",
+      "date": "V1.58.001 public page checked2026-10-29",
+      "kind": "original model documentation",
+      "location": "Home; User Guide Model Installation; documents page",
+      "finding": "Electron, proton and plasma climatologies with statistical confidence including 95 th percentile. Public package Windows; Linux source by request.45 satellite datasets described on home.",
+      "conditions": "Predicted percentile and duration-specific realizations require actual trajectory. Future roadmap is not proof of a released version.",
+      "limits": "Not installed or run. Cannot fill 400 km/51.6 deg or 600 km/98 deg dose cells from NASA550 km/6 deg and 800 km/98 deg curves.",
+      "url": "https://www.vdl.afrl.af.mil/programs/ae9ap9/index.php",
+      "help_url": "https://www.vdl.afrl.af.mil/programs/ae9ap9/files/package/IRENE_Users_Guide.pdf",
+      "access": "official docs browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD12",
+      "title": "ECSS-E-ST-10-12C displacement damage expression, SPENVIS mirror",
+      "date": "2008 edition, retrieved2026-10-29",
+      "kind": "effects convention",
+      "location": "section 8.2 Displacement damage expression",
+      "finding": "Use TNID/NIEL dose, commonlyMeV/g, or explicitly referenced DDEF(particle, energy, material), e.g.10 MeV protons or 1 MeV neutrons.",
+      "conditions": "NIEL integral needs differential fluence at device and material-specific displacement stopping power.",
+      "limits": "TID cannot be converted into DD, nor 64 MeV proton fluence into 1 MeV neutron equivalent without NIEL weighting. No mission DD prediction here.",
+      "url": "https://www.spenvis.oma.be/ecss/e_st_10_12c/ecss_08_02_00.htm",
+      "access": "official-hosted standard text browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD13",
+      "title": "CREME-MC, How to run CREME96",
+      "date": "online documentation checked2026-10-29",
+      "kind": "original rate-model documentation",
+      "location": "module table: GTRN, FLUX, TRANS, LETSPEC, HUP, PUP, DOSE",
+      "finding": "Separate geomagnetic transmission, shield transport, LET spectra and heavy-ion/proton rate calculations.",
+      "conditions": "Rate needs compatible device response versus LET/energy and angular convention.",
+      "limits": "No CREME run or selected-device rate. Integral threshold estimates in NASA Figure 8 cannot replace full rate integration.",
+      "url": "https://creme.isde.vanderbilt.edu/CREME-MC/help/how-to-run-creme96",
+      "access": "official documentation browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD14",
+      "title": "NOAA Space Weather Scales",
+      "date": "online scale checked2026-10-29",
+      "kind": "operational flux convention",
+      "location": "Solar Radiation Storms S1-S5; integral>=10 MeV flux thresholds",
+      "finding": "S1=10, S3=1000, S5=100000 pfu (protons/cm 2/s/sr). These are thresholds, not guaranteed lunar storm spectra or durations.",
+      "conditions": "Earth-near operational scale; anisotropy and Earth-Moon differences require care. Here isotropic incidence is an explicit sensitivity assumption.",
+      "limits": "No threshold translates directly into spacecraft dose, transmitted>10 MeV flux, or false flashes. Not a real-time warning feed in this study.",
+      "url": "https://www.spaceweather.gov/noaa-scales-explanation",
+      "access": "official scale browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD15",
+      "title": "Koontz et al., International Space Station Spacecraft Charging Environments: Modeling, Measurement, and Implications for Future Human Space Flight Programs (NASA presentation)",
+      "date": "NTRS20200001582, acquired2020",
+      "kind": "agency synthesis of measured charging",
+      "location": "slides 36-37, especially Cis-Lunar Charging Environments",
+      "finding": "Lunar Prospector spacecraft potentials summarized as-100 to-300 V in SPE and-40 to-80 V in geotail. Separate lunar surface values reach-4.5 kV. Magnetotail conditions a few days around full moon.",
+      "conditions": "Spacecraft potential relative to plasma is not differential voltage across a specific insulator. Surface/vehicle values must stay separate.",
+      "limits": "No selected-geometry charging simulation; no fixed universal lunar potential. Conduction, grounding and surface design needed independently of TID.",
+      "url": "https://ntrs.nasa.gov/api/citations/20200001582/downloads/20200001582.pdf",
+      "access": "full NASA presentation cached; slide37 checked",
+      "cache": "charging_2020.pdf"
+    },
+    {
+      "id": "RAD16",
+      "title": "NASA Small Spacecraft State of the Art, Avionics",
+      "date": "current page checked2026-10-29",
+      "kind": "agency design guidance",
+      "location": "section 8.2.1 Radiation Mitigation and Tolerance Schemes",
+      "finding": "Separates TID, DDD, SEU, SEL; discusses hardening and fault mitigation for spacecraft avionics.",
+      "conditions": "General small-spacecraft engineering guidance; individual technology ratings are device specific.",
+      "limits": "Flight heritage does not qualify a selected board for lunar exposure. ECC, scrubbing and recovery need implementation verification.",
+      "url": "https://www.nasa.gov/smallsat-institute/sst-soa/small-spacecraft-avionics/",
+      "access": "official page browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD17",
+      "title": "NASA Low Earth Orbit Spacecraft Charging Design Standard",
+      "date": "NASA-STD-4005A change1 revalidated2021-11-17",
+      "kind": "standard scope",
+      "location": "standard webpage purpose and scope",
+      "finding": "LEO high-voltage systems>55 V,200-1000 km and latitude-50 to+50 deg scope.",
+      "conditions": "ISS-like plasma interactions differ from auroral and lunar hot-plasma charging.",
+      "limits": "Not complete lunar/polar charging guidance. Use appropriate all-environment charging practices and trajectory-specific assessment.",
+      "url": "https://standards.nasa.gov/standard/NASA/NASA-STD-4005",
+      "access": "official page browsed",
+      "cache": null
+    },
+    {
+      "id": "RAD18",
+      "title": "Quinn et al., Modeling shielding with PREDICCS: five solar events in2012",
+      "date": "2017",
+      "kind": "lead and access limitation",
+      "location": "J Space Weather Space Clim 7 A 16, doi:10.1051/swsc/2017014",
+      "finding": "Potential measured/model solar-event shielding validation comparator; no numeric dose taken into this analysis.",
+      "conditions": "Reported comparisons include water conversions and CRaTER/RAD geometries; cannot silently relabel as silicon.",
+      "limits": "Publisher PDF/HTML403 during study; excluded from quantitative dose table.",
+      "url": "https://www.swsc-journal.org/articles/swsc/pdf/2017/01/swsc160044.pdf",
+      "access": "search excerpt only; excluded numerically",
+      "cache": null
+    }
+  ],
+  "cases": [
+    [
+      "E1",
+      "LEO reference",
+      "400",
+      "51.6",
+      "400 km altitude; ISS-like inclination",
+      "Dose unavailable for matched fixture; RAD04 provides limited technology heritage"
+    ],
+    [
+      "E2",
+      "LEO reference",
+      "600",
+      "98",
+      "600 km altitude; illustrative polar/SSO",
+      "Dose unavailable for matched fixture; no interpolation across altitude/inclination"
+    ],
+    [
+      "E3",
+      "Published matched LEO",
+      "550",
+      "6",
+      "550 km altitude,6 deg; RAD01",
+      "Solar max; source 95%; solid Al sphere; annual Si dose"
+    ],
+    [
+      "E4",
+      "Published matched LEO",
+      "800",
+      "98",
+      "800 km altitude,98 deg; RAD01",
+      "Solar max; source 95%; solid Al sphere; annual Si dose"
+    ],
+    [
+      "L1",
+      "Low lunar polar",
+      "100",
+      "90",
+      "Centre distance 1837.4 km; nadir surface range 100 km",
+      "Primary isotropic sky fraction 0.663; no full transport dose prediction"
+    ],
+    [
+      "L2",
+      "Distant lunar proxy",
+      "48262.6",
+      "TBR",
+      "Centre distance 50000 km; sub-spacecraft surface range 48262.6 km",
+      "Unocculted interplanetary annual dose proxy; no libration trajectory selected"
+    ],
+    [
+      "L3",
+      "Published lunar surface",
+      "0",
+      "n.a.",
+      "RAD01 surface comparator only",
+      "Distinct from observer; no blanket factor 0.5 for L1/L2"
+    ],
+    [
+      "T1",
+      "Transfer",
+      "TBR",
+      "TBR",
+      "Actual time in belts and solar events along trajectory",
+      "Separate ledger; 1 krad arithmetic allowance only, not a prediction"
+    ]
+  ],
+  "decisions": [
+    [
+      "C1",
+      "Retain event-camera science as conditionally feasible",
+      "4.3 krad(Si)/year distant proxy at 2.54 mm; technology comparators exist",
+      "Literature screening; sensor susceptibility unknown",
+      "Payload; D01-D03, D08-D09",
+      "IMX636 lot/assembly evidence or bounded performance model fails science yield"
+    ],
+    [
+      "C2",
+      "Trade 2-3 mm equivalent enclosure plus local shielding",
+      "3 mm=8.1 kg/m 2; 10 cm cube exact 0.516 kg; aperture path differs",
+      "Mass calculation; geometry remains TBR",
+      "Structure, thermal, payload, power",
+      "CAD shielding map/transport reveals weak directions or need for more thickness"
+    ],
+    [
+      "C3",
+      "Use 30 krad(Si) as a provisional procurement screening class at 2.54 mm",
+      "3 x 4.25+1=13.8 krad; margin 2 gives 27.5 krad",
+      "Assumed 3 years,1 krad transfer, margin 2; not a requirement or sensor rating",
+      "OBDH, EPS, payload electronics; D09",
+      "Longer life, thinner shielding, transfer>1 krad or stronger mission percentile"
+    ],
+    [
+      "C4",
+      "Require independent current protection and autonomous restart",
+      "DAVIS346 proton lock-up recovered; TI SP100 krad/LET75 example",
+      "Protection needed; device choice and trip response TBR",
+      "EPS/OBDH; D07, D09",
+      "No downstream SEL evidence or interrupt energy above device safe limit"
+    ],
+    [
+      "C5",
+      "Protect memory and control state; retain a recoverable boot image",
+      "SECDED+scrub+CRC+watchdog; RTG4 class exists",
+      "Engineering recommendation; selected rates not quantified",
+      "OBDH, ADCS, EPS; D02, D07, D09",
+      "Multi-bit/common-mode fault or power budget defeats chosen mitigation"
+    ],
+    [
+      "C6",
+      "Include particle morphologies and low-light tails in false-candidate model",
+      "Observed 0.6-0.8 ms ON and 8-10 ms OFF overlap flash timescales",
+      "Different 180 nm neutron-tested sensor; mechanism comparator",
+      "Payload/OBDH; D01-D03, D07-D08",
+      "Selected sensor response or flash injection shows inadequate discrimination"
+    ],
+    [
+      "C7",
+      "Use 5 lost days/year as availability sensitivity, not a forecast",
+      "Storm-only availability 98.63%; 0.1 reset/day x 60 s gives 98.62% combined",
+      "Proposed allocation to explore; timing is correlated with streams/regions",
+      "MissionAnalysis/operations; D05-D06, D09",
+      "Measured/model event exclusions or recovery consume more exposure"
+    ],
+    [
+      "C8",
+      "Carry separate end-of-life dark activity, threshold, latency, QE and mask terms",
+      "DAVIS34670%dark-current increase after 64 MeV proton test 20 krad is comparator only",
+      "No coefficient transferred toIMX636; do sensitivity bounds",
+      "Payload/thermal/OBDH; D01-D03, D08-D09",
+      "Useful early-to-total energy measurement loses required samples"
+    ],
+    [
+      "C9",
+      "Do not add spacecraft or a second optical channel solely for radiation",
+      "Geometric hit count is not confirmed false-flash rate",
+      "Minimum-support principle; confirmation performance TBR",
+      "Architecture, payload, telecom; D05-D07",
+      "Evidence shows single-channel false confirmation or availability cannot meet chosen goal"
+    ],
+    [
+      "C10",
+      "Separate charging and transfer checks from operational TID",
+      "Measured spacecraft-potential summaries-40 to-300 V; belt time TBR",
+      "Agency evidence; actual ESD currents/geometry unmodelled",
+      "EPS, structure, thermal, operations; D09",
+      "Hot-plasma/insulator or slow-transfer analysis reveals unacceptable exposure"
+    ]
+  ],
+  "open_items": [
+    [
+      "O1",
+      "IMX636 exact die/lot and camera/readout assembly radiation evidence",
+      "No public device-specific TID, DD, SEL or particle-response qualification found",
+      "Obtain vendor/flight reports; use stated comparator bounds for educational concept"
+    ],
+    [
+      "O2",
+      "Selected orbit, epoch, lifetime and transfer trajectory",
+      "400/51.6 and 600/98 matched dose unavailable; no trajectory selected",
+      "Use NASA evidence-matched fixtures now; mission-specific environments before baseline"
+    ],
+    [
+      "O3",
+      "Actual shielding paths including optics and secondaries",
+      "Uniform sphere cannot represent open aperture or board accommodation",
+      "Simple CAD sector map then transport or applicable published bounds"
+    ],
+    [
+      "O4",
+      "Displacement damage and array degradation",
+      "No compatible transmitted spectra+NIEL+device response obtained",
+      "RetainMeV/g(Si) or DDEF(particle, energy, material); do not substitute TID"
+    ],
+    [
+      "O5",
+      "SEE/SEFI/SEL rates for complete electronics chain",
+      "No compatible cross-section set for selected devices",
+      "Keep rate sensitivity and recovery budget; do not claimqualified reliability"
+    ],
+    [
+      "O6",
+      "False candidates and end-of-life recording quality",
+      "Unknown particle-to-event multiplicity and rejection probability",
+      "Bound response; inject published-like morphologies into science model; preserve true flash efficiency"
+    ],
+    [
+      "O7",
+      "Solar-event downtime and regional/stream sampling bias",
+      "No actual mission operations timeline",
+      "Evaluate 0,1,5,10,30 lost days and revisit against entire-surface exposure"
+    ],
+    [
+      "O8",
+      "Primary-source limitations",
+      "McMahon PDF403, author text accessible; PREDICCS403; NASA model inputs incomplete",
+      "Source log preserved; excluded unsupported numerical combinations"
+    ]
+  ]
+}

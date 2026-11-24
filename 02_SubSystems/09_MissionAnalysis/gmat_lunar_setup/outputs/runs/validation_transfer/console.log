@@ -1,0 +1,199 @@
+
+********************************************
+***  GMAT Console Application
+********************************************
+
+General Mission Analysis Tool
+Console Based Version
+Build Date: Mar 30 2026  10:09:27
+
+
+Moderator is updating data files...
+Moderator is creating core engine...
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Setting nutation file to /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/NUTATION.DAT
+Setting leap seconds file to /home/gordon/.local/opt/GMAT/R2026a/data/time/tai-utc.dat
+2026-11-05 16:21:58 GMAT Moderator successfully created core engine
+
+Interpreting scripts from the file.
+***** file: /run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/outputs/gmat_lunar_setup_2026-11-05/validation_transfer.script
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE405
+Successfully interpreted the script
+.................... Print out the whole sequence ........................................
+   Command::NoOp
+   Command::BeginMissionSequence
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::Report
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::While
+   ... branch 0::GMAT
+   ... branch 0::If
+   ...... branch 0::GMAT
+   ...... branch 0::EndIf
+   ... branch 0::Propagate
+   ... branch 0::If
+   ...... branch 0::GMAT
+   ...... branch 0::GMAT
+   ...... branch 0::GMAT
+   ...... branch 0::Report
+   ...... branch 0::Stop
+   ...... branch 0::EndIf
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::Report
+   ... branch 0::EndWhile
+   Command::GMAT
+   Command::Propagate
+   Command::If
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::Report
+   ... branch 0::Stop
+   ... branch 0::EndIf
+   Command::GMAT
+   Command::Target
+   ... branch 0::Vary
+   ... branch 0::Maneuver
+   ... branch 0::Achieve
+   ... branch 0::EndTarget
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::Report
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::Report
+   Command::Propagate
+   Command::If
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::Report
+   ... branch 0::Stop
+   ... branch 0::EndIf
+   Command::GMAT
+   Command::Target
+   ... branch 0::Vary
+   ... branch 0::Maneuver
+   ... branch 0::Achieve
+   ... branch 0::EndTarget
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::Report
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::Report
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::While
+   ... branch 0::GMAT
+   ... branch 0::If
+   ...... branch 0::GMAT
+   ...... branch 0::EndIf
+   ... branch 0::Propagate
+   ... branch 0::If
+   ...... branch 0::GMAT
+   ...... branch 0::GMAT
+   ...... branch 0::GMAT
+   ...... branch 0::Report
+   ...... branch 0::Stop
+   ...... branch 0::EndIf
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::GMAT
+   ... branch 0::Report
+   ... branch 0::EndWhile
+   Command::GMAT
+   Command::GMAT
+   Command::GMAT
+   Command::Report
+.................... End sequence ........................................................
+Running mission...
+Successfully set Planetary Source to use: DE405
+Successfully set Planetary Source to use: DE421
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_ephem/spk/DE421AllPlanets.bsp has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICEPlanetaryConstantsKernel.tpc has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/time/SPICELeapSecondKernel.tls has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICEEarthPredictedKernel.bpc has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICEEarthCurrentKernel.bpc has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/earth_latest_high_prec.bpc has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICELunaCurrentKernel.bpc has been loaded.
+Kernel /home/gordon/.local/opt/GMAT/R2026a/data/planetary_coeff/SPICELunaFrameKernel.tf has been loaded.
+********************************************************
+*** Performing Differential Correction (using "LoweringDC")
+*** 1 variables; 1 goals
+   Variables:  Lower1.Element1
+   Goals:  SMD.Luna.RadPer
+   SolverMode:  Solve
+********************************************************
+LoweringDC Iteration 1; Nominal Pass
+   Variables:  Lower1.Element1 = -0.228282713879
+   Goals and achieved values:
+      SMD.Luna.RadPer  Desired: 2038  Achieved: 2037.08443755  Variance: 0.915562446711
+
+   Completed iteration 1, pert 1 (Lower1.Element1 = -0.228272713879)
+
+LoweringDC Iteration 2; Nominal Pass
+   Variables:  Lower1.Element1 = -0.228158748761
+   Goals and achieved values:
+      SMD.Luna.RadPer  Desired: 2038  Achieved: 2038.00017991  Variance: -0.000179912129397
+
+
+*** Targeting Completed in 2 iterations.
+*** The Targeter converged!
+Final Variable values:
+   Lower1.Element1 = -0.228158748761
+
+********************************************************
+*** Performing Differential Correction (using "LoweringDC")
+*** 1 variables; 1 goals
+   Variables:  Lower2.Element1
+   Goals:  SMD.Luna.SMA
+   SolverMode:  Solve
+********************************************************
+LoweringDC Iteration 1; Nominal Pass
+   Variables:  Lower2.Element1 = -0.283167066001
+   Goals and achieved values:
+      SMD.Luna.SMA  Desired: 2038  Achieved: 2038.05804937  Variance: -0.058049373647
+
+   Completed iteration 1, pert 1 (Lower2.Element1 = -0.283157066001)
+
+LoweringDC Iteration 2; Nominal Pass
+   Variables:  Lower2.Element1 = -0.283189157097
+   Goals and achieved values:
+      SMD.Luna.SMA  Desired: 2038  Achieved: 2038.000003  Variance: -3.0023236377e-06
+
+
+*** Targeting Completed in 2 iterations.
+*** The Targeter converged!
+Final Variable values:
+   Lower2.Element1 = -0.283189157097
+
+
+Mission run completed.
+===> Total Run Time: 19.955 seconds
+
+========================================
+
+
+*** GMAT Integration test (Console version) successful! ***
+
+Moderator is deleting core engine...

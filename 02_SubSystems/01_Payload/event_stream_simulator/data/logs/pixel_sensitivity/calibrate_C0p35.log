@@ -1,0 +1,29 @@
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): mapped S10 inputs ['C'] differ from the profile; re-tuned to the profile
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+/run/media/gordon/105ECC8B5ECC6B54/Users/gordo/Desktop/SMD/analysis/event_stream_sim/eventsim/sim.py:358: UserWarning: trigger null model (m636): pixel parameters ['dark.spread_sigma_ln', 'events.initial_reference', 'events.refractory_s', 'hot.fraction', 'mask.calibration_s', 'photoreceptor.adaptive_substeps', 'photoreceptor.integrator', 'photoreceptor.tau_min_s', 'readout.limit_enabled'] cannot be represented by S10; thresholds keep them as a fixed approximation in either mode
+  table = trg.ThresholdTable(case, mode=tc['mode'], lit_limit=tc['lit_limit'], lit_margin=tc['lit_margin'],
+calibration for imx636: training 2400 flashes
+  pixel kernel 125.3 s, scene 0.1 s, events 96633 (0.381 ev/s/px)
+    batch 0: detected 552/576, false 3
+  pixel kernel 159.6 s, scene 0.1 s, events 98124 (0.387 ev/s/px)
+    batch 1: detected 558/576, false 3
+  pixel kernel 135.3 s, scene 0.1 s, events 94824 (0.374 ev/s/px)
+    batch 2: detected 552/576, false 2
+  pixel kernel 156.2 s, scene 0.1 s, events 95677 (0.378 ev/s/px)
+    batch 3: detected 556/576, false 0
+  pixel kernel 117.6 s, scene 0.1 s, events 26105 (0.103 ev/s/px)
+    batch 4: detected 90/96, false 1
+  test a_same_family
+  pixel kernel 63990.7 s, scene 0.1 s, events 92826 (0.366 ev/s/px)
+    batch 0: detected 550/576, false 2
+  pixel kernel 112.2 s, scene 0.1 s, events 30294 (0.12 ev/s/px)
+    batch 1: detected 120/124, false 2
+    corrected bias 0.016 sd 0.262
+  test b_double_profile
+  pixel kernel 163.5 s, scene 0.1 s, events 94178 (0.372 ev/s/px)
+    batch 0: detected 440/450, false 3
+    corrected bias -0.055 sd 0.401
+  test b_power_profile
+  pixel kernel 163.0 s, scene 0.1 s, events 82519 (0.326 ev/s/px)
+    batch 0: detected 446/450, false 5
+    corrected bias 0.014 sd 0.356

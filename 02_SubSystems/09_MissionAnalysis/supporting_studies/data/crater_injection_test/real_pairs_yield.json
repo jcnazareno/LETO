@@ -1,0 +1,44 @@
+{
+ "cases": {
+  "placeholder": {
+   "k_pixels": 3.5,
+   "width_lnD": 0.15,
+   "c_max": 0.85
+  },
+  "well_registered_cmax0.85": {
+   "k_pixels": 3.6278075574234205,
+   "width_lnD": 0.21317856844852093,
+   "c_max": 0.85
+  },
+  "well_registered_cmax_fit": {
+   "k_pixels": 3.6278075574234205,
+   "width_lnD": 0.21317856844852093,
+   "c_max": 1.0
+  },
+  "all_registered_fit": {
+   "k_pixels": 3.8490802493065326,
+   "width_lnD": 0.2584803292219498,
+   "c_max": 0.6826160710445317
+  }
+ },
+ "pairs_2p5yr": {
+  "nominal": {
+   "placeholder": 294.3421119224191,
+   "well_registered_cmax0.85": 277.1914971733536,
+   "well_registered_cmax_fit": 325.4772471517622,
+   "all_registered_fit": 201.86846473230327
+  },
+  "m636": {
+   "placeholder": 383.7407704133308,
+   "well_registered_cmax0.85": 367.06861838297584,
+   "well_registered_cmax_fit": 430.99959159386236,
+   "all_registered_fit": 266.70321683192236
+  },
+  "pessimistic": {
+   "placeholder": 92.62821780162759,
+   "well_registered_cmax0.85": 88.97771096166099,
+   "well_registered_cmax_fit": 104.4829082467763,
+   "all_registered_fit": 67.77381451371055
+  }
+ }
+}

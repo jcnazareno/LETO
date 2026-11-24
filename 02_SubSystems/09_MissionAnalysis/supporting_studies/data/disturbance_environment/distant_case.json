@@ -1,0 +1,80 @@
+{
+  "source": "NASA/JPL Three-Body Periodic Orbits API v1.0, northern L2 halo, long-period branch nearest C=3.09",
+  "state_nd": [
+    1.1589028132163817,
+    4.4834517621492523e-29,
+    0.12741504635570253,
+    1.3132629411655379e-15,
+    -0.20997144894179126,
+    -3.223415072278675e-15
+  ],
+  "jacobi": 3.0901151159191,
+  "period_d": 14.455404182471657,
+  "catalogue_stability_index": 170.405268543231,
+  "length_unit_m": 389703264.829278,
+  "time_unit_s": 382981.289129055,
+  "mass_ratio": 0.01215058560962404,
+  "range_km": [
+    42056.04355756305,
+    83120.93775675236
+  ],
+  "Az_km": 49654.05955319107,
+  "initial_error": "1 km x plus 0.01 m/s vy; all other offsets zero",
+  "uncontrolled_day30_deviation_km": 109583.37614950351,
+  "uncontrolled_max30_deviation_km": 109583.37614950351,
+  "ideal_targeting_max30_deviation_km": 0.9999999999986477,
+  "ideal_targeting_dv30_m_s": 0.01624329744507702,
+  "burns": [
+    {
+      "day": 0,
+      "dv_m_s": 0.013820850104436738,
+      "vector_m_s": [
+        -0.0038709813215699004,
+        -0.012957681655831416,
+        -0.0028512957271205662
+      ]
+    },
+    {
+      "day": 7,
+      "dv_m_s": 0.0013998515007230343,
+      "vector_m_s": [
+        -0.0004152550859199359,
+        -0.00019782886055381076,
+        -0.0013221237383944583
+      ]
+    },
+    {
+      "day": 14,
+      "dv_m_s": 0.00016780960008508342,
+      "vector_m_s": [
+        -5.1859487706177384e-05,
+        0.00015423241454814586,
+        -4.1024598940359696e-05
+      ]
+    },
+    {
+      "day": 21,
+      "dv_m_s": 0.0008365159761472623,
+      "vector_m_s": [
+        -0.0004034552428741698,
+        -0.0001229483263531808,
+        -0.0007224033183713261
+      ]
+    },
+    {
+      "day": 28,
+      "dv_m_s": 1.8270263684903996e-05,
+      "vector_m_s": [
+        -1.1268728539348801e-05,
+        -6.131917715761952e-06,
+        1.300837719892502e-05
+      ]
+    }
+  ],
+  "period_closure_position_m": 1.1229143945683893e-05,
+  "period_closure_velocity_m_s": 4.6993962284873594e-11,
+  "jacobi_range_30d": 7.105427357601002e-15,
+  "unstable_multiplier_fd": 340.807602072325,
+  "linear_efold_d": 2.4789256788026335,
+  "control_limits": "7-day burns target nominal position 14 days downstream; exact navigation and impulsive execution; no Sun, SRP, eccentricity or ephemeris error; no hard envelope guaranteed"
+}

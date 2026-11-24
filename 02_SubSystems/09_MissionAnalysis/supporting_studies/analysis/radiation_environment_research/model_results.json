@@ -1,0 +1,729 @@
+{
+  "review_date": "2026-10-29",
+  "execution": "arithmetic and raster digitization only; no SPENVIS/IRENE/FASTRAD/Geant4 run",
+  "dose_rows": [
+    {
+      "case": "LEO550_6",
+      "shielding_mm": 1,
+      "shielding_g_cm2": 0.27,
+      "x_pixel": 746.1813141217483,
+      "y_pixel": 483,
+      "dose_krad_Si_year": 22.740296162547036,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO550_6",
+      "shielding_mm": 2,
+      "shielding_g_cm2": 0.54,
+      "x_pixel": 859.4438499903213,
+      "y_pixel": 540.5,
+      "dose_krad_Si_year": 4.560165268186655,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO550_6",
+      "shielding_mm": 2.54,
+      "shielding_g_cm2": 0.6858000000000001,
+      "x_pixel": 898.5,
+      "y_pixel": 561.0,
+      "dose_krad_Si_year": 2.5715452737036637,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO550_6",
+      "shielding_mm": 3,
+      "shielding_g_cm2": 0.8100000000000002,
+      "x_pixel": 925.6981862100214,
+      "y_pixel": 579.5,
+      "dose_krad_Si_year": 1.5334852804445103,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO550_6",
+      "shielding_mm": 5,
+      "shielding_g_cm2": 1.35,
+      "x_pixel": 1009.1687782531753,
+      "y_pixel": 619.0,
+      "dose_krad_Si_year": 0.5085230927275866,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO800_98",
+      "shielding_mm": 1,
+      "shielding_g_cm2": 0.27,
+      "x_pixel": 746.1813141217483,
+      "y_pixel": 458.0,
+      "dose_krad_Si_year": 45.72926012210131,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO800_98",
+      "shielding_mm": 2,
+      "shielding_g_cm2": 0.54,
+      "x_pixel": 859.4438499903213,
+      "y_pixel": 514.0,
+      "dose_krad_Si_year": 9.562743882108927,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO800_98",
+      "shielding_mm": 2.54,
+      "shielding_g_cm2": 0.6858000000000001,
+      "x_pixel": 898.5,
+      "y_pixel": 534,
+      "dose_krad_Si_year": 5.468447886019564,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO800_98",
+      "shielding_mm": 3,
+      "shielding_g_cm2": 0.8100000000000002,
+      "x_pixel": 925.6981862100214,
+      "y_pixel": 546,
+      "dose_krad_Si_year": 3.9105064784321995,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "LEO800_98",
+      "shielding_mm": 5,
+      "shielding_g_cm2": 1.35,
+      "x_pixel": 1009.1687782531753,
+      "y_pixel": 572,
+      "dose_krad_Si_year": 1.8910326579193648,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Interplanetary",
+      "shielding_mm": 1,
+      "shielding_g_cm2": 0.27,
+      "x_pixel": 746.1813141217483,
+      "y_pixel": 510.5,
+      "dose_krad_Si_year": 10.545283320250455,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Interplanetary",
+      "shielding_mm": 2,
+      "shielding_g_cm2": 0.54,
+      "x_pixel": 859.4438499903213,
+      "y_pixel": 534,
+      "dose_krad_Si_year": 5.468447886019564,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Interplanetary",
+      "shielding_mm": 2.54,
+      "shielding_g_cm2": 0.6858000000000001,
+      "x_pixel": 898.5,
+      "y_pixel": 543,
+      "dose_krad_Si_year": 4.252465282678577,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Interplanetary",
+      "shielding_mm": 3,
+      "shielding_g_cm2": 0.8100000000000002,
+      "x_pixel": 925.6981862100214,
+      "y_pixel": 549,
+      "dose_krad_Si_year": 3.5960460347904304,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Interplanetary",
+      "shielding_mm": 5,
+      "shielding_g_cm2": 1.35,
+      "x_pixel": 1009.1687782531753,
+      "y_pixel": 569,
+      "dose_krad_Si_year": 2.056396216338072,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Lunar_surface",
+      "shielding_mm": 1,
+      "shielding_g_cm2": 0.27,
+      "x_pixel": 746.1813141217483,
+      "y_pixel": 536.5,
+      "dose_krad_Si_year": 5.099460966396583,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Lunar_surface",
+      "shielding_mm": 2,
+      "shielding_g_cm2": 0.54,
+      "x_pixel": 859.4438499903213,
+      "y_pixel": 559,
+      "dose_krad_Si_year": 2.7193557067291816,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Lunar_surface",
+      "shielding_mm": 2.54,
+      "shielding_g_cm2": 0.6858000000000001,
+      "x_pixel": 898.5,
+      "y_pixel": 567.0,
+      "dose_krad_Si_year": 2.174596280057418,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Lunar_surface",
+      "shielding_mm": 3,
+      "shielding_g_cm2": 0.8100000000000002,
+      "x_pixel": 925.6981862100214,
+      "y_pixel": 574,
+      "dose_krad_Si_year": 1.7882456796138877,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    },
+    {
+      "case": "Lunar_surface",
+      "shielding_mm": 5,
+      "shielding_g_cm2": 1.35,
+      "x_pixel": 1009.1687782531753,
+      "y_pixel": 595,
+      "dose_krad_Si_year": 0.9944267895129953,
+      "reading_fraction": 0.15,
+      "solar_state": "maximum",
+      "confidence": "source 95%; reading allowance separate",
+      "geometry": "solid Al sphere; Si target",
+      "source_id": "RAD01",
+      "source_location": "Fig10; printed p11; PDF p15",
+      "status": "digitized published model result; not a new model run"
+    }
+  ],
+  "comparisons": [
+    {
+      "shielding_mm": 1,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO550_6",
+      "lunar_krad_Si_year": 10.545283320250455,
+      "leo_krad_Si_year": 22.740296162547036,
+      "ratio": 0.46372673622511545,
+      "reading_ratio_low": 0.3427545441663897,
+      "reading_ratio_high": 0.6273949960692738,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 1,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO800_98",
+      "lunar_krad_Si_year": 10.545283320250455,
+      "leo_krad_Si_year": 45.72926012210131,
+      "ratio": 0.23060253527158725,
+      "reading_ratio_low": 0.17044535215726014,
+      "reading_ratio_high": 0.31199166536744155,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 2,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO550_6",
+      "lunar_krad_Si_year": 5.468447886019564,
+      "leo_krad_Si_year": 4.560165268186655,
+      "ratio": 1.1991775658153037,
+      "reading_ratio_low": 0.8863486356026158,
+      "reading_ratio_high": 1.6224167066912931,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 2,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO800_98",
+      "lunar_krad_Si_year": 5.468447886019564,
+      "leo_krad_Si_year": 9.562743882108927,
+      "ratio": 0.5718492467680286,
+      "reading_ratio_low": 0.4226711823937603,
+      "reading_ratio_high": 0.7736783926861562,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 2.54,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO550_6",
+      "lunar_krad_Si_year": 4.252465282678577,
+      "leo_krad_Si_year": 2.5715452737036637,
+      "ratio": 1.65366144868761,
+      "reading_ratio_low": 1.222271505551712,
+      "reading_ratio_high": 2.2373066658714724,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 2.54,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO800_98",
+      "lunar_krad_Si_year": 4.252465282678577,
+      "leo_krad_Si_year": 5.468447886019564,
+      "ratio": 0.7776366112128957,
+      "reading_ratio_low": 0.574774886548662,
+      "reading_ratio_high": 1.0520965916409766,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 3,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO550_6",
+      "lunar_krad_Si_year": 3.5960460347904304,
+      "leo_krad_Si_year": 1.5334852804445103,
+      "ratio": 2.3450150325199384,
+      "reading_ratio_low": 1.7332719805582155,
+      "reading_ratio_high": 3.17266739693874,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 3,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO800_98",
+      "lunar_krad_Si_year": 3.5960460347904304,
+      "leo_krad_Si_year": 3.9105064784321995,
+      "ratio": 0.9195857504964824,
+      "reading_ratio_low": 0.6796938155843566,
+      "reading_ratio_high": 1.2441454271422996,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 5,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO550_6",
+      "lunar_krad_Si_year": 2.056396216338072,
+      "leo_krad_Si_year": 0.5085230927275866,
+      "ratio": 4.043860044404461,
+      "reading_ratio_low": 2.9889400328206888,
+      "reading_ratio_high": 5.471104765958976,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    },
+    {
+      "shielding_mm": 5,
+      "lunar_proxy": "unocculted interplanetary",
+      "leo": "LEO800_98",
+      "lunar_krad_Si_year": 2.056396216338072,
+      "leo_krad_Si_year": 1.8910326579193648,
+      "ratio": 1.0874461674293086,
+      "reading_ratio_low": 0.8037645585347063,
+      "reading_ratio_high": 1.471250697110241,
+      "source": "RAD01; same solar max, 95%, Si, sphere, annual normalization"
+    }
+  ],
+  "geometry": [
+    {
+      "case": "Earth_400",
+      "radius_km": 6371.0,
+      "altitude_km": 400,
+      "centre_distance_km": 6771.0,
+      "blocked_solid_angle_sr": 4.1555960848918385,
+      "visible_fraction": 0.6693081707980681,
+      "meaning": "isotropic scalar primary flux only; not planar dose or secondary transport"
+    },
+    {
+      "case": "Earth_600",
+      "radius_km": 6371.0,
+      "altitude_km": 600,
+      "centre_distance_km": 6971.0,
+      "blocked_solid_angle_sr": 3.733005051520576,
+      "visible_fraction": 0.7029368967317424,
+      "meaning": "isotropic scalar primary flux only; not planar dose or secondary transport"
+    },
+    {
+      "case": "Moon_surface",
+      "radius_km": 1737.4,
+      "altitude_km": 0,
+      "centre_distance_km": 1737.4,
+      "blocked_solid_angle_sr": 6.283185307179586,
+      "visible_fraction": 0.5,
+      "meaning": "isotropic scalar primary flux only; not planar dose or secondary transport"
+    },
+    {
+      "case": "Moon_100",
+      "radius_km": 1737.4,
+      "altitude_km": 100,
+      "centre_distance_km": 1837.4,
+      "blocked_solid_angle_sr": 4.238615086604925,
+      "visible_fraction": 0.662701728551472,
+      "meaning": "isotropic scalar primary flux only; not planar dose or secondary transport"
+    },
+    {
+      "case": "Moon_distant",
+      "radius_km": 1737.4,
+      "altitude_km": 48262.6,
+      "centre_distance_km": 50000.0,
+      "blocked_solid_angle_sr": 0.00379437851132965,
+      "visible_fraction": 0.9996980529519801,
+      "meaning": "isotropic scalar primary flux only; not planar dose or secondary transport"
+    }
+  ],
+  "mass": [
+    {
+      "shield_mm": 1,
+      "areal_g_cm2": 0.27,
+      "areal_kg_m2": 2.7,
+      "bus_skin_kg": 2.7,
+      "local_box_exact_kg": 0.16526160000000026,
+      "local_box_thinwall_kg": 0.16200000000000003
+    },
+    {
+      "shield_mm": 2,
+      "areal_g_cm2": 0.54,
+      "areal_kg_m2": 5.4,
+      "bus_skin_kg": 5.4,
+      "local_box_exact_kg": 0.3371328000000004,
+      "local_box_thinwall_kg": 0.32400000000000007
+    },
+    {
+      "shield_mm": 2.54,
+      "areal_g_cm2": 0.6858000000000001,
+      "areal_kg_m2": 6.8580000000000005,
+      "bus_skin_kg": 6.8580000000000005,
+      "local_box_exact_kg": 0.4327371445823998,
+      "local_box_thinwall_kg": 0.4114800000000001
+    },
+    {
+      "shield_mm": 3,
+      "areal_g_cm2": 0.81,
+      "areal_kg_m2": 8.100000000000001,
+      "bus_skin_kg": 8.100000000000001,
+      "local_box_exact_kg": 0.5157432000000006,
+      "local_box_thinwall_kg": 0.4860000000000001
+    },
+    {
+      "shield_mm": 5,
+      "areal_g_cm2": 1.35,
+      "areal_kg_m2": 13.5,
+      "bus_skin_kg": 13.5,
+      "local_box_exact_kg": 0.8936999999999992,
+      "local_box_thinwall_kg": 0.8100000000000003
+    }
+  ],
+  "sep_screening": [
+    {
+      "type": "SEP incident front face; isotropic assumption",
+      "input_flux": 10,
+      "flux_unit": "pfu = p cm-2 s-1 sr-1 above 10 MeV",
+      "area_cm2": 0.21767823360000005,
+      "incident_rate_s": 6.83856339524163,
+      "incident_hour": 24618.82822286987,
+      "assumed_candidate_rate_s": 0.0683856339524163,
+      "required_incident_to_confirmed_fraction": 4.061931749745268e-07,
+      "status": "screening only; before shielding, response, lunar geometry, confirmation"
+    },
+    {
+      "type": "SEP incident front face; isotropic assumption",
+      "input_flux": 1000,
+      "flux_unit": "pfu = p cm-2 s-1 sr-1 above 10 MeV",
+      "area_cm2": 0.21767823360000005,
+      "incident_rate_s": 683.856339524163,
+      "incident_hour": 2461882.8222869867,
+      "assumed_candidate_rate_s": 6.83856339524163,
+      "required_incident_to_confirmed_fraction": 4.061931749745269e-09,
+      "status": "screening only; before shielding, response, lunar geometry, confirmation"
+    },
+    {
+      "type": "SEP incident front face; isotropic assumption",
+      "input_flux": 100000,
+      "flux_unit": "pfu = p cm-2 s-1 sr-1 above 10 MeV",
+      "area_cm2": 0.21767823360000005,
+      "incident_rate_s": 68385.6339524163,
+      "incident_hour": 246188282.2286987,
+      "assumed_candidate_rate_s": 683.8563395241631,
+      "required_incident_to_confirmed_fraction": 4.061931749745268e-11,
+      "status": "screening only; before shielding, response, lunar geometry, confirmation"
+    }
+  ],
+  "quiet_sensitivity": [
+    {
+      "assumed_scalar_flux_cm2_s": 1,
+      "rate_both_faces_s": 0.10883911680000002,
+      "ideal_poisson_patch_time_loss": 2.1257640000000005e-08,
+      "status": "hypothetical flux sensitivity, not calibrated GCR hit prediction"
+    },
+    {
+      "assumed_scalar_flux_cm2_s": 4,
+      "rate_both_faces_s": 0.4353564672000001,
+      "ideal_poisson_patch_time_loss": 8.503056000000002e-08,
+      "status": "hypothetical flux sensitivity, not calibrated GCR hit prediction"
+    },
+    {
+      "assumed_scalar_flux_cm2_s": 10,
+      "rate_both_faces_s": 1.0883911680000002,
+      "ideal_poisson_patch_time_loss": 2.1257640000000008e-07,
+      "status": "hypothetical flux sensitivity, not calibrated GCR hit prediction"
+    }
+  ],
+  "availability": [
+    {
+      "storm_days_year": 1,
+      "reset_rate_day": 0.01,
+      "recovery_s": 60,
+      "radiation_availability": 0.9972552238293692,
+      "sample_multiplier": 0.9972552238293692,
+      "poisson_flux_error_multiplier": 1.0013752197365162,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 1,
+      "reset_rate_day": 0.1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9971928997059439,
+      "sample_multiplier": 0.9971928997059439,
+      "poisson_flux_error_multiplier": 1.0014065120058915,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 1,
+      "reset_rate_day": 1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9965700866526923,
+      "sample_multiplier": 0.9965700866526923,
+      "poisson_flux_error_multiplier": 1.0017193809357496,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 1,
+      "reset_rate_day": 10,
+      "recovery_s": 60,
+      "radiation_availability": 0.9903844792182964,
+      "sample_multiplier": 0.9903844792182964,
+      "poisson_flux_error_multiplier": 1.0048427124118764,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 5,
+      "reset_rate_day": 0.01,
+      "recovery_s": 60,
+      "radiation_availability": 0.9863038967317234,
+      "sample_multiplier": 0.9863038967317234,
+      "poisson_flux_error_multiplier": 1.0069192079549385,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 5,
+      "reset_rate_day": 0.1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9862422570187132,
+      "sample_multiplier": 0.9862422570187132,
+      "poisson_flux_error_multiplier": 1.0069506734700355,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 5,
+      "reset_rate_day": 1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9856262833675563,
+      "sample_multiplier": 0.9856262833675563,
+      "poisson_flux_error_multiplier": 1.0072652745594546,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 5,
+      "reset_rate_day": 10,
+      "recovery_s": 60,
+      "radiation_availability": 0.9795086029880337,
+      "sample_multiplier": 0.9795086029880337,
+      "poisson_flux_error_multiplier": 1.01040589796828,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 10,
+      "reset_rate_day": 0.01,
+      "recovery_s": 60,
+      "radiation_availability": 0.9726147378596661,
+      "sample_multiplier": 0.9726147378596661,
+      "poisson_flux_error_multiplier": 1.0139804389808031,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 10,
+      "reset_rate_day": 0.1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9725539536596748,
+      "sample_multiplier": 0.9725539536596748,
+      "poisson_flux_error_multiplier": 1.0140121251543899,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 10,
+      "reset_rate_day": 1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9719465292611364,
+      "sample_multiplier": 0.9719465292611364,
+      "poisson_flux_error_multiplier": 1.0143289324495857,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 10,
+      "reset_rate_day": 10,
+      "recovery_s": 60,
+      "radiation_availability": 0.9659137577002054,
+      "sample_multiplier": 0.9659137577002054,
+      "poisson_flux_error_multiplier": 1.0174915801353142,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 30,
+      "reset_rate_day": 0.01,
+      "recovery_s": 60,
+      "radiation_availability": 0.9178581023714373,
+      "sample_multiplier": 0.9178581023714373,
+      "poisson_flux_error_multiplier": 1.043787825414828,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 30,
+      "reset_rate_day": 0.1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9178007402235214,
+      "sample_multiplier": 0.9178007402235214,
+      "poisson_flux_error_multiplier": 1.0438204430482185,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 30,
+      "reset_rate_day": 1,
+      "recovery_s": 60,
+      "radiation_availability": 0.9172275128354567,
+      "sample_multiplier": 0.9172275128354567,
+      "poisson_flux_error_multiplier": 1.0441465633410916,
+      "status": "allocation sensitivity, not predicted flight availability"
+    },
+    {
+      "storm_days_year": 30,
+      "reset_rate_day": 10,
+      "recovery_s": 60,
+      "radiation_availability": 0.9115343765488919,
+      "sample_multiplier": 0.9115343765488919,
+      "poisson_flux_error_multiplier": 1.047402181520233,
+      "status": "allocation sensitivity, not predicted flight availability"
+    }
+  ],
+  "let": {
+    "source": "RAD01, printed p9 / PDF p13, Figure 8",
+    "note": "Order-of-magnitude readings at LET >10 MeV cm2/mg, 2.54 mm Al, silicon. Source does not specify angular convention; no device-rate integration.",
+    "let_threshold_MeV_cm2_mg": 10,
+    "integral_flux_cm2_s": {
+      "GCR_solar_min": 1e-05,
+      "GCR_solar_max": 1e-06,
+      "SEP_peak_5min": 0.04,
+      "SEP_peak_day": 0.01,
+      "SEP_peak_week": 0.003
+    },
+    "reading_factor_uncertainty": 2
+  },
+  "headline": {
+    "imx636_area_cm2": 0.21767823360000005,
+    "ip_2_54_krad_year": 4.252465282678577,
+    "three_year_plus_transfer_krad": 13.757395848035731,
+    "dose_tolerance_with_example_margin_krad": 27.514791696071462,
+    "lro_quiet_annual_rad": 13.38153153153153,
+    "low_lunar_primary_only_krad_year": 2.8181160934362173
+  }
+}

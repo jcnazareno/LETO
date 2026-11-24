@@ -1,0 +1,209 @@
+{
+ "gain_1": {
+  "sensor": "imx636",
+  "s10_case": null,
+  "I0": 13000.0,
+  "groups": "cell",
+  "thresholds": "compute",
+  "rows": [
+   {
+    "E_J": 20000.0,
+    "tau_s": 0.1,
+    "I0": 13000.0,
+    "k": 96,
+    "n": 96,
+    "p": 1.0,
+    "wilson95": [
+     0.9615230525151842,
+     1.0
+    ],
+    "n_measured": 96,
+    "n_censored": 0,
+    "n_energy_cohort": 96,
+    "raw_ln_median_censored_only": null,
+    "raw_ln_bias": 0.7951143640314209,
+    "raw_ln_sd": 0.27631176570907817,
+    "raw_ln_median_se": 0.040336522405742974,
+    "corr_ln_median": 0.1836730874597638,
+    "corr_ln_rms": 0.6098184735896377,
+    "corr_ln_median_se": 0.046076460514416905,
+    "lag_median_s": 0.018006254462174465,
+    "onset_err_median_s": 0.003473068508098337
+   },
+   {
+    "E_J": 100000.0,
+    "tau_s": 0.3,
+    "I0": 13000.0,
+    "k": 96,
+    "n": 96,
+    "p": 1.0,
+    "wilson95": [
+     0.9615230525151842,
+     1.0
+    ],
+    "n_measured": 96,
+    "n_censored": 0,
+    "n_energy_cohort": 96,
+    "raw_ln_median_censored_only": null,
+    "raw_ln_bias": 0.2718595943660249,
+    "raw_ln_sd": 0.15486292814601516,
+    "raw_ln_median_se": 0.02231645918547053,
+    "corr_ln_median": -0.1235152562239421,
+    "corr_ln_rms": 0.2139431407856856,
+    "corr_ln_median_se": 0.030178504690762453,
+    "lag_median_s": 0.013990148524548773,
+    "onset_err_median_s": 0.002280657526728902
+   },
+   {
+    "E_J": 1000000.0,
+    "tau_s": 0.1,
+    "I0": 13000.0,
+    "k": 96,
+    "n": 96,
+    "p": 1.0,
+    "wilson95": [
+     0.9615230525151842,
+     1.0
+    ],
+    "n_measured": 96,
+    "n_censored": 0,
+    "n_energy_cohort": 96,
+    "raw_ln_median_censored_only": null,
+    "raw_ln_bias": -0.2268523575914222,
+    "raw_ln_sd": 0.18531913399515038,
+    "raw_ln_median_se": 0.023565089309941837,
+    "corr_ln_median": 0.04451698675594144,
+    "corr_ln_rms": 0.27899251327301944,
+    "corr_ln_median_se": 0.030223434302383178,
+    "lag_median_s": 0.005549149276528026,
+    "onset_err_median_s": 0.00041971932669698786
+   }
+  ],
+  "false_detections": 0,
+  "wall_s": 74.62965369224548,
+  "dt": 0.0005
+ },
+ "gain_0.908": {
+  "sensor": "imx636",
+  "s10_case": null,
+  "I0": 13000.0,
+  "groups": "cell",
+  "thresholds": "compute",
+  "rows": [
+   {
+    "E_J": 20000.0,
+    "tau_s": 0.1,
+    "I0": 13000.0,
+    "k": 96,
+    "n": 96,
+    "p": 1.0,
+    "wilson95": [
+     0.9615230525151842,
+     1.0
+    ],
+    "n_measured": 96,
+    "n_censored": 0,
+    "n_energy_cohort": 96,
+    "raw_ln_median_censored_only": null,
+    "raw_ln_bias": 0.7793813285016641,
+    "raw_ln_sd": 0.2883775869844448,
+    "raw_ln_median_se": 0.03197627490203963,
+    "corr_ln_median": 0.19058054870021776,
+    "corr_ln_rms": 0.6094135228397031,
+    "corr_ln_median_se": 0.05561060310193075,
+    "lag_median_s": 0.01936367018853244,
+    "raw_ln_median_without_gain_division": 0.6828704281208203,
+    "corr_ln_median_without_gain_division": 0.06575137828606926,
+    "corr_ln_median_se_without_gain_division": 0.056018460467167,
+    "onset_err_median_s": 0.003674088264066816
+   },
+   {
+    "E_J": 100000.0,
+    "tau_s": 0.3,
+    "I0": 13000.0,
+    "k": 96,
+    "n": 96,
+    "p": 1.0,
+    "wilson95": [
+     0.9615230525151842,
+     1.0
+    ],
+    "n_measured": 96,
+    "n_censored": 0,
+    "n_energy_cohort": 96,
+    "raw_ln_median_censored_only": null,
+    "raw_ln_bias": 0.31015278201064744,
+    "raw_ln_sd": 0.1451548594898689,
+    "raw_ln_median_se": 0.017656177747761206,
+    "corr_ln_median": -0.07296790826093191,
+    "corr_ln_rms": 0.18860106444465094,
+    "corr_ln_median_se": 0.022117806484731765,
+    "lag_median_s": 0.015057282507326658,
+    "raw_ln_median_without_gain_division": 0.2136418816298038,
+    "corr_ln_median_without_gain_division": -0.18694475848161932,
+    "corr_ln_median_se_without_gain_division": 0.022373369165444662,
+    "onset_err_median_s": 0.002476964515113367
+   },
+   {
+    "E_J": 1000000.0,
+    "tau_s": 0.1,
+    "I0": 13000.0,
+    "k": 96,
+    "n": 96,
+    "p": 1.0,
+    "wilson95": [
+     0.9615230525151842,
+     1.0
+    ],
+    "n_measured": 96,
+    "n_censored": 0,
+    "n_energy_cohort": 96,
+    "raw_ln_median_censored_only": null,
+    "raw_ln_bias": -0.21515299668541302,
+    "raw_ln_sd": 0.1696973945327856,
+    "raw_ln_median_se": 0.017350099747613663,
+    "corr_ln_median": 0.02204664255973411,
+    "corr_ln_rms": 0.2455173932947681,
+    "corr_ln_median_se": 0.032000603526158834,
+    "lag_median_s": 0.005549149276528026,
+    "raw_ln_median_without_gain_division": -0.3116638970662568,
+    "corr_ln_median_without_gain_division": -0.07130960512249579,
+    "corr_ln_median_se_without_gain_division": 0.03217953535336436,
+    "onset_err_median_s": 0.00042904284063829956
+   }
+  ],
+  "false_detections": 0,
+  "wall_s": 72.81977009773254,
+  "dt": 0.0005
+ },
+ "comparison": [
+  {
+   "E_J": 20000.0,
+   "tau_s": 0.1,
+   "corner_minus_centre_corr_median": 0.006907461240453966,
+   "combined_median_se": 0.07221896835940741,
+   "corner_minus_centre_corr_median_without_gain_division": -0.11792170917369453,
+   "corner_minus_centre_raw_median": -0.0157330355297568,
+   "corner_minus_centre_raw_median_without_gain_division": -0.11224393591060056
+  },
+  {
+   "E_J": 100000.0,
+   "tau_s": 0.3,
+   "corner_minus_centre_corr_median": 0.05054734796301019,
+   "combined_median_se": 0.037415765514905795,
+   "corner_minus_centre_corr_median_without_gain_division": -0.06342950225767721,
+   "corner_minus_centre_raw_median": 0.03829318764462253,
+   "corner_minus_centre_raw_median_without_gain_division": -0.05821771273622112
+  },
+  {
+   "E_J": 1000000.0,
+   "tau_s": 0.1,
+   "corner_minus_centre_corr_median": -0.02247034419620733,
+   "combined_median_se": 0.04401698089452389,
+   "corner_minus_centre_corr_median_without_gain_division": -0.11582659187843723,
+   "corner_minus_centre_raw_median": 0.011699360906009176,
+   "corner_minus_centre_raw_median_without_gain_division": -0.08481153947483461
+  }
+ ],
+ "note": "Without the field-gain division the RAW energy is lower by exactly ln(0.908) = -0.097; the corrected effect is evaluated through the quadratic correction (comparison: *_without_gain_division), since the correction depends on ln E_raw nonlinearly."
+}

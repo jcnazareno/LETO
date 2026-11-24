@@ -1,0 +1,13 @@
+date,phase,configuration,source_ids,location,status
+2016-2017,LUCE programme,"Small autonomous lunar payloads; 12 U/24 kg-class constraints, relay architecture",L19,slides 3-6,"Call heritage, not present SMD constraint"
+2018,Phase 0/CDF,12 U; single CCD grows to two-channel camera; reliability added; L2 trade,"L08, L17, L20",L17 Table 2 pp 313-315; L20 section 3,Original~21 kg versus CDF22.8 kg
+2020-2021; published 2022,Phase A,28.69 kg margined; 119.5 m/s CLPS versus 201.8 m/s Artemis 2 cases,L17,pp 312-316 Tables 1-3,Flight opportunity unselected
+2023 issue,Radiometry/POE model,"15 fps/66 ms,820 nm ideal split; 37000 detections/year model",L18,"Tables 4,8-9","Assumed March 2024-March 2025 observation dates, not a flown year"
+December 2023,PDR completed,Phase B review milestone,L04,Project description,Later confirmed by prime
+May/July 2024; repository 2025,Phase B design,79.05 m/s WSB case; 124 Wh; XACT100; Fermi/Volta;~110 W generation,"L05, L07",L05 sections 4-6; L07 slides 8-9,"Design targets, not hardware validation"
+October 2024,Consolidated payload,78 ms/13 fps full-frame; 450-800/850-950 nm; seven lenses,L06,pp 2-3 Tables 1-3,More detailed payload source than early 2024 summaries
+May 2025,Delta PDR,Prime records completed Delta PDR in May 2025,L04,Project description,ESA undated profile had planned Feb 2025
+2025,Science plan,Launchforeseen 2028; Apophis 2029 opportunity studied,L12,Mission overview,Does not approve extended life or guarantee encounter data
+March 2026,Phase C kickoff,"Prime project begins 2 March; ESA announcement 27 March; CDR2027, targetlaunch 2028","L01, L04",Dated announcement; project interval,Supersedes profile March 2025 kickoff as most credible dated status
+10-11 June 2026,Consolidationreview,Architecture and design maturity reviewed,L13,Review report published 26 June,No final public configuration budget supplied
+16-17 July 2026,Science teammeeting,"Platform, camera, processing, ground progress discussed",L14,Published 29 July,Continues Phase C; no flight demonstration

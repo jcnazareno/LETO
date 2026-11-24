@@ -1,0 +1,4 @@
+type,input_flux,flux_unit,area_cm2,incident_rate_s,incident_hour,assumed_candidate_rate_s,required_incident_to_confirmed_fraction,status
+SEP incident front face; isotropic assumption,10,pfu = p cm-2 s-1 sr-1 above 10 MeV,0.21767823360000005,6.83856339524163,24618.82822286987,0.0683856339524163,4.061931749745268e-07,"screening only; before shielding, response, lunar geometry, confirmation"
+SEP incident front face; isotropic assumption,1000,pfu = p cm-2 s-1 sr-1 above 10 MeV,0.21767823360000005,683.856339524163,2461882.8222869867,6.83856339524163,4.061931749745269e-09,"screening only; before shielding, response, lunar geometry, confirmation"
+SEP incident front face; isotropic assumption,100000,pfu = p cm-2 s-1 sr-1 above 10 MeV,0.21767823360000005,68385.6339524163,246188282.2286987,683.8563395241631,4.061931749745268e-11,"screening only; before shielding, response, lunar geometry, confirmation"

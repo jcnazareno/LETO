@@ -1,0 +1,19 @@
+{
+  "name": "optics_16mm_f1",
+  "description": "Baseline camera head: 16 mm f/1 lens, 600-900 nm band, six heads in a 2 x 3 mosaic (coverage.py).",
+  "params": {
+    "focal_length_m":       {"value": 0.016, "unit": "m", "uncertainty": "-", "source": "proposal Sec. 4.3", "status": "convention"},
+    "aperture_m":           {"value": 0.016, "unit": "m (entrance pupil diameter, f/1)", "uncertainty": "-", "source": "proposal Sec. 4.3", "status": "convention"},
+    "transmission":         {"value": 0.6, "unit": "-", "uncertainty": "0.5-0.8 (lens + filter)", "source": "S10", "status": "convention"},
+    "band_nm":              {"value": [600, 900], "unit": "nm", "uncertainty": "-", "source": "proposal", "status": "convention"},
+    "lambda_eff_nm":        {"value": 750, "unit": "nm", "uncertainty": "744-792 nm for 2000-4500 K flash spectra (+/-4%)", "source": "S10/S11 energy convention", "status": "convention"},
+    "psf.sigma_px":         {"value": 0.5, "unit": "px (Gaussian core)", "uncertainty": "0.3-0.8; diffraction alone at f/1, 750 nm gives an Airy radius of 0.19 px", "source": "S10", "status": "assumed"},
+    "psf.halo_fraction":    {"value": 0.0, "unit": "fraction of energy in a wide halo", "uncertainty": "0-5% (scatter, ghosts); no lens data", "source": "-", "status": "assumed"},
+    "psf.halo_sigma_px":    {"value": 3.0, "unit": "px", "uncertainty": "-", "source": "-", "status": "assumed"},
+    "vignetting.model":     {"value": "cos4", "unit": "cos4 | none", "uncertainty": "real f/1 lenses add mechanical vignetting at the field edge", "source": "natural illumination fall-off", "status": "assumed"},
+    "distortion.k1":        {"value": 0.0, "unit": "radial coefficient on normalised image radius (tan theta)", "uncertainty": "no lens data", "source": "-", "status": "assumed"},
+    "mosaic.cols":          {"value": 2, "unit": "heads cross-track", "uncertainty": "-", "source": "coverage.py", "status": "convention"},
+    "mosaic.rows":          {"value": 3, "unit": "heads along-track", "uncertainty": "-", "source": "coverage.py", "status": "convention"},
+    "mosaic.overlap":       {"value": 0.05, "unit": "-", "uncertainty": "-", "source": "coverage.py", "status": "convention"}
+  }
+}

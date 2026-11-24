@@ -1,0 +1,35 @@
+{
+ "ridge_height_m": 3000.0,
+ "ridge_width_km": 3.0,
+ "ridge_distance_east_of_region_km": 30.0,
+ "analytic_shadowed_fraction_of_row": 0.3026315789473684,
+ "extended_grid_shadowed_fraction_of_row": 0.29605263157894735,
+ "clamped_grid_shadowed_fraction_of_row": 0.0,
+ "extended_vs_analytic_max_abs_lit_difference": 0.0280157266693582,
+ "extended_vs_analytic_pixels_differing_over_0p5": 0,
+ "extended_info": {
+  "max_km": 150.0,
+  "step_km": 0.4,
+  "extended": true,
+  "ray_missing_terrain_fraction": 0.0,
+  "extension_cells": {
+   "top": 2,
+   "bottom": 3,
+   "left": 2,
+   "right": 378
+  }
+ },
+ "clamped_info": {
+  "max_km": 150.0,
+  "step_km": 0.4,
+  "extended": true,
+  "ray_missing_terrain_fraction": 1.0,
+  "extension_cells": {
+   "top": 2,
+   "bottom": 3,
+   "left": 2,
+   "right": 378
+  }
+ },
+ "note": "Differences come from the 0.4 km march step and the bilinear sampling of the 3 km ridge on a 0.4 km grid. The clamped case flags all its rays as meeting missing terrain."
+}

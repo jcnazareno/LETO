@@ -1,0 +1,6 @@
+case,radius_km,altitude_km,centre_distance_km,blocked_solid_angle_sr,visible_fraction,meaning
+Earth_400,6371.0,400,6771.0,4.1555960848918385,0.6693081707980681,isotropic scalar primary flux only; not planar dose or secondary transport
+Earth_600,6371.0,600,6971.0,3.733005051520576,0.7029368967317424,isotropic scalar primary flux only; not planar dose or secondary transport
+Moon_surface,1737.4,0,1737.4,6.283185307179586,0.5,isotropic scalar primary flux only; not planar dose or secondary transport
+Moon_100,1737.4,100,1837.4,4.238615086604925,0.662701728551472,isotropic scalar primary flux only; not planar dose or secondary transport
+Moon_distant,1737.4,48262.6,50000.0,0.00379437851132965,0.9996980529519801,isotropic scalar primary flux only; not planar dose or secondary transport

@@ -1,0 +1,411 @@
+{
+  "name": "imx636",
+  "description": "Sony IMX636 (Prophesee Gen4.1 pixel), baseline sensor of the impact-energy conversion proposal. Low-light values from the 2025 laboratory characterisation (McReynolds et al., AMOS 2025) as used in the sensor trade (S16, case m636); bright-light values from the Sony flyer. Pixel-response details that no source gives at a few 10^3 e-/s per pixel are assumptions and are labelled as such.",
+  "s10_case": "m636",
+  "status_legend": "measured = published laboratory measurement; datasheet = Sony/Prophesee specification; published = peer-reviewed or conference paper on the same sensor family; derived = computed from measured/datasheet values with a stated conversion; assumed = modelling assumption without direct evidence; surrogate = stand-in for an unmeasured sensor; convention = project convention carried over from S10/S16",
+  "params": {
+    "array.width_px": {
+      "value": 1280,
+      "unit": "px",
+      "uncertainty": "exact",
+      "source": "Sony IMX636-AAMR-C flyer (2025)",
+      "status": "datasheet"
+    },
+    "array.height_px": {
+      "value": 720,
+      "unit": "px",
+      "uncertainty": "exact",
+      "source": "Sony IMX636-AAMR-C flyer (2025)",
+      "status": "datasheet"
+    },
+    "array.pixel_pitch_um": {
+      "value": 4.86,
+      "unit": "um",
+      "uncertainty": "exact",
+      "source": "Sony IMX636-AAMR-C flyer (2025)",
+      "status": "datasheet"
+    },
+    "qe.effective_750nm": {
+      "value": 0.5,
+      "unit": "e-/photon",
+      "uncertainty": "0.4-0.65 (McReynolds et al. assume 0.65 at their wavelength)",
+      "source": "S10 convention (QE x fill factor at 750 nm)",
+      "status": "convention"
+    },
+    "dark.current_fA": {
+      "value": 1.1,
+      "unit": "fA",
+      "uncertainty": "+/-0.5 fA (1 sigma); 5.55 fA measured on another unit (2024)",
+      "source": "McReynolds et al., AMOS 2025, Sec. 4.3",
+      "status": "measured"
+    },
+    "dark.spread_sigma_ln": {
+      "value": 0.15,
+      "unit": "ln units (lognormal sigma between pixels)",
+      "uncertainty": "0-0.5",
+      "source": "no published IMX636 dark-signal non-uniformity at this level",
+      "status": "assumed"
+    },
+    "dark.doubling_temperature_C": {
+      "value": 6.5,
+      "unit": "degC per factor 2",
+      "uncertainty": "5-8 degC; generic silicon rule, not an IMX636 calibration",
+      "source": "generic CMOS rule of thumb (S10 text)",
+      "status": "assumed",
+      "note": "Hahmeyer 2025 (EventSat bachelor thesis, TUM) Sect. 2.1 (p. 9) cites Schuberth et al. (IAC 2025): fewer but more active hot pixels at higher temperature and a sharp rise of OFF events below -4 degC; qualitative, no dark-current law, so no warm/cold profile was derived"
+    },
+    "dark.temperature_offset_C": {
+      "value": 0.0,
+      "unit": "degC relative to the (unreported) measurement temperature",
+      "uncertainty": "user setting",
+      "source": "CLI --set dark.temperature_offset_C=...",
+      "status": "assumed"
+    },
+    "photoreceptor.law": {
+      "value": "linear",
+      "unit": "-",
+      "uncertainty": "linear supported by two measured corners (ratio 11.8 for current ratio 12.1); 'sqrt' kept as alternative",
+      "source": "McReynolds et al. 2025 corners 6.49 Hz at 13.3 fA and 0.55 Hz at dark limit; S16",
+      "status": "derived"
+    },
+    "photoreceptor.tau_ref_s": {
+      "value": 0.00027,
+      "unit": "s at I_ref",
+      "uncertainty": "factor ~2 (photocurrent-to-electron conversion assumed)",
+      "source": "S16: tau = 1/(2 pi f) = 24.5 ms at 13.3 fA scaled to I_ref",
+      "status": "derived"
+    },
+    "photoreceptor.I_ref_e_s": {
+      "value": 7500000.0,
+      "unit": "e-/s",
+      "uncertainty": "convention",
+      "source": "S10: 5 lx level of the project's red-band bias fixture",
+      "status": "convention"
+    },
+    "photoreceptor.tau_cap_s": {
+      "value": 1.0,
+      "unit": "s",
+      "uncertainty": "0.3-3 s; measured dark corner 0.55 Hz implies tau ~0.29 s at 1.1 fA, so the cap is not reached",
+      "source": "S10 convention",
+      "status": "convention"
+    },
+    "photoreceptor.tau_min_s": {
+      "value": 1e-05,
+      "unit": "s",
+      "uncertainty": "1-50 us; consistent with <=100 us latency at 1000 lx",
+      "source": "Sony flyer latency 100 us max at 1000 lx (bound only)",
+      "status": "assumed"
+    },
+    "photoreceptor.second_stage_tau_s": {
+      "value": 0.0,
+      "unit": "s (0 = off)",
+      "uncertainty": "source-follower/buffer pole not published; try 1e-4",
+      "source": "-",
+      "status": "assumed"
+    },
+    "photoreceptor.integrator": {
+      "value": "exponential",
+      "unit": "-",
+      "uncertainty": "'euler_s10' reproduces S10 exactly (tau clipped at the step)",
+      "source": "numerical choice",
+      "status": "convention"
+    },
+    "threshold.C_on": {
+      "value": 0.25,
+      "unit": "ln units",
+      "uncertainty": "0.20-0.30; ON 0.05-0.15 with tuned biases",
+      "source": "Sony flyer: 25% typ. (LN) at 1000 lx; S10",
+      "status": "datasheet"
+    },
+    "threshold.C_off": {
+      "value": 0.25,
+      "unit": "ln units",
+      "uncertainty": "not published separately; flyer gives one typical value",
+      "source": "Sony flyer",
+      "status": "datasheet"
+    },
+    "threshold.sigma_C": {
+      "value": 0.03,
+      "unit": "ln units (pixel-to-pixel sd)",
+      "uncertainty": "<=0.06 (flyer CTNU 6% max at 1000 lx)",
+      "source": "S10 nominal; Sony flyer bound",
+      "status": "assumed"
+    },
+    "threshold.on_off_correlated": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "true = one mismatch draw per pixel for both polarities (S10); false = independent ON/OFF draws",
+      "source": "S10 convention",
+      "status": "convention"
+    },
+    "threshold.C_min": {
+      "value": 0.08,
+      "unit": "ln units",
+      "uncertainty": "-",
+      "source": "S10 clip",
+      "status": "convention"
+    },
+    "events.refractory_s": {
+      "value": 1e-05,
+      "unit": "s",
+      "uncertainty": "1 us - 1 ms; bias_refr is a relative offset (-20..235) with no published time value; read the device value with Metavision I_Monitoring::get_pixel_dead_time(). Energy decoding of flashes above ~1e5 J loses events for >=50 us (validate.py refractory)",
+      "source": "Prophesee bias documentation (no absolute value); assumption",
+      "status": "assumed"
+    },
+    "events.loss_fraction": {
+      "value": 0.01,
+      "unit": "-",
+      "uncertainty": "0-5%",
+      "source": "S10 convention",
+      "status": "convention"
+    },
+    "ba.model": {
+      "value": "poisson_additive",
+      "unit": "-",
+      "uncertainty": "'poisson_additive' (S10: independent ON events that do not move the reference) or 'leak_drift' (v2e-like: reference drifts down, comparator fires)",
+      "source": "S10 convention",
+      "status": "convention"
+    },
+    "ba.rate_hz": {
+      "value": 0.03,
+      "unit": "events/s per normal pixel",
+      "uncertainty": "0.003-0.1; [T] Sect. 3.2 p. 17: 2.6 kev/s over the array (2.8e-3 ev/s/px) with the camera in the closed test box and the monitor off, default biases, illuminance and temperature not reported",
+      "source": "McReynolds et al. 2025: ~0.03 ev/s/px at default biases",
+      "status": "measured",
+      "note": "[T] dark-box rate is 10x below the adopted McReynolds value; kept McReynolds (calibrated light level) as the conservative value"
+    },
+    "ba.on_fraction": {
+      "value": 1.0,
+      "unit": "-",
+      "uncertainty": "0.5-1; S11 tests 0.5",
+      "source": "S10 convention (ON-only)",
+      "status": "assumed"
+    },
+    "ba.sigma_ln": {
+      "value": 0.5,
+      "unit": "lognormal sigma of rate between normal pixels",
+      "uncertainty": "0-1 (not published)",
+      "source": "S16 assumption",
+      "status": "assumed"
+    },
+    "ba.burst_mean": {
+      "value": 1.0,
+      "unit": "events per BA occurrence (geometric mean size)",
+      "uncertainty": "1-3 (S10 case ba_burst = 3)",
+      "source": "S10",
+      "status": "assumed"
+    },
+    "ba.telegraph_fraction": {
+      "value": 0.0,
+      "unit": "fraction of time in high state",
+      "uncertainty": "0-0.1 (S10 case ba_telegraph)",
+      "source": "S10",
+      "status": "assumed"
+    },
+    "ba.telegraph_gain": {
+      "value": 10.0,
+      "unit": "rate ratio high/low",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "assumed"
+    },
+    "ba.telegraph_dwell_s": {
+      "value": 1.0,
+      "unit": "s",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "assumed"
+    },
+    "hot.fraction": {
+      "value": 1.1e-05,
+      "unit": "share of pixels",
+      "uncertainty": "1e-5 to 2e-2: [T] finds 1 defective pixel plus 9 consistently most active of 921,600 (99.999th-percentile cut, so the 9 follow from the cut); upper end = tuned-bias value (McReynolds et al. 2025)",
+      "source": "Hahmeyer 2025 (EventSat bachelor thesis, TUM), Sect. 3.2 p. 17 and Fig. 3.2a-b p. 18: at default biases one defective pixel (~4.5e7 events per recording) and otherwise no hot tail (no pixel above ~50 events per recording after its removal). EVK4, LCD test box, room temperature, recording length not stated",
+      "status": "measured",
+      "previous": {
+        "value": 0.02,
+        "source": "McReynolds et al. 2025: ~2% hot pixels carry >99% of excess events",
+        "status": "measured",
+        "replaced": "2026-11-04"
+      }
+    },
+    "hot.rate_median_hz": {
+      "value": 1.0,
+      "unit": "events/s",
+      "uncertainty": "0.1-100 Hz at default biases (not published)",
+      "source": "-",
+      "status": "assumed"
+    },
+    "hot.sigma_ln": {
+      "value": 1.0,
+      "unit": "lognormal sigma",
+      "uncertainty": "-",
+      "source": "-",
+      "status": "assumed"
+    },
+    "mask.fraction": {
+      "value": 0.02,
+      "unit": "fraction of pixels masked (noisiest, from a dark calibration)",
+      "uncertainty": "0-5%",
+      "source": "S16 convention; IMX636 has an on-chip pixel mask (Prophesee product brief)",
+      "status": "convention"
+    },
+    "mask.calibration_s": {
+      "value": 60.0,
+      "unit": "s of dark calibration used to rank pixels",
+      "uncertainty": "-",
+      "source": "operations assumption",
+      "status": "assumed"
+    },
+    "readout.max_rate_eps": {
+      "value": 1066000000.0,
+      "unit": "events/s (full sensor)",
+      "uncertainty": "sensor-internal peak; interface (MIPI/SLVS, EVT 3.0) and processor limits are lower and not published",
+      "source": "Finateu et al., ISSCC 2020 (1280x720 4.86 um stacked EVS, 1066 Meps)",
+      "status": "published"
+    },
+    "readout.fifo_events": {
+      "value": 4096,
+      "unit": "events (full sensor)",
+      "uncertainty": "not published",
+      "source": "-",
+      "status": "assumed"
+    },
+    "readout.timestamp_resolution_us": {
+      "value": 1.0,
+      "unit": "us",
+      "uncertainty": "exact",
+      "source": "Finateu et al., ISSCC 2020: 1 us time-stamp",
+      "status": "published"
+    },
+    "readout.fixed_latency_s": {
+      "value": 0.0,
+      "unit": "s",
+      "uncertainty": "comparator/arbiter delay; flyer latency is a step-response figure, not a fixed delay",
+      "source": "-",
+      "status": "assumed"
+    },
+    "readout.limit_enabled": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "switch",
+      "status": "convention"
+    },
+    "esp.erc_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs: ERC is the last ESP stage",
+      "status": "datasheet"
+    },
+    "esp.erc_target_rate_eps": {
+      "value": 20000000.0,
+      "unit": "events/s (full sensor)",
+      "uncertainty": "user setting",
+      "source": "Prophesee ESP docs (cd_event_count = rate/5000 for 200 us)",
+      "status": "datasheet"
+    },
+    "esp.erc_period_s": {
+      "value": 0.0002,
+      "unit": "s",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs (IMX636 default 200 us)",
+      "status": "datasheet"
+    },
+    "esp.afk_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "simplified functional model, not Sony's implementation",
+      "source": "Prophesee ESP docs: anti-flicker on 4x4 regions, 50-500 Hz",
+      "status": "datasheet"
+    },
+    "esp.afk_band_hz": {
+      "value": [
+        50.0,
+        500.0
+      ],
+      "unit": "Hz",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs",
+      "status": "datasheet"
+    },
+    "esp.afk_start_periods": {
+      "value": 6,
+      "unit": "consecutive periods",
+      "uncertainty": "-",
+      "source": "Prophesee example start_threshold 6",
+      "status": "assumed"
+    },
+    "esp.stc_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs: STC/Trail filter",
+      "status": "datasheet"
+    },
+    "esp.stc_mode": {
+      "value": "stc_cut_trail",
+      "unit": "stc_cut_trail | stc_keep_trail | trail",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs",
+      "status": "datasheet"
+    },
+    "esp.stc_threshold_s": {
+      "value": 0.01,
+      "unit": "s (1-100 ms supported)",
+      "uncertainty": "-",
+      "source": "Prophesee ESP docs example 10000 us",
+      "status": "datasheet"
+    },
+    "events.initial_reference": {
+      "value": "random",
+      "unit": "random | level",
+      "uncertainty": "random = reference uniformly within [-C_off, +C_on] of the current level (finite prehistory, S11 test g); level = reference at the current level (S10)",
+      "source": "S10/S11",
+      "status": "assumed"
+    },
+    "photoreceptor.adaptive_substeps": {
+      "value": true,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator; off reproduces the fixed-step kernel",
+      "status": "convention"
+    },
+    "photoreceptor.substep_tau_fraction": {
+      "value": 0.5,
+      "unit": "-",
+      "uncertainty": "0.25-1 (convergence tested, validate.py substep)",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator: sub-step <= this fraction of the photoreceptor time constant",
+      "status": "convention"
+    },
+    "photoreceptor.substep_dlnJ_max": {
+      "value": 0.1,
+      "unit": "ln",
+      "uncertainty": "0.05-0.2",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator: sub-step so that ln J changes by at most this (C/2.5) per sub-step",
+      "status": "convention"
+    },
+    "photoreceptor.substep_min_s": {
+      "value": 5e-06,
+      "unit": "s",
+      "uncertainty": "2-10 us",
+      "source": "4 Nov 2026 review (E02/E08): numerical convention of this simulator: floor of the sub-step (half of tau_min and of the refractory period)",
+      "status": "convention"
+    },
+    "photoreceptor.deposit_model": {
+      "value": "impulse",
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "handoff 2026-11-11 item 3.3 (11 Nov 2026): a particle deposit is applied as the exact response of the first-order photoreceptor to an instantaneous charge (d ln J = Q/K between the tau clips, tau_min bounds the rise); 'step_current' reproduces the earlier kernel (deposit spread over its step). Ignored by 'euler_s10'.",
+      "status": "convention"
+    },
+    "photoreceptor.hpf_tau_s": {
+      "value": 0.0,
+      "unit": "s",
+      "uncertainty": "unknown; sensitivity 0.1-1.6 s tested (validate.py sensitivity)",
+      "source": "IMX636 bias_hpf (Prophesee biases manual, checked 5 Nov 2026): a high-pass on slow illumination changes; default 0 = minimum of the 0-120 range, and decreasing it widens the bandwidth, so the default is the widest selectable setting (inferred from the range table). Its corner frequency is not published. 0 here = no high-pass; a first-order stand-in for sensitivity studies only.",
+      "status": "assumed"
+    }
+  }
+}

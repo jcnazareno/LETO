@@ -1,0 +1,14 @@
+{
+  "name": "imx636_m636s10",
+  "inherits": "sensor_imx636_s10nominal.json",
+  "description": "Sensor-trade case m636 (S16) in S10 numerics: tau_ref 0.27 ms, dark 1.1 fA, BA 0.03 Hz lognormal sigma 0.5 with the noisiest 2% of the lognormal masked, no separate hot population, no refractory period.",
+  "s10_case": "m636",
+  "params": {
+    "photoreceptor.tau_ref_s":  {"value": 0.00027, "unit": "s", "uncertainty": "-", "source": "S16 m636", "status": "derived"},
+    "dark.current_fA":          {"value": 1.1, "unit": "fA", "uncertainty": "-", "source": "S16 m636", "status": "measured"},
+    "ba.rate_hz":               {"value": 0.03, "unit": "Hz", "uncertainty": "-", "source": "S16 m636", "status": "measured"},
+    "ba.sigma_ln":              {"value": 0.5, "unit": "-", "uncertainty": "-", "source": "S16 m636", "status": "assumed"},
+    "mask.fraction":            {"value": 0.02, "unit": "-", "uncertainty": "-", "source": "S16 m636 (mask by true rate)", "status": "convention"},
+    "mask.calibration_s":       {"value": 0.0, "unit": "s (0 = mask by true rate, as S16)", "uncertainty": "-", "source": "S16", "status": "convention"}
+  }
+}

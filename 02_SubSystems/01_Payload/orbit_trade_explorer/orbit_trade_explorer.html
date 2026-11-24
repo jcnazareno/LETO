@@ -1,0 +1,3192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit Trade Explorer — lunar impact-flash mission</title>
+<style>
+:root {
+  --bg: #0a0e13;
+  --bg2: #0e141b;
+  --panel: #111820;
+  --panel2: #151e28;
+  --line: #1f2b38;
+  --line2: #2a3949;
+  --text: #dbe2ea;
+  --text2: #b3bfcc;
+  --muted: #8494a6;
+  --amber: #f0a53a;
+  --amber2: #ffc46b;
+  --amber-bg: rgba(240, 165, 58, 0.10);
+  --cyan: #38c6d6;
+  --cyan2: #7fe3ee;
+  --cyan-bg: rgba(56, 198, 214, 0.10);
+  --warn: #ff8a73;
+  --good: #8fd694;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 13px/1.35 var(--font); }
+body { min-width: 1100px; min-height: 680px; overflow: hidden; }
+.num, .val, .kpi-v, .ro-v, .ctl-val { font-variant-numeric: tabular-nums; }
+button { font: inherit; color: inherit; }
+
+/* ---------------- header ---------------- */
+.top {
+  height: 68px; display: flex; align-items: stretch; gap: 14px; padding: 0 14px;
+  border-bottom: 1px solid var(--line); background: linear-gradient(#0f151d, #0c1117);
+}
+.brand { display: flex; flex-direction: column; justify-content: center; min-width: 0; flex: 0 1 190px; }
+.brand .t1 { font-weight: 650; font-size: 15px; letter-spacing: 0.02em; white-space: nowrap; }
+.brand .t2 { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpis { display: flex; flex: 1 1 auto; min-width: 0; align-items: stretch; }
+.kpi { display: flex; flex-direction: column; justify-content: center; padding: 0 10px; border-left: 1px solid var(--line); min-width: 0; flex: 1 1 0; }
+.kpi:first-child { flex: 1.6 1 0; }
+.kpi-l { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi-v { font-size: 17px; font-weight: 600; white-space: nowrap; }
+.kpi-v small { font-size: 12px; font-weight: 400; color: var(--text2); }
+.kpi-s { font-size: 12px; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi.amber .kpi-v { color: var(--amber2); }
+.kpi.cyan .kpi-v { color: var(--cyan2); }
+.pairbar { position: relative; height: 6px; background: #1b2531; border-radius: 3px; flex: 0 0 64px; align-self: center; }
+.pairrow2 { display: flex; gap: 8px; align-items: center; min-width: 0; }
+.pairbar .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: linear-gradient(90deg, var(--amber), var(--cyan)); }
+.pairbar .tick { position: absolute; top: -3px; width: 1px; height: 12px; background: #c9d3de; opacity: 0.8; }
+.pairrow { display: flex; align-items: baseline; gap: 8px; }
+.top .reset {
+  align-self: center; white-space: nowrap; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+  background: #18222d; border: 1px solid var(--line2); color: var(--text);
+}
+.top .reset:hover { background: #1e2a37; }
+
+/* ---------------- grid ---------------- */
+.grid {
+  height: calc(100vh - 68px); min-height: 612px;
+  display: grid; grid-template-columns: clamp(286px, 22.5vw, 336px) minmax(0, 1fr) clamp(286px, 22.5vw, 336px);
+}
+.panel { display: flex; flex-direction: column; min-height: 0; background: var(--panel); }
+.panel.imager { border-right: 1px solid var(--line); }
+.panel.monitor { border-left: 1px solid var(--line); }
+.ph { padding: 10px 14px 9px; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.ph .phase { font-size: 12px; letter-spacing: 0.08em; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
+.ph .title { font-weight: 650; letter-spacing: 0.04em; font-size: 13px; }
+.ph .sub { color: var(--muted); font-size: 12px; flex-basis: 100%; }
+.imager .ph { border-top: 2px solid var(--cyan); }
+.imager .ph .phase { background: var(--cyan-bg); color: var(--cyan2); }
+.imager .ph .title { color: var(--cyan2); }
+.monitor .ph { border-top: 2px solid var(--amber); }
+.monitor .ph .phase { background: var(--amber-bg); color: var(--amber2); }
+.monitor .ph .title { color: var(--amber2); }
+.pbody { overflow-y: auto; overflow-x: hidden; flex: 1 1 auto; padding: 4px 0 18px; scrollbar-width: thin; scrollbar-color: #2a3949 transparent; }
+.sec { padding: 8px 14px 6px; }
+.sec + .sec { border-top: 1px solid var(--line); }
+.sec-h { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 2px 0 6px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.sec-h .tag { white-space: nowrap; text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--text2); }
+.zone-h { margin: 6px 14px 0; padding: 6px 0 2px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: var(--text2); border-bottom: 1px dashed var(--line2); }
+
+/* ---------------- controls ---------------- */
+.ctl { margin: 0 0 9px; }
+.ctl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ctl-head label { color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ctl-val { font-weight: 600; white-space: nowrap; }
+.ctl.changed .ctl-val::before { content: "\25CF\00a0"; font-size: 9px; vertical-align: 2px; }
+.imager .ctl.changed .ctl-val { color: var(--cyan2); }
+.monitor .ctl.changed .ctl-val { color: var(--amber2); }
+.ctl-track { position: relative; height: 18px; }
+.ctl-track .bmark { position: absolute; top: 1px; width: 2px; height: 5px; background: #9aa8b8; border-radius: 1px; transform: translateX(-1px); pointer-events: none; }
+.ctl-foot { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: -1px; }
+.ctl-foot .bl { cursor: pointer; border-bottom: 1px dotted transparent; }
+.ctl.changed .ctl-foot .bl { color: var(--text2); border-bottom-color: var(--muted); }
+.ctl.changed .ctl-foot .bl:hover { color: var(--text); }
+
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent; margin: 0; cursor: pointer; display: block; }
+input[type=range]:focus { outline: none; }
+input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: #243142; margin-top: 7px; }
+input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: #243142; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; margin-top: -5px; background: #dfe6ee; border: 2px solid #0b1016; box-shadow: 0 0 0 1px #3a4a5c; }
+input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #dfe6ee; border: 2px solid #0b1016; }
+.imager input[type=range]::-webkit-slider-thumb { background: var(--cyan2); }
+.monitor input[type=range]::-webkit-slider-thumb { background: var(--amber2); }
+.imager input[type=range]::-moz-range-thumb { background: var(--cyan2); }
+.monitor input[type=range]::-moz-range-thumb { background: var(--amber2); }
+input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(255,255,255,0.35); }
+
+.seg { display: flex; border: 1px solid var(--line2); border-radius: 5px; overflow: hidden; margin-top: 3px; }
+.seg button { flex: 1 1 0; background: transparent; border: 0; padding: 4px 4px; cursor: pointer; color: var(--text2); white-space: nowrap; font-size: 12px; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.seg button + button { border-left: 1px solid var(--line2); }
+.seg button:hover { background: #18222d; color: var(--text); }
+.imager .seg button.on { background: var(--cyan-bg); color: var(--cyan2); box-shadow: inset 0 -2px 0 var(--cyan); }
+.monitor .seg button.on, .tabtools .seg button.on { background: var(--amber-bg); color: var(--amber2); box-shadow: inset 0 -2px 0 var(--amber); }
+.ctl.changed .seg { border-color: #4a5a6c; }
+.btn { background: #18222d; border: 1px solid var(--line2); border-radius: 5px; padding: 5px 10px; cursor: pointer; color: var(--text); font-size: 12px; }
+.btn:hover { background: #1f2b38; }
+.btnrow { display: flex; gap: 8px; align-items: center; margin: 2px 0 8px; flex-wrap: wrap; }
+.btnrow .note { color: var(--muted); font-size: 12px; }
+details.adv { margin: 2px 0 4px; }
+details.adv > summary { cursor: pointer; color: var(--text2); font-size: 12px; padding: 4px 0; list-style: none; }
+details.adv > summary::before { content: "\25B8\00a0"; color: var(--muted); }
+details.adv[open] > summary::before { content: "\25BE\00a0"; }
+
+/* ---------------- readouts ---------------- */
+.ro { display: grid; grid-template-columns: minmax(0, 1fr) auto 16px; align-items: baseline; column-gap: 6px; padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,0.025); }
+.ro-l { color: var(--text2); overflow: hidden; overflow-wrap: break-word; }
+.ro-v { text-align: right; white-space: nowrap; font-weight: 550; }
+.ro-v .u { color: var(--muted); font-weight: 400; margin-left: 3px; }
+.ro-v .flag { font-weight: 500; font-size: 12px; padding: 0 4px; border-radius: 3px; margin-left: 4px; border: 1px solid currentColor; }
+.flag.warn { color: var(--warn); }
+.flag.ok { color: var(--good); }
+.flag.info { color: var(--text2); }
+.ro-i { color: var(--muted); cursor: help; font-size: 12px; text-align: center; user-select: none; }
+.ro-i:hover { color: var(--text); }
+.ro.key .ro-v { font-size: 14px; }
+.imager .ro.key .ro-v { color: var(--cyan2); }
+.monitor .ro.key .ro-v { color: var(--amber2); }
+.ro-wide { color: var(--muted); font-size: 12px; padding: 3px 0 2px; }
+.stale { color: var(--muted); font-size: 12px; }
+.stale.on::after { content: "updating\2026"; color: var(--text2); }
+
+/* ---------------- centre ---------------- */
+.centre { display: grid; grid-template-rows: minmax(250px, 52fr) minmax(250px, 48fr); grid-template-columns: minmax(0, 1fr); min-width: 0; min-height: 0; background: var(--bg); }
+.v3d { position: relative; min-height: 0; border-bottom: 1px solid var(--line); overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, #0f1720 0%, #0a0e13 70%); }
+.v3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.v3d canvas.drag { cursor: grabbing; }
+.v3d .hud { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; align-items: center; }
+.v3d .hud .btn { background: rgba(17,24,32,0.85); }
+.v3d .hud select { background: rgba(17,24,32,0.85); color: var(--text); border: 1px solid var(--line2); border-radius: 5px; padding: 4px 4px; font: 12px var(--font); }
+.v3d .cap { position: absolute; top: 9px; left: 12px; color: var(--muted); font-size: 12px; pointer-events: none; }
+.v3d .simt { position: absolute; top: 40px; right: 10px; color: var(--muted); font-size: 12px; pointer-events: none; text-align: right; }
+
+.tabs { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.centre > * { min-width: 0; }
+.tabbar { display: flex; align-items: stretch; border-bottom: 1px solid var(--line); background: var(--bg2); padding: 0 6px; gap: 2px; }
+.tabbar button { background: transparent; border: 0; padding: 8px 8px 7px; color: var(--muted); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; font-size: 12.5px; }
+.tabbar button:hover { color: var(--text); }
+.tabbar button.on { color: var(--text); border-bottom-color: #c9d3de; }
+.tabbar button .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+.tabtools { display: flex; align-items: center; gap: 10px; padding: 6px 10px 0; min-height: 30px; flex-wrap: wrap; }
+.tabtools .lbl { color: var(--muted); font-size: 12px; }
+.tabtools .seg { margin: 0; }
+.tabtools .seg button { padding: 3px 8px; }
+.tabtools .cap2 { color: var(--muted); font-size: 12px; margin-left: auto; }
+.tabcanvas { position: relative; flex: 1 1 auto; min-height: 0; }
+.tabcanvas canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.caption { padding: 3px 10px 6px; color: var(--muted); font-size: 12px; min-height: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.tabtools .seg button { flex: 0 0 auto; }
+
+.top .reset .short { display: none; }
+@media (max-width: 1320px) {
+  .brand { flex: 0 0 auto; }
+  .brand .t1 { font-size: 14px; }
+  .brand .t2 { display: none; }
+  .top .reset .long { display: none; }
+  .top .reset .short { display: inline; }
+  .top { gap: 10px; padding: 0 10px; }
+  .kpi { padding: 0 7px; }
+  .top .hbtn { padding: 7px 8px; }
+  .top .reset { padding: 7px 9px; }
+}
+
+/* ---------------- v2: header buttons ---------------- */
+.top .hbtn { align-self: center; white-space: nowrap; padding: 7px 10px; border-radius: 6px; cursor: pointer; background: #18222d; border: 1px solid var(--line2); color: var(--text); font-size: 12.5px; }
+.top .hbtn:hover { background: #1e2a37; }
+.top .hbtn.opt { border-color: #5a6c80; font-weight: 600; }
+.top .limchip { color: var(--good); border-color: rgba(143,214,148,0.45); }
+.top .limchip.bad { color: var(--warn); border-color: rgba(255,138,115,0.6); }
+.top .undo[hidden] { display: none; }
+
+/* ---------------- v2: lock toggles ---------------- */
+.ctl-right { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.lock { font: 600 11px/1 var(--font); letter-spacing: 0.02em; padding: 2px 5px; border-radius: 3px; cursor: pointer; min-width: 38px; text-align: center;
+  background: transparent; color: var(--muted); border: 1px solid var(--line2); }
+.lock[aria-pressed="false"] { color: #0b1016; background: var(--good); border-color: var(--good); }
+.lock:hover { border-color: var(--text2); }
+.ctl.locked input[type=range] { opacity: 0.85; }
+.viol { color: var(--warn); font-size: 12px; }
+
+/* ---------------- v2: notes, flash check ---------------- */
+.ro-wide.note2 { color: var(--text2); border-left: 2px solid #5a6c80; padding-left: 6px; margin-top: 4px; }
+.fc { margin-top: 8px; padding: 8px; border: 1px solid var(--line2); border-radius: 6px; background: #0f151c; }
+.fc-h { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 4px; }
+.fc-l { display: block; color: var(--text2); font-size: 12px; margin-bottom: 6px; }
+.fc-l select { display: block; width: 100%; margin-top: 3px; background: #18222d; color: var(--text); border: 1px solid var(--line2); border-radius: 4px; padding: 3px; font: 12px var(--font); }
+.fc-run { width: 100%; }
+.fc-run:disabled { opacity: 0.7; cursor: progress; }
+.fc-out { margin-top: 6px; font-size: 12px; color: var(--text2); line-height: 1.4; overflow-wrap: anywhere; }
+.fc-out > div { margin-top: 3px; }
+.fc-out.stale { opacity: 0.55; }
+.fc-out.stale::before { content: "stale — inputs changed since this run"; display: block; color: var(--warn); font-weight: 600; }
+.fc-err { color: var(--warn); }
+.fc-err code { color: var(--text); background: #18222d; padding: 0 3px; border-radius: 3px; }
+.fc-in, .fc-meta { color: var(--muted); }
+.fc-notes { margin: 4px 0 0 16px; padding: 0; }
+.chip { display: inline-block; padding: 0 6px; border-radius: 3px; border: 1px solid currentColor; font-weight: 600; }
+.chip.supported { color: var(--good); } .chip.marginal { color: var(--amber2); } .chip.not_supported { color: var(--warn); }
+
+/* ---------------- v2: limits tab ---------------- */
+#tabhtml { position: absolute; inset: 0; overflow: auto; padding: 4px 10px 8px; }
+#tabhtml[hidden] { display: none; }
+.tabcanvas canvas[hidden] { display: none; }
+table.lim { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.lim th { text-align: left; color: var(--muted); font-weight: 500; font-size: 12px; padding: 4px 6px; border-bottom: 1px solid var(--line2); position: sticky; top: 0; background: var(--bg); }
+table.lim td { padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.lim .r { text-align: right; font-variant-numeric: tabular-nums; }
+table.lim .nowrap { white-space: nowrap; }
+.lim-l { color: var(--text); }
+.lim-b { color: var(--muted); font-size: 12px; }
+.lim-in { width: 64px; background: #18222d; color: var(--text); border: 1px solid var(--line2); border-radius: 3px; padding: 1px 4px; font: 12px var(--font); text-align: right; }
+.lim-u, .lim-s { color: var(--muted); }
+.lim-st { white-space: nowrap; font-weight: 600; }
+.good { color: var(--good); } .bad { color: var(--warn); } .off { color: var(--muted); }
+tr.dis .lim-l, tr.dis .lim-v { color: var(--muted); }
+.lim-note { margin: 8px 0 0; color: var(--text2); font-size: 12px; border-left: 2px solid #5a6c80; padding-left: 8px; }
+
+/* ---------------- v2: optimiser dialog ---------------- */
+.modal { position: fixed; inset: 0; background: rgba(5,8,12,0.66); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.modal[hidden] { display: none; }
+.dlg { width: min(640px, 92vw); max-height: 88vh; overflow: auto; background: var(--panel); border: 1px solid var(--line2); border-radius: 8px; padding: 14px 18px 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+.dlg h2 { margin: 0 0 6px; font-size: 16px; }
+.dlg h3 { margin: 12px 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.dlg .cap { margin: 0 0 10px; color: var(--text2); font-size: 12px; }
+.dlg .row { margin: 6px 0; color: var(--text2); }
+.dlg .muted, .muted { color: var(--muted); font-size: 12px; }
+.dlg .freelist { color: var(--text); }
+.dlg .seg.inl { display: inline-flex; vertical-align: middle; margin: 0 0 0 4px; }
+.dlg .seg.inl button { flex: 0 0 auto; padding: 3px 8px; }
+.dlg .btns { display: flex; gap: 8px; margin-top: 14px; }
+.btn.primary { background: #23415a; border-color: #3f6f94; font-weight: 600; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.prog { height: 8px; background: #1b2531; border-radius: 4px; overflow: hidden; margin: 10px 0 4px; }
+.prog .bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--amber), var(--cyan)); transition: width 0.15s; }
+.warnbox { border: 1px solid rgba(255,138,115,0.6); color: var(--warn); border-radius: 5px; padding: 6px 8px; margin: 6px 0; font-size: 12.5px; }
+.kv { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; margin: 8px 0; }
+.kv > div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); padding: 2px 0; }
+.kv span { color: var(--muted); }
+table.tt { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.tt td { padding: 2px 6px; border-bottom: 1px solid var(--line); }
+table.tt .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.ctl-track .tmark { position: absolute; top: 12px; width: 1px; height: 6px; background: #c9d3de; opacity: 0.55; transform: translateX(-0.5px); }
+.ctl-marks { color: var(--muted); font-size: 12px; margin-top: 1px; }
+.kpi-l.stag { color: var(--amber2); }
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="t1">Orbit Trade Explorer</div>
+    <div class="t2" title="Proposal rev. 5, Option A: one spacecraft, flash monitoring from a high polar orbit, then crater imaging from a low orbit">Lunar impact-flash mission</div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <button class="hbtn limchip" id="limChip" title="Constraint check (§E). Click to open the Limits &amp; checks tab.">Limits —</button>
+  <button class="hbtn undo" id="undoOpt" hidden title="Restore the state from before the last applied optimisation">Undo optimise</button>
+  <button class="hbtn opt" id="optBtn" title="Sweep the free sliders to maximise indicative pairs within all enabled limits">Optimise</button>
+  <button class="reset" id="resetAll" title="Reset to proposal baseline: restore every input"><span class="long">Reset to proposal baseline</span><span class="short">Reset baseline</span></button>
+</header>
+<main class="grid">
+  <aside class="panel imager" aria-label="Phase 2 crater imager">
+    <div class="ph"><span class="phase">PHASE 2</span><span class="title">CRATER IMAGER</span><span class="sub">low circular polar orbit · narrow-field camera finds the fresh craters</span></div>
+    <div class="pbody" id="leftBody"></div>
+  </aside>
+  <section class="centre">
+    <div class="v3d" id="v3d">
+      <canvas id="c3d" aria-label="3D view of the Moon with both orbits"></canvas>
+      <div class="cap">To scale · drag to rotate · wheel to zoom</div>
+      <div class="hud">
+        <button class="btn" id="play" title="Play / pause the orbital motion">Play</button>
+        <select id="speed" title="Time acceleration (both spacecraft share it)">
+          <option value="200">×200</option>
+          <option value="600" selected>×600</option>
+          <option value="2000">×2000</option>
+          <option value="6000">×6000</option>
+        </select>
+        <button class="btn" id="resetView" title="Reset rotation and zoom">Reset view</button>
+      </div>
+      <div class="simt" id="simt"></div>
+    </div>
+    <div class="tabs">
+      <div class="tabbar" id="tabbar" role="tablist"></div>
+      <div class="tabtools" id="tabtools"></div>
+      <div class="tabcanvas" id="tabwrap"><canvas id="ctab"></canvas><div id="tabhtml" hidden></div></div>
+      <div class="caption" id="caption"></div>
+    </div>
+  </section>
+  <aside class="panel monitor" aria-label="Phase 1 flash monitor">
+    <div class="ph"><span class="phase">PHASE 1</span><span class="title">FLASH MONITOR</span><span class="sub">high circular polar orbit · event-camera mosaic watches the night side</span></div>
+    <div class="pbody" id="rightBody"></div>
+  </aside>
+</main>
+<div class="modal" id="optModal" hidden role="dialog" aria-modal="true" aria-labelledby="optTitle"><div class="dlg" id="optDlg"></div></div>
+<script>
+/* Orbit Trade Explorer — pure physics model.
+ * No DOM. UMD: window.OTE in the browser, require() in node.
+ * All angles in radians internally; inputs in `state` use the units shown in the UI
+ * (km, deg, mm, µm, µrad, m, px, yr, months).
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.OTE = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var D2R = Math.PI / 180, R2D = 180 / Math.PI;
+
+  var C = {
+    R: 1737.4,               // km
+    MU: 4902.8,              // km^3/s^2
+    SIDEREAL_D: 27.3217,     // d
+    OBLIQ_DEG: 1.54,         // deg, spin axis to ecliptic normal
+    SUN_YEAR_D: 365.25,      // d, Sun's apparent revolution
+    G0: 9.80665,             // m/s^2
+    SENSOR_W_PX: 1280, SENSOR_H_PX: 720, PITCH_UM: 4.86,  // IMX636
+    CRATER_D0: 3.15, CRATER_E0: 3e4, CRATER_EXP: 0.30,     // D = 3.15 m (E/3e4 J)^0.30
+    SFD_EXP: 3.25, SFD_ANCHOR: 184,                         // N(>=10 m)/yr whole Moon
+    EREF: { '0.1': 2e4, '0.3': 4e4, '1': 1e5 },             // J at 3750 km, 16 mm aperture
+    EREF_RANGE: 3750, EREF_AP: 16,
+    HEAD_MASS: 0.9, HEAD_MASS_AP: 25, DRY_MASS: 118, BASE_NCAM: 6,
+    VINF: 0.8, MAINT_PER_YR: 30, MARGIN_DV: 184,
+    LAMBDA_M: 650e-9,
+    PAIRS_BASELINE: 210,
+    THRESHOLDS: [30, 80, 240],
+    LOC_K95: 2.448,
+    // v2 additions
+    TIE_REL: 0.005,                               // D_before within 0.5 % of D_conf counts as a tie -> camera-limited
+    SNR_EBAND: 185, SNR_LAMBDA: 550e-9, H_PLANCK: 6.62607015e-34, C_LIGHT: 2.99792458e8,   // S8 radiometry
+    IMAGER_MASS: 12.1, IMAGER_AP_REF: 200, IMAGER_MASS_EXP: 2.5,
+    TAU: { '0.1': 0.1, '0.3': 0.3, '1': 1.0 },
+    EXTRAP_D: 3.0,
+    SFD_ANCHOR_SIGMA: 46,
+    MOON_AREA_KM2: 3.793e7                         // 4πR²
+  };
+  C.SENSOR_W_MM = C.SENSOR_W_PX * C.PITCH_UM / 1000;  // 6.2208
+  C.SENSOR_H_MM = C.SENSOR_H_PX * C.PITCH_UM / 1000;  // 3.4992
+
+  var PRESETS = {
+    triscape: { label: 'TriScape200', f2: 1067, pitch2: 3.2, ap2: 200, nx2: 9333, ny2: 7000, scanner: false },
+    lroc: { label: 'LROC-NAC-like', f2: 700, pitch2: 7, ap2: 195, nx2: 5064, ny2: 5064, scanner: true }
+  };
+
+  var BASELINE = Object.freeze({
+    // Phase 1 — flash monitor
+    h1: 3000, emax: 65, f1: 16, N1: 1.0, rows: 2, cols: 3, orient: 'auto',
+    watchYears: 2.5, avail: 0.70, decay: '0.1',
+    centroid: 0.1, att: 48, orbKnow: 150,
+    // Phase 2 — crater imager
+    h2: 300, preset: 'triscape', f2: 1067, pitch2: 3.2, ap2: 200, nx2: 9333, ny2: 7000,
+    offNadir: 20, sunMin: 20, sunMax: 70, kConf: 3.5, months: 6, beta0: 0, smear: 0.5,
+    // system
+    isp: 300,
+    // v2: confirmation, radiometry, event-simulator sensor profile
+    archiveGsd: 0.90, slope: 3.25, archiveAge: 20, refl: 0.12, tauQE: 0.4, readNoise: 0, sensor: 'imx636',
+    // v2: constraint limits (lim_*) and enable flags (on_*)
+    lim_loc: 1.3, lim_frame: 1.0, lim_snr: 10, lim_diff: 1.5, lim_smear: 1.0, lim_heads: 15, lim_mass: 200, lim_h2min: 150, lim_chance: 5,
+    on_loc: true, on_frame: true, on_snr: true, on_diff: true, on_smear: true, on_heads: true, on_mass: true, on_h2min: true, on_chance: true
+  });
+
+  function clamp(x, a, b) { return x < a ? a : x > b ? b : x; }
+  function fin(x) { return typeof x === 'number' && isFinite(x); }
+
+  // ---------------------------------------------------------------- 4.1 orbits
+  function orbit(h) {
+    var r = C.R + h;
+    var T = 2 * Math.PI * Math.sqrt(r * r * r / C.MU);   // s
+    var v = Math.sqrt(C.MU / r);                         // km/s
+    return { h: h, r: r, T: T, Tmin: T / 60, v: v, vg: v * C.R / r, eclFrac: Math.asin(C.R / r) / Math.PI };
+  }
+
+  // Geometry of a line of sight at off-nadir angle eta from radius r.
+  // Returns emission e, central angle lam, slant range rho; horizon=true if the ray misses (clamped to the limb).
+  function offNadir(r, eta) {
+    var s = (r / C.R) * Math.sin(eta);
+    var horizon = false;
+    if (s >= 1) { s = 1; horizon = true; eta = Math.asin(C.R / r); }
+    var e = Math.asin(s);
+    var lam = e - eta;
+    var rho = eta < 1e-9 ? r - C.R : C.R * Math.sin(lam) / Math.sin(eta);
+    return { eta: eta, e: e, lam: lam, rho: rho, horizon: horizon };
+  }
+
+  // From central angle lam to off-nadir angle, range, emission
+  function fromCentral(r, lam) {
+    var x = r - C.R * Math.cos(lam), y = C.R * Math.sin(lam);
+    var eta = Math.atan2(y, x);
+    var rho = Math.sqrt(x * x + y * y);
+    return { eta: eta, rho: rho, e: lam + eta, lam: lam };
+  }
+
+  function monitorEdge(h1, emaxDeg) {
+    var r = C.R + h1, emax = emaxDeg * D2R;
+    var etaMax = Math.asin((C.R / r) * Math.sin(emax));
+    var lamMax = emax - etaMax;
+    var rhoEdge = C.R * Math.sin(lamMax) / Math.sin(etaMax);
+    return { r: r, emax: emax, etaMax: etaMax, lamMax: lamMax, rhoEdge: rhoEdge };
+  }
+
+  function capFraction(lam) { return (1 - Math.cos(lam)) / 2; }
+
+  function fovOf(fmm) {
+    return { long: 2 * Math.atan(C.SENSOR_W_MM / 2 / fmm), short: 2 * Math.atan(C.SENSOR_H_MM / 2 / fmm) };
+  }
+
+  function kDark(lamMaxRad) {
+    return clamp(0.5 - 0.0025 * (lamMaxRad * R2D - 21), 0.35, 0.5);
+  }
+
+  // ---------------------------------------------------------- cap sampling
+  var NLAM = 48, NPHI = 96;
+  var sampleCache = {};
+  function capSamples(h1, emaxDeg, nLam, nPhi) {
+    nLam = nLam || NLAM; nPhi = nPhi || NPHI;
+    var key = h1 + '|' + emaxDeg + '|' + nLam + '|' + nPhi;
+    if (sampleCache[key]) return sampleCache[key];
+    var g = monitorEdge(h1, emaxDeg);
+    var n = nLam * nPhi;
+    var S = {
+      n: n, nLam: nLam, nPhi: nPhi, r: g.r, lamMax: g.lamMax, etaMax: g.etaMax,
+      lam: new Float64Array(n), phi: new Float64Array(n), eta: new Float64Array(n),
+      rho: new Float64Array(n), e: new Float64Array(n), w: new Float64Array(n),
+      dx: new Float64Array(n), dy: new Float64Array(n), dz: new Float64Array(n)
+    };
+    var capArea = 1 - Math.cos(g.lamMax);
+    var k = 0;
+    for (var i = 0; i < nLam; i++) {
+      var la = i * g.lamMax / nLam, lb = (i + 1) * g.lamMax / nLam;
+      var lam = (la + lb) / 2;
+      var ring = (Math.cos(la) - Math.cos(lb)) / capArea / nPhi;
+      var q = fromCentral(g.r, lam);
+      for (var j = 0; j < nPhi; j++, k++) {
+        var phi = (j + 0.5) * 2 * Math.PI / nPhi;
+        S.lam[k] = lam; S.phi[k] = phi; S.eta[k] = q.eta; S.rho[k] = q.rho; S.e[k] = q.e; S.w[k] = ring;
+        var se = Math.sin(q.eta);
+        S.dx[k] = se * Math.cos(phi); S.dy[k] = se * Math.sin(phi); S.dz[k] = Math.cos(q.eta);
+      }
+    }
+    var keys = Object.keys(sampleCache);
+    if (keys.length > 60) sampleCache = {};
+    sampleCache[key] = S;
+    return S;
+  }
+
+  // ---------------------------------------------------------- mosaic
+  // Camera (i,j): boresight rotated a_j about the spacecraft y axis (spreads columns along x)
+  // and b_i about x (spreads rows along y). orient 'cols': sensor long side along x (across columns);
+  // 'rows': long side along y (across rows).
+  function mosaicCameras(fov, rows, cols, orient) {
+    var sx = orient === 'cols' ? fov.long : fov.short;
+    var sy = orient === 'cols' ? fov.short : fov.long;
+    var cams = [];
+    for (var i = 0; i < rows; i++) {
+      for (var j = 0; j < cols; j++) {
+        var a = (j - (cols - 1) / 2) * sx, b = (i - (rows - 1) / 2) * sy;
+        var ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
+        // M = Ry(a) * Rx(b); Rx(b) maps z -> (0, sin b, cos b)
+        // Ry(a) = [[ca,0,sa],[0,1,0],[-sa,0,ca]];  Rx(b) = [[1,0,0],[0,cb,sb],[0,-sb,cb]]
+        var M = [
+          ca, sa * -sb, sa * cb,
+          0, cb, sb,
+          -sa, ca * -sb, ca * cb
+        ];
+        // check: M*(0,0,1) = (sa*cb, sb, ca*cb)
+        cams.push({ i: i, j: j, a: a, b: b, M: M, tx: Math.tan(sx / 2), ty: Math.tan(sy / 2) });
+      }
+    }
+    return cams;
+  }
+
+  function camCovers(c, x, y, z) {
+    var M = c.M;
+    // d_cam = M^T d
+    var cx = M[0] * x + M[3] * y + M[6] * z;
+    var cy = M[1] * x + M[4] * y + M[7] * z;
+    var cz = M[2] * x + M[5] * y + M[8] * z;
+    if (cz <= 0) return false;
+    return Math.abs(cx) <= c.tx * cz && Math.abs(cy) <= c.ty * cz;
+  }
+
+  function mosaicCoverage(S, fov, rows, cols, orient, wantMask) {
+    var cams = mosaicCameras(fov, rows, cols, orient);
+    var mask = wantMask ? new Uint8Array(S.n) : null;
+    var cov = 0;
+    for (var k = 0; k < S.n; k++) {
+      var x = S.dx[k], y = S.dy[k], z = S.dz[k];
+      for (var c = 0; c < cams.length; c++) {
+        if (camCovers(cams[c], x, y, z)) { cov += S.w[k]; if (mask) mask[k] = 1; break; }
+      }
+    }
+    return { coverage: Math.min(1, cov), mask: mask, cams: cams };
+  }
+
+  function resolveMosaic(S, fov, rows, cols, orient) {
+    if (orient !== 'auto') {
+      var m = mosaicCoverage(S, fov, rows, cols, orient, true);
+      m.orient = orient; m.auto = false; return m;
+    }
+    var a = mosaicCoverage(S, fov, rows, cols, 'cols', true);
+    var b = mosaicCoverage(S, fov, rows, cols, 'rows', true);
+    var best = b.coverage > a.coverage + 1e-12 ? b : a;
+    best.orient = best === b ? 'rows' : 'cols'; best.auto = true;
+    return best;
+  }
+
+  var needCache = {};
+  function camerasNeeded(h1, emaxDeg, f1, target, nLam, nPhi) {
+    target = target || 0.95;
+    var key = h1 + '|' + emaxDeg + '|' + f1 + '|' + target + '|' + (nLam || NLAM);
+    if (needCache[key] !== undefined) return needCache[key];
+    var S = capSamples(h1, emaxDeg, nLam, nPhi), fov = fovOf(f1);
+    var res = null;
+    for (var n = 1; n <= 25 && !res; n++) {
+      var best = null;
+      for (var rows = 1; rows <= 5; rows++) {
+        if (n % rows) continue;
+        var cols = n / rows;
+        if (cols > 5) continue;
+        var ors = rows === cols && rows === 1 ? ['cols', 'rows'] : ['cols', 'rows'];
+        for (var o = 0; o < ors.length; o++) {
+          var c = mosaicCoverage(S, fov, rows, cols, ors[o], false).coverage;
+          if (c >= target && (!best || c > best.coverage + 1e-12)) best = { rows: rows, cols: cols, orient: ors[o], n: n, coverage: c };
+        }
+      }
+      res = best;
+    }
+    if (Object.keys(needCache).length > 400) needCache = {};
+    needCache[key] = res;
+    return res;
+  }
+
+  // Footprint patches of every camera, clipped to the usable cap (eta <= etaMax).
+  // Returned as polygons of [lam, phi] ground coordinates (central angle, azimuth from along-track x).
+  function mosaicPatches(r, etaMax, cams, nEdge) {
+    nEdge = nEdge || 40;
+    var out = [];
+    for (var c = 0; c < cams.length; c++) {
+      var cam = cams[c], M = cam.M, pts = [];
+      var corners = [[-cam.tx, -cam.ty], [cam.tx, -cam.ty], [cam.tx, cam.ty], [-cam.tx, cam.ty]];
+      for (var e = 0; e < 4; e++) {
+        var p0 = corners[e], p1 = corners[(e + 1) % 4];
+        for (var s = 0; s < nEdge; s++) {
+          var t = s / nEdge;
+          var u = p0[0] + (p1[0] - p0[0]) * t, v = p0[1] + (p1[1] - p0[1]) * t;
+          var nn = Math.sqrt(u * u + v * v + 1);
+          var cx = u / nn, cy = v / nn, cz = 1 / nn;
+          var x = M[0] * cx + M[1] * cy + M[2] * cz;
+          var y = M[3] * cx + M[4] * cy + M[5] * cz;
+          var z = M[6] * cx + M[7] * cy + M[8] * cz;
+          var eta = Math.acos(clamp(z, -1, 1));
+          var phi = Math.atan2(y, x);
+          pts.push([eta * Math.cos(phi), eta * Math.sin(phi)]);
+        }
+      }
+      var poly = clipToDisc(pts, etaMax);
+      if (!poly) continue;
+      var g = [];
+      for (var k = 0; k < poly.length; k++) {
+        var P = poly[k], et = Math.sqrt(P[0] * P[0] + P[1] * P[1]);
+        var q = offNadir(r, Math.min(et, etaMax));
+        g.push([q.lam, Math.atan2(P[1], P[0])]);
+      }
+      out.push({ i: cam.i, j: cam.j, poly: g });
+    }
+    return out;
+  }
+
+  function clipToDisc(pts, R0) {
+    var n = pts.length, inside = [], nin = 0, area = 0;
+    for (var i = 0; i < n; i++) {
+      var p = pts[i], q = pts[(i + 1) % n];
+      area += p[0] * q[1] - q[0] * p[1];
+      inside[i] = p[0] * p[0] + p[1] * p[1] <= R0 * R0;
+      if (inside[i]) nin++;
+    }
+    var dir = area >= 0 ? 1 : -1;
+    var circle = function () {
+      var c = []; for (var k = 0; k < 96; k++) { var a = k / 96 * 2 * Math.PI; c.push([R0 * Math.cos(a), R0 * Math.sin(a)]); } return c;
+    };
+    if (nin === n) return pts.slice();
+    if (nin === 0) return pointInPoly(0, 0, pts) ? circle() : null;
+    var start = 0; while (!inside[start]) start++;
+    var out = [], exitAng = null;
+    for (var s = 0; s < n; s++) {
+      var i0 = (start + s) % n, i1 = (i0 + 1) % n;
+      var a = pts[i0], b = pts[i1];
+      if (inside[i0]) out.push(a);
+      if (inside[i0] !== inside[i1]) {
+        var X = segCircle(a, b, R0);
+        var ang = Math.atan2(X[1], X[0]);
+        if (inside[i0]) { out.push(X); exitAng = ang; }
+        else {
+          if (exitAng !== null) {
+            var d = ang - exitAng;
+            if (dir > 0) { while (d <= 0) d += 2 * Math.PI; } else { while (d >= 0) d -= 2 * Math.PI; }
+            var m = Math.max(2, Math.ceil(Math.abs(d) / (3 * D2R)));
+            for (var k = 1; k < m; k++) { var aa = exitAng + d * k / m; out.push([R0 * Math.cos(aa), R0 * Math.sin(aa)]); }
+          }
+          out.push(X);
+        }
+      }
+    }
+    return out;
+  }
+  function segCircle(a, b, R0) {
+    // a,b straddle the circle; solve |a + t(b-a)| = R0
+    var dx = b[0] - a[0], dy = b[1] - a[1];
+    var A = dx * dx + dy * dy, B = 2 * (a[0] * dx + a[1] * dy), Cc = a[0] * a[0] + a[1] * a[1] - R0 * R0;
+    var disc = Math.max(0, B * B - 4 * A * Cc), sq = Math.sqrt(disc);
+    var t1 = (-B - sq) / (2 * A), t2 = (-B + sq) / (2 * A);
+    var t = (t1 >= 0 && t1 <= 1) ? t1 : t2;
+    t = clamp(t, 0, 1);
+    return [a[0] + dx * t, a[1] + dy * t];
+  }
+  function pointInPoly(x, y, pts) {
+    var c = false;
+    for (var i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+      var xi = pts[i][0], yi = pts[i][1], xj = pts[j][0], yj = pts[j][1];
+      if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) c = !c;
+    }
+    return c;
+  }
+
+  // ---------------------------------------------------------- flash physics
+  function eMin(decay, rho, Amm) {
+    var Eref = C.EREF[decay] || C.EREF['0.1'];
+    return Eref * Math.pow(rho / C.EREF_RANGE, 2) * Math.pow(C.EREF_AP / Amm, 2);
+  }
+  function craterFromEnergy(E) { return C.CRATER_D0 * Math.pow(E / C.CRATER_E0, C.CRATER_EXP); }
+
+  function locError(sigAng, rho, e, sigOrbKm) {
+    var cross = Math.sqrt(Math.pow(sigAng * rho, 2) + sigOrbKm * sigOrbKm);
+    var radial = Math.sqrt(Math.pow(sigAng * rho / Math.cos(e), 2) + sigOrbKm * sigOrbKm);
+    return { cross1: cross, radial1: radial, semi95: C.LOC_K95 * Math.max(cross, radial), crossSemi95: C.LOC_K95 * cross, radialSemi95: C.LOC_K95 * radial };
+  }
+
+  function headMass(Amm) {
+    if (Amm <= C.HEAD_MASS_AP) return { kg: C.HEAD_MASS, rough: false };
+    return { kg: C.HEAD_MASS * Math.pow(Amm / C.HEAD_MASS_AP, 2), rough: true };
+  }
+
+  // ---------------------------------------------------------- imager geometry
+  function reach(r, thetaDeg) {
+    var th = thetaDeg * D2R;
+    var s = (r / C.R) * Math.sin(th);
+    if (th <= 0) return { lam: 0, eta: 0, e: 0, horizon: false, rho: r - C.R };
+    var q = offNadir(r, th);
+    return { lam: q.lam, eta: q.eta, e: q.e, horizon: q.horizon || s >= 1, rho: q.rho };
+  }
+
+  // ---------------------------------------------------------- transfer
+  function hohmann(ra, rb) {
+    var a = (ra + rb) / 2;
+    var va = Math.sqrt(C.MU / ra), vb = Math.sqrt(C.MU / rb);
+    var vta = Math.sqrt(C.MU * (2 / ra - 1 / a)), vtb = Math.sqrt(C.MU * (2 / rb - 1 / a));
+    var dv1 = Math.abs(va - vta) * 1000, dv2 = Math.abs(vb - vtb) * 1000;
+    return { dv1: dv1, dv2: dv2, total: dv1 + dv2, tof: Math.PI * Math.sqrt(a * a * a / C.MU) };
+  }
+  function captureDv(r) {
+    return (Math.sqrt(C.VINF * C.VINF + 2 * C.MU / r) - Math.sqrt(C.MU / r)) * 1000;
+  }
+
+  // ---------------------------------------------------------- 4.5 access simulation
+  var NLAT = 90, NLON = 180, CELL = 2 * D2R;
+  function accessKey(p) {
+    return [p.h2, p.offNadir, p.sunMin, p.sunMax, p.months, p.beta0].join('|');
+  }
+  function computeAccess(p) {
+    var r = C.R + p.h2;
+    var ob = orbit(p.h2);
+    var Td = ob.T / 86400;
+    var rc = reach(r, p.offNadir);
+    var reachLam = rc.lam;
+    var days = p.months * C.SUN_YEAR_D / 12;
+    var nOrb = Math.ceil(days / Td);
+    var wM = 2 * Math.PI / C.SIDEREAL_D, wS = 2 * Math.PI / C.SUN_YEAR_D;
+    var obl = C.OBLIQ_DEG * D2R;
+    var smin = Math.sin(clamp(p.sunMin, -90, 90) * D2R), smax = Math.sin(clamp(p.sunMax, -90, 90) * D2R);
+    var emptyWindow = !(p.sunMax > p.sunMin);
+    var Om = (p.beta0 || 0) * D2R;   // inertial longitude of the ascending half-plane; Sun at inertial lon 0 at t=0
+    var first = new Float32Array(NLAT * NLON); first.fill(Infinity);
+    var latC = new Float64Array(NLAT), sinL = new Float64Array(NLAT), cosL = new Float64Array(NLAT);
+    for (var i = 0; i < NLAT; i++) { latC[i] = -Math.PI / 2 + (i + 0.5) * CELL; sinL[i] = Math.sin(latC[i]); cosL[i] = Math.cos(latC[i]); }
+    var lonC = new Float64Array(NLON);
+    for (var j = 0; j < NLON; j++) lonC[j] = -Math.PI + (j + 0.5) * CELL;
+    var TWO = 2 * Math.PI;
+    if (reachLam > 0 && !emptyWindow) {
+      for (var k = 0; k < nOrb; k++) {
+        for (var i2 = 0; i2 < NLAT; i2++) {
+          var phi = latC[i2];
+          var hw = cosL[i2] > 1e-9 ? Math.min(Math.PI, reachLam / cosL[i2]) : Math.PI;
+          for (var pass = 0; pass < 2; pass++) {
+            var u = pass === 0 ? phi : Math.PI - phi;
+            if (u < 0) u += TWO;
+            var t = (k + u / TWO) * Td;
+            if (t > days) continue;
+            var lonTr = (pass === 0 ? Om : Om + Math.PI) - wM * t;
+            var lonS = wS * t - wM * t;
+            var dec = obl * Math.sin(wS * t);
+            var sd = Math.sin(dec), cd = Math.cos(dec);
+            var a1 = sinL[i2] * sd, a2 = cosL[i2] * cd;
+            // quick reject: max possible sun elevation at this latitude
+            if (a1 + a2 < smin) continue;
+            var jlo, jhi;
+            if (hw >= Math.PI - 1e-12) { jlo = 0; jhi = NLON - 1; }
+            else {
+              var l0 = lonTr - hw, l1 = lonTr + hw;
+              jlo = Math.ceil((l0 + Math.PI) / CELL - 0.5);
+              jhi = Math.floor((l1 + Math.PI) / CELL - 0.5);
+            }
+            var base = i2 * NLON;
+            for (var jj = jlo; jj <= jhi; jj++) {
+              var jm = ((jj % NLON) + NLON) % NLON;
+              var idx = base + jm;
+              if (first[idx] !== Infinity) continue;
+              var se = a1 + a2 * Math.cos(lonC[jm] - lonS);
+              if (se >= smin && se <= smax) first[idx] = t;
+            }
+          }
+        }
+      }
+    }
+    // statistics
+    var wRow = new Float64Array(NLAT), wTot = 0;
+    for (var i3 = 0; i3 < NLAT; i3++) { wRow[i3] = Math.sin(latC[i3] + CELL / 2) - Math.sin(latC[i3] - CELL / 2); wTot += wRow[i3] * NLON; }
+    var rowFrac = new Float64Array(NLAT), frac = 0;
+    var NB = 120, hist = new Float64Array(NB);
+    for (var i4 = 0; i4 < NLAT; i4++) {
+      var cnt = 0;
+      for (var j4 = 0; j4 < NLON; j4++) {
+        var tt = first[i4 * NLON + j4];
+        if (tt !== Infinity) {
+          cnt++;
+          var b = Math.min(NB - 1, Math.floor(tt / days * NB));
+          hist[b] += wRow[i4] / wTot;
+        }
+      }
+      rowFrac[i4] = cnt / NLON;
+      frac += cnt * wRow[i4] / wTot;
+    }
+    var curveT = new Float64Array(NB + 1), curveF = new Float64Array(NB + 1);
+    var acc = 0;
+    for (var b2 = 0; b2 <= NB; b2++) { curveT[b2] = b2 / NB * days; curveF[b2] = acc; if (b2 < NB) acc += hist[b2]; }
+    curveF[NB] = frac;
+    var sym = new Float64Array(NLAT / 2), bandLat = new Float64Array(NLAT / 2);
+    for (var q = 0; q < NLAT / 2; q++) {
+      var iN = NLAT / 2 + q, iS = NLAT / 2 - 1 - q;
+      sym[q] = (rowFrac[iN] + rowFrac[iS]) / 2;
+      bandLat[q] = (q + 1) * 2;   // band upper edge, deg
+    }
+    var lat99 = 0, latAny = 0;
+    for (var q2 = 0; q2 < NLAT / 2; q2++) { if (sym[q2] >= 0.99) lat99 = bandLat[q2]; else break; }
+    for (var q3 = 0; q3 < NLAT / 2; q3++) if (sym[q3] > 0) latAny = bandLat[q3];
+    function tReach(fr) {
+      if (frac <= 0) return null;
+      var target = fr * frac;
+      for (var b3 = 0; b3 <= NB; b3++) if (curveF[b3] >= target - 1e-12) return curveT[b3];
+      return days;
+    }
+    return {
+      key: accessKey(p), nLat: NLAT, nLon: NLON, cellDeg: 2, first: first, days: days, nOrbits: nOrb,
+      fraction: frac, rowFrac: rowFrac, symFrac: sym, bandLat: bandLat,
+      lat99: lat99, latAny: latAny, t50: tReach(0.5), t90: tReach(0.9),
+      curveT: curveT, curveF: curveF, reachDeg: reachLam * R2D, emptyWindow: emptyWindow
+    };
+  }
+
+  // ---------------------------------------------------------- 4.6 pair yield
+  // Which of the three limits sets the crater size (ties -> camera-limited, see C.TIE_REL)
+  function limiterOf(Dconf, Dbefore, Df) {
+    var floor = Math.max(Dconf, Dbefore || 0);
+    if (Df > floor) return 'flash-limited';
+    if (Dbefore > Dconf * (1 + C.TIE_REL)) return 'archive-limited';
+    return 'camera-limited';
+  }
+  // v3 §K: probability that at least one unrelated confirmable crater (>= D) formed inside the
+  // 95 % flash error region (radius a) since the archive image was taken
+  function chanceLambda(D_m, a_km, age_yr, s) {
+    return C.SFD_ANCHOR / C.MOON_AREA_KM2 * Math.pow(D_m / 10, -s) * Math.PI * a_km * a_km * age_yr;
+  }
+  function chanceCraterProb(D_m, a_km, age_yr, s) { return 1 - Math.exp(-chanceLambda(D_m, a_km, age_yr, s)); }
+
+  // opts (v3): { s, age, sigAng, sigOrb } -> pairs ∝ Σ w (D_lim/10 m)^-s exp(-λ)
+  function yieldRaw(S, mask, Dconf, decay, Amm, Dbefore, opts) {
+    Dbefore = Dbefore || 0;
+    opts = opts || {};
+    var sl = opts.s === undefined ? C.SFD_EXP : opts.s;
+    var useChance = opts.sigAng !== undefined && opts.age > 0;
+    var lostW = 0;
+    var floor = Math.max(Dconf, Dbefore), archive = Dbefore > Dconf * (1 + C.TIE_REL);
+    var raw = 0, flashLimW = 0, archW = 0, covW = 0, minD = Infinity;
+    for (var k = 0; k < S.n; k++) {
+      if (!mask[k]) continue;
+      var Df = craterFromEnergy(eMin(decay, S.rho[k], Amm));
+      var D = Math.max(floor, Df);
+      if (D < minD) minD = D;
+      var f = Math.pow(D / 10, -sl);
+      if (useChance) {
+        var a = locError(opts.sigAng, S.rho[k], S.e[k], opts.sigOrb).semi95;
+        var keep = Math.exp(-chanceLambda(D, a, opts.age, sl));
+        f *= keep; lostW += S.w[k] * (1 - keep);
+      }
+      raw += S.w[k] * f;
+      covW += S.w[k];
+      if (Df > floor) flashLimW += S.w[k];
+      else if (archive) archW += S.w[k];
+    }
+    var fl = covW > 0 ? flashLimW / covW : 0, ar = covW > 0 ? archW / covW : 0;
+    return { raw: raw, flashLimitedShare: fl, archiveLimitedShare: ar, cameraLimitedShare: covW > 0 ? 1 - fl - ar : 0, minD: minD === Infinity ? null : minD, chanceLoss: covW > 0 ? lostW / covW : 0 };
+  }
+
+  // Imager signal-to-noise (proposal simulation report S8)
+  function imagerSnr(st, ifov, tExp, sunDeg) {
+    var L = st.refl * C.SNR_EBAND * Math.max(0, Math.sin(sunDeg * D2R)) / Math.PI;     // W m^-2 sr^-1
+    var Aap = Math.PI * Math.pow(st.ap2 / 2000, 2);                                    // m^2
+    var Ne = L * Aap * ifov * ifov * tExp * C.SNR_LAMBDA / (C.H_PLANCK * C.C_LIGHT) * st.tauQE;
+    var snr = Ne > 0 ? Ne / Math.sqrt(Ne + st.readNoise * st.readNoise) : 0;
+    return { sun: sunDeg, L: L, Ne: Ne, snr: snr };
+  }
+  function imagerMass(apMm) {
+    return C.IMAGER_MASS * Math.pow(apMm / C.IMAGER_AP_REF, C.IMAGER_MASS_EXP);
+  }
+
+  var K = 1;
+
+  // ---------------------------------------------------------- compute
+  function imagerIfov(st) { return st.pitch2 * 1e-6 / (st.f2 * 1e-3); }
+
+  // opts.fast: coarse cap grid (24 x 48), no "heads needed" search, no per-sample fields (optimiser)
+  function compute(state, access, opts) {
+    opts = opts || {};
+    var fast = !!opts.fast;
+    var st = Object.assign({}, BASELINE, state || {});
+    var out = { state: st };
+
+    // ---- monitor
+    var o1 = orbit(st.h1);
+    var g = monitorEdge(st.h1, st.emax);
+    var S = fast ? capSamples(st.h1, st.emax, 24, 48) : capSamples(st.h1, st.emax);
+    var fov = fovOf(st.f1);
+    var mos = resolveMosaic(S, fov, st.rows, st.cols, st.orient);
+    var ifov1 = C.PITCH_UM * 1e-3 / st.f1;   // rad
+    var cap = capFraction(g.lamMax);
+    var kd = kDark(g.lamMax);
+    var watched = cap * mos.coverage * kd;
+    var A = st.f1 / st.N1;
+    var sigAng = Math.sqrt(Math.pow(st.centroid * ifov1, 2) + Math.pow(st.att * 1e-6, 2));
+    var sigOrb = st.orbKnow / 1000;
+    var locN = locError(sigAng, st.h1, 0, sigOrb);
+    var locE = locError(sigAng, g.rhoEdge, g.emax, sigOrb);
+    var EminN = eMin(st.decay, st.h1, A), EminE = eMin(st.decay, g.rhoEdge, A);
+    var DfN = craterFromEnergy(EminN), DfE = craterFromEnergy(EminE);
+    var hm = headMass(A);
+    var nCam = st.rows * st.cols;
+    var need = fast ? undefined : camerasNeeded(st.h1, st.emax, st.f1);
+    var tau = C.TAU[st.decay] || 0.1;
+    var drift = o1.vg / (ifov1 * st.h1);      // px/s at nadir
+
+    // per-sample fields for the ground view
+    var locArr = fast ? null : new Float32Array(S.n), dArr = fast ? null : new Float32Array(S.n), gpxArr = fast ? null : new Float32Array(S.n);
+
+    out.mon = {
+      orbit: o1, r: g.r, etaMax: g.etaMax, lamMax: g.lamMax, emax: g.emax, rhoEdge: g.rhoEdge,
+      capFrac: cap, fovLong: fov.long, fovShort: fov.short, ifov: ifov1,
+      orient: mos.orient, orientAuto: mos.auto, coverage: mos.coverage, mask: mos.mask, cams: mos.cams,
+      kDark: kd, watched: watched, watchedEff: watched * st.avail, nCam: nCam, need: need,
+      sigAng: sigAng, locNadir: locN, locEdge: locE,
+      gpxNadir: ifov1 * st.h1, gpxEdgeCross: ifov1 * g.rhoEdge, gpxEdgeRadial: ifov1 * g.rhoEdge / Math.cos(g.emax),
+      aperture: A, EminNadir: EminN, EminEdge: EminE, DflashNadir: DfN, DflashEdge: DfE,
+      headMass: hm.kg, headMassRough: hm.rough, payloadMass: nCam * hm.kg,
+      samples: S, field: fast ? null : { loc: locArr, dlim: dArr, gpx: gpxArr },
+      drift: drift, tau: tau, flashSmear: drift * tau,
+      moonAngRadius: Math.asin(C.R / g.r)
+    };
+
+    // ---- imager
+    var o2 = orbit(st.h2);
+    var ifov2 = imagerIfov(st);
+    var gsd = ifov2 * st.h2 * 1000;          // m
+    var rc = reach(o2.r, st.offNadir);
+    var gsdOffCross = ifov2 * rc.rho * 1000;
+    var gsdOffRad = rc.horizon || Math.cos(rc.e) < 1e-6 ? null : gsdOffCross / Math.cos(rc.e);
+    var Dconf = st.kConf * gsd;
+    var Dbefore = st.kConf * st.archiveGsd;
+    var airy = 1.22 * C.LAMBDA_M * st.h2 * 1000 / (st.ap2 / 1000);   // m on ground
+    var frameW = st.nx2 * ifov2 * st.h2, frameH = st.ny2 * ifov2 * st.h2;  // km
+    var errDiam = 2 * locE.semi95;
+    var margin = Math.min(frameW, frameH) / errDiam;
+    var framesPerSite = margin >= 1 ? 1 : Math.ceil(errDiam * errDiam / (frameW * frameH));
+    var vg = o2.vg * 1000;   // m/s
+    var maxExp = st.smear * gsd / vg;     // s
+    var snrLo = imagerSnr(st, ifov2, maxExp, st.sunMin), snrHi = imagerSnr(st, ifov2, maxExp, st.sunMax);
+    var imgMass = imagerMass(st.ap2);
+    var shift = 2 * Math.PI * C.R * o2.T / (C.SIDEREAL_D * 86400);
+    out.img = {
+      orbit: o2, ifov: ifov2, gsd: gsd, gsdOffCross: gsdOffCross, gsdOffRadial: gsdOffRad,
+      reachLam: rc.lam, reachKm: rc.lam * C.R, reachHorizon: rc.horizon, reachE: rc.e, reachRho: rc.rho,
+      Dconf: Dconf, airy: airy, airyRatio: airy / gsd, diffLimited: airy > 1.5 * gsd,
+      frameW: frameW, frameH: frameH, errDiam: errDiam, margin: margin, framesPerSite: framesPerSite,
+      vg: vg, maxExp: maxExp, shiftKm: shift, scanner: !!(PRESETS[st.preset] && PRESETS[st.preset].scanner),
+      pxPerDconf: st.kConf, pxPer10m: 10 / gsd,
+      cratersPerYrAtDconf: C.SFD_ANCHOR * Math.pow(Dconf / 10, -st.slope),
+      per10mAt315: Math.pow(10 / 3.15, st.slope),
+      Dbefore: Dbefore, pxPerDbefore: Dbefore / gsd, archiveGsd: st.archiveGsd,
+      snrLo: snrLo, snrHi: snrHi, mass: imgMass, massRough: Math.abs(st.ap2 - C.IMAGER_AP_REF) > 1e-9
+    };
+
+    // per-sample fields
+    for (var k = 0; !fast && k < S.n; k++) {
+      var le = locError(sigAng, S.rho[k], S.e[k], sigOrb);
+      locArr[k] = le.semi95;
+      var Df = craterFromEnergy(eMin(st.decay, S.rho[k], A));
+      dArr[k] = Math.max(Dconf, Dbefore, Df);
+      gpxArr[k] = ifov1 * S.rho[k] / Math.cos(S.e[k]);
+    }
+
+    // ---- transfer & mass
+    var hoh = hohmann(o1.r, o2.r);
+    var cap1 = captureDv(o1.r);
+    var maint = C.MAINT_PER_YR * st.watchYears;
+    var dvTot = hoh.total + cap1 + maint + C.MARGIN_DV;
+    var dry = C.DRY_MASS + nCam * hm.kg - C.BASE_NCAM * C.HEAD_MASS + (imgMass - C.IMAGER_MASS);
+    var mass = dry * Math.exp(dvTot / (C.G0 * st.isp));
+    out.sys = { hoh1: hoh.dv1, hoh2: hoh.dv2, hoh: hoh.total, tofMin: hoh.tof / 60, capture: cap1, maint: maint, margin: C.MARGIN_DV, dvTotal: dvTot, dry: dry, launchMass: mass, massRough: hm.rough || out.img.massRough, imagerMass: imgMass };
+
+    // ---- access + pairs
+    if (!access) access = computeAccess(st);
+    out.access = access;
+    var yopt = { s: st.slope, age: st.archiveAge, sigAng: sigAng, sigOrb: sigOrb };
+    var yr = yieldRaw(S, mos.mask, Dconf, st.decay, A, Dbefore, yopt);
+    var pairs = K * yr.raw * cap * kd * st.avail * st.watchYears * access.fraction;
+    var limN = Math.max(Dconf, Dbefore, DfN), limE = Math.max(Dconf, Dbefore, DfE);
+    out.pairs = {
+      value: pairs, raw: yr.raw, rel: pairs / C.PAIRS_BASELINE, accessFactor: access.fraction,
+      limNadir: limN, limEdge: limE,
+      limiterNadir: limiterOf(Dconf, Dbefore, DfN),
+      limiterEdge: limiterOf(Dconf, Dbefore, DfE),
+      flashLimitedShare: yr.flashLimitedShare, archiveLimitedShare: yr.archiveLimitedShare, cameraLimitedShare: yr.cameraLimitedShare,
+      minLimD: yr.minD, extrapolated: yr.minD !== null && yr.minD < C.EXTRAP_D,
+      chanceNadir: chanceCraterProb(limN, locN.semi95, st.archiveAge, st.slope),
+      chanceEdge: chanceCraterProb(limE, locE.semi95, st.archiveAge, st.slope),
+      chanceLoss: yr.chanceLoss, slope: st.slope
+    };
+    out.constraints = constraints(st, out);
+    out.allOk = out.constraints.every(function (c) { return !c.enabled || c.ok; });
+    return out;
+  }
+
+  // ---------------------------------------------------------- v2 §E constraints
+  var CONSTRAINTS = [
+    { id: 'loc', label: 'Edge 95 % localization error', sense: '≤', unit: 'km', basis: 'proposal D04', get: function (r) { return r.mon.locEdge.semi95; } },
+    { id: 'frame', label: 'Flash error region fits one imager frame (margin)', sense: '≥', unit: '×', basis: 'one image per site', get: function (r) { return r.img.margin; } },
+    { id: 'snr', label: 'Imager SNR at the lowest Sun elevation', sense: '≥', unit: '', basis: 'assumed; proposal estimate is ≈15–20 and states no requirement', get: function (r) { return r.img.snrLo.snr; } },
+    { id: 'diff', label: 'Airy radius', sense: '≤', unit: 'GSD', basis: 'optics must support the GSD (baseline 1.32)', get: function (r) { return r.img.airyRatio; } },
+    { id: 'smear', label: 'Flash smear over its decay', sense: '≤', unit: 'px', basis: 'flash must stay inside one trigger group pixel; detector model only checked at 0.41 px/s', get: function (r) { return r.mon.flashSmear; } },
+    { id: 'heads', label: 'Camera heads', sense: '≤', unit: '', basis: 'largest mosaic studied in the proposal', get: function (r) { return r.mon.nCam; } },
+    { id: 'mass', label: 'Launch mass', sense: '≤', unit: 'kg', basis: 'rideshare class (Lunar Trailblazer ≈ 200 kg); assumed', get: function (r) { return r.sys.launchMass; } },
+    { id: 'h2min', label: 'Imager altitude', sense: '≥', unit: 'km', basis: 'lowest altitude analysed in the proposal (fallback case)', get: function (r) { return r.state.h2; } },
+    { id: 'chance', label: 'Chance of an unrelated crater at the edge', sense: '≤', unit: '%', basis: 'assumed; proposal baseline 2.1 %', get: function (r) { return r.pairs.chanceEdge * 100; } }
+  ];
+  function constraints(st, r) {
+    return CONSTRAINTS.map(function (c) {
+      var v = c.get(r), lim = st['lim_' + c.id], on = st['on_' + c.id] !== false;
+      var ok = c.sense === '≤' ? v <= lim + 1e-12 : v >= lim - 1e-12;
+      var margin = lim !== 0 ? (c.sense === '≤' ? (lim - v) / Math.abs(lim) : (v - lim) / Math.abs(lim)) : (c.sense === '≤' ? -v : v);
+      return { id: c.id, label: c.label, value: v, limit: lim, unit: c.unit, sense: c.sense, ok: ok, margin: margin, basis: c.basis, enabled: on };
+    });
+  }
+  // summed normalised violation of the enabled constraints (0 = feasible)
+  function violation(cs) {
+    var s = 0;
+    cs.forEach(function (c) { if (c.enabled && !c.ok) s += Math.min(10, -c.margin); });
+    return s;
+  }
+
+  // ---------------------------------------------------------- trade sweeps
+  function sweepMonitor(state, n) {
+    var st = Object.assign({}, BASELINE, state || {});
+    n = n || 40;
+    var fov = fovOf(st.f1), res = [];
+    var sigAng = Math.sqrt(Math.pow(st.centroid * C.PITCH_UM * 1e-3 / st.f1, 2) + Math.pow(st.att * 1e-6, 2));
+    for (var i = 0; i <= n; i++) {
+      var h = 500 + (10000 - 500) * i / n;
+      var g = monitorEdge(h, st.emax);
+      var S = capSamples(h, st.emax, 24, 48);
+      var mos = resolveMosaic(S, fov, st.rows, st.cols, st.orient);
+      var watched = capFraction(g.lamMax) * mos.coverage * kDark(g.lamMax);
+      var le = locError(sigAng, g.rhoEdge, g.emax, st.orbKnow / 1000);
+      res.push({ h: h, watched: watched, coverage: mos.coverage, locEdge: le.semi95, capDark: capFraction(g.lamMax) * kDark(g.lamMax) });
+    }
+    return res;
+  }
+  function needAt(state, hs) {
+    var st = Object.assign({}, BASELINE, state || {});
+    return hs.map(function (h) { return { h: h, need: camerasNeeded(h, st.emax, st.f1, 0.95, 24, 48) }; });
+  }
+  function sweepImager(state, accessFraction, n, monitorResult) {
+    var st = Object.assign({}, BASELINE, state || {});
+    n = n || 40;
+    var m = monitorResult || compute(st, { fraction: accessFraction }).mon;
+    var S = m.samples, A = st.f1 / st.N1;
+    var ifov2 = imagerIfov(st), res = [];
+    for (var i = 0; i <= n; i++) {
+      var h = 30 + (1000 - 30) * i / n;
+      var Dc = st.kConf * ifov2 * h * 1000;
+      var Db = st.kConf * st.archiveGsd;
+      var yr = yieldRaw(S, m.mask, Dc, st.decay, A, Db, { s: st.slope, age: st.archiveAge, sigAng: m.sigAng, sigOrb: st.orbKnow / 1000 });
+      var pairs = K * yr.raw * m.capFrac * m.kDark * st.avail * st.watchYears * accessFraction;
+      res.push({ h: h, Dconf: Dc, Dbefore: Db, pairs: pairs });
+    }
+    return res;
+  }
+
+  // calibrate K once from BASELINE
+  (function calibrate() {
+    var r0 = compute(BASELINE);
+    var denom = r0.pairs.raw * r0.mon.capFrac * r0.mon.kDark * BASELINE.avail * BASELINE.watchYears * r0.access.fraction;
+    K = C.PAIRS_BASELINE / denom;
+  })();
+
+  return {
+    C: C, BASELINE: BASELINE, PRESETS: PRESETS, D2R: D2R, R2D: R2D,
+    get K() { return K; },
+    orbit: orbit, offNadir: offNadir, fromCentral: fromCentral, monitorEdge: monitorEdge,
+    capFraction: capFraction, fovOf: fovOf, kDark: kDark, capSamples: capSamples,
+    mosaicCameras: mosaicCameras, mosaicCoverage: mosaicCoverage, resolveMosaic: resolveMosaic,
+    camerasNeeded: camerasNeeded, mosaicPatches: mosaicPatches,
+    eMin: eMin, craterFromEnergy: craterFromEnergy, locError: locError, headMass: headMass,
+    reach: reach, hohmann: hohmann, captureDv: captureDv,
+    computeAccess: computeAccess, accessKey: accessKey, yieldRaw: yieldRaw,
+    limiterOf: limiterOf, chanceCraterProb: chanceCraterProb, chanceLambda: chanceLambda, imagerSnr: imagerSnr, imagerMass: imagerMass,
+    CONSTRAINTS: CONSTRAINTS, constraints: constraints, violation: violation,
+    compute: compute, sweepMonitor: sweepMonitor, sweepImager: sweepImager, needAt: needAt,
+    isFiniteNumber: fin
+  };
+});
+
+</script>
+<script>
+/* Orbit Trade Explorer — optimiser (v2 addendum §H). Pure, deterministic, node-testable.
+ * UMD: window.OTEOpt in the browser (needs window.OTE), require('./optimize.js') in node.
+ *
+ * createOptimizer(state, locks, opts) -> { step(budgetMs) -> progress, cancel(), result() }
+ * Maximises indicative pairs subject to every ENABLED constraint of model.constraints().
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));
+  else root.OTEOpt = factory(root.OTE);
+})(typeof self !== 'undefined' ? self : this, function (M) {
+  'use strict';
+
+  // Every range slider of the page (the UI takes min/max/step/log from here, so both agree).
+  var SPECS = [
+    { k: 'h1', min: 500, max: 10000, step: 50 },
+    { k: 'emax', min: 40, max: 80, step: 1 },
+    { k: 'f1', min: 6, max: 50, step: 0.5 },
+    { k: 'N1', min: 0.95, max: 4, step: 0.05 },
+    { k: 'cols', min: 1, max: 5, step: 1 },
+    { k: 'rows', min: 1, max: 5, step: 1 },
+    { k: 'watchYears', min: 0.5, max: 5, step: 0.1 },
+    { k: 'avail', min: 0.3, max: 1, step: 0.01 },
+    { k: 'centroid', min: 0.02, max: 1, log: true },
+    { k: 'att', min: 5, max: 500, log: true },
+    { k: 'orbKnow', min: 10, max: 1000, log: true },
+    { k: 'h2', min: 30, max: 1000, step: 5 },
+    { k: 'offNadir', min: 0, max: 45, step: 0.5 },
+    { k: 'beta0', min: 0, max: 180, step: 1 },
+    { k: 'f2', min: 200, max: 3000, step: 1 },
+    { k: 'pitch2', min: 2, max: 15, step: 0.1 },
+    { k: 'ap2', min: 50, max: 500, step: 1 },
+    { k: 'nx2', min: 1000, max: 12000, step: 1 },
+    { k: 'ny2', min: 1000, max: 12000, step: 1 },
+    { k: 'smear', min: 0.1, max: 2, step: 0.05 },
+    { k: 'kConf', min: 2, max: 6, step: 0.1 },
+    { k: 'archiveGsd', min: 0.4, max: 2.0, step: 0.05 },
+    { k: 'slope', min: 2.2, max: 4.8, step: 0.05 },
+    { k: 'archiveAge', min: 2, max: 35, step: 1 },
+    { k: 'sunMin', min: 2, max: 88, step: 1 },
+    { k: 'sunMax', min: 2, max: 88, step: 1 },
+    { k: 'months', min: 1, max: 12, step: 0.5 },
+    { k: 'refl', min: 0.05, max: 0.25, step: 0.01 },
+    { k: 'tauQE', min: 0.1, max: 0.8, step: 0.01 },
+    { k: 'readNoise', min: 0, max: 30, step: 1 }
+  ];
+  var BYKEY = {}; SPECS.forEach(function (s) { BYKEY[s.k] = s; });
+  var DEFAULT_FREE = ['h1', 'f1', 'N1', 'cols', 'rows', 'h2'];
+  var OPTIC_KEYS = ['f2', 'pitch2', 'ap2', 'nx2', 'ny2'];
+
+  function defaultLocks() {
+    var L = {}; SPECS.forEach(function (s) { L[s.k] = DEFAULT_FREE.indexOf(s.k) < 0; }); return L;
+  }
+  function allLocks(v) { var L = {}; SPECS.forEach(function (s) { L[s.k] = v; }); return L; }
+
+  // ------------------------------------------------------------ slider value mapping
+  function decimals(x) { var s = String(x); var i = s.indexOf('.'); return i < 0 ? 0 : s.length - i - 1; }
+  function snapLog(v) { var p = Math.pow(10, Math.floor(Math.log10(v)) - 1); return +(Math.round(v / p) * p).toPrecision(6); }
+  function nSteps(s) { return s.log ? 1000 : Math.round((s.max - s.min) / s.step); }
+  function toValue(s, u) {
+    u = Math.max(0, Math.min(1, u));
+    if (s.log) return snapLog(s.min * Math.pow(s.max / s.min, Math.round(u * 1000) / 1000));
+    var n = nSteps(s), i = Math.round(u * n);
+    return +(s.min + i * s.step).toFixed(decimals(s.step));
+  }
+  function toU(s, v) {
+    if (s.log) return Math.log(v / s.min) / Math.log(s.max / s.min);
+    return (v - s.min) / (s.max - s.min);
+  }
+
+  // ------------------------------------------------------------ deterministic quasi-random numbers
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127];
+  function radicalInverse(i, b) { var f = 1, r = 0; while (i > 0) { f /= b; r += f * (i % b); i = Math.floor(i / b); } return r; }
+
+  // Access simulation memo, shared by all runs: only the area fraction is needed by the objective.
+  var ACCESS_MEMO = {}, accessMemoSize = 0;
+  function accessFraction(st) {
+    var k = M.accessKey(st);
+    if (!ACCESS_MEMO[k]) {
+      if (accessMemoSize > 20000) { ACCESS_MEMO = {}; accessMemoSize = 0; }
+      ACCESS_MEMO[k] = { key: k, fraction: M.computeAccess(st).fraction };
+      accessMemoSize++;
+    }
+    return ACCESS_MEMO[k];
+  }
+
+  // ------------------------------------------------------------ optimiser
+  function createOptimizer(state, locks, opts) {
+    opts = opts || {};
+    var seed = opts.seed === undefined ? 20261113 : opts.seed;
+    var hardCapMs = opts.hardCapMs || 60000;
+    var base = Object.assign({}, M.BASELINE, state || {});
+    base.orient = 'auto';
+    locks = locks || defaultLocks();
+    var free = SPECS.filter(function (s) { return locks[s.k] === false; });
+    var D = free.length;
+    var startU = free.map(function (s) { return Math.max(0, Math.min(1, toU(s, base[s.k]))); });
+
+    var evalCache = {}, evals = 0, elapsed = 0, cancelled = false, truncated = false;
+    var best = null, startPt = null, finalRes = null, startRes = null, done = false, phase = 'start', progressFrac = 0;
+
+    function stateOf(u) {
+      var st = Object.assign({}, base);
+      for (var d = 0; d < D; d++) st[free[d].k] = toValue(free[d], u[d]);
+      if (free.some(function (s) { return OPTIC_KEYS.indexOf(s.k) >= 0 && st[s.k] !== (state || {})[s.k]; })) st.preset = 'custom';
+      return st;
+    }
+    function keyOf(u) { return u.map(function (x, d) { return toValue(free[d], x); }).join('|'); }
+    // Pairs are linear in the access fraction, so each point is first evaluated with access = 1 (an upper
+    // bound on pairs; constraints do not depend on access). The access simulation is only run for feasible
+    // points whose upper bound could still beat `thr` (the caller's incumbent); others are marked pruned.
+    function evaluate(u, thr) {
+      var su = u.map(function (x, d) { return toU(free[d], toValue(free[d], x)); });
+      var key = keyOf(su);
+      var p = evalCache[key];
+      if (!p) {
+        var st = stateOf(su);
+        var r = M.compute(st, { key: 'upper-bound', fraction: 1 }, { fast: true });
+        var viol = M.violation(r.constraints);
+        var dist = 0; for (var d = 0; d < D; d++) dist += Math.pow(su[d] - startU[d], 2);
+        p = { u: su, key: key, state: st, upper: r.pairs.value, pairs: r.pairs.value, mass: r.sys.launchMass, viol: viol, feasible: viol === 0, dist: Math.sqrt(dist), exact: false, pruned: false };
+        evals++;
+        evalCache[key] = p;
+      }
+      if (p.feasible && !p.exact) {
+        if (thr !== undefined && thr !== null && p.upper < thr * (1 - 0.005)) { p.pruned = true; p.pairs = -1; }
+        else { p.pairs = p.upper * accessFraction(p.state).fraction; p.exact = true; p.pruned = false; }
+      }
+      if (!best || better(p, best)) best = p;
+      return p;
+    }
+    function thrOf(inc) { return inc && inc.feasible && inc.exact ? inc.pairs : null; }
+    function better(a, b) {
+      if (a.feasible !== b.feasible) return a.feasible;
+      if (!a.feasible) {
+        if (Math.abs(a.viol - b.viol) > 1e-9) return a.viol < b.viol;
+        return a.pairs > b.pairs;
+      }
+      var m = Math.max(a.pairs, b.pairs, 1e-12);
+      if (Math.abs(a.pairs - b.pairs) > 0.005 * m) return a.pairs > b.pairs;
+      if (Math.abs(a.mass - b.mass) > 0.01) return a.mass < b.mass;
+      return a.dist < b.dist - 1e-12;
+    }
+    // relative gain used for the stopping rule
+    function gain(a, b) {
+      if (a.feasible !== b.feasible) return a.feasible ? 1 : 0;
+      if (!a.feasible) return b.viol > 0 ? (b.viol - a.viol) / b.viol : 0;
+      return b.pairs > 0 ? (a.pairs - b.pairs) / b.pairs : (a.pairs > 0 ? 1 : 0);
+    }
+    function candidates(d, cur, span) {
+      var s = free[d], n = nSteps(s), out = [], i;
+      if (!s.log && n <= 15) { for (i = 0; i <= n; i++) out.push(i / n); return out; }
+      var lo = Math.max(0, cur - span / 2), hi = Math.min(1, cur + span / 2);
+      if (span >= 1) { lo = 0; hi = 1; }
+      for (i = 0; i <= 10; i++) out.push(lo + (hi - lo) * i / 10);
+      return out;
+    }
+    function stepSpacing(d) { var s = free[d]; return s.log ? 1 / 1000 : 1 / nSteps(s); }
+
+    function* search() {
+      if (D === 0) return;
+      startPt = evaluate(startU.slice()); yield;
+      // 1. quasi-random exploration (Halton with a seeded Cranley-Patterson shift)
+      var rnd = mulberry32(seed), shift = free.map(function () { return rnd(); });
+      var N0 = Math.min(600, Math.max(300, 100 * D));
+      if (D === 1) N0 = Math.min(N0, nSteps(free[0]) + 1);
+      var pts = [startPt];
+      for (var i = 1; i <= N0; i++) {
+        var u = free.map(function (s, d) { return (radicalInverse(i, PRIMES[d % PRIMES.length]) + shift[d]) % 1; });
+        pts.push(evaluate(u, thrOf(best)));
+        progressFrac = 0.4 * i / N0; phase = 'sampling';
+        yield;
+      }
+      // 2. coordinate search from the best ~6 distinct points
+      var uniq = {}, starts = [], nStarts = D <= 8 ? 6 : 3;
+      pts.slice().sort(function (a, b) { return better(a, b) ? -1 : better(b, a) ? 1 : 0; }).forEach(function (p) {
+        if (!uniq[p.key] && !p.pruned && starts.length < nStarts) { uniq[p.key] = 1; starts.push(p); }
+      });
+      for (var si = 0; si < starts.length; si++) {
+        phase = 'local search ' + (si + 1) + '/' + starts.length;
+        var inc = starts[si];
+        var span = 1;
+        for (var level = 0; level < 12; level++) {
+          for (var pass = 0; pass < (level === 0 ? 8 : 3); pass++) {
+            var before = inc;
+            for (var d = 0; d < D; d++) {
+              var cs = candidates(d, inc.u[d], span);
+              for (var c = 0; c < cs.length; c++) {
+                var uu = inc.u.slice(); uu[d] = cs[c];
+                var q = evaluate(uu, thrOf(inc));
+                if (better(q, inc)) inc = q;
+              }
+              yield;
+            }
+            if (inc === before || gain(inc, before) < 0.002) break;
+          }
+          // refine around the incumbent with halved spans until the grid reaches the slider step
+          span /= 2;
+          var finest = true;
+          for (var d2 = 0; d2 < D; d2++) if (span / 10 > stepSpacing(d2)) finest = false;
+          if (level >= 2 && finest) break;
+        }
+        progressFrac = 0.4 + 0.55 * (si + 1) / starts.length;
+      }
+    }
+    var gen = search();
+
+    function finish() {
+      if (D === 0) { done = true; return; }
+      var w = best;
+      var acc = M.computeAccess(w.state);
+      finalRes = M.compute(w.state, acc);
+      var s0 = Object.assign({}, M.BASELINE, state || {});
+      startRes = M.compute(s0, M.computeAccess(s0));
+      done = true; phase = 'done'; progressFrac = 1;
+    }
+
+    function progress() {
+      return {
+        done: done, evals: evals, elapsedMs: elapsed, phase: phase, fraction: progressFrac, nothing: D === 0,
+        best: best ? { pairs: best.pairs, feasible: best.feasible, mass: best.mass } : null, truncated: truncated, cancelled: cancelled
+      };
+    }
+
+    return {
+      free: free.map(function (s) { return s.k; }),
+      step: function (budgetMs) {
+        if (done) return progress();
+        if (D === 0) { done = true; return progress(); }
+        var t0 = Date.now(), budget = budgetMs === undefined ? 1e9 : budgetMs, genEnded = false;
+        while (Date.now() - t0 < budget) {
+          if (cancelled || elapsed + (Date.now() - t0) > hardCapMs) { truncated = !cancelled; break; }
+          if (gen.next().done) { genEnded = true; break; }
+        }
+        elapsed += Date.now() - t0;
+        if (genEnded || cancelled || truncated) finish();
+        return progress();
+      },
+      cancel: function () { cancelled = true; },
+      result: function () {
+        if (D === 0) return { nothing: true, message: 'nothing to optimise' };
+        if (!done) return null;
+        var st = best.state, changed = [];
+        var orig = Object.assign({}, M.BASELINE, state || {});
+        free.forEach(function (s) { if (orig[s.k] !== st[s.k]) changed.push({ k: s.k, from: orig[s.k], to: st[s.k] }); });
+        return {
+          nothing: false, state: st, changed: changed, feasible: finalRes.allOk, result: finalRes,
+          pairs: finalRes.pairs.value, startPairs: startRes.pairs.value, startFeasible: startRes.allOk, startResult: startRes,
+          launchMass: finalRes.sys.launchMass, constraints: finalRes.constraints,
+          binding: finalRes.constraints.filter(function (c) { return c.enabled && c.ok && c.margin < 0.02; }).map(function (c) { return c.id; }),
+          evals: evals, elapsedMs: elapsed, truncated: truncated, cancelled: cancelled, free: free.map(function (s) { return s.k; })
+        };
+      }
+    };
+  }
+
+  return { SPECS: SPECS, BYKEY: BYKEY, DEFAULT_FREE: DEFAULT_FREE, defaultLocks: defaultLocks, allLocks: allLocks, toValue: toValue, toU: toU, createOptimizer: createOptimizer };
+});
+
+</script>
+<script>
+/* Orbit Trade Explorer — canvas-2D orthographic 3D view (no libraries).
+ * World frame (inertial): z = lunar spin axis (north), both polar orbits lie in the x–z plane.
+ * Sun direction lies in the equatorial plane at angle beta0 from the orbit plane.
+ */
+(function (root) {
+  'use strict';
+  var D2R = Math.PI / 180;
+  var AMBER = '#f0a53a', AMBER2 = '#ffc46b', CYAN = '#38c6d6', CYAN2 = '#7fe3ee';
+
+  // ---------------------------------------------------------------- albedo texture
+  // Approximate positions of the main maria (lat, lon, radius deg) — cosmetic only.
+  var MARIA = [
+    [33, -16, 15, 1], [28, 17, 9, 1], [8, 31, 10, 1], [-8, 51, 8, 0.9], [17, 59, 6, 1], [-21, -17, 9, 0.8],
+    [18, -57, 22, 0.85], [-24, -39, 5, 0.9], [56, 0, 6, 0.7], [-15, 35, 4, 0.8], [-10, -23, 5, 0.6],
+    [7, -31, 6, 0.6], [13, 4, 3, 0.7], [27, 148, 3, 0.7], [-53, -169, 22, 0.35], [-20, -95, 4, 0.8], [-36, 163, 3, 0.6]
+  ];
+  function buildAlbedo(W, H) {
+    var tex = new Float32Array(W * H);
+    var centers = MARIA.map(function (m) {
+      var la = m[0] * D2R, lo = m[1] * D2R;
+      return [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la), m[2] * D2R, m[3]];
+    });
+    for (var y = 0; y < H; y++) {
+      var lat = Math.PI / 2 - (y + 0.5) / H * Math.PI;
+      var cl = Math.cos(lat), sl = Math.sin(lat);
+      for (var x = 0; x < W; x++) {
+        var lon = -Math.PI + (x + 0.5) / W * 2 * Math.PI;
+        var px = cl * Math.cos(lon), py = cl * Math.sin(lon), pz = sl;
+        var dark = 0;
+        for (var k = 0; k < centers.length; k++) {
+          var c = centers[k];
+          var d = Math.acos(Math.max(-1, Math.min(1, px * c[0] + py * c[1] + pz * c[2])));
+          var q = d / c[3];
+          dark += c[4] * Math.exp(-q * q * q * q * 0.7);
+        }
+        var n = 0.035 * Math.sin(lon * 7 + Math.sin(lat * 5) * 2) * Math.sin(lat * 9 + lon * 3) +
+                0.025 * Math.sin(lon * 23 + lat * 11) * Math.sin(lat * 19 - lon * 5) +
+                0.015 * Math.sin(lon * 53 + lat * 41);
+        tex[y * W + x] = Math.max(0.45, Math.min(1.08, 1.0 - 0.36 * Math.min(1, dark) + n));
+      }
+    }
+    return { W: W, H: H, a: tex };
+  }
+
+  function View3D(canvas, opts) {
+    this.cv = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.opts = opts || {};
+    this.R = 1737.4;
+    this.defaults = { yaw: 132 * D2R, pitch: 20 * D2R, zoom: 1 };
+    this.yaw = this.defaults.yaw; this.pitch = this.defaults.pitch; this.zoom = this.defaults.zoom;
+    this.t = 0; this.playing = false; this.speed = 600; this.lastTs = null;
+    this.geo = null;
+    this.tex = buildAlbedo(360, 180);
+    this.off = document.createElement('canvas');
+    this.offKey = '';
+    this.w = 300; this.h = 200; this.dpr = 1;
+    this.pending = false;
+    this.onTime = null;
+    var self = this;
+    if (typeof ResizeObserver !== 'undefined') {
+      this.ro = new ResizeObserver(function () { self.resize(); });
+      this.ro.observe(canvas.parentElement);
+    }
+    window.addEventListener('resize', function () { self.resize(); });
+    this._bindInput();
+    this.resize();
+  }
+
+  View3D.prototype._bindInput = function () {
+    var self = this, cv = this.cv, drag = null;
+    cv.addEventListener('pointerdown', function (e) {
+      drag = { x: e.clientX, y: e.clientY, yaw: self.yaw, pitch: self.pitch };
+      try { cv.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      cv.classList.add('drag');
+    });
+    cv.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      self.yaw = drag.yaw - (e.clientX - drag.x) * 0.008;
+      self.pitch = Math.max(-88 * D2R, Math.min(88 * D2R, drag.pitch + (e.clientY - drag.y) * 0.008));
+      self.interacting = true;
+      self.request();
+    });
+    var end = function () { if (drag) { drag = null; cv.classList.remove('drag'); self.interacting = false; self.request(); } };
+    cv.addEventListener('pointerup', end);
+    cv.addEventListener('pointercancel', end);
+    cv.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      self.zoom = Math.max(0.35, Math.min(30, self.zoom * Math.exp(-e.deltaY * 0.0015)));
+      self.request();
+    }, { passive: false });
+    cv.addEventListener('dblclick', function () { self.resetView(); });
+  };
+
+  View3D.prototype.resetView = function () {
+    this.yaw = this.defaults.yaw; this.pitch = this.defaults.pitch; this.zoom = this.defaults.zoom;
+    this.request();
+  };
+
+  View3D.prototype.resize = function () {
+    var p = this.cv.parentElement;
+    var w = Math.max(50, p.clientWidth), h = Math.max(50, p.clientHeight);
+    var dpr = Math.min(3, window.devicePixelRatio || 1);
+    if (w === this.w && h === this.h && dpr === this.dpr && this.cv.width) { return; }
+    this.w = w; this.h = h; this.dpr = dpr;
+    this.cv.width = Math.round(w * dpr); this.cv.height = Math.round(h * dpr);
+    this.offKey = '';
+    this.draw();
+  };
+
+  View3D.prototype.setGeometry = function (g) { this.geo = g; this.request(); };
+
+  View3D.prototype.setPlaying = function (on) {
+    this.playing = on; this.lastTs = null;
+    if (on) this.request();
+  };
+
+  View3D.prototype.request = function () {
+    if (this.pending) return;
+    this.pending = true;
+    var self = this;
+    requestAnimationFrame(function (ts) {
+      self.pending = false;
+      if (self.playing) {
+        if (self.lastTs !== null) self.t += Math.min(0.1, (ts - self.lastTs) / 1000) * self.speed;
+        self.lastTs = ts;
+      }
+      self.draw();
+      if (self.playing) self.request();
+    });
+  };
+
+  // ---------------------------------------------------------------- projection
+  View3D.prototype._basis = function () {
+    var cy = Math.cos(this.yaw), sy = Math.sin(this.yaw), cp = Math.cos(this.pitch), sp = Math.sin(this.pitch);
+    var v = [cp * cy, cp * sy, sp];
+    var r = [-sy, cy, 0];
+    var u = [v[1] * r[2] - v[2] * r[1], v[2] * r[0] - v[0] * r[2], v[0] * r[1] - v[1] * r[0]];
+    this.bv = v; this.br = r; this.bu = u;
+    var rmax = this.geo ? Math.max(this.geo.r1, this.geo.r2) : 4737;
+    this.scale = this.zoom * 0.43 * Math.min(this.w, this.h * 1.08) / rmax;
+    this.cx = this.w / 2; this.cy = this.h / 2 + 6;
+  };
+  View3D.prototype.P = function (p) {
+    var X = p[0] * this.br[0] + p[1] * this.br[1] + p[2] * this.br[2];
+    var Y = p[0] * this.bu[0] + p[1] * this.bu[1] + p[2] * this.bu[2];
+    var Z = p[0] * this.bv[0] + p[1] * this.bv[1] + p[2] * this.bv[2];
+    var hidden = Z < 0 && X * X + Y * Y < this.R * this.R * 0.9999;
+    return { x: this.cx + X * this.scale, y: this.cy - Y * this.scale, X: X, Y: Y, Z: Z, hidden: hidden };
+  };
+  // surface point: hidden ones pushed to the limb (for filled patches)
+  View3D.prototype.PS = function (p) {
+    var q = this.P(p);
+    if (q.Z < 0) {
+      var d = Math.sqrt(q.X * q.X + q.Y * q.Y) || 1;
+      q.x = this.cx + q.X / d * this.R * this.scale; q.y = this.cy - q.Y / d * this.R * this.scale;
+      q.back = true;
+    }
+    return q;
+  };
+
+  View3D.prototype.sunDir = function () {
+    var b = (this.geo ? this.geo.beta0 : 0) * D2R;
+    return [Math.cos(b), -Math.sin(b), 0];
+  };
+
+  // ---------------------------------------------------------------- sphere
+  View3D.prototype._renderSphere = function () {
+    var dpr = this.dpr, W = Math.round(this.w * dpr), H = Math.round(this.h * dpr);
+    var theta = this.moonRot;
+    var low = this.interacting && this.zoom > 3;
+    var key = [W, H, this.yaw.toFixed(4), this.pitch.toFixed(4), this.zoom.toFixed(4), (theta / D2R).toFixed(1), this.sunDir().join(','), this.scale.toFixed(5), low].join('|');
+    if (key === this.offKey) return;
+    this.offKey = key;
+    var off = this.off;
+    if (off.width !== W || off.height !== H) { off.width = W; off.height = H; }
+    var octx = off.getContext('2d');
+    octx.clearRect(0, 0, W, H);
+    var Rp = this.R * this.scale * dpr, cx = this.cx * dpr, cy = this.cy * dpr;
+    var x0 = Math.max(0, Math.floor(cx - Rp - 1)), x1 = Math.min(W, Math.ceil(cx + Rp + 1));
+    var y0 = Math.max(0, Math.floor(cy - Rp - 1)), y1 = Math.min(H, Math.ceil(cy + Rp + 1));
+    if (x1 <= x0 || y1 <= y0) return;
+    var step = low ? 2 : 1;
+    var bw = x1 - x0, bh = y1 - y0;
+    var img = octx.createImageData(bw, bh), data = img.data;
+    var br = this.br, bu = this.bu, bv = this.bv, s = this.sunDir();
+    var tex = this.tex, TW = tex.W, TH = tex.H, ta = tex.a;
+    var ct = Math.cos(-theta), st = Math.sin(-theta);
+    var inv = 1 / Rp;
+    for (var py = y0; py < y1; py += step) {
+      var ny = -(py + 0.5 - cy) * inv;
+      for (var px = x0; px < x1; px += step) {
+        var nx = (px + 0.5 - cx) * inv;
+        var d2 = nx * nx + ny * ny;
+        if (d2 > 1.0 + 2 * inv) continue;
+        var nz = Math.sqrt(Math.max(0, 1 - d2));
+        var wx = nx * br[0] + ny * bu[0] + nz * bv[0];
+        var wy = nx * br[1] + ny * bu[1] + nz * bv[1];
+        var wz = nx * br[2] + ny * bu[2] + nz * bv[2];
+        var mu = wx * s[0] + wy * s[1] + wz * s[2];
+        // moon-fixed lon/lat
+        var mx = wx * ct - wy * st, my = wx * st + wy * ct;
+        var lon = Math.atan2(my, mx), lat = Math.asin(Math.max(-1, Math.min(1, wz)));
+        var tx = ((lon + Math.PI) / (2 * Math.PI) * TW) | 0, ty = ((Math.PI / 2 - lat) / Math.PI * TH) | 0;
+        if (tx >= TW) tx = TW - 1; if (ty >= TH) ty = TH - 1; if (ty < 0) ty = 0;
+        var alb = ta[ty * TW + tx];
+        // soft terminator
+        var tt = (mu + 0.04) / 0.20; tt = tt < 0 ? 0 : tt > 1 ? 1 : tt; tt = tt * tt * (3 - 2 * tt);
+        var lamb = Math.max(0, mu);
+        var day = alb * (0.10 + 0.78 * Math.pow(lamb, 0.8)) * tt;
+        var limb = 0.72 + 0.28 * nz;
+        var nightK = alb * limb * (1 - tt);
+        var r = 150 * day + 26 * nightK, g = 150 * day + 33 * nightK, b = 146 * day + 44 * nightK;
+        // anti-aliased limb
+        var a = (1 - Math.sqrt(d2)) * Rp + 0.5; a = a < 0 ? 0 : a > 1 ? 1 : a;
+        for (var oy = 0; oy < step && py + oy < y1; oy++) {
+          for (var ox = 0; ox < step && px + ox < x1; ox++) {
+            var i = ((py + oy - y0) * bw + (px + ox - x0)) * 4;
+            data[i] = r; data[i + 1] = g; data[i + 2] = b; data[i + 3] = 255 * a;
+          }
+        }
+      }
+    }
+    octx.putImageData(img, x0, y0);
+  };
+
+  // ---------------------------------------------------------------- helpers
+  function lerp3(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+  function norm(a) { var n = Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]) || 1; return [a[0] / n, a[1] / n, a[2] / n]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function sc(a, k) { return [a[0] * k, a[1] * k, a[2] * k]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+
+  // polyline in world coords with per-point occlusion; draws front (solid) and back (dashed, dim) parts
+  View3D.prototype._polyline = function (pts, style, closed, pass) {
+    var ctx = this.ctx, n = pts.length;
+    var proj = pts.map(this.P, this);
+    var segs = closed ? n : n - 1;
+    ctx.save();
+    ctx.lineWidth = style.width || 1.5;
+    ctx.strokeStyle = style.color;
+    if (pass === 'back') { ctx.globalAlpha = style.backAlpha !== undefined ? style.backAlpha : 0.28; ctx.setLineDash([3, 4]); }
+    else { ctx.globalAlpha = style.alpha || 1; if (style.dash) ctx.setLineDash(style.dash); }
+    ctx.beginPath();
+    var open = false;
+    for (var i = 0; i < segs; i++) {
+      var a = proj[i], b = proj[(i + 1) % n];
+      var hid = a.hidden || b.hidden;
+      var want = pass === 'back' ? hid : !hid;
+      if (want) {
+        if (!open) { ctx.moveTo(a.x, a.y); open = true; }
+        ctx.lineTo(b.x, b.y);
+      } else open = false;
+    }
+    ctx.stroke();
+    ctx.restore();
+  };
+
+  View3D.prototype._surfacePoly = function (pts, fill, stroke, lw, dash) {
+    var ctx = this.ctx, proj = pts.map(this.PS, this);
+    var anyFront = proj.some(function (q) { return !q.back; });
+    if (!anyFront) return;
+    ctx.save();
+    ctx.beginPath();
+    proj.forEach(function (q, i) { if (i) ctx.lineTo(q.x, q.y); else ctx.moveTo(q.x, q.y); });
+    ctx.closePath();
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) {
+      // stroke only the front parts
+      ctx.beginPath();
+      var open = false;
+      for (var i = 0; i < proj.length; i++) {
+        var a = proj[i], b = proj[(i + 1) % proj.length];
+        if (!a.back && !b.back) { if (!open) { ctx.moveTo(a.x, a.y); open = true; } ctx.lineTo(b.x, b.y); } else open = false;
+      }
+      ctx.strokeStyle = stroke; ctx.lineWidth = lw || 1; if (dash) ctx.setLineDash(dash);
+      ctx.stroke();
+    }
+    ctx.restore();
+  };
+
+  // ground point at central angle lam, azimuth phi from a sub-satellite frame (up, t, y)
+  function groundPt(R, fr, lam, phi) {
+    var cl = Math.cos(lam), sl = Math.sin(lam), cp = Math.cos(phi), sp = Math.sin(phi);
+    return [R * (cl * fr.up[0] + sl * (cp * fr.t[0] + sp * fr.y[0])),
+            R * (cl * fr.up[1] + sl * (cp * fr.t[1] + sp * fr.y[1])),
+            R * (cl * fr.up[2] + sl * (cp * fr.t[2] + sp * fr.y[2]))];
+  }
+  function orbitFrame(u) {
+    var up = [Math.cos(u), 0, Math.sin(u)], t = [-Math.sin(u), 0, Math.cos(u)];
+    return { up: up, t: t, y: cross(up, t) };
+  }
+
+  // ---------------------------------------------------------------- draw
+  View3D.prototype.draw = function () {
+    var ctx = this.ctx, g = this.geo;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, this.cv.width, this.cv.height);
+    if (!g) return;
+    this._basis();
+    var R = this.R;
+    this.moonRot = 2 * Math.PI * this.t / (27.3217 * 86400);
+    var u1 = 165 * D2R + 2 * Math.PI * this.t / g.T1;
+    var u2 = 200 * D2R + 2 * Math.PI * this.t / g.T2;
+    var f1 = orbitFrame(u1), f2 = orbitFrame(u2);
+    var S1 = sc(f1.up, g.r1), S2 = sc(f2.up, g.r2);
+
+    // geometry lists
+    var orb1 = [], orb2 = [];
+    for (var i = 0; i < 360; i++) {
+      var a = i * D2R;
+      orb1.push([g.r1 * Math.cos(a), 0, g.r1 * Math.sin(a)]);
+      orb2.push([g.r2 * Math.cos(a), 0, g.r2 * Math.sin(a)]);
+    }
+    var ring = [];
+    for (var k = 0; k < 120; k++) ring.push(groundPt(R, f1, g.lamMax, k / 120 * 2 * Math.PI));
+    var p1 = this.P(S1), p2 = this.P(S2);
+
+    // cone silhouette from the monitor
+    var cone = this._coneSilhouette(S1, ring);
+
+    ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+    // --- back pass
+    this._polyline(orb1, { color: AMBER, width: 1.4 }, true, 'back');
+    this._polyline(orb2, { color: CYAN, width: 1.4 }, true, 'back');
+    if (p1.Z < 0) this._drawCone(S1, cone, ring, p1);
+
+    // --- sphere
+    this._renderSphere();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.drawImage(this.off, 0, 0);
+    ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+
+    // --- graticule (moon-fixed, rotates)
+    this._graticule();
+
+    // --- surface overlays
+    // imager reach swath (±reach about the ground track near the imager)
+    if (g.reachLam > 0) {
+      var L = [], Rr = [], ny = [0, 1, 0];
+      for (var du = -32; du <= 32; du += 2) {
+        var uu = u2 + du * D2R, gp = [Math.cos(uu), 0, Math.sin(uu)];
+        var cl = Math.cos(g.reachLam), sl = Math.sin(g.reachLam);
+        L.push(sc(add(sc(gp, cl), sc(ny, sl)), R));
+        Rr.unshift(sc(add(sc(gp, cl), sc(ny, -sl)), R));
+      }
+      this._surfacePoly(L.concat(Rr), 'rgba(56,198,214,0.38)', 'rgba(127,227,238,0.9)', 1);
+    }
+    // emission-limit circle
+    this._surfacePoly(ring, 'rgba(240,165,58,0.07)', 'rgba(255,196,107,0.95)', 1.2, [4, 3]);
+    // mosaic patches
+    var self = this;
+    (g.patches || []).forEach(function (pt) {
+      var pts = pt.poly.map(function (q) { return groundPt(R, f1, q[0], q[1]); });
+      self._surfacePoly(pts, 'rgba(240,165,58,0.30)', 'rgba(255,196,107,0.85)', 0.9);
+    });
+    // nadir points
+    this._dotSurface(sc(f1.up, R), AMBER2, 2.2);
+    var nad2 = sc(f2.up, R);
+    this._frameMarker(nad2, f2, g);
+
+    // --- front pass
+    this._polyline(orb1, { color: AMBER, width: 1.6 }, true, 'front');
+    this._polyline(orb2, { color: CYAN, width: 1.6 }, true, 'front');
+    if (p1.Z >= 0) this._drawCone(S1, cone, ring, p1);
+    // nadir line of imager
+    this._polyline([S2, nad2], { color: CYAN2, width: 1, alpha: 0.7 }, false, 'front');
+
+    this._pole();
+    this._craft(p1, AMBER2, 'Flash monitor', g.h1, p2);
+    this._craft(p2, CYAN2, 'Crater imager', g.h2, p1, true);
+    this._sun();
+    this._legend();
+    this._scaleBar();
+    if (this.onTime) this.onTime(this.t, u1, u2);
+  };
+
+  View3D.prototype._coneSilhouette = function (S, ring) {
+    var ps = this.P(S), c = [0, 0];
+    var proj = ring.map(this.P, this);
+    proj.forEach(function (q) { c[0] += q.x; c[1] += q.y; });
+    c[0] /= proj.length; c[1] /= proj.length;
+    var base = Math.atan2(c[1] - ps.y, c[0] - ps.x);
+    var imin = 0, imax = 0, amin = 1e9, amax = -1e9;
+    for (var i = 0; i < proj.length; i++) {
+      var a = Math.atan2(proj[i].y - ps.y, proj[i].x - ps.x) - base;
+      while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI;
+      if (a < amin) { amin = a; imin = i; }
+      if (a > amax) { amax = a; imax = i; }
+    }
+    var inside = false;
+    for (var a = 0, b = proj.length - 1; a < proj.length; b = a++) {
+      if (((proj[a].y > ps.y) !== (proj[b].y > ps.y)) && (ps.x < (proj[b].x - proj[a].x) * (ps.y - proj[a].y) / (proj[b].y - proj[a].y) + proj[a].x)) inside = !inside;
+    }
+    var degenerate = inside || Math.hypot(c[0] - ps.x, c[1] - ps.y) < 2;
+    return { imin: imin, imax: imax, proj: proj, degenerate: degenerate };
+  };
+
+  View3D.prototype._drawCone = function (S, cone, ring, ps) {
+    var ctx = this.ctx;
+    if (!cone.degenerate) {
+      // faint fill: spacecraft + far arc between the two tangent points
+      var n = ring.length, i, arcA = [], arcB = [];
+      for (i = cone.imin; i !== cone.imax; i = (i + 1) % n) arcA.push(cone.proj[i]);
+      arcA.push(cone.proj[cone.imax]);
+      for (i = cone.imax; i !== cone.imin; i = (i + 1) % n) arcB.push(cone.proj[i]);
+      arcB.push(cone.proj[cone.imin]);
+      var dist = function (arr) { var s = 0; arr.forEach(function (q) { s += Math.hypot(q.x - ps.x, q.y - ps.y); }); return s / arr.length; };
+      var far = dist(arcA) > dist(arcB) ? arcA : arcB;
+      ctx.save();
+      ctx.beginPath(); ctx.moveTo(ps.x, ps.y);
+      far.forEach(function (q) { ctx.lineTo(q.x, q.y); });
+      ctx.closePath();
+      ctx.fillStyle = ps.Z < 0 ? 'rgba(240,165,58,0.035)' : 'rgba(240,165,58,0.06)';
+      ctx.fill();
+      ctx.restore();
+    }
+    var self = this;
+    (cone.degenerate ? [] : [cone.imin, cone.imax]).forEach(function (idx) {
+      var G = ring[idx], seg = [];
+      for (var k = 0; k <= 24; k++) seg.push(lerp3(S, G, k / 24));
+      self._polyline(seg, { color: AMBER2, width: 1, alpha: 0.75, backAlpha: 0.22 }, false, 'front');
+      self._polyline(seg, { color: AMBER2, width: 1, backAlpha: 0.22 }, false, 'back');
+    });
+    // nadir line
+    var nad = sc(norm(S), this.R), line = [];
+    for (var k2 = 0; k2 <= 12; k2++) line.push(lerp3(S, nad, k2 / 12));
+    this._polyline(line, { color: AMBER2, width: 1, alpha: 0.55, dash: [2, 3] }, false, 'front');
+  };
+
+  View3D.prototype._graticule = function () {
+    var R = this.R, th = this.moonRot, ctx = this.ctx;
+    var ct = Math.cos(th), st = Math.sin(th);
+    var rot = function (p) { return [p[0] * ct - p[1] * st, p[0] * st + p[1] * ct, p[2]]; };
+    var lines = [], la, lo, k;
+    for (la = -60; la <= 60; la += 30) {
+      var l = [];
+      for (k = 0; k <= 120; k++) { lo = k * 3 * D2R; l.push(rot([R * Math.cos(la * D2R) * Math.cos(lo), R * Math.cos(la * D2R) * Math.sin(lo), R * Math.sin(la * D2R)])); }
+      lines.push({ pts: l, eq: la === 0 });
+    }
+    for (lo = 0; lo < 360; lo += 30) {
+      var m = [];
+      for (k = -60; k <= 60; k++) { var a = k * 1.5 * D2R; m.push(rot([R * Math.cos(a) * Math.cos(lo * D2R), R * Math.cos(a) * Math.sin(lo * D2R), R * Math.sin(a)])); }
+      lines.push({ pts: m, eq: lo === 0 });
+    }
+    var self = this;
+    ctx.save();
+    lines.forEach(function (L) {
+      var pr = L.pts.map(self.P, self);
+      ctx.beginPath();
+      var open = false;
+      for (var i = 0; i < pr.length - 1; i++) {
+        if (pr[i].Z > 0 && pr[i + 1].Z > 0) { if (!open) { ctx.moveTo(pr[i].x, pr[i].y); open = true; } ctx.lineTo(pr[i + 1].x, pr[i + 1].y); }
+        else open = false;
+      }
+      ctx.strokeStyle = L.eq ? 'rgba(200,215,230,0.30)' : 'rgba(200,215,230,0.14)';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    });
+    ctx.restore();
+  };
+
+  View3D.prototype._pole = function () {
+    var R = this.R, ctx = this.ctx;
+    var a = this.P([0, 0, R]), b = this.P([0, 0, R * 1.16]);
+    var s = this.P([0, 0, -R]), s2 = this.P([0, 0, -R * 1.16]);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(220,228,238,0.55)'; ctx.lineWidth = 1;
+    if (!b.hidden) { ctx.beginPath(); ctx.moveTo(a.Z >= 0 ? a.x : b.x, a.Z >= 0 ? a.y : b.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+    if (!s2.hidden) { ctx.beginPath(); ctx.moveTo(s.Z >= 0 ? s.x : s2.x, s.Z >= 0 ? s.y : s2.y); ctx.lineTo(s2.x, s2.y); ctx.stroke(); }
+    ctx.fillStyle = 'rgba(220,228,238,0.8)'; ctx.font = '12px ' + FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    if (!b.hidden) { var dx = b.x - this.cx, dy = b.y - this.cy, d = Math.hypot(dx, dy) || 1; ctx.fillText('N', b.x + dx / d * 9, b.y + dy / d * 9); }
+    ctx.restore();
+  };
+
+  View3D.prototype._dotSurface = function (p, color, r) {
+    var q = this.P(p); if (q.Z < 0) return;
+    var ctx = this.ctx; ctx.save(); ctx.fillStyle = color; ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 2 * Math.PI); ctx.fill(); ctx.restore();
+  };
+
+  View3D.prototype._frameMarker = function (nad, fr, g) {
+    var q = this.P(nad); if (q.Z < 0) return;
+    var ctx = this.ctx, R = this.R;
+    // true-size frame (usually sub-pixel) plus a fixed 7 px reticle
+    var hw = g.frameW / 2 / R, hh = g.frameH / 2 / R;
+    var corners = [[hh, hw], [hh, -hw], [-hh, -hw], [-hh, hw]].map(function (c) {
+      return add(sc(fr.up, R), add(sc(fr.t, R * c[0]), sc(fr.y, R * c[1])));
+    }).map(this.P, this);
+    ctx.save();
+    ctx.strokeStyle = CYAN2; ctx.fillStyle = 'rgba(127,227,238,0.9)'; ctx.lineWidth = 1;
+    ctx.beginPath(); corners.forEach(function (c, i) { if (i) ctx.lineTo(c.x, c.y); else ctx.moveTo(c.x, c.y); }); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.rect(q.x - 4, q.y - 4, 8, 8); ctx.stroke();
+    ctx.restore();
+  };
+
+  var FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+
+  View3D.prototype._craft = function (p, color, name, h, other, second) {
+    var ctx = this.ctx;
+    ctx.save();
+    var hidden = p.hidden;
+    ctx.globalAlpha = hidden ? 0.45 : 1;
+    ctx.fillStyle = hidden ? 'rgba(0,0,0,0)' : color;
+    ctx.strokeStyle = hidden ? color : '#0a0e13';
+    ctx.lineWidth = hidden ? 1.2 : 1.5;
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y - 5.5); ctx.lineTo(p.x + 5.5, p.y); ctx.lineTo(p.x, p.y + 5.5); ctx.lineTo(p.x - 5.5, p.y); ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    // label pushed outward from the Moon centre
+    var dx = p.x - this.cx, dy = p.y - this.cy, d = Math.hypot(dx, dy) || 1;
+    var ux = dx / d, uy = dy / d;
+    var lx = p.x + ux * 12, ly = p.y + uy * 12;
+    if (second && Math.hypot(p.x - other.x, p.y - other.y) < 60) ly += (p.y >= other.y ? 16 : -16);
+    ctx.font = '600 12px ' + FONT;
+    ctx.textAlign = ux >= 0 ? 'left' : 'right'; ctx.textBaseline = 'middle';
+    var text = name + (hidden ? ' (behind Moon)' : '');
+    var sub = 'h = ' + Math.round(h).toLocaleString('en-US') + ' km';
+    // keep inside canvas
+    var tw = Math.max(ctx.measureText(text).width, 80);
+    if (ux >= 0 && lx + tw > this.w - 4) { ctx.textAlign = 'right'; lx = p.x - 12; }
+    if (ux < 0 && lx - tw < 4) { ctx.textAlign = 'left'; lx = p.x + 12; }
+    ly = Math.max(14, Math.min(this.h - 40, ly));
+    ctx.globalAlpha = hidden ? 0.6 : 1;
+    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(10,14,19,0.85)';
+    ctx.strokeText(text, lx, ly - 7); ctx.fillStyle = color; ctx.fillText(text, lx, ly - 7);
+    ctx.font = '12px ' + FONT;
+    ctx.strokeText(sub, lx, ly + 8); ctx.fillStyle = '#b3bfcc'; ctx.fillText(sub, lx, ly + 8);
+    ctx.restore();
+  };
+
+  View3D.prototype._sun = function () {
+    var s = this.sunDir(), q = this.P(sc(s, 1)), ctx = this.ctx;
+    var X = q.X, Y = q.Y, L = Math.hypot(X, Y);
+    ctx.save();
+    ctx.font = '12px ' + FONT; ctx.fillStyle = '#e8d9a8'; ctx.strokeStyle = '#e8d9a8';
+    if (L < 0.2) {
+      ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+      ctx.fillText(q.Z > 0 ? 'Sun behind viewer' : 'Sun behind the Moon', this.w - 10, this.h - 34);
+    } else {
+      var ux = X / L, uy = -Y / L;
+      var rr = Math.min(this.w, this.h) / 2 - 22;
+      var ex = this.cx + ux * rr, ey = this.cy + uy * rr;
+      ex = Math.max(30, Math.min(this.w - 30, ex)); ey = Math.max(34, Math.min(this.h - 46, ey));
+      ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.moveTo(ex - ux * 16, ey - uy * 16); ctx.lineTo(ex, ey); ctx.stroke();
+      ctx.beginPath(); ctx.arc(ex + ux * 8, ey + uy * 8, 5, 0, 2 * Math.PI); ctx.fill();
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Sun', ex + ux * 8, ey + uy * 8 + (uy > 0 ? -14 : 14));
+    }
+    ctx.restore();
+  };
+
+  View3D.prototype._legend = function () {
+    var g = this.geo, ctx = this.ctx;
+    var items = [
+      { c: '#c4cfdb', t: 'none', s: 'Same polar plane; dashed = behind Moon' },
+      { c: AMBER, t: 'line', s: 'Monitor orbit ' + Math.round(g.h1).toLocaleString('en-US') + ' km' },
+      { c: AMBER, t: 'patch', s: g.nCam + '-camera mosaic footprint' },
+      { c: AMBER2, t: 'dash', s: 'Emission limit e ≤ ' + Math.round(g.emaxDeg) + '°' },
+      { c: CYAN, t: 'line', s: 'Imager orbit ' + Math.round(g.h2).toLocaleString('en-US') + ' km' },
+      { c: CYAN, t: 'patch', s: 'Imager reach ±' + (g.reachLam / D2R).toFixed(2) + '° + frame marker' }
+    ];
+    var lh = 17, x = 10, y = this.h - 10 - items.length * lh;
+    ctx.save();
+    ctx.font = '12px ' + FONT; ctx.textBaseline = 'middle';
+    var wmax = 0; items.forEach(function (it) { wmax = Math.max(wmax, ctx.measureText(it.s).width); });
+    ctx.fillStyle = 'rgba(10,14,19,0.72)';
+    ctx.fillRect(x - 6, y - 6, wmax + 40, items.length * lh + 8);
+    items.forEach(function (it, i) {
+      var yy = y + i * lh + lh / 2 - 2;
+      ctx.strokeStyle = it.c; ctx.fillStyle = it.c; ctx.lineWidth = 1.6;
+      if (it.t === 'line') { ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + 20, yy); ctx.stroke(); }
+      else if (it.t === 'dash') { ctx.setLineDash([4, 3]); ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + 20, yy); ctx.stroke(); ctx.setLineDash([]); }
+      else if (it.t === 'none') { /* text-only row */ }
+      else { ctx.globalAlpha = 0.5; ctx.fillRect(x, yy - 5, 20, 10); ctx.globalAlpha = 1; ctx.lineWidth = 1; ctx.strokeRect(x + 0.5, yy - 4.5, 19, 9); }
+      ctx.fillStyle = '#c4cfdb'; ctx.fillText(it.s, x + 28, yy);
+    });
+    ctx.restore();
+  };
+
+  View3D.prototype._scaleBar = function () {
+    var ctx = this.ctx, target = this.w * 0.16 / this.scale;
+    var p = Math.pow(10, Math.floor(Math.log10(target))), km = p;
+    [1, 2, 5, 10].forEach(function (m) { if (m * p <= target) km = m * p; });
+    var len = km * this.scale, x1 = this.w - 14, x0 = x1 - len, y = this.h - 14;
+    ctx.save();
+    ctx.strokeStyle = '#c4cfdb'; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(x0, y - 4); ctx.lineTo(x0, y); ctx.lineTo(x1, y); ctx.lineTo(x1, y - 4); ctx.stroke();
+    ctx.font = '12px ' + FONT; ctx.fillStyle = '#c4cfdb'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText(km.toLocaleString('en-US') + ' km', (x0 + x1) / 2, y - 5);
+    ctx.restore();
+  };
+
+  root.OTEView3D = View3D;
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
+<script>
+/* Orbit Trade Explorer — small canvas chart / ground-view helpers (no libraries). */
+(function (root) {
+  'use strict';
+  var FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+  var COL = {
+    amber: '#f0a53a', amber2: '#ffc46b', cyan: '#38c6d6', cyan2: '#7fe3ee',
+    text: '#dbe2ea', text2: '#b3bfcc', muted: '#8494a6', grid: 'rgba(160,180,200,0.12)', axis: 'rgba(160,180,200,0.35)',
+    none: '#232c37', hatch: '#3a4552', warn: '#ff8a73'
+  };
+  var D2R = Math.PI / 180;
+
+  // ------------------------------------------------------------- colour maps
+  // sequential warm (dark plum -> amber -> pale yellow), readable on dark background
+  var WARM = [[52, 34, 92], [110, 44, 118], [176, 62, 104], [226, 104, 68], [244, 164, 60], [250, 226, 140]];
+  // sequential cool for first-access day: early = bright cyan, late = deep blue
+  var COOL = [[190, 246, 250], [96, 214, 228], [40, 160, 196], [34, 104, 160], [40, 62, 120]];
+  function ramp(stops, t) {
+    t = Math.max(0, Math.min(1, t)) * (stops.length - 1);
+    var i = Math.min(stops.length - 2, Math.floor(t)), f = t - i, a = stops[i], b = stops[i + 1];
+    return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
+  }
+  function rgb(c) { return 'rgb(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ')'; }
+
+  // ------------------------------------------------------------- utilities
+  function niceTicks(lo, hi, n) {
+    if (!(hi > lo)) { hi = lo + 1; }
+    var span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / n)));
+    var err = span / n / step;
+    if (err >= 7.5) step *= 10; else if (err >= 3.5) step *= 5; else if (err >= 1.5) step *= 2;
+    var t = [], v = Math.ceil(lo / step - 1e-9) * step;
+    for (; v <= hi + step * 1e-9; v += step) t.push(Math.abs(v) < step * 1e-9 ? 0 : v);
+    return { ticks: t, step: step };
+  }
+  function fmtTick(v, step) {
+    var d = Math.max(0, -Math.floor(Math.log10(step) + 1e-9));
+    return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+  function setup(cv) {
+    var p = cv.parentElement, dpr = Math.min(3, window.devicePixelRatio || 1);
+    var w = Math.max(50, p.clientWidth), h = Math.max(50, p.clientHeight);
+    if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    return { ctx: ctx, w: w, h: h, dpr: dpr };
+  }
+  function text(ctx, s, x, y, o) {
+    o = o || {};
+    ctx.font = (o.weight ? o.weight + ' ' : '') + (o.size || 12) + 'px ' + FONT;
+    ctx.fillStyle = o.color || COL.text2; ctx.textAlign = o.align || 'left'; ctx.textBaseline = o.base || 'alphabetic';
+    if (o.halo) { ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(10,14,19,0.9)'; ctx.strokeText(s, x, y); }
+    ctx.fillText(s, x, y);
+  }
+  function hatch(ctx, x, y, w, h, color) {
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+    ctx.strokeStyle = color || COL.hatch; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (var k = -h; k < w; k += 6) { ctx.moveTo(x + k, y + h); ctx.lineTo(x + k + h, y); }
+    ctx.stroke(); ctx.restore();
+  }
+  function colorBar(ctx, x, y, w, h, stops, lo, hi, label, unit, fmt) {
+    for (var i = 0; i < h; i++) { ctx.fillStyle = rgb(ramp(stops, 1 - i / (h - 1))); ctx.fillRect(x, y + i, w, 1); }
+    ctx.strokeStyle = COL.axis; ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+    text(ctx, fmt(hi), x + w + 5, y + 5, { base: 'middle' });
+    text(ctx, fmt(lo), x + w + 5, y + h - 4, { base: 'middle' });
+    text(ctx, fmt((lo + hi) / 2), x + w + 5, y + h / 2, { base: 'middle', color: COL.muted });
+    if (label) text(ctx, label, x, y - 8, { color: COL.text2 });
+    if (unit) text(ctx, unit, x, y + h + 15, { color: COL.muted });
+  }
+
+  // ------------------------------------------------------------- 1. monitor ground view
+  // nadir-centred azimuthal-equidistant map of the usable cap (radius = central angle)
+  function groundView(cv, res, quantity, patches) {
+    var s = setup(cv), ctx = s.ctx, w = s.w, h = s.h, m = res.mon, S = m.samples;
+    var field = quantity === 'dlim' ? m.field.dlim : quantity === 'gpx' ? m.field.gpx : m.field.loc;
+    var label = quantity === 'dlim' ? 'Limiting crater [m]' : quantity === 'gpx' ? 'Ground pixel, radial [km]' : '95 % loc. error [km]';
+    var unit = quantity === 'dlim' ? 'm' : 'km';
+    var lo = Infinity, hi = -Infinity, k;
+    for (k = 0; k < S.n; k++) { var v = field[k]; if (v < lo) lo = v; if (v > hi) hi = v; }
+    if (!(hi > lo * 1.0005)) { hi = lo * 1.05 + 1e-6; lo = lo * 0.95; }
+    var cbW = 92;
+    var R0 = Math.max(30, Math.min((w - cbW - 40) / 2, (h - 34) / 2));
+    var cx = 20 + R0 + 4, cy = h / 2 + 2;
+    var lamMax = m.lamMax, Rkm = 1737.4;
+    // heat field via image data
+    var dpr = s.dpr, Rp = Math.round(R0 * dpr), size = 2 * Rp + 2;
+    var img = ctx.createImageData(size, size), d = img.data;
+    var nL = S.nLam, nP = S.nPhi;
+    for (var y = 0; y < size; y++) {
+      for (var x = 0; x < size; x++) {
+        var dx = (x - Rp - 0.5) / Rp, dy = (y - Rp - 0.5) / Rp;
+        var rr = Math.sqrt(dx * dx + dy * dy);
+        if (rr > 1) continue;
+        // along-track (sample x) up, cross-track (sample y) to the left -> view from above
+        var phi = Math.atan2(-dx, -dy); if (phi < 0) phi += 2 * Math.PI;
+        var il = Math.min(nL - 1, Math.floor(rr * nL)), ip = Math.min(nP - 1, Math.floor(phi / (2 * Math.PI) * nP));
+        var idx = il * nP + ip, i4 = (y * size + x) * 4;
+        if (m.mask[idx]) {
+          // linear interpolation between sample rings for a smooth field
+          var fl = rr * nL - 0.5, i0 = Math.max(0, Math.min(nL - 1, Math.floor(fl))), i1 = Math.min(nL - 1, i0 + 1), tf = Math.max(0, Math.min(1, fl - i0));
+          var fv = field[i0 * nP + ip] * (1 - tf) + field[i1 * nP + ip] * tf;
+          var c = ramp(WARM, (fv - lo) / (hi - lo));
+          d[i4] = c[0]; d[i4 + 1] = c[1]; d[i4 + 2] = c[2]; d[i4 + 3] = 255;
+        } else {
+          var stripe = ((x + y) % 7) < 2;
+          d[i4] = stripe ? 70 : 36; d[i4 + 1] = stripe ? 80 : 43; d[i4 + 2] = stripe ? 94 : 53; d[i4 + 3] = 255;
+        }
+      }
+    }
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.putImageData(img, Math.round((cx - R0) * dpr) - 1, Math.round((cy - R0) * dpr) - 1);
+    ctx.restore();
+    var toXY = function (lam, phi) { var r = lam / lamMax * R0; return [cx - r * Math.sin(phi), cy - r * Math.cos(phi)]; };
+    // range rings (ground distance), labelled along the lower-right diagonal
+    var ringStep = niceTicks(0, lamMax * Rkm, 3).step;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(235,242,250,0.22)'; ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
+    for (var gk = ringStep; gk < lamMax * Rkm * 0.97; gk += ringStep) {
+      var rp = gk / Rkm / lamMax * R0;
+      ctx.beginPath(); ctx.arc(cx, cy, rp, 0, 2 * Math.PI); ctx.stroke();
+      text(ctx, gk.toLocaleString('en-US') + ' km', cx + rp * 0.707 + 3, cy + rp * 0.707 - 3, { size: 12, color: '#eef3f8', halo: true });
+    }
+    ctx.restore();
+    // camera outlines
+    ctx.save();
+    ctx.strokeStyle = 'rgba(240,246,252,0.85)'; ctx.lineWidth = 1.1;
+    (patches || []).forEach(function (p) {
+      ctx.beginPath();
+      p.poly.forEach(function (q, i) { var xy = toXY(q[0], q[1]); if (i) ctx.lineTo(xy[0], xy[1]); else ctx.moveTo(xy[0], xy[1]); });
+      ctx.closePath(); ctx.stroke();
+    });
+    ctx.restore();
+    // emission circle
+    ctx.save(); ctx.setLineDash([5, 3]); ctx.strokeStyle = COL.amber2; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(cx, cy, R0, 0, 2 * Math.PI); ctx.stroke(); ctx.restore();
+    // nadir + along-track arrow
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(cx, cy, 2.2, 0, 2 * Math.PI); ctx.fill();
+    text(ctx, 'along-track ↑', cx, cy - R0 - 6, { align: 'center', color: COL.muted });
+
+    // colour bar
+    var cbx = cx + R0 + 30, cbh = Math.min(170, h - 100);
+    var fmt = function (v) { return v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(2); };
+    colorBar(ctx, cbx, cy - cbh / 2, 12, cbh, WARM, lo, hi, label, null, fmt);
+    // uncovered legend
+    var ly = cy + cbh / 2 + 14;
+    if (ly + 12 < h) {
+      ctx.fillStyle = '#242b35'; ctx.fillRect(cbx, ly, 12, 12); hatch(ctx, cbx, ly, 12, 12, '#4a5562');
+      text(ctx, 'not covered', cbx + 17, ly + 10, { color: COL.muted });
+    }
+    var ly2 = ly + 30;
+    if (ly2 < h - 4) {
+      ctx.save(); ctx.setLineDash([4, 3]); ctx.strokeStyle = COL.amber2; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(cbx, ly2 - 4); ctx.lineTo(cbx + 12, ly2 - 4); ctx.stroke(); ctx.restore();
+      text(ctx, 'e = ' + Math.round(m.emax / D2R) + '° limit, ' + Math.round(lamMax * Rkm).toLocaleString('en-US') + ' km', cbx + 17, ly2, { color: COL.amber2 });
+    }
+    return { cx: cx, cy: cy, R0: R0 };
+  }
+
+  // ------------------------------------------------------------- 2. imager frame
+  function imagerFrame(cv, res) {
+    var s = setup(cv), ctx = s.ctx, w = s.w, h = s.h, im = res.img, m = res.mon;
+    var insetW = Math.min(420, Math.max(300, w * 0.52));
+    var areaW = w - insetW - 30, areaH = h - 40;
+    var aN = m.locNadir, aE = m.locEdge;
+    var spanX = Math.max(im.frameW, 2 * aE.radialSemi95, 2 * aN.semi95) * 1.12;
+    var spanY = Math.max(im.frameH, 2 * aE.crossSemi95, 2 * aN.semi95) * 1.12;
+    var sc = Math.min(areaW / spanX, areaH / spanY);
+    var cx = 14 + areaW / 2, cy = 16 + areaH / 2;
+    // frame
+    ctx.save();
+    ctx.fillStyle = 'rgba(56,198,214,0.10)'; ctx.strokeStyle = COL.cyan2; ctx.lineWidth = 1.5;
+    ctx.fillRect(cx - im.frameW * sc / 2, cy - im.frameH * sc / 2, im.frameW * sc, im.frameH * sc);
+    ctx.strokeRect(cx - im.frameW * sc / 2, cy - im.frameH * sc / 2, im.frameW * sc, im.frameH * sc);
+    // ellipses
+    ctx.setLineDash([5, 3]); ctx.strokeStyle = COL.amber; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.ellipse(cx, cy, aE.radialSemi95 * sc, aE.crossSemi95 * sc, 0, 0, 2 * Math.PI); ctx.stroke();
+    ctx.setLineDash([]); ctx.strokeStyle = COL.amber2; ctx.fillStyle = 'rgba(240,165,58,0.18)';
+    ctx.beginPath(); ctx.ellipse(cx, cy, aN.radialSemi95 * sc, aN.crossSemi95 * sc, 0, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+    ctx.restore();
+    var fx = cx - im.frameW * sc / 2, fy = cy - im.frameH * sc / 2;
+    ctx.font = '12px ' + FONT;
+    var ftxt = 'Frame ' + im.frameW.toFixed(1) + ' × ' + im.frameH.toFixed(1) + ' km at nadir (h2 = ' + Math.round(res.state.h2) + ' km)';
+    if (ctx.measureText(ftxt).width > areaW) ftxt = 'Frame ' + im.frameW.toFixed(1) + ' × ' + im.frameH.toFixed(1) + ' km at nadir';
+    text(ctx, ftxt, Math.max(4, Math.min(fx + 4, 14 + areaW - ctx.measureText(ftxt).width)), fy - 5, { color: COL.cyan2, halo: true });
+    text(ctx, 'flash 95 % region, nadir ⌀ ' + (2 * aN.semi95).toFixed(2) + ' km', cx, cy + aN.crossSemi95 * sc + 15, { align: 'center', color: COL.amber2, halo: true });
+    text(ctx, 'edge ' + (2 * aE.radialSemi95).toFixed(2) + ' × ' + (2 * aE.crossSemi95).toFixed(2) + ' km (radial × cross)', cx, cy + aE.crossSemi95 * sc + 15 + (aE.crossSemi95 - aN.crossSemi95 < 0.012 * spanY ? 15 : 0), { align: 'center', color: COL.amber, halo: true });
+    var fits = im.margin >= 1;
+    text(ctx, fits ? 'Fits: margin ×' + im.margin.toFixed(2) + ' (frame short side / edge ⌀)' : 'Does NOT fit: ' + im.framesPerSite + ' frames per site (margin ×' + im.margin.toFixed(2) + ')',
+      14, h - 10, { color: fits ? '#8fd694' : COL.warn });
+    // scale bar
+    var nk = niceTicks(0, spanX * 0.3, 2).step;
+    var bx1 = 14 + areaW, bx0 = bx1 - nk * sc, by = h - 26;
+    ctx.strokeStyle = COL.text2; ctx.beginPath(); ctx.moveTo(bx0, by - 4); ctx.lineTo(bx0, by); ctx.lineTo(bx1, by); ctx.lineTo(bx1, by - 4); ctx.stroke();
+    text(ctx, nk + ' km', (bx0 + bx1) / 2, by - 6, { align: 'center' });
+
+    // insets: pixel grids
+    var ix = w - insetW - 6, iy = 10, gap = 10, cellW = (insetW - 2 * gap) / 3, cellH = Math.min(cellW + 46, h - 22);
+    pixelInset(ctx, ix, iy, cellW, cellH, im.pxPerDconf, 'Confirmable', im.Dconf.toFixed(2) + ' m · ' + im.pxPerDconf.toFixed(1) + ' px', 'new image');
+    pixelInset(ctx, ix + cellW + gap, iy, cellW, cellH, im.pxPer10m, '10 m crater', (im.pxPer10m >= 10 ? im.pxPer10m.toFixed(0) : im.pxPer10m.toFixed(1)) + ' px', 'new image');
+    pixelInset(ctx, ix + 2 * (cellW + gap), iy, cellW, cellH, res.state.kConf, 'Archive limit', im.Dbefore.toFixed(2) + ' m · ' + res.state.kConf.toFixed(1) + ' px', 'at ' + im.archiveGsd.toFixed(2) + ' m/px', true);
+  }
+  function pixelInset(ctx, x, y, w, h, dpx, title, sub, sub2, archive) {
+    text(ctx, title, x, y + 10, { color: COL.text });
+    text(ctx, sub, x, y + 26, { color: archive ? '#d9c38f' : COL.cyan2 });
+    if (sub2) text(ctx, sub2, x, y + 41, { color: COL.muted });
+    var gy = y + 50, size = Math.min(w, h - 52);
+    var n = Math.max(4, Math.min(40, Math.ceil(dpx * 1.5) + 2));
+    var cs = size / n;
+    ctx.save();
+    ctx.fillStyle = '#0d141b'; ctx.fillRect(x, gy, size, size);
+    ctx.beginPath(); ctx.rect(x, gy, size, size); ctx.clip();
+    // crater: shaded bowl drawn in pixel grid (each pixel filled by coverage-weighted darkness)
+    var c0 = n / 2;
+    for (var i = 0; i < n; i++) for (var j = 0; j < n; j++) {
+      var dx = i + 0.5 - c0, dy = j + 0.5 - c0, r = Math.sqrt(dx * dx + dy * dy);
+      var inside = Math.max(0, Math.min(1, dpx / 2 - r + 0.5));
+      var shade = 0.5 + 0.5 * Math.max(-1, Math.min(1, -dx / (dpx / 2 + 0.01)));
+      var base = 88, val = base * (1 - inside) + inside * (40 + 90 * shade);
+      ctx.fillStyle = 'rgb(' + (val | 0) + ',' + (val * 1.02 | 0) + ',' + (val * 1.06 | 0) + ')';
+      ctx.fillRect(x + i * cs, gy + j * cs, cs + 0.5, cs + 0.5);
+    }
+    if (cs >= 3) {
+      ctx.strokeStyle = 'rgba(10,14,19,0.6)'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (var k = 0; k <= n; k++) { ctx.moveTo(x + k * cs, gy); ctx.lineTo(x + k * cs, gy + size); ctx.moveTo(x, gy + k * cs); ctx.lineTo(x + size, gy + k * cs); }
+      ctx.stroke();
+    }
+    ctx.strokeStyle = archive ? '#d9c38f' : COL.cyan2; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.arc(x + c0 * cs, gy + c0 * cs, Math.max(0.8, dpx / 2 * cs), 0, 2 * Math.PI); ctx.stroke();
+    ctx.restore();
+    ctx.strokeStyle = COL.axis; ctx.strokeRect(x + 0.5, gy + 0.5, size - 1, size - 1);
+    text(ctx, n + ' × ' + n + ' px', x + size - 4, gy + size - 6, { align: 'right', color: '#e8eef5', halo: true });
+  }
+
+  // ------------------------------------------------------------- 3. coverage map
+  function coverageMap(cv, acc, stale) {
+    var s = setup(cv), ctx = s.ctx, w = s.w, h = s.h;
+    var mx = 44, my = 8, profW = 64, gapP = 10, gapC = 26, curveW = Math.max(210, Math.round(w * 0.30));
+    var mapH = h - my - 58;
+    var mapW = Math.min(2 * mapH, w - mx - gapP - profW - gapC - curveW);
+    mapW = Math.max(120, mapW); mapH = Math.min(mapH, mapW / 2);
+    var nLat = acc.nLat, nLon = acc.nLon, days = acc.days;
+    var cw = mapW / nLon, ch = mapH / nLat;
+    ctx.fillStyle = '#242b35'; ctx.fillRect(mx, my, mapW, mapH);
+    hatch(ctx, mx, my, mapW, mapH, '#343e4a');
+    for (var i = 0; i < nLat; i++) {
+      for (var j = 0; j < nLon; j++) {
+        var t = acc.first[i * nLon + j];
+        if (t === Infinity) continue;
+        ctx.fillStyle = rgb(ramp(COOL, t / days));
+        ctx.fillRect(mx + j * cw, my + (nLat - 1 - i) * ch, cw + 0.6, ch + 0.6);
+      }
+    }
+    ctx.strokeStyle = COL.axis; ctx.strokeRect(mx + 0.5, my + 0.5, mapW - 1, mapH - 1);
+    ctx.strokeStyle = 'rgba(10,14,19,0.35)'; ctx.beginPath();
+    var latLab = mapH > 110 ? [-60, -30, 0, 30, 60] : [-60, 0, 60];
+    latLab.forEach(function (la) { var y = my + (90 - la) / 180 * mapH; ctx.moveTo(mx, y); ctx.lineTo(mx + mapW, y); text(ctx, (la > 0 ? la + '°N' : la < 0 ? -la + '°S' : '0°'), mx - 5, y + 4, { align: 'right', color: COL.muted }); });
+    var lonLab = mapW > 260 ? [-120, -60, 0, 60, 120] : [-90, 0, 90];
+    lonLab.forEach(function (lo) { var x = mx + (lo + 180) / 360 * mapW; ctx.moveTo(x, my); ctx.lineTo(x, my + mapH); text(ctx, lo + '°', x, my + mapH + 13, { align: 'center', color: COL.muted }); });
+    ctx.stroke();
+    // latitude profile (shares the map's latitude axis)
+    var px = mx + mapW + gapP, pw = profW;
+    ctx.strokeStyle = COL.axis; ctx.strokeRect(px + 0.5, my + 0.5, pw, mapH - 1);
+    if (acc.lat99 > 0) {
+      ctx.save(); ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(220,228,238,0.6)'; ctx.beginPath();
+      [acc.lat99, -acc.lat99].forEach(function (la) { var y = my + (90 - la) / 180 * mapH; ctx.moveTo(mx, y); ctx.lineTo(px + pw, y); });
+      ctx.stroke(); ctx.restore();
+    }
+    ctx.save(); ctx.strokeStyle = COL.cyan2; ctx.lineWidth = 1.5; ctx.beginPath();
+    for (var r = 0; r < nLat; r++) { var y = my + (nLat - 1 - r + 0.5) * ch, x = px + acc.rowFrac[r] * pw; if (r) ctx.lineTo(x, y); else ctx.moveTo(x, y); }
+    ctx.stroke(); ctx.restore();
+    text(ctx, '0', px, my + mapH + 13, { align: 'left', color: COL.muted });
+    text(ctx, '100 %', px + pw, my + mapH + 13, { align: 'right', color: COL.muted });
+    text(ctx, 'by latitude', px + pw / 2, my + mapH + 27, { align: 'center', color: COL.muted });
+    // legend (first-access day)
+    var ly = my + mapH + 24, lx = mx, lw = Math.max(90, Math.min(140, mapW * 0.4));
+    for (var q = 0; q < lw; q++) { ctx.fillStyle = rgb(ramp(COOL, q / lw)); ctx.fillRect(lx + q, ly, 1, 10); }
+    text(ctx, 'day 0', lx, ly + 23, { color: COL.muted });
+    text(ctx, 'day ' + Math.round(days), lx + lw, ly + 23, { align: 'right', color: COL.muted });
+    var nx = lx + lw + 12;
+    if (nx + 70 < px) {
+      ctx.fillStyle = '#242b35'; ctx.fillRect(nx, ly, 14, 10); hatch(ctx, nx, ly, 14, 10, '#4a5562');
+      text(ctx, 'never', nx + 19, ly + 9, { color: COL.muted });
+      text(ctx, '1st access', nx, ly + 23, { color: COL.muted });
+    }
+    // coverage vs time, guaranteed width on the right; title above, summary below, all inside the canvas
+    var cx0 = px + pw + gapC, cW = w - cx0 - 6;
+    text(ctx, 'imageable surface [%]', cx0, my + 10, { color: COL.text2 });
+    lineChart(ctx, { x: cx0, y: my + 16, w: cW, h: h - my - 16 - 22 }, {
+      x: { min: 0, max: days, label: 'day' },
+      yL: { min: 0, max: 100, label: '', ticks: [0, 25, 50, 75, 100] },
+      series: [{ axis: 'L', color: COL.cyan2, width: 1.8, data: Array.prototype.map.call(acc.curveT, function (t, k) { return [t, acc.curveF[k] * 100]; }) }],
+      markers: acc.t90 !== null ? [{ x: acc.t90, color: 'rgba(220,228,238,0.6)' }] : [],
+      compact: true
+    });
+    text(ctx, 'final ' + (acc.fraction * 100).toFixed(1) + ' %' + (acc.t90 !== null ? ' · 90 % of it by day ' + Math.round(acc.t90) : ''), cx0, h - 6, { color: COL.cyan2 });
+    if (stale) text(ctx, 'updating…', cx0 + cW, my + 10, { align: 'right', color: COL.text2 });
+  }
+
+  // ------------------------------------------------------------- generic line chart
+  // spec: {x:{min,max,label}, yL:{min,max,label,color}, yR:{...}, series:[{data:[[x,y]],axis,color,dash,label}], markers:[{x,label,color,dash}], notes:[{x,y,axis,text}]}
+  function lineChart(ctx, box, spec) {
+    var padL = spec.compact ? 34 : 50, padR = spec.yR ? 50 : 14, padT = (spec.compact ? 6 : (spec.yR ? 40 : 26)) + (spec.topRow || 0), padB = spec.compact ? 22 : 36;
+    // legend below the x-axis title, flowed into rows that fit the box width
+    var legRows = [];
+    if (spec.legend === 'below') {
+      ctx.font = '12px ' + FONT;
+      var row = [], rw = 0, maxW = box.w - 8;
+      spec.series.forEach(function (sr) {
+        var iw = 26 + ctx.measureText(sr.label).width + 14;
+        if (row.length && rw + iw > maxW) { legRows.push(row); row = []; rw = 0; }
+        row.push({ sr: sr, w: iw }); rw += iw;
+      });
+      if (row.length) legRows.push(row);
+      padB += legRows.length * 15 + 2;
+    }
+    var x0 = box.x + padL, x1 = box.x + box.w - padR, y0 = box.y + padT, y1 = box.y + box.h - padB;
+    if (x1 - x0 < 40 || y1 - y0 < 20) return null;
+    var X = function (v) { return x0 + (v - spec.x.min) / (spec.x.max - spec.x.min) * (x1 - x0); };
+    var mkY = function (ax) { return function (v) { return y1 - (v - ax.min) / (ax.max - ax.min) * (y1 - y0); }; };
+    var YL = mkY(spec.yL), YR = spec.yR ? mkY(spec.yR) : null;
+    // grid + axes
+    var xt = niceTicks(spec.x.min, spec.x.max, Math.max(2, Math.floor((x1 - x0) / 70)));
+    var yt = spec.yL.ticks ? { ticks: spec.yL.ticks, step: spec.yL.ticks[1] - spec.yL.ticks[0] } : niceTicks(spec.yL.min, spec.yL.max, Math.max(2, Math.floor((y1 - y0) / 34)));
+    ctx.save();
+    ctx.strokeStyle = COL.grid; ctx.lineWidth = 1; ctx.beginPath();
+    yt.ticks.forEach(function (v) { var y = Math.round(YL(v)) + 0.5; ctx.moveTo(x0, y); ctx.lineTo(x1, y); });
+    ctx.stroke();
+    ctx.strokeStyle = COL.axis; ctx.beginPath(); ctx.moveTo(x0 + 0.5, y0); ctx.lineTo(x0 + 0.5, y1 + 0.5); ctx.lineTo(x1, y1 + 0.5);
+    if (YR) { ctx.moveTo(x1 + 0.5, y0); ctx.lineTo(x1 + 0.5, y1); }
+    ctx.stroke();
+    xt.ticks.forEach(function (v) { text(ctx, fmtTick(v, xt.step), X(v), y1 + 14, { align: 'center', color: COL.muted }); });
+    yt.ticks.forEach(function (v) { text(ctx, fmtTick(v, yt.step), x0 - 5, YL(v) + 4, { align: 'right', color: spec.yL.color || COL.muted }); });
+    if (YR) {
+      var yr = niceTicks(spec.yR.min, spec.yR.max, Math.max(2, Math.floor((y1 - y0) / 34)));
+      yr.ticks.forEach(function (v) { if (v === spec.yR.min) return; text(ctx, fmtTick(v, yr.step), x1 + 5, YR(v) + 4, { align: 'left', color: spec.yR.color || COL.muted }); });
+    }
+    if (!spec.compact) {
+      text(ctx, spec.x.label, (x0 + x1) / 2, y1 + 30, { align: 'center', color: COL.text2 });
+      text(ctx, spec.yL.label, box.x + 4, box.y + 12, { align: 'left', color: spec.yL.color || COL.text2, weight: 600 });
+      if (YR) text(ctx, spec.yR.label, box.x + box.w - 4, box.y + 27, { align: 'right', color: spec.yR.color || COL.text2, weight: 600 });
+    } else {
+      text(ctx, spec.x.label, x1, y1 + 14, { align: 'right', color: COL.muted, halo: true });
+      text(ctx, spec.yL.label, x0 + 4, y0 + 10, { color: COL.muted });
+    }
+    // markers
+    (spec.markers || []).forEach(function (mk) {
+      if (mk.x < spec.x.min || mk.x > spec.x.max) return;
+      var x = Math.round(X(mk.x)) + 0.5;
+      ctx.save(); ctx.strokeStyle = mk.color; ctx.lineWidth = 1; ctx.setLineDash(mk.dash || [3, 3]);
+      ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y1); ctx.stroke(); ctx.restore();
+      if (mk.label) {
+        var right = x < (x0 + x1) / 2;
+        text(ctx, mk.label, x + (right ? 4 : -4), y0 + 12 + (mk.row || 0) * 15, { align: right ? 'left' : 'right', color: mk.color, halo: true });
+      }
+    });
+    // series
+    ctx.beginPath(); ctx.rect(x0, y0 - 2, x1 - x0, y1 - y0 + 4); ctx.clip();
+    spec.series.forEach(function (sr) {
+      var Y = sr.axis === 'R' ? YR : YL;
+      ctx.save(); ctx.strokeStyle = sr.color; ctx.lineWidth = sr.width || 2; if (sr.dash) ctx.setLineDash(sr.dash);
+      ctx.beginPath();
+      var started = false;
+      sr.data.forEach(function (p) {
+        if (!isFinite(p[1])) { started = false; return; }
+        if (started) ctx.lineTo(X(p[0]), Y(p[1])); else { ctx.moveTo(X(p[0]), Y(p[1])); started = true; }
+      });
+      ctx.stroke(); ctx.restore();
+      (sr.points || []).forEach(function (p) {
+        ctx.fillStyle = sr.color; ctx.strokeStyle = '#0a0e13'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 3.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+      });
+    });
+    ctx.restore();
+    if (spec.legend === 'below') {
+      legRows.forEach(function (rowI, ri) {
+        var yy = y1 + 44 + ri * 15, xx = box.x + 4;
+        rowI.forEach(function (it) {
+          ctx.save(); ctx.strokeStyle = it.sr.color; ctx.lineWidth = it.sr.width || 2; if (it.sr.dash) ctx.setLineDash(it.sr.dash);
+          ctx.beginPath(); ctx.moveTo(xx, yy - 4); ctx.lineTo(xx + 20, yy - 4); ctx.stroke(); ctx.restore();
+          text(ctx, it.sr.label, xx + 26, yy, { color: it.sr.color });
+          xx += it.w;
+        });
+      });
+      return { X: X, YL: YL, YR: YR, x0: x0, x1: x1, y0: y0, y1: y1 };
+    }
+    if (spec.legend) {
+      var lx = spec.legend === 'mr' ? x1 - 8 : x0 + 8, lyy = spec.legend === 'mr' ? (y0 + y1) / 2 - spec.series.length * 7 : y0 + 10;
+      var lw = 0;
+      ctx.font = '12px ' + FONT;
+      spec.series.forEach(function (sr) { lw = Math.max(lw, ctx.measureText(sr.label || '').width); });
+      if (spec.legend === 'mr') lx -= lw + 26;
+      ctx.fillStyle = 'rgba(10,14,19,0.75)'; ctx.fillRect(lx - 4, lyy - 9, lw + 34, spec.series.length * 15 + 3);
+      spec.series.forEach(function (sr, i) {
+        var yy = lyy + i * 15;
+        ctx.save(); ctx.strokeStyle = sr.color; ctx.lineWidth = sr.width || 2; if (sr.dash) ctx.setLineDash(sr.dash);
+        ctx.beginPath(); ctx.moveTo(lx, yy); ctx.lineTo(lx + 20, yy); ctx.stroke(); ctx.restore();
+        text(ctx, sr.label, lx + 26, yy + 4, { color: sr.color });
+      });
+      return { X: X, YL: YL, YR: YR, x0: x0, x1: x1, y0: y0, y1: y1 };
+    }
+    // direct labels at line ends
+    var placed = [];
+    spec.series.forEach(function (sr) {
+      if (!sr.label || !sr.data.length) return;
+      var Y = sr.axis === 'R' ? YR : YL;
+      var at = sr.labelAt !== undefined ? sr.labelAt : sr.data.length - 1;
+      var p = sr.data[at];
+      var y = Math.max(y0 + 10, Math.min(y1 - 6, Y(p[1]) + (sr.labelDy || -7)));
+      placed.forEach(function (py) { if (Math.abs(py - y) < 14) y = py + (y >= py ? 14 : -14); });
+      placed.push(y);
+      text(ctx, sr.label, Math.min(x1 - 4, X(p[0])), y, { align: 'right', color: sr.color, halo: true, weight: 600 });
+    });
+    (spec.notes || []).forEach(function (n) {
+      var Y = n.axis === 'R' ? YR : YL;
+      text(ctx, n.text, X(n.x), Y(n.y) + (n.dy || 0), { align: 'center', color: n.color || COL.text2, halo: true });
+    });
+    return { X: X, YL: YL, YR: YR, x0: x0, x1: x1, y0: y0, y1: y1 };
+  }
+
+  // ------------------------------------------------------------- 4. trade curves
+  function tradeCurves(cv, res, monSweep, needs, imgSweep, base) {
+    var s = setup(cv), ctx = s.ctx, w = s.w, h = s.h, st = res.state;
+    var half = (w - 16) / 2;
+    // (a) monitor altitude
+    var wsMax = 0, leMax = 0;
+    monSweep.forEach(function (p) { wsMax = Math.max(wsMax, p.watched * 100, p.capDark * 100); leMax = Math.max(leMax, p.locEdge); });
+    wsMax = niceTicks(0, wsMax * 1.12, 4).ticks.slice(-1)[0] || 10;
+    if (wsMax < Math.max.apply(null, monSweep.map(function (p) { return p.watched * 100; }))) wsMax *= 1.2;
+    var leTop = niceTicks(0, leMax * 1.1, 4); leTop = leTop.ticks[leTop.ticks.length - 1] < leMax ? leMax * 1.15 : leTop.ticks[leTop.ticks.length - 1];
+    var mk = [{ x: base.h1, color: 'rgba(200,210,222,0.55)', dash: [2, 3] }, { x: st.h1, color: COL.amber2, dash: [] }];
+    var A = lineChart(ctx, { x: 0, y: 0, w: half, h: h }, {
+      x: { min: 500, max: 10000, label: 'monitor altitude h1 [km]' },
+      yL: { min: 0, max: wsMax, label: 'watched share [%]', color: COL.amber2 },
+      yR: { min: 0, max: leTop, label: 'edge 95 % loc. error [km]', color: '#e9d7b9' },
+      series: [
+        { axis: 'L', color: 'rgba(240,165,58,0.55)', width: 1.2, dash: [2, 3], data: monSweep.map(function (p) { return [p.h, p.capDark * 100]; }), label: 'watched, view-filling', labelAt: Math.round(monSweep.length * 0.62), labelDy: -8 },
+        { axis: 'L', color: COL.amber2, width: 2, data: monSweep.map(function (p) { return [p.h, p.watched * 100]; }), label: 'watched, current mosaic', labelAt: Math.round(monSweep.length * 0.86), labelDy: 16 },
+        { axis: 'R', color: '#e9d7b9', width: 1.6, dash: [6, 3], data: monSweep.map(function (p) { return [p.h, p.locEdge]; }), label: 'edge error (right)', labelAt: monSweep.length - 1, labelDy: -8 }
+      ],
+      markers: mk, legend: 'below', topRow: 34
+    });
+    if (A) {
+      // cameras-needed annotation: own two-line row (label, then numbers) between axis titles and plot
+      var ry = A.y0 - 6;
+      text(ctx, 'heads needed to fill ≥ 95 % of the view, at:', A.x0, ry - 16, { color: COL.muted });
+      var lastX = -1e9;
+      needs.forEach(function (n) {
+        var x = A.X(n.h);
+        if (x - lastX < 26) return; lastX = x;
+        ctx.save(); ctx.strokeStyle = 'rgba(220,228,238,0.25)'; ctx.beginPath(); ctx.moveTo(x + 0.5, ry + 2); ctx.lineTo(x + 0.5, A.y0 + 4); ctx.stroke(); ctx.restore();
+        text(ctx, n.need ? n.need.n + '' : '>25', x, ry - 1, { align: 'center', color: COL.text, weight: 600 });
+      });
+    }
+    // (b) imager altitude
+    var dMax = 0, pMax = 0;
+    imgSweep.forEach(function (p) { dMax = Math.max(dMax, p.Dconf, p.Dbefore); pMax = Math.max(pMax, p.pairs); });
+    var dT = niceTicks(0, dMax * 1.05, 4), pT = niceTicks(0, Math.max(pMax, 250) * 1.08, 4);
+    var mk2 = [{ x: base.h2, color: 'rgba(200,210,222,0.55)', dash: [2, 3] }, { x: st.h2, color: COL.cyan2, dash: [] }];
+    var B = lineChart(ctx, { x: half + 16, y: 0, w: half, h: h }, {
+      x: { min: 30, max: 1000, label: 'imager altitude h2 [km]' },
+      yL: { min: 0, max: dT.ticks[dT.ticks.length - 1], label: 'smallest confirmable crater [m]', color: COL.cyan2 },
+      yR: { min: 0, max: pT.ticks[pT.ticks.length - 1], label: 'indicative pairs', color: '#d9e3ec' },
+      series: [
+        { axis: 'L', color: COL.cyan2, width: 2, data: imgSweep.map(function (p) { return [p.h, p.Dconf]; }), label: 'D_conf (left)', labelAt: Math.round(imgSweep.length * 0.9), labelDy: -8 },
+        { axis: 'R', color: '#d9e3ec', width: 1.6, dash: [6, 3], data: imgSweep.map(function (p) { return [p.h, p.pairs]; }), label: 'pairs (right)', labelAt: Math.round(imgSweep.length * 0.9), labelDy: 16 },
+        { axis: 'L', color: '#d9c38f', width: 1.4, dash: [2, 2], data: imgSweep.map(function (p) { return [p.h, p.Dbefore]; }), label: 'D_before, archive (left)' }
+      ],
+      markers: mk2, legend: 'below', topRow: 34
+    });
+    if (B) {
+      ctx.save(); ctx.setLineDash([1, 4]); ctx.strokeStyle = 'rgba(217,227,236,0.35)';
+      [30, 80, 240].forEach(function (v) {
+        if (v > (pT.ticks[pT.ticks.length - 1])) return;
+        var y = B.YR(v); ctx.beginPath(); ctx.moveTo(B.x0, y); ctx.lineTo(B.x1, y); ctx.stroke();
+        text(ctx, v === 30 ? 'min 30' : v === 80 ? 'full 80' : 'stretch 240', B.x1 - 4, y - 3, { align: 'right', color: COL.muted, halo: true });
+      });
+      ctx.restore();
+    }
+  }
+
+  root.OTECharts = { groundView: groundView, imagerFrame: imagerFrame, coverageMap: coverageMap, tradeCurves: tradeCurves, lineChart: lineChart, niceTicks: niceTicks, COL: COL };
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
+<script>
+/* Orbit Trade Explorer — state, controls, wiring, readouts. */
+(function () {
+  'use strict';
+  var M = window.OTE, CH = window.OTECharts, OPT = window.OTEOpt, D2R = M.D2R, R2D = M.R2D;
+  var B = M.BASELINE;
+
+  // ------------------------------------------------------------------ formatting
+  function ok(x) { return typeof x === 'number' && isFinite(x); }
+  function sig(x, n) {
+    if (!ok(x)) return '—';
+    if (x === 0) return '0';
+    var a = Math.abs(x), d = Math.max(0, n - 1 - Math.floor(Math.log10(a)));
+    if (a >= 1e5) return Math.round(x).toLocaleString('en-US');
+    return x.toLocaleString('en-US', { minimumFractionDigits: Math.min(d, 6), maximumFractionDigits: Math.min(d, 6) });
+  }
+  function fx(x, d) { return ok(x) ? x.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : '—'; }
+  function sci(x) {
+    if (!ok(x)) return '—';
+    var e = Math.floor(Math.log10(Math.abs(x))), m = x / Math.pow(10, e);
+    if (e >= -2 && e <= 4) return sig(x, 3);
+    return m.toFixed(2) + '×10' + String(e).split('').map(function (c) { return '⁰¹²³⁴⁵⁶⁷⁸⁹'['0123456789'.indexOf(c)] || (c === '-' ? '⁻' : c); }).join('');
+  }
+  function pct(x, d) { return ok(x) ? (x * 100).toFixed(d === undefined ? 1 : d) : '—'; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // ------------------------------------------------------------------ state
+  var state = Object.assign({}, B);
+  try {
+    var saved = JSON.parse(window.localStorage.getItem('ote.state') || 'null');
+    if (saved && typeof saved === 'object') Object.keys(B).forEach(function (k) { if (saved[k] !== undefined && typeof saved[k] === typeof B[k]) state[k] = saved[k]; });
+  } catch (e) { /* storage unavailable: fine */ }
+  function persist() { try { window.localStorage.setItem('ote.state', JSON.stringify(state)); } catch (e) { /* ignore */ } }
+  var locks = OPT.defaultLocks();
+  try {
+    var savedL = JSON.parse(window.localStorage.getItem('ote.locks') || 'null');
+    if (savedL && typeof savedL === 'object') Object.keys(locks).forEach(function (k) { if (typeof savedL[k] === 'boolean') locks[k] = savedL[k]; });
+  } catch (e) { /* ignore */ }
+  function persistLocks() { try { window.localStorage.setItem('ote.locks', JSON.stringify(locks)); } catch (e) { /* ignore */ } }
+
+  // ------------------------------------------------------------------ control definitions
+  // state keys: cols = heads along-track (model x axis), rows = heads across-track (model y axis);
+  // orient 'rows' = sensor long side across-track, 'cols' = long side along-track.
+  var ORIENT_OPTS = [['rows', 'across-track'], ['cols', 'along-track'], ['auto', 'auto']];
+  var MON = [
+    { sec: 'Orbit', items: [
+      { k: 'h1', label: 'Altitude h1', min: 500, max: 10000, step: 50, f: function (v) { return Math.round(v).toLocaleString('en-US') + ' km'; } },
+      { k: 'emax', label: 'Max emission angle e_max', min: 40, max: 80, step: 1, f: function (v) { return v + '°'; }, tip: 'Steepest viewing angle from the local vertical that is still usable (foreshortening / limb).' }
+    ] },
+    { sec: 'Camera mosaic', tag: 'IMX636 · 4.86 µm', items: [
+      { k: 'f1', label: 'Focal length', min: 6, max: 50, step: 0.5, f: function (v) { return fx(v, v % 1 ? 1 : 0) + ' mm'; } },
+      { k: 'N1', label: 'f-number', min: 0.95, max: 4, step: 0.05, f: function (v) { return 'f/' + fx(v, 2).replace(/0$/, ''); } },
+      { k: 'cols', label: 'Heads along-track', min: 1, max: 5, step: 1, f: function (v) { return v + ''; } },
+      { k: 'rows', label: 'Heads across-track', min: 1, max: 5, step: 1, f: function (v) { return v + ''; } },
+      { k: 'orient', type: 'seg', label: 'Sensor long side runs', opts: ORIENT_OPTS, tip: 'Whether the long (22° at 16 mm) side of each sensor runs along-track or across-track; auto picks the better coverage.' },
+      { type: 'autofit' }
+    ] },
+    { sec: 'Watch campaign', items: [
+      { k: 'watchYears', label: 'Watch duration', min: 0.5, max: 5, step: 0.1, f: function (v) { return fx(v, 1) + ' yr'; } },
+      { k: 'avail', label: 'Availability', min: 0.3, max: 1, step: 0.01, f: function (v) { return Math.round(v * 100) + ' %'; }, tip: 'Fraction of dark watch time actually observing (downlink, safe modes, calibration).' },
+      { k: 'decay', type: 'seg', label: 'Flash decay class', opts: [['0.1', '≤ 0.1 s'], ['0.3', '0.3 s'], ['1', '1 s']], tip: 'Sets E_ref of the detection threshold: 2×10⁴ / 4×10⁴ / 1×10⁵ J at 3750 km, 16 mm aperture.' }
+    ] },
+    { sec: 'Advanced', details: true, items: [
+      { k: 'centroid', label: 'Centroiding accuracy', min: 0.02, max: 1, log: true, f: function (v) { return sig(v, 2) + ' px'; } },
+      { k: 'att', label: 'Attitude knowledge', tip: 'Attitude + boresight knowledge (1σ).', min: 5, max: 500, log: true, f: function (v) { return sig(v, 2) + ' µrad'; } },
+      { k: 'orbKnow', label: 'Orbit knowledge (1σ)', min: 10, max: 1000, log: true, f: function (v) { return sig(v, 2) + ' m'; } },
+      { k: 'isp', type: 'seg', label: 'Propulsion Isp (mass roll-up)', opts: [[300, '300 s biprop'], [315, '315 s'], [220, '220 s hydraz.']] }
+    ] }
+  ];
+  var IMG = [
+    { sec: 'Orbit & pointing', items: [
+      { k: 'h2', label: 'Altitude h2', min: 30, max: 1000, step: 5, f: function (v) { return Math.round(v) + ' km'; } },
+      { k: 'offNadir', label: 'Max off-nadir pointing θ', min: 0, max: 45, step: 0.5, f: function (v) { return fx(v, v % 1 ? 1 : 0) + '°'; } },
+      { k: 'beta0', label: 'Plane–Sun angle β0', min: 0, max: 180, step: 1, f: function (v) { return v + '°'; }, tip: 'Initial angle between the orbit plane and the Sun. 0° = Sun in the orbit plane (noon–midnight orbit) at the start of the campaign.' }
+    ] },
+    { sec: 'Camera', items: [
+      { k: 'preset', type: 'seg', label: 'Preset', opts: [['triscape', 'TriScape200'], ['lroc', 'LROC-like'], ['custom', 'Custom']],
+        tip: 'TriScape200: only IFOV = 3.0 µrad is sourced (1.5 m GSD at 500 km); the 1067 mm / 3.2 µm split and the 200 mm aperture are ASSUMPTIONS. LROC-NAC-like: line scanner, shown as a 5064 × 5064 px frame.' },
+      { k: 'f2', label: 'Focal length', min: 200, max: 3000, step: 1, f: function (v) { return Math.round(v).toLocaleString('en-US') + ' mm'; } },
+      { k: 'pitch2', label: 'Pixel pitch', min: 2, max: 15, step: 0.1, f: function (v) { return fx(v, 1) + ' µm'; } },
+      { k: 'ap2', label: 'Aperture diameter', min: 50, max: 500, step: 1, f: function (v) { return Math.round(v) + ' mm'; } },
+      { k: 'nx2', label: 'Pixels across track', min: 1000, max: 12000, step: 1, f: function (v) { return Math.round(v).toLocaleString('en-US') + ' px'; } },
+      { k: 'ny2', label: 'Pixels along track', min: 1000, max: 12000, step: 1, f: function (v) { return Math.round(v).toLocaleString('en-US') + ' px'; } },
+      { k: 'smear', label: 'Allowed smear', min: 0.1, max: 2, step: 0.05, f: function (v) { return fx(v, 2) + ' px'; } }
+    ] },
+    { sec: 'Confirmation', items: [
+      { k: 'kConf', label: 'Confirmation factor k', min: 2, max: 6, step: 0.1, f: function (v) { return fx(v, 1) + ' px'; }, tip: 'A crater must span k pixels to be confirmed as new (applies to the new image and to the archive image).' },
+      { k: 'archiveGsd', label: 'Archive image GSD', min: 0.4, max: 2.0, step: 0.05, f: function (v) { return fx(v, 2) + ' m'; },
+        tip: "LROC NAC 'before' images span 0.5–1.5 m per pixel. Baseline 0.90 m = the proposal's implicit assumption that the archive is no coarser than the new image." },
+      { k: 'archiveAge', label: 'Archive image age', min: 2, max: 35, step: 1, f: function (v) { return v + ' yr'; },
+        tip: "Years between the archived 'before' image and the mission's image. Proposal uses 20 yr. A 2010 image is ≈ 23 yr old in 2033." }
+    ] },
+    { sec: 'Crater population', items: [
+      { k: 'slope', label: 'Size-distribution slope s', min: 2.2, max: 4.8, step: 0.05, f: function (v) { return fx(v, 2); },
+        marks: [[2.5, 'LRO catalogue 3–16 m'], [3.1, 'Neukum'], [3.25, 'proposal'], [4.6, 'Speyerer 2016, 10–20 m']],
+        tip: '3.25 = proposal (range 2.8–3.6). Neukum production function ≈ 3.1 below 100 m. LRO new-crater catalogue, best-resolved southern subset, 3–16 m: 2.5 ± 0.4 (34 craters). Speyerer et al. 2016 fit for 10–20 m: 4.6 (4.2–5.1). The catalogue is complete only above ≈10 m.' }
+    ] },
+    { sec: 'Imaging campaign', items: [
+      { k: 'sunMin', label: 'Sun elevation, min', min: 2, max: 88, step: 1, f: function (v) { return v + '°'; } },
+      { k: 'sunMax', label: 'Sun elevation, max', min: 2, max: 88, step: 1, f: function (v) { return v + '°'; } },
+      { k: 'months', label: 'Campaign duration', min: 1, max: 12, step: 0.5, f: function (v) { return fx(v, v % 1 ? 1 : 0) + ' months'; } }
+    ] },
+    { sec: 'Advanced: signal-to-noise (S8)', details: true, items: [
+      { k: 'refl', label: 'Surface reflectance ρ', min: 0.05, max: 0.25, step: 0.01, f: function (v) { return fx(v, 2); } },
+      { k: 'tauQE', label: 'Optics × QE (τ·QE)', min: 0.1, max: 0.8, step: 0.01, f: function (v) { return fx(v, 2); } },
+      { k: 'readNoise', label: 'Read noise σ_read', min: 0, max: 30, step: 1, f: function (v) { return v + ' e⁻'; }, tip: 'Baseline 0 e⁻: the proposal simulation report S8 is shot-noise only.' }
+    ] }
+  ];
+  // one source of truth for slider domains: the optimiser's SPECS
+  [MON, IMG].forEach(function (defs) { defs.forEach(function (sec) { sec.items.forEach(function (c) {
+    var sp = OPT.BYKEY[c.k]; if (sp && c.type !== 'seg') { c.min = sp.min; c.max = sp.max; c.step = sp.step; c.log = !!sp.log; }
+  }); }); });
+  var PRESET_KEYS = ['f2', 'pitch2', 'ap2', 'nx2', 'ny2'];
+
+  var SFD_NOTE = 'Crater counts assume N(≥D) ∝ D^−s anchored on 184 ± 46 new craters ≥ 10 m per year (LRO, 17 craters). Below 10 m the catalogue is incomplete and published slopes span about 2.5 to 4.6, so counts at 3 m are uncertain by a factor of about 2 either way.';
+  // ------------------------------------------------------------------ readout definitions
+  function flag(cls, t) { return { cls: cls, t: t }; }
+  var RO_MON = [
+    { sec: 'Orbit', rows: [
+      { id: 'T1', l: 'Orbit period', i: 'T = 2π √(r³/µ), r = R + h1', g: function (r) { var T = r.mon.orbit.Tmin; return [fx(T, 1), 'min  (' + fx(T / 60, 2) + ' h)']; } },
+      { id: 'v1', l: 'Speed / ground speed', i: 'v = √(µ/r); v_g = v·R/r', g: function (r) { return [fx(r.mon.orbit.v, 3) + ' / ' + fx(r.mon.orbit.vg, 3), 'km/s']; } },
+      { id: 'ecl1', l: 'Max eclipse fraction', i: 'asin(R/r)/π (cylindrical shadow, β = 0)', g: function (r) { return [pct(r.mon.orbit.eclFrac), '%']; } },
+      { id: 'disc', l: 'Lunar disc radius', i: 'asin(R/r)', g: function (r) { return [fx(r.mon.moonAngRadius * R2D, 1), '°']; } }
+    ] },
+    { sec: 'Usable view (e ≤ e_max)', rows: [
+      { id: 'eta', l: 'Nadir half-angle η_max', i: 'sin η_max = (R/r)·sin e_max', g: function (r) { return [fx(r.mon.etaMax * R2D, 2), '°']; } },
+      { id: 'lam', l: 'Usable radius', i: 'λ_max = e_max − η_max (central angle); arc = R·λ_max', g: function (r) { return [fx(r.mon.lamMax * R2D, 1) + '° · ' + Math.round(r.mon.lamMax * M.C.R).toLocaleString('en-US'), 'km']; } },
+      { id: 'rhoE', l: 'Slant range at the edge', i: 'ρ_edge = R·sin λ_max / sin η_max', g: function (r) { return [Math.round(r.mon.rhoEdge).toLocaleString('en-US'), 'km']; } },
+      { id: 'cap', l: 'Cap / lunar surface', i: '(1 − cos λ_max)/2', g: function (r) { return [pct(r.mon.capFrac), '%']; } },
+      { id: 'kd', l: 'Dark-time factor k_dark', i: 'clamp(0.5 − 0.0025·(λ_max[°] − 21), 0.35, 0.5) — fit to the proposal coverage sim (day/night, seasons, Sun avoidance)', g: function (r) { return [fx(r.mon.kDark, 3), '']; } }
+    ] },
+    { sec: 'Mosaic', rows: [
+      { id: 'fov', l: 'Camera FOV', i: '2·atan(w/2f) × 2·atan(h/2f), sensor 6.22 × 3.50 mm', g: function (r) { return [fx(r.mon.fovLong * R2D, 1) + ' × ' + fx(r.mon.fovShort * R2D, 1), '°']; } },
+      { id: 'ifov1', l: 'IFOV (pixel)', i: 'pitch / f', g: function (r) { return [Math.round(r.mon.ifov * 1e6), 'µrad']; } },
+      { id: 'arr', l: 'Arrangement', i: 'heads along-track × heads across-track, butted at one FOV pitch; long side = which way the long sensor side runs', g: function (r) { return [r.state.cols + ' along × ' + r.state.rows + ' across', '']; } },
+      { id: 'lside', l: 'Long side runs', i: 'which way the long sensor side runs (auto = better coverage of the two)', g: function (r) { return [(r.mon.orient === 'rows' ? 'across-track' : 'along-track') + (r.mon.orientAuto ? ' (auto)' : ''), '']; } },
+      { id: 'cov', l: 'Cap coverage', key: true, i: 'ground-area-weighted fraction of the e ≤ e_max cap inside any camera FOV (4608-point polar grid)', g: function (r) {
+        var c = r.mon.coverage;
+        return [pct(c), '%', c >= 0.999 ? flag('ok', 'full') : c >= 0.9 ? flag('info', 'edges clipped') : flag('warn', 'under-filled')]; } },
+      { id: 'need', l: 'Heads to fill ≥ 95 %', i: 'smallest along × across mosaic (≤ 5 × 5, either orientation) with coverage ≥ 95 %', g: function (r) {
+        var n = r.mon.need; if (!n) return ['> 25', '', flag('warn', 'lens too long')];
+        return [n.n + '', '(' + n.cols + ' along × ' + n.rows + ' across)', n.n < r.mon.nCam ? flag('info', 'more than needed') : n.n > r.mon.nCam ? flag('warn', 'short by ' + (n.n - r.mon.nCam)) : null]; } },
+      { id: 'fovdisc', l: 'One FOV vs lunar disc', i: 'half-diagonal of one camera FOV compared with the Moon’s angular radius', g: function (r) {
+        var hd = Math.atan(Math.hypot(Math.tan(r.mon.fovLong / 2), Math.tan(r.mon.fovShort / 2)));
+        return hd > r.mon.moonAngRadius ? ['larger', '', flag('info', 'FOV > disc')] : ['inside', '', null]; } }
+    ] },
+    { sec: 'Watched share', rows: [
+      { id: 'ws', l: 'Watched share', key: true, i: 'cap fraction × coverage × k_dark (before availability)', g: function (r) { return [pct(r.mon.watched, 2), '%']; } },
+      { id: 'wsa', l: '× availability', i: 'watched share × availability', g: function (r) { return [pct(r.mon.watchedEff, 2), '%']; } }
+    ] },
+    { sec: 'Localization (95 % ellipse, semi-major)', rows: [
+      { id: 'sang', l: 'Angular error σ_ang', i: '√((centroid·IFOV)² + σ_att²)', g: function (r) { return [fx(r.mon.sigAng * 1e6, 1), 'µrad']; } },
+      { id: 'locN', l: 'At nadir', key: true, i: '2.448 · max(σ_ang·ρ, σ_ang·ρ/cos e) with orbit knowledge added in quadrature per axis', g: function (r) { return [fx(r.mon.locNadir.semi95, 2), 'km']; } },
+      { id: 'locE', l: 'At the edge (radial)', key: true, c: 'loc', i: 'same at ρ_edge, e_max: the radial axis stretches by 1/cos e', g: function (r) { return [fx(r.mon.locEdge.semi95, 2), 'km']; } },
+      { id: 'gpN', l: 'Ground pixel at nadir', i: 'IFOV · h1', g: function (r) { return [sig(r.mon.gpxNadir, 3), 'km']; } },
+      { id: 'gpE', l: 'Ground pixel at edge', i: 'cross: IFOV·ρ_edge; radial: IFOV·ρ_edge / cos e_max', g: function (r) { return [sig(r.mon.gpxEdgeCross, 3) + ' × ' + sig(r.mon.gpxEdgeRadial, 3), 'km']; } }
+    ] },
+    { sec: 'Flash sensitivity (fixed threshold)', rows: [
+      { id: 'ap1', l: 'Aperture A = f/N', i: 'f / N', g: function (r) { return [fx(r.mon.aperture, 1), 'mm']; } },
+      { id: 'emin', l: 'E_min nadir / edge', i: 'E_ref·(ρ/3750 km)²·(16 mm/A)² (luminous energy)', g: function (r) { return [sci(r.mon.EminNadir) + ' / ' + sci(r.mon.EminEdge), 'J']; } },
+      { id: 'dfl', l: 'D_flash nadir / edge', i: 'D = 3.15 m·(E_min / 3×10⁴ J)^0.30 — compared with the imager’s D_conf', g: function (r) {
+        var lim = r.mon.DflashEdge > r.img.Dconf ? flag('warn', 'flash-limited') : flag('ok', 'camera-limited');
+        return [fx(r.mon.DflashNadir, 2) + ' / ' + fx(r.mon.DflashEdge, 2), 'm', lim]; } },
+      { id: 'drift', l: 'Scene drift at nadir', i: 'v_g(h1) / (IFOV · h1): ground motion across the event sensor', g: function (r) { return [sig(r.mon.drift, 3), 'px/s']; } },
+      { id: 'fsmear', l: 'Flash smear over its decay', c: 'smear', i: 'drift · τ_decay (τ = 0.1 / 0.3 / 1 s by decay class)', g: function (r) { return [sig(r.mon.flashSmear, 2), 'px']; } }
+    ], flashCheck: true },
+    { sec: 'Payload', rows: [
+      { id: 'heads', l: 'Camera heads', c: 'heads', i: '0.9 kg per head (proposal) for A ≤ 25 mm; above: 0.9·(A/25)² — rough', g: function (r) {
+        return [r.mon.nCam + ' × ' + fx(r.mon.headMass, 2) + ' = ' + fx(r.mon.payloadMass, 1), 'kg', r.mon.headMassRough ? flag('info', 'rough') : null]; } }
+    ] },
+    { sec: 'Transfer & launch mass', rows: [
+      { id: 'capt', l: 'Capture into h1', i: 'v∞ = 0.8 km/s, periapsis at r1: √(v∞² + 2µ/r1) − √(µ/r1)', g: function (r) { return [Math.round(r.sys.capture), 'm/s']; } },
+      { id: 'hoh', l: 'Hohmann h1→h2', i: 'two-impulse Hohmann between the circular orbits, burn 1 + burn 2', g: function (r) { return [Math.round(r.sys.hoh1) + ' + ' + Math.round(r.sys.hoh2) + ' = ' + Math.round(r.sys.hoh), 'm/s']; } },
+      { id: 'mnt', l: 'Maintenance + margin', i: '30 m/s per watch year + 184 m/s fixed (other/margin)', g: function (r) { return [Math.round(r.sys.maint) + ' + ' + Math.round(r.sys.margin), 'm/s']; } },
+      { id: 'dvt', l: 'Total Δv', key: true, i: 'sum of the above', g: function (r) { return [fx(r.sys.dvTotal / 1000, 3), 'km/s']; } },
+      { id: 'imass', l: 'Imager mass (scaled)', i: '12.1 kg · (aperture / 200 mm)^2.5 — rough telescope scaling', g: function (r) { return [fx(r.img.mass, 1), 'kg', r.img.massRough ? flag('info', 'rough') : null]; } },
+      { id: 'mass', l: 'Launch mass', key: true, c: 'mass', i: '(118 kg + Δheads + Δimager)·exp(Δv / (g0·Isp)) — rocket-equation scaling of the proposal dry mass, not a design', g: function (r) { return [Math.round(r.sys.launchMass), 'kg', r.sys.massRough ? flag('info', 'rough') : null]; } }
+    ] }
+  ];
+  var RO_IMG = [
+    { sec: 'Resolution', rows: [
+      { id: 'ifov2', l: 'IFOV', i: 'pixel pitch / focal length', g: function (r) { return [sig(r.img.ifov * 1e6, 3), 'µrad']; } },
+      { id: 'gsd', l: 'GSD at nadir', key: true, i: 'IFOV · h2', g: function (r) { return [sig(r.img.gsd, 3), 'm']; } },
+      { id: 'gsdo', l: 'GSD at max off-nadir', i: 'cross: IFOV·ρ(θ); radial: /cos e(θ)', g: function (r) {
+        if (r.img.gsdOffRadial === null) return [sig(r.img.gsdOffCross, 3) + ' × —', 'm', flag('warn', 'horizon')];
+        return [sig(r.img.gsdOffCross, 3) + ' × ' + sig(r.img.gsdOffRadial, 3), 'm']; } },
+      { id: 'dconf', l: 'Smallest confirmable crater', key: true, i: 'D_conf = k · GSD_nadir', g: function (r) { return [sig(r.img.Dconf, 3), 'm']; } },
+      { id: 'dbef', l: 'Archive limit D_before', key: true, i: 'k · archive GSD: the crater must also be resolvable in the LRO NAC “before” image', g: function (r) { return [sig(r.img.Dbefore, 3), 'm', r.img.Dbefore > r.img.Dconf * (1 + M.C.TIE_REL) ? flag('warn', 'above D_conf') : null]; } },
+      { id: 'px10', l: '10 m crater spans', i: '10 m / GSD', g: function (r) { return [sig(r.img.pxPer10m, 3), 'px']; } },
+      { id: 'airy', l: 'Airy radius', c: 'diff', i: '1.22·λ·h2 / aperture at λ = 650 nm (Airy radius on the ground); flagged when > 1.5 GSD', g: function (r) {
+        return [sig(r.img.airy, 3) + ' = ' + fx(r.img.airyRatio, 2) + ' GSD', 'm', r.img.diffLimited ? flag('warn', 'diffraction-limited') : null]; } }
+    ] },
+    { sec: 'Frame vs flash error region', rows: [
+      { id: 'fp', l: 'Frame at nadir', i: 'px across × IFOV·h2 by px along × IFOV·h2', g: function (r) { return [sig(r.img.frameW, 3) + ' × ' + sig(r.img.frameH, 3), 'km', r.img.scanner ? flag('info', 'line scan') : null]; } },
+      { id: 'errd', l: 'Flash region ⌀ (edge)', i: '2 × edge semi-major axis from the monitor panel', g: function (r) { return [fx(r.img.errDiam, 2), 'km']; } },
+      { id: 'marg', l: 'Margin factor', c: 'frame', i: 'min frame side / (2·semi-major_edge)', g: function (r) {
+        return ['×' + fx(r.img.margin, 2), '', r.img.margin >= 1 ? flag('ok', 'fits in 1 frame') : flag('warn', 'does not fit')]; } },
+      { id: 'fps', l: 'Frames per site', i: '1 if it fits, else ceil((2a)² / frame area) — square tiling of the error region', g: function (r) { return [r.img.framesPerSite + '', '']; } }
+    ] },
+    { sec: 'Signal-to-noise (S8)', rows: [
+      { id: 'snrLo', l: 'At lowest Sun elevation', key: true, c: 'snr', i: 'L = ρ·E_band·sin(e_sun)/π; N_e = L·A_ap·IFOV²·t·λ/(hc)·τQE with t = max exposure; SNR = N_e/√(N_e + σ_read²)', g: function (r) { return [Math.round(r.img.snrLo.Ne) + ' e⁻ · SNR ' + fx(r.img.snrLo.snr, 1), '@ ' + r.state.sunMin + '°']; } },
+      { id: 'snrHi', l: 'At highest Sun elevation', i: 'same at the top of the Sun-elevation window', g: function (r) { return [Math.round(r.img.snrHi.Ne) + ' e⁻ · SNR ' + fx(r.img.snrHi.snr, 1), '@ ' + r.state.sunMax + '°']; } }
+    ] },
+    { sec: 'Orbit & timing', rows: [
+      { id: 'T2', l: 'Orbit period', i: '2π √(r³/µ)', g: function (r) { return [fx(r.img.orbit.Tmin, 1), 'min']; } },
+      { id: 'vg2', l: 'Ground speed', i: '√(µ/r)·R/r', g: function (r) { return [fx(r.img.orbit.vg, 3), 'km/s']; } },
+      { id: 'exp', l: 'Max exposure', i: 'longest exposure keeping smear ≤ allowed: smear·GSD / v_g', g: function (r) { return [sig(r.img.maxExp * 1000, 3), 'ms']; } },
+      { id: 'ecl2', l: 'Max eclipse fraction', i: 'asin(R/r)/π', g: function (r) { return [pct(r.img.orbit.eclFrac), '%']; } },
+      { id: 'shift', l: 'Track shift / orbit', i: '2πR·T / 27.3217 d', g: function (r) { return [fx(r.img.shiftKm, 1), 'km']; } },
+      { id: 'reach', l: 'Reach each side', key: true, i: 'asin((r/R)·sin θ) − θ, clamped at the horizon', g: function (r) {
+        return [fx(r.img.reachLam * R2D, 2) + '° · ' + Math.round(r.img.reachKm), 'km', r.img.reachHorizon ? flag('warn', 'horizon') : r.img.reachLam <= 0 ? flag('warn', 'nadir only') : null]; } }
+    ] },
+    { sec: 'Imaging access (simulated)', stale: true, rows: [
+      { id: 'accf', l: 'Imageable surface', key: true, i: 'area-weighted share of 2° cells seen within reach with the Sun inside the window at least once', g: function (r) { return [pct(r.access.fraction), '%']; } },
+      { id: 'acc99', l: '≥ 99 % access up to', i: 'highest latitude band (N/S mean) with ≥ 99 % of longitudes, contiguous from the equator', g: function (r) { return [r.access.lat99 > 0 ? '±' + r.access.lat99 : 'none', r.access.lat99 > 0 ? '° lat' : '']; } },
+      { id: 'acc0', l: 'Any access up to', i: 'highest latitude band with > 0 % access', g: function (r) { return [r.access.latAny > 0 ? '±' + r.access.latAny : 'none', r.access.latAny > 0 ? '° lat' : '']; } },
+      { id: 'acct', l: 'Days to 50 / 90 %', i: 'from the coverage-vs-time curve', g: function (r) { return r.access.t50 === null ? ['—', '', flag('warn', 'no access')] : [Math.round(r.access.t50) + ' / ' + Math.round(r.access.t90), 'd']; } }
+    ] },
+    { sec: 'Pair-yield index (couples both phases)', rows: [
+      { id: 'pairs', l: 'Indicative pairs', key: true, i: 'K · Σ_covered w·(D_lim/10 m)^−s·exp(−λ_chance) · cap · k_dark · availability · years · access, D_lim = max(D_conf, D_before, D_flash); K fixed once at the baseline (s = 3.25) so it gives 210', g: function (r) { return [Math.round(r.pairs.value) + '', '(' + Math.round(r.pairs.rel * 100) + ' %)', r.pairs.extrapolated ? flag('warn', 'extrapolated below 3 m') : null]; } },
+      { id: 'limN', l: 'Limit crater, nadir', i: 'max(D_conf, D_before, D_flash(ρ)); ties D_conf ≈ D_before (within 0.5 %) count as camera-limited', g: function (r) { return [sig(r.pairs.limNadir, 3), 'm', flag(r.pairs.limiterNadir === 'camera-limited' ? 'info' : 'warn', r.pairs.limiterNadir)]; } },
+      { id: 'limE', l: 'Limit crater, edge', i: 'max(D_conf, D_before, D_flash(ρ_edge))', g: function (r) { return [sig(r.pairs.limEdge, 3), 'm', flag(r.pairs.limiterEdge === 'camera-limited' ? 'info' : 'warn', r.pairs.limiterEdge)]; } },
+      { id: 'fls', l: 'Footprint limited by', i: 'ground-area shares of the covered cap set by the camera (D_conf) / the archive (D_before) / the flash threshold (D_flash)', g: function (r) { return ['cam ' + pct(r.pairs.cameraLimitedShare, 0) + ' · arch ' + pct(r.pairs.archiveLimitedShare, 0) + ' · flash ' + pct(r.pairs.flashLimitedShare, 0), '%']; } },
+      { id: 'chN', l: 'Chance crater, nadir / edge', c: 'chance', i: 'P = 1 − exp(−λ), λ = (184 / 3.793×10⁷ km²)·(D_lim/10 m)^−s · π a² · archive age; a = 95 % semi-major axis there. A site with an unrelated confirmable crater in its error region is lost.', g: function (r) { return [pct(r.pairs.chanceNadir, 2) + ' / ' + pct(r.pairs.chanceEdge, 1), '%']; } },
+      { id: 'chL', l: 'Pairs lost to chance craters', i: 'footprint-weighted mean of 1 − exp(−λ) over the covered cap (already included in the pair index)', g: function (r) { return [pct(r.pairs.chanceLoss, 1), '%']; } },
+      { id: 'p10', l: 'Craters ≥ 3.15 m per ≥ 10 m', i: '(10 / 3.15)^s with the current slope s', g: function (r) { return [Math.round(r.img.per10mAt315) + '', '']; } },
+      { id: 'cpy', l: 'New craters ≥ D_conf', i: 'craters ≥ D_conf formed per year on the whole Moon: 184·(D/10 m)^−s — size-frequency anchor, context only', g: function (r) { return ['≈ ' + sig(r.img.cratersPerYrAtDconf, 2), '/yr']; } }
+    ], note: 'Indicative pairs — screening scaling calibrated to the proposal median (210); not the Monte Carlo.', note2: SFD_NOTE }
+  ];
+
+  // ------------------------------------------------------------------ DOM builders
+  var ctlEls = {};
+  function sliderPos(c, v) { return c.log ? Math.log(v / c.min) / Math.log(c.max / c.min) * 1000 : v; }
+  function sliderVal(c, x) {
+    if (!c.log) return +x;
+    var v = c.min * Math.pow(c.max / c.min, x / 1000);
+    var p = Math.pow(10, Math.floor(Math.log10(v)) - 1);
+    return Math.round(v / p) * p;
+  }
+  function buildPanel(el, defs, roDefs, side) {
+    var html = '<div class="zone-h">INPUTS</div>';
+    defs.forEach(function (sec) {
+      var inner = sec.items.map(ctlHtml).join('');
+      if (sec.details) html += '<div class="sec"><details class="adv"><summary>' + esc(sec.sec) + '</summary>' + inner + '</details></div>';
+      else html += '<div class="sec"><div class="sec-h">' + esc(sec.sec) + (sec.tag ? '<span class="tag">' + esc(sec.tag) + '</span>' : '') + '</div>' + inner + '</div>';
+    });
+    html += '<div class="zone-h">WHAT YOU GET</div>';
+    roDefs.forEach(function (sec) {
+      html += '<div class="sec"><div class="sec-h">' + esc(sec.sec) + (sec.stale ? '<span class="stale" data-stale="1"></span>' : '') + '</div>';
+      sec.rows.forEach(function (r) {
+        html += '<div class="ro' + (r.key ? ' key' : '') + '" id="ro-' + r.id + '"><span class="ro-l" title="' + esc(r.l) + '">' + esc(r.l) + '</span><span class="ro-v"></span><span class="ro-i" title="' + esc(r.i) + '">ⓘ</span></div>';
+      });
+      if (sec.note) html += '<div class="ro-wide">' + esc(sec.note) + '</div>';
+      if (sec.note2) html += '<div class="ro-wide note2">' + esc(sec.note2) + '</div>';
+      if (sec.flashCheck) html += flashCheckHtml();
+      html += '</div>';
+    });
+    el.innerHTML = html;
+    defs.forEach(function (sec) { sec.items.forEach(function (c) { if (c.k) ctlEls[c.k] = { def: c, root: el.querySelector('[data-k="' + c.k + '"]') }; }); });
+  }
+  function ctlHtml(c) {
+    if (c.type === 'autofit') {
+      return '<div class="btnrow"><button class="btn" id="autofit" title="Set heads along-track, heads across-track and orientation to the smallest mosaic that covers ≥ 95 % of the usable cap">Auto-fit mosaic</button><span class="note" id="autofitNote"></span></div>';
+    }
+    if (c.type === 'seg') {
+      return '<div class="ctl" data-k="' + c.k + '"><div class="ctl-head"><label' + (c.tip ? ' title="' + esc(c.tip) + '"' : '') + '>' + esc(c.label) + (c.tip ? ' <span class="ro-i">ⓘ</span>' : '') + '</label><span class="ctl-foot"><span class="bl" title="Click to restore the baseline value"></span></span></div><div class="seg">' +
+        c.opts.map(function (o) { return '<button type="button" data-v="' + esc(o[0]) + '">' + esc(o[1]) + '</button>'; }).join('') + '</div></div>';
+    }
+    var bpos = (sliderPos(c, B[c.k]) - (c.log ? 0 : c.min)) / ((c.log ? 1000 : c.max - c.min));
+    return '<div class="ctl" data-k="' + c.k + '"><div class="ctl-head"><label' + (c.tip ? ' title="' + esc(c.tip) + '"' : '') + '>' + esc(c.label) + (c.tip ? ' <span class="ro-i">ⓘ</span>' : '') + '</label><span class="ctl-right"><span class="ctl-val"></span><button type="button" class="lock" aria-pressed="true" data-lock="' + c.k + '"></button></span></div>' +
+      '<div class="ctl-track"><span class="bmark" style="left:calc(7px + (100% - 14px) * ' + bpos.toFixed(4) + ')"></span>' +
+      (c.marks || []).map(function (mk) { var pp = (mk[0] - c.min) / (c.max - c.min); return '<span class="tmark" title="' + esc(mk[0] + ': ' + mk[1]) + '" style="left:calc(7px + (100% - 14px) * ' + pp.toFixed(4) + ')"></span>'; }).join('') +
+      '<input type="range" aria-label="' + esc(c.label) + '" min="' + (c.log ? 0 : c.min) + '" max="' + (c.log ? 1000 : c.max) + '" step="' + (c.log ? 1 : c.step) + '"></div>' +
+      '<div class="ctl-foot"><span>' + esc(c.f(c.min)) + '</span><span class="bl" title="Click to restore the baseline value">baseline ' + esc(c.f(B[c.k])) + '</span><span>' + esc(c.f(c.max)) + '</span></div>' +
+      (c.marks ? '<div class="ctl-marks">ticks: ' + c.marks.map(function (mk) { return esc(mk[0] + ' ' + mk[1]); }).join(' · ') + '</div>' : '') + '</div>';
+  }
+
+  function syncControls() {
+    Object.keys(ctlEls).forEach(function (k) {
+      var c = ctlEls[k].def, root = ctlEls[k].root, v = state[k];
+      var changed = String(v) !== String(B[k]);
+      root.classList.toggle('changed', changed);
+      if (c.type === 'seg') {
+        root.querySelectorAll('.seg button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === String(v)); });
+        var bl = root.querySelector('.bl');
+        var bo = c.opts.filter(function (o) { return String(o[0]) === String(B[k]); })[0];
+        bl.textContent = changed ? 'baseline: ' + (bo ? bo[1] : B[k]) : '';
+      } else {
+        var inp = root.querySelector('input');
+        var pos = sliderPos(c, v);
+        if (document.activeElement !== inp || Math.abs(+inp.value - pos) > (c.log ? 1 : c.step)) inp.value = pos;
+        root.querySelector('.ctl-val').textContent = c.f(v);
+        var lb = root.querySelector('.lock'), locked = locks[k] !== false;
+        lb.setAttribute('aria-pressed', locked ? 'true' : 'false');
+        lb.textContent = locked ? 'fixed' : 'free';
+        lb.title = locked ? 'Fixed for the optimiser (click to free)' : 'Free for the optimiser (click to fix)';
+        root.classList.toggle('locked', locked);
+      }
+    });
+  }
+
+  function setKey(k, v, fromSlider) {
+    state[k] = v;
+    if (PRESET_KEYS.indexOf(k) >= 0) {
+      state.preset = 'custom';
+      Object.keys(M.PRESETS).forEach(function (name) {
+        var p = M.PRESETS[name];
+        if (PRESET_KEYS.every(function (q) { return Math.abs(state[q] - p[q]) < 1e-9; })) state.preset = name;
+      });
+    }
+    if (k === 'preset' && M.PRESETS[v]) PRESET_KEYS.forEach(function (q) { state[q] = M.PRESETS[v][q]; });
+    if (k === 'sunMin' && state.sunMin > state.sunMax - 2) { state.sunMax = Math.min(88, state.sunMin + 2); state.sunMin = Math.min(state.sunMin, state.sunMax - 2); }
+    if (k === 'sunMax' && state.sunMax < state.sunMin + 2) { state.sunMin = Math.max(2, state.sunMax - 2); state.sunMax = Math.max(state.sunMax, state.sunMin + 2); }
+    update();
+  }
+
+  function wireControls(panel) {
+    panel.addEventListener('input', function (e) {
+      var t = e.target; if (t.type !== 'range') return;
+      var root = t.closest('.ctl'), k = root.getAttribute('data-k'), c = ctlEls[k].def;
+      setKey(k, sliderVal(c, t.value), true);
+    });
+    panel.addEventListener('click', function (e) {
+      var t = e.target;
+      var lockb = t.closest('.lock');
+      if (lockb) { var lk = lockb.getAttribute('data-lock'); locks[lk] = !(locks[lk] !== false); persistLocks(); syncControls(); return; }
+      if (t.id === 'fcRun') { runFlashCheck(); return; }
+      var segb = t.closest('.seg button');
+      if (segb) {
+        var root = segb.closest('.ctl'), k = root.getAttribute('data-k'), raw = segb.getAttribute('data-v');
+        setKey(k, typeof B[k] === 'number' ? +raw : raw);
+        return;
+      }
+      if (t.classList.contains('bl')) {
+        var k2 = t.closest('.ctl').getAttribute('data-k');
+        if (k2 === 'preset') { setKey('preset', B.preset); } else setKey(k2, B[k2]);
+        if (PRESET_KEYS.indexOf(k2) >= 0) { /* preset recomputed in setKey */ }
+        return;
+      }
+      if (t.closest('.fcSensor')) return;
+      if (t.id === 'autofit') {
+        var n = lastRes && lastRes.mon.need;
+        if (n) { state.rows = n.rows; state.cols = n.cols; state.orient = n.orient; update(); }
+        else { var note = document.getElementById('autofitNote'); note.textContent = 'not reachable with ≤ 5 × 5 at this focal length'; }
+      }
+    });
+  }
+
+  // ------------------------------------------------------------------ KPI strip
+  function buildKpis() {
+    document.getElementById('kpis').innerHTML =
+      '<div class="kpi" id="k-pairs" title="Indicative pairs — screening scaling calibrated to the proposal median (210); not the Monte Carlo. Thresholds: 30 minimum, 80 full, 240 stretch."><div class="kpi-l">Pairs (indicative)</div><div class="pairrow"><div class="kpi-v"></div><div class="kpi-s" id="k-pairs-d"></div></div><div class="pairrow2"><div class="pairbar" title="bar 0–300; ticks at 30 / 80 / 240"><div class="fill"></div><div class="tick" style="left:' + (30 / 300 * 100) + '%"></div><div class="tick" style="left:' + (80 / 300 * 100) + '%"></div><div class="tick" style="left:' + (240 / 300 * 100) + '%"></div></div><div class="kpi-s" id="k-pairs-s"></div></div></div>' +
+      '<div class="kpi cyan" id="k-lim" title="Limiting crater at the edge of the monitored cap: max(D_conf, D_flash)"><div class="kpi-l">Limiting crater</div><div class="kpi-v"></div><div class="kpi-s"></div></div>' +
+      '<div class="kpi amber" id="k-ws" title="Usable cap × mosaic coverage × dark-time factor"><div class="kpi-l">Watched</div><div class="kpi-v"></div><div class="kpi-s"></div></div>' +
+      '<div class="kpi amber" id="k-loc" title="95 % error-ellipse semi-major axis at the edge of the usable cap"><div class="kpi-l">Edge loc.</div><div class="kpi-v"></div><div class="kpi-s"></div></div>' +
+      '<div class="kpi" id="k-dv" title="Capture + Hohmann h1→h2 + maintenance + 184 m/s margin"><div class="kpi-l">Total Δv</div><div class="kpi-v"></div><div class="kpi-s"></div></div>' +
+      '<div class="kpi" id="k-m" title="Rocket-equation scaling of the proposal dry mass (118 kg), not a design"><div class="kpi-l">Launch mass</div><div class="kpi-v"></div><div class="kpi-s"></div></div>';
+  }
+  function setKpi(id, v, s) {
+    var el = document.getElementById(id);
+    el.querySelector('.kpi-v').innerHTML = v;
+    if (s !== undefined) el.querySelectorAll('.kpi-s')[el.querySelectorAll('.kpi-s').length - 1].textContent = s;
+  }
+  function updateKpis(r) {
+    var p = r.pairs.value;
+    var lvl = p >= 240 ? '≥ stretch' : p >= 80 ? '≥ full' : p >= 30 ? '≥ min' : '< min';
+    setKpi('k-pairs', (staleAccess ? '≈' : '') + Math.round(p), lvl + (r.pairs.extrapolated ? ' · <3 m extrap.' : ''));
+    var sChanged = Math.abs(r.state.slope - B.slope) > 1e-9;
+    var kl = document.querySelector('#k-pairs .kpi-l');
+    kl.textContent = sChanged ? 'Pairs · s = ' + fx(r.state.slope, 2) : 'Pairs (indicative)';
+    kl.classList.toggle('stag', sChanged);
+    document.getElementById('k-pairs-d').textContent = 'Δ ' + (r.pairs.rel >= 1 ? '+' : '') + Math.round((r.pairs.rel - 1) * 100) + ' %';
+    document.querySelector('#k-pairs .fill').style.width = Math.min(100, p / 300 * 100) + '%';
+    setKpi('k-lim', sig(r.pairs.limEdge, 3) + ' <small>m</small>', { 'flash-limited': 'flash-lim.', 'archive-limited': 'archive-lim.', 'camera-limited': 'camera-lim.' }[r.pairs.limiterEdge]);
+    setKpi('k-ws', pct(r.mon.watched, 2) + ' <small>%</small>', 'eff. ' + pct(r.mon.watchedEff, 2) + ' %');
+    setKpi('k-loc', fx(r.mon.locEdge.semi95, 2) + ' <small>km</small>', 'nadir ' + fx(r.mon.locNadir.semi95, 2));
+    setKpi('k-dv', fx(r.sys.dvTotal / 1000, 2) + ' <small>km/s</small>', 'Hohmann ' + Math.round(r.sys.hoh));
+    setKpi('k-m', Math.round(r.sys.launchMass) + ' <small>kg</small>', 'dry ' + Math.round(r.sys.dry) + ' kg');
+  }
+
+  // ------------------------------------------------------------------ readouts
+  var consById = {};
+  function fmtLim(c) { return sig(c.limit, 3) + (c.unit && c.unit !== '×' ? ' ' + c.unit : ''); }
+  function updateReadouts(r) {
+    consById = {}; r.constraints.forEach(function (c) { consById[c.id] = c; });
+    [RO_MON, RO_IMG].forEach(function (defs) {
+      defs.forEach(function (sec) {
+        sec.rows.forEach(function (row) {
+          var el = document.getElementById('ro-' + row.id);
+          var out;
+          try { out = row.g(r); } catch (e) { out = ['—', '']; }
+          var v = out[0], u = out[1], f = out[2];
+          if (/NaN|Infinity|undefined/.test(String(v))) v = '—';
+          if (row.c) {
+            var cc = consById[row.c];
+            if (cc && cc.enabled && !cc.ok) f = flag('warn', 'over limit ' + cc.sense + ' ' + fmtLim(cc));
+          }
+          el.querySelector('.ro-v').innerHTML = esc(v) + (u ? '<span class="u">' + esc(u) + '</span>' : '') + (f ? '<span class="flag ' + f.cls + '">' + esc(f.t) + '</span>' : '');
+        });
+      });
+    });
+    document.querySelectorAll('[data-stale]').forEach(function (el) { el.classList.toggle('on', staleAccess); });
+  }
+
+  // ------------------------------------------------------------------ compute + access debounce
+  var access = null, staleAccess = false, accTimer = null, lastRes = null;
+  function ensureAccess() {
+    var key = M.accessKey(state);
+    if (access && access.key === key) { staleAccess = false; return; }
+    if (!access) { access = M.computeAccess(state); staleAccess = false; return; }
+    staleAccess = true;
+    clearTimeout(accTimer);
+    accTimer = setTimeout(function () {
+      access = M.computeAccess(state);
+      staleAccess = M.accessKey(state) !== access.key;
+      update();
+    }, 120);
+  }
+
+  var view, tab = 'ground', groundQty = 'loc';
+  var patchesCache = { key: '', patches: [] };
+  function patchesFor(r) {
+    var key = [state.h1, state.emax, state.f1, state.rows, state.cols, r.mon.orient].join('|');
+    if (patchesCache.key !== key) {
+      patchesCache = { key: key, patches: M.mosaicPatches(r.mon.r, r.mon.etaMax, r.mon.cams, 36) };
+    }
+    return patchesCache.patches;
+  }
+
+  function update() {
+    ensureAccess();
+    var r = M.compute(state, access);
+    lastRes = r;
+    syncControls();
+    updateReadouts(r);
+    updateKpis(r);
+    updateLimits(r);
+    markFlashStale();
+    var patches = patchesFor(r);
+    view.setGeometry({
+      r1: r.mon.r, r2: r.img.orbit.r, h1: state.h1, h2: state.h2, T1: r.mon.orbit.T, T2: r.img.orbit.T,
+      lamMax: r.mon.lamMax, etaMax: r.mon.etaMax, patches: patches, reachLam: r.img.reachLam, beta0: state.beta0,
+      emaxDeg: state.emax, nCam: r.mon.nCam, frameW: r.img.frameW, frameH: r.img.frameH
+    });
+    drawTab();
+    persist();
+  }
+
+  // ------------------------------------------------------------------ tabs
+  var TABS = [['ground', 'Ground view', '#f0a53a'], ['frame', 'Imager frame', '#38c6d6'], ['access', 'Coverage', '#38c6d6'], ['trade', 'Trade curves', '#c9d3de'], ['limits', 'Limits & checks', '#8fd694']];
+  function buildTabs() {
+    var bar = document.getElementById('tabbar');
+    bar.innerHTML = TABS.map(function (t) { return '<button role="tab" data-tab="' + t[0] + '"><span class="dot" style="background:' + t[2] + '"></span>' + esc(t[1]) + '</button>'; }).join('');
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      tab = b.getAttribute('data-tab'); renderTabTools(); drawTab();
+    });
+    document.getElementById('tabtools').addEventListener('click', function (e) {
+      var b = e.target.closest('.seg button'); if (!b) return;
+      groundQty = b.getAttribute('data-v'); renderTabTools(); drawTab();
+    });
+    renderTabTools();
+  }
+  function renderTabTools() {
+    document.querySelectorAll('#tabbar button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === tab); b.setAttribute('aria-selected', b.getAttribute('data-tab') === tab); });
+    var tt = document.getElementById('tabtools');
+    if (tab === 'ground') {
+      tt.innerHTML = '<span class="lbl">Colour by</span><div class="seg">' + [['loc', 'Loc. error 95 %'], ['dlim', 'Limiting crater'], ['gpx', 'Ground pixel']].map(function (o) {
+        return '<button type="button" data-v="' + o[0] + '" class="' + (groundQty === o[0] ? 'on' : '') + '">' + o[1] + '</button>'; }).join('') + '</div>';
+    } else tt.innerHTML = '';
+    var cap = document.createElement('span'); cap.className = 'cap2'; cap.id = 'tabcap'; tt.appendChild(cap);
+  }
+
+  var tradeCache = { key: '', mon: null, needs: null, img: null }, tradeTimer = null;
+  function tradeKey() {
+    return [state.emax, state.f1, state.rows, state.cols, state.orient, state.centroid, state.att, state.orbKnow, state.N1, state.decay, state.kConf, state.f2, state.pitch2, state.h1, state.avail, state.watchYears, access ? access.key : ''].join('|');
+  }
+  function drawTab() {
+    if (!lastRes) return;
+    var isHtml = tab === 'limits';
+    document.getElementById('ctab').hidden = isHtml;
+    document.getElementById('tabhtml').hidden = !isHtml;
+    if (isHtml) {
+      document.getElementById('caption').textContent = 'Violations never block the sliders; the optimiser respects every enabled limit. Limits are saved and reset with the baseline.';
+      var tc0 = document.getElementById('tabcap'); if (tc0) tc0.textContent = '';
+      return;
+    }
+    var cv = document.getElementById('ctab'), cap = document.getElementById('caption'), r = lastRes, tc = document.getElementById('tabcap');
+    if (tab === 'ground') {
+      CH.groundView(cv, r, groundQty, patchesFor(r));
+      cap.textContent = 'Azimuthal-equidistant map of the usable cap, nadir-centred, seen from above. White: camera footprints. Coverage ' + pct(r.mon.coverage) + ' %.';
+      if (tc) tc.textContent = 'h1 = ' + Math.round(state.h1).toLocaleString('en-US') + ' km · ' + r.mon.nCam + ' cameras';
+    } else if (tab === 'frame') {
+      CH.imagerFrame(cv, r);
+      cap.textContent = 'To scale (km). Flash 95 % ellipses centred in the nadir frame. Insets to scale in pixels; the third is on the archive (before) pixel grid.';
+      if (tc) tc.textContent = 'GSD ' + sig(r.img.gsd, 3) + ' m · k = ' + fx(state.kConf, 1) + ' px';
+    } else if (tab === 'access') {
+      CH.coverageMap(cv, r.access, staleAccess);
+      cap.textContent = (r.access.lat99 > 0 ? '≥ 99 % access to ±' + r.access.lat99 + '° (dashed), any to ±' + r.access.latAny + '°. ' : 'No latitude band reaches 99 %. ') + 'First day each 2° cell is within reach with Sun elevation ' + state.sunMin + '–' + state.sunMax + '°.';
+      if (tc) tc.textContent = Math.round(r.access.days) + ' d · ' + r.access.nOrbits.toLocaleString('en-US') + ' orbits' + (staleAccess ? ' · updating…' : '');
+    } else {
+      var key = tradeKey();
+      if (tradeCache.key !== key || !tradeCache.mon) {
+        if (!tradeCache.mon) computeTrade(key);
+        else { clearTimeout(tradeTimer); tradeTimer = setTimeout(function () { computeTrade(tradeKey()); drawTab(); }, 120); }
+      }
+      // current h2 sweep (cheap) always up to date
+      tradeCache.img = M.sweepImager(state, r.access.fraction, 48, r.mon);
+      CH.tradeCurves(cv, r, tradeCache.mon, tradeCache.needs, tradeCache.img, B);
+      cap.textContent = 'Solid vertical = current, dotted = baseline. Other inputs held; (b) holds the access factor at the current ' + pct(r.access.fraction) + ' %.';
+      if (tc) tc.textContent = '';
+    }
+    cap.title = cap.textContent;
+  }
+  function computeTrade(key) {
+    tradeCache.key = key;
+    tradeCache.mon = M.sweepMonitor(state, 38);
+    tradeCache.needs = M.needAt(state, [750, 1500, 3000, 5000, 7500, 10000]);
+  }
+
+  // ------------------------------------------------------------------ §E limits tab + header chip
+  function buildLimits() {
+    var html = '<table class="lim"><thead><tr><th title="Enabled">On</th><th>Constraint</th><th class="r">Value</th><th class="r">Limit</th><th class="r">Margin</th><th>Status</th></tr></thead><tbody>';
+    M.CONSTRAINTS.forEach(function (c) {
+      html += '<tr data-c="' + c.id + '"><td><input type="checkbox" class="lim-on" aria-label="Enable ' + esc(c.label) + '"></td>' +
+        '<td><div class="lim-l">' + esc(c.label) + '</div><div class="lim-b">' + esc(c.basis) + '</div></td>' +
+        '<td class="r nowrap lim-v"></td><td class="r nowrap"><span class="lim-s">' + esc(c.sense) + '</span> <input type="number" class="lim-in" step="any" aria-label="Limit for ' + esc(c.label) + '"> <span class="lim-u">' + esc(c.unit) + '</span></td>' +
+        '<td class="r nowrap lim-m"></td><td class="lim-st"></td></tr>';
+    });
+    html += '</tbody></table><div class="lim-note">' + esc(SFD_NOTE) + '</div>';
+    var el = document.getElementById('tabhtml');
+    el.innerHTML = html;
+    el.addEventListener('change', function (e) {
+      var tr = e.target.closest('tr'); if (!tr) return;
+      var id = tr.getAttribute('data-c');
+      if (e.target.classList.contains('lim-on')) state['on_' + id] = e.target.checked;
+      if (e.target.classList.contains('lim-in')) { var v = parseFloat(e.target.value); if (isFinite(v)) state['lim_' + id] = v; }
+      update();
+    });
+    document.getElementById('limChip').addEventListener('click', function () { tab = 'limits'; renderTabTools(); drawTab(); });
+  }
+  function fmtVal(c) {
+    var v = c.value;
+    if (c.id === 'heads' || c.id === 'h2min' || c.id === 'mass') return Math.round(v) + (c.unit && c.unit !== '×' ? ' ' + c.unit : '');
+    return sig(v, 3) + (c.unit === '×' ? '×' : c.unit ? ' ' + c.unit : '');
+  }
+  function updateLimits(r) {
+    var en = r.constraints.filter(function (c) { return c.enabled; }), okN = en.filter(function (c) { return c.ok; }).length;
+    var chip = document.getElementById('limChip');
+    chip.textContent = 'Limits ' + okN + '/' + en.length + ' ok';
+    chip.title = (okN === en.length ? 'All enabled limits are met.' : (en.length - okN) + ' enabled limit(s) violated.') + ' Click to open the Limits & checks tab.';
+    chip.classList.toggle('bad', okN !== en.length);
+    r.constraints.forEach(function (c) {
+      var tr = document.querySelector('#tabhtml tr[data-c="' + c.id + '"]'); if (!tr) return;
+      var on = tr.querySelector('.lim-on'), inp = tr.querySelector('.lim-in');
+      on.checked = c.enabled;
+      if (document.activeElement !== inp) inp.value = String(+c.limit.toPrecision(6));
+      tr.querySelector('.lim-v').textContent = fmtVal(c);
+      tr.querySelector('.lim-m').textContent = (c.margin >= 0 ? '+' : '') + (c.margin * 100).toFixed(1) + ' %';
+      var st = tr.querySelector('.lim-st');
+      st.textContent = !c.enabled ? 'off' : !c.ok ? 'VIOLATED' : c.margin < 0.02 ? 'ok · binding' : 'ok';
+      st.className = 'lim-st ' + (!c.enabled ? 'off' : !c.ok ? 'bad' : 'good');
+      tr.classList.toggle('dis', !c.enabled);
+    });
+    // a violated h2min is marked on its slider
+    var h2c = r.constraints.filter(function (c) { return c.id === 'h2min'; })[0];
+    var root = ctlEls.h2 && ctlEls.h2.root;
+    if (root) {
+      var flagEl = root.querySelector('.viol') || root.querySelector('.ctl-head label').appendChild(Object.assign(document.createElement('span'), { className: 'viol' }));
+      flagEl.textContent = h2c.enabled && !h2c.ok ? ' below limit ' + Math.round(h2c.limit) + ' km' : '';
+    }
+  }
+
+  // ------------------------------------------------------------------ §G event-simulator flash check
+  function flashCheckHtml() {
+    return '<div class="fc" id="fc"><div class="fc-h">Event-simulator check</div>' +
+      '<label class="fc-l">Sensor profile <select class="fcSensor" id="fcSensor">' +
+      '<option value="imx636">IMX636 measured (team baseline)</option><option value="imx636_s10nominal">S10 nominal (basis of the 2×10⁴ J threshold)</option></select></label>' +
+      '<button type="button" class="btn fc-run" id="fcRun" title="Runs the project event-stream simulator through the local Python bridge (serve.py)">Check threshold with event simulator</button>' +
+      '<div class="fc-out" id="fcOut" aria-live="polite"></div></div>';
+  }
+  var fcInputs = null, fcBusy = false;
+  function fcKey() { return [state.h1, state.f1, state.N1, state.decay, state.emax].join('|'); }
+  function markFlashStale() {
+    var out = document.getElementById('fcOut');
+    if (out && fcInputs && fcInputs.key !== fcKey()) out.classList.add('stale');
+  }
+  function bridgeUrl() {
+    var local = /^https?:$/.test(location.protocol) && /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    return local ? '/api/flash_check' : 'http://127.0.0.1:8765/api/flash_check';
+  }
+  function runFlashCheck() {
+    if (fcBusy || !lastRes) return;
+    var r = lastRes, btn = document.getElementById('fcRun'), out = document.getElementById('fcOut');
+    var body = { h1_km: state.h1, focal_mm: state.f1, fnum: state.N1, tau_s: r.mon.tau, e_test_J: Math.round(r.mon.EminEdge), range_km: Math.round(r.mon.rhoEdge * 10) / 10, sensor: state.sensor };
+    fcInputs = { key: fcKey(), body: body };
+    fcBusy = true; btn.disabled = true; out.classList.remove('stale');
+    var t0 = Date.now();
+    var tick = setInterval(function () { btn.textContent = 'Simulating… (10–70 s) ' + Math.round((Date.now() - t0) / 1000) + ' s'; }, 500);
+    btn.textContent = 'Simulating… (10–70 s) 0 s';
+    out.innerHTML = '<div class="fc-in">' + esc(inputsText(body)) + '</div>';
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var to = setTimeout(function () { if (ctrl) ctrl.abort(); }, 300000);
+    var done = function () { clearInterval(tick); clearTimeout(to); fcBusy = false; btn.disabled = false; btn.textContent = 'Check threshold with event simulator'; };
+    var p;
+    try {
+      p = fetch(bridgeUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: ctrl ? ctrl.signal : undefined });
+    } catch (e) { p = Promise.reject(e); }
+    p.then(function (resp) {
+      return resp.text().then(function (t) { var j; try { j = JSON.parse(t); } catch (e) { j = { ok: false, code: 'bad_response', error: 'HTTP ' + resp.status + ': response is not JSON' }; } return j; });
+    }).then(function (j) { done(); showFlashResult(j, body); markFlashStale(); },
+      function (err) {
+        done();
+        if (err && err.name === 'AbortError') showFlashResult({ ok: false, code: 'timeout', error: 'No answer from the bridge within 300 s.' }, body);
+        else showUnreachable(body);
+      });
+  }
+  function inputsText(b) {
+    return 'Run for h1 ' + b.h1_km + ' km · f ' + b.focal_mm + ' mm f/' + b.fnum + ' · τ ' + b.tau_s + ' s · E_test ' + b.e_test_J.toLocaleString('en-US') + ' J at ' + b.range_km + ' km · ' + b.sensor;
+  }
+  function showUnreachable(body) {
+    document.getElementById('fcOut').innerHTML = '<div class="fc-err" id="fcUnreach"><b>Event-simulator bridge not reachable.</b> Start it on the project computer: <code>python analysis/orbit_trade_explorer/serve.py</code>, then open http://127.0.0.1:8765 (or press the button again from this file).</div><div class="fc-in">' + esc(inputsText(body)) + '</div>';
+  }
+  function showFlashResult(j, body) {
+    var out = document.getElementById('fcOut');
+    if (!j || !j.ok) {
+      out.innerHTML = '<div class="fc-err"><b>Simulator check failed</b> (' + esc((j && j.code) || 'unknown') + '): ' + esc((j && j.error) || 'no details') + '</div><div class="fc-in">' + esc(inputsText(body)) + '</div>';
+      return;
+    }
+    var lv = {}; (j.levels || []).forEach(function (l) { lv[l.factor] = l; });
+    var v = j.verdict, vt = { supported: 'Threshold supported', marginal: 'Threshold marginal', not_supported: 'Threshold NOT supported' }[v] || String(v);
+    var row = function (f, t) { var l = lv[f]; return l ? '<div>' + t + ': ' + l.detected + '/' + l.n + ' detected</div>' : ''; };
+    var at1 = lv[1] || lv['1'];
+    out.innerHTML = '<div class="fc-v"><span class="chip ' + esc(v) + '">' + esc(v.replace('_', ' ')) + '</span> ' + esc(vt) + '</div>' +
+      (at1 ? '<div><b>' + at1.detected + '/' + at1.n + '</b> detected at the threshold (95 % lower bound ' + Math.round((j.lower95 || 0) * 100) + ' %)</div>' : '') +
+      row(0.5, '0.5× threshold') + row(2, '2× threshold') +
+      '<div>False triggers: ' + esc(j.n_false) + '</div>' +
+      '<div class="fc-meta">Scene ' + esc(j.scene) + ' · sensor ' + esc(j.sensor) + ' · drift ' + esc(j.drift_px_s) + ' px/s · scene range ' + esc(j.scene_range_km) + ' km · ' + esc(j.wall_s) + ' s</div>' +
+      (j.message ? '<div>' + esc(j.message) + '</div>' : '') +
+      (j.notes && j.notes.length ? '<ul class="fc-notes">' + j.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' : '') +
+      '<div class="fc-in">' + esc(inputsText(body)) + '</div>';
+  }
+  // exposed for the smoke test (renders a canned bridge response without a server)
+  window.__OTE_showFlashResult = function (j) { fcInputs = { key: fcKey() }; showFlashResult(j, { h1_km: state.h1, focal_mm: state.f1, fnum: state.N1, tau_s: lastRes.mon.tau, e_test_J: Math.round(lastRes.mon.EminEdge), range_km: Math.round(lastRes.mon.rhoEdge * 10) / 10, sensor: state.sensor }); };
+
+  // ------------------------------------------------------------------ §H optimiser dialog
+  var opt = { run: null, timer: null, result: null, undo: null };
+  var OPT_CAPTION = 'Maximises the indicative pair index — a screening scaling, not the Monte Carlo. The optimum usually sits on a constraint; check which one.';
+  function sliderLabel(k) { var e = ctlEls[k]; return e ? e.def.label : k; }
+  function sliderFmt(k, v) { var e = ctlEls[k]; return e && e.def.f ? e.def.f(v) : String(v); }
+  function openOpt() { document.getElementById('optModal').hidden = false; renderOptSetup(); }
+  function closeOpt() { if (opt.run) { opt.run.cancel(); } clearTimeout(opt.timer); opt.run = null; document.getElementById('optModal').hidden = true; }
+  function renderOptSetup() {
+    var free = OPT.SPECS.filter(function (s) { return locks[s.k] === false; });
+    var d = document.getElementById('optDlg');
+    d.innerHTML = '<h2 id="optTitle">Optimise</h2><p class="cap">' + esc(OPT_CAPTION) + '</p>' +
+      '<div class="row">Free sliders (' + free.length + '): <span class="freelist">' + (free.length ? free.map(function (s) { return esc(sliderLabel(s.k)); }).join(', ') : 'none') + '</span></div>' +
+      '<div class="row">Locks: <span class="seg inl"><button type="button" data-preset="all">lock all</button><button type="button" data-preset="default">free design variables (default)</button><button type="button" data-preset="none">free all</button></span></div>' +
+      '<div class="row muted">Sweeps only sliders; decay class, Isp, sensor profile and camera preset stay; orientation is evaluated as “auto”. Enabled limits: ' +
+      lastRes.constraints.filter(function (c) { return c.enabled; }).length + '/' + lastRes.constraints.length + '.</div>' +
+      '<div class="btns"><button type="button" class="btn primary" id="optRun"' + (free.length ? '' : ' disabled') + '>' + (free.length ? 'Run optimiser' : 'Free at least one slider') + '</button><button type="button" class="btn" id="optClose">Close</button></div>';
+  }
+  function startOpt() {
+    var base = Object.assign({}, state);
+    opt.run = OPT.createOptimizer(base, Object.assign({}, locks));
+    opt.base = base;
+    var d = document.getElementById('optDlg');
+    d.innerHTML = '<h2 id="optTitle">Optimising…</h2><p class="cap">' + esc(OPT_CAPTION) + '</p>' +
+      '<div class="prog"><div class="bar" id="optBar"></div></div><div class="row" id="optStat">starting…</div>' +
+      '<div class="btns"><button type="button" class="btn" id="optCancel">Cancel</button></div>';
+    var loop = function () {
+      if (!opt.run) return;
+      var p = opt.run.step(40);
+      document.getElementById('optBar').style.width = Math.round(p.fraction * 100) + '%';
+      document.getElementById('optStat').textContent = p.phase + ' · ' + p.evals.toLocaleString('en-US') + ' evaluations · ' + (p.elapsedMs / 1000).toFixed(1) + ' s' +
+        (p.best ? ' · best so far ' + Math.round(p.best.pairs) + ' pairs' + (p.best.feasible ? '' : ' (infeasible)') : '');
+      if (p.done) { renderOptResult(opt.run.result()); opt.run = null; return; }
+      opt.timer = setTimeout(loop, 0);
+    };
+    opt.timer = setTimeout(loop, 0);
+  }
+  function renderOptResult(res) {
+    opt.result = res;
+    var d = document.getElementById('optDlg');
+    if (res.nothing) { d.innerHTML = '<h2 id="optTitle">Nothing to optimise</h2><div class="btns"><button type="button" class="btn" id="optClose">Close</button></div>'; return; }
+    var r = res.result;
+    var head = res.feasible ? 'Optimum found' : 'No feasible point found';
+    var html = '<h2 id="optTitle">' + head + '</h2><p class="cap">' + esc(OPT_CAPTION) + '</p>';
+    if (!res.feasible) html += '<div class="warnbox" id="optNoFeas">No combination of the free sliders satisfies every enabled limit. Shown below is the <b>least-infeasible point</b> (smallest summed normalised violation); applying it will leave limits violated.</div>';
+    if (res.truncated) html += '<div class="warnbox">Stopped at the 60 s cap: this is the best point found so far.</div>';
+    if (res.cancelled) html += '<div class="warnbox">Cancelled: this is the best point found so far.</div>';
+    html += '<div class="kv"><div><span>Indicative pairs</span><b>' + Math.round(res.startPairs) + ' → ' + Math.round(res.pairs) + '</b>' + (r.pairs.extrapolated ? ' <span class="flag warn">extrapolated below 3 m</span>' : '') + '</div>' +
+      '<div><span>Launch mass</span><b>' + Math.round(res.startResult.sys.launchMass) + ' → ' + Math.round(res.launchMass) + ' kg</b></div>' +
+      '<div><span>Limiting crater (edge)</span><b>' + sig(r.pairs.limEdge, 3) + ' m, ' + esc(r.pairs.limiterEdge) + '</b></div>' +
+      '<div><span>Search</span><b>' + res.evals.toLocaleString('en-US') + ' evaluations · ' + (res.elapsedMs / 1000).toFixed(1) + ' s</b></div></div>';
+    html += '<h3>Changed sliders</h3>' + (res.changed.length ? '<table class="tt"><tbody>' + res.changed.map(function (c) {
+      return '<tr><td>' + esc(sliderLabel(c.k)) + '</td><td class="r">' + esc(sliderFmt(c.k, c.from)) + '</td><td>→</td><td class="r"><b>' + esc(sliderFmt(c.k, c.to)) + '</b></td></tr>'; }).join('') + '</tbody></table>' : '<div class="muted">none — the starting point is already the best found</div>');
+    html += '<h3>Limits</h3><table class="tt"><tbody>' + res.constraints.map(function (c) {
+      var bind = c.enabled && c.ok && c.margin < 0.02;
+      return '<tr><td>' + esc(c.label) + '</td><td class="r">' + esc(fmtVal(c)) + '</td><td class="r">' + esc(c.sense + ' ' + fmtLim(c)) + '</td><td class="r">' + (c.margin >= 0 ? '+' : '') + (c.margin * 100).toFixed(1) + ' %</td><td class="' + (!c.enabled ? 'off' : !c.ok ? 'bad' : 'good') + '">' + (!c.enabled ? 'off' : !c.ok ? 'VIOLATED' : bind ? 'binding' : 'ok') + '</td></tr>'; }).join('') + '</tbody></table>';
+    html += '<div class="btns"><button type="button" class="btn primary" id="optApply">' + (res.feasible ? 'Apply' : 'Apply least-infeasible point') + '</button><button type="button" class="btn" id="optDiscard">Discard</button></div>';
+    d.innerHTML = html;
+  }
+  function applyOpt() {
+    var res = opt.result; if (!res || res.nothing) return;
+    opt.undo = Object.assign({}, state);
+    res.changed.forEach(function (c) { state[c.k] = c.to; });
+    state.orient = 'auto';
+    if (res.state.preset === 'custom') state.preset = 'custom';
+    document.getElementById('undoOpt').hidden = false;
+    closeOpt(); update();
+  }
+  function wireOpt() {
+    document.getElementById('optBtn').addEventListener('click', openOpt);
+    document.getElementById('undoOpt').addEventListener('click', function () {
+      if (!opt.undo) return; state = opt.undo; opt.undo = null; this.hidden = true; update();
+    });
+    document.getElementById('optModal').addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.id === 'optModal') return;   // clicks on the backdrop do nothing (no accidental loss of a result)
+      var pr = t.closest('[data-preset]');
+      if (pr) { var v = pr.getAttribute('data-preset'); locks = v === 'all' ? OPT.allLocks(true) : v === 'none' ? OPT.allLocks(false) : OPT.defaultLocks(); persistLocks(); syncControls(); renderOptSetup(); return; }
+      if (t.id === 'optRun') startOpt();
+      else if (t.id === 'optCancel') { if (opt.run) opt.run.cancel(); }
+      else if (t.id === 'optClose' || t.id === 'optDiscard') closeOpt();
+      else if (t.id === 'optApply') applyOpt();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !document.getElementById('optModal').hidden && !opt.run) closeOpt(); });
+  }
+
+  // ------------------------------------------------------------------ init
+  function init() {
+    buildKpis();
+    buildPanel(document.getElementById('rightBody'), MON, RO_MON, 'monitor');
+    buildPanel(document.getElementById('leftBody'), IMG, RO_IMG, 'imager');
+    wireControls(document.getElementById('rightBody'));
+    wireControls(document.getElementById('leftBody'));
+    view = new window.OTEView3D(document.getElementById('c3d'));
+    var simt = document.getElementById('simt');
+    view.onTime = function (t) {
+      if (!lastRes) return;
+      simt.textContent = 't = ' + (t / 3600).toFixed(1) + ' h · monitor ' + (t / lastRes.mon.orbit.T).toFixed(2) + ' rev · imager ' + (t / lastRes.img.orbit.T).toFixed(2) + ' rev';
+    };
+    var play = document.getElementById('play');
+    play.addEventListener('click', function () { view.setPlaying(!view.playing); play.textContent = view.playing ? 'Pause' : 'Play'; });
+    document.getElementById('speed').addEventListener('change', function (e) { view.speed = +e.target.value; });
+    document.getElementById('resetView').addEventListener('click', function () { view.resetView(); });
+    document.getElementById('resetAll').addEventListener('click', function () {
+      state = Object.assign({}, B); locks = OPT.defaultLocks(); persistLocks();
+      var fs = document.getElementById('fcSensor'); if (fs) fs.value = state.sensor;
+      update();
+    });
+    buildTabs();
+    buildLimits();
+    wireOpt();
+    var sel = document.getElementById('fcSensor');
+    sel.value = state.sensor;
+    sel.addEventListener('change', function () { state.sensor = sel.value; persist(); markFlashStale(); });
+    if (typeof ResizeObserver !== 'undefined') {
+      var pend = false;
+      new ResizeObserver(function () { if (pend) return; pend = true; requestAnimationFrame(function () { pend = false; drawTab(); }); }).observe(document.getElementById('tabwrap'));
+    }
+    window.addEventListener('resize', function () { drawTab(); });
+    update();
+    window.__OTE_READY = true;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+</body>
+</html>

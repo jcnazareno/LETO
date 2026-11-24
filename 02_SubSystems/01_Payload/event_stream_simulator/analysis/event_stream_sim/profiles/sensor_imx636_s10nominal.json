@@ -1,0 +1,106 @@
+{
+  "name": "imx636_s10nominal",
+  "inherits": "sensor_imx636.json",
+  "description": "Revision-5 S10 'nominal' sensor case reproduced exactly: tau_ref 1 ms, cap 1 s, C 0.25 +/- 0.03, dark 1.0 fA, Poisson ON-only background activity 0.3 Hz with no spread, no hot pixels, no refractory period, Euler integrator with tau clipped at the step, no readout limit. Used for the S10 validation.",
+  "s10_case": "nominal",
+  "params": {
+    "photoreceptor.tau_ref_s": {
+      "value": 0.001,
+      "unit": "s",
+      "uncertainty": "S10 envelope 0.3-10 ms",
+      "source": "S10 nominal",
+      "status": "convention"
+    },
+    "photoreceptor.integrator": {
+      "value": "euler_s10",
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "convention"
+    },
+    "photoreceptor.tau_min_s": {
+      "value": 0.0,
+      "unit": "s",
+      "uncertainty": "-",
+      "source": "S10 (clip at the step only)",
+      "status": "convention"
+    },
+    "dark.current_fA": {
+      "value": 1.0,
+      "unit": "fA",
+      "uncertainty": "-",
+      "source": "S10 nominal",
+      "status": "convention"
+    },
+    "dark.spread_sigma_ln": {
+      "value": 0.0,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "convention"
+    },
+    "events.refractory_s": {
+      "value": 0.0,
+      "unit": "s",
+      "uncertainty": "-",
+      "source": "S10 (none)",
+      "status": "convention"
+    },
+    "ba.rate_hz": {
+      "value": 0.3,
+      "unit": "Hz",
+      "uncertainty": "-",
+      "source": "S10 nominal",
+      "status": "convention"
+    },
+    "ba.sigma_ln": {
+      "value": 0.0,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10 nominal",
+      "status": "convention"
+    },
+    "hot.fraction": {
+      "value": 0.0,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10 (no hot pixels)",
+      "status": "convention"
+    },
+    "mask.fraction": {
+      "value": 0.0,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "convention"
+    },
+    "readout.limit_enabled": {
+      "value": false,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10 (no readout limit)",
+      "status": "convention"
+    },
+    "readout.timestamp_resolution_us": {
+      "value": 500.0,
+      "unit": "us",
+      "uncertainty": "-",
+      "source": "S10 steps (events at step boundaries)",
+      "status": "convention"
+    },
+    "events.initial_reference": {
+      "value": "level",
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "convention"
+    },
+    "events.loss_fraction": {
+      "value": 0.01,
+      "unit": "-",
+      "uncertainty": "-",
+      "source": "S10",
+      "status": "convention"
+    }
+  }
+}
