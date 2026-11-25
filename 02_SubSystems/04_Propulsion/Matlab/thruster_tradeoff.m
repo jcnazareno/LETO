@@ -19,7 +19,7 @@ h_orbit_high = 7000; %km
 g0 = 9.81; 
 
 % orbiter parameters
-M_orbiter_dry = 200; %kg
+M_orbiter_dry = 140; %kg
 
 % Orbital energies; assume tli with Hohmann transfer from 250km LEO
 
@@ -57,9 +57,10 @@ thrust = 22; %N
 %% Hall effect electric Xenon ; example Astraeus
 % 1000w power consumtion
 
-isp = 1600; %s
+isp = 1000; %s
 m_thruster = 5; %kg ; estimate
-thrust = 0.069; %N
+thrust = 0.01; %N
+M_orbiter_dry = M_orbiter_dry + 60; % account for power supply system and rcs 
 
 % assume dv penalty of up to x2 because of long burn duration
 
@@ -92,7 +93,11 @@ t_burn_per = (M_orbiter_2 - M_orbiter_3) / (thrust/(g0*isp)) %s
 
 % fractional burn time
 
-T_high = (2*pi*(r_Moon + h_orbit_high))/
+T_high = (2*pi*(r_Moon + h_orbit_high))/sqrt(2*(e_high - e_pot_high));
+T_low = (2*pi*(r_Moon + h_orbit_low))/sqrt(2*(e_low - e_pot_low));
+t_frac_ins = t_burn_ins/T_high
+t_frac_ap = t_burn_ap/T_high
+t_frac_per = t_burn_per/T_low
 
 %residual propellent mass
 M_prop_res = M_orbiter_3 - M_orbiter_dry %kg
